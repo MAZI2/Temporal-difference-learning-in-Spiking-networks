@@ -1,0 +1,3 @@
+[submodule "resources/model-sw-pong"]
+	path = resources/model-sw-pong
+	url = https://github.com/electronicvisions/model-sw-pong
