@@ -4,7 +4,7 @@
 % distribution of synaptic weights with the chosen synapse marked by red dot.
 
 M=100;                 % number of synapses per neuron
-D=10;                   % maximal conduction delay 
+D=1;                   % maximal conduction delay 
 % excitatory neurons   % inhibitory neurons      % total number 
 Ne=800;                Ni=200;                   N=Ne+Ni;
 a=[0.02*ones(Ne,1);    0.1*ones(Ni,1)];
@@ -12,8 +12,7 @@ d=[   8*ones(Ne,1);    2*ones(Ni,1)];
 sm=4;                 % maximal synaptic strength
 
 Sn=50; % number of neurons in group
-Sg=7; % number of groups (1 - I1, 2 - I2, 3 - R, 4 - VTA, 5 - STR, 6 - O1, 7 - O2)
-                         
+Sg=4; % number of groups (1 - US, 2 - CS1, 3 - CS2, 4 - VTA)
 random_values = randperm(1000);
 
 % Reshape the permutation into the desired matrix size
@@ -25,7 +24,6 @@ sd=zeros(N,M);                      % their derivatives
 for i=1:N
   if i<=Ne
     for j=1:D
-      % indexes (in post) from neuron i with delay j
       delays{i,j}=M/D*(j-1)+(1:M/D);
     end;
   else
@@ -34,52 +32,17 @@ for i=1:N
   pre{i}=find(post==i&s>0);             % pre excitatory neurons
   aux{i}=N*(D-1-ceil(ceil(pre{i}/N)/(M/D)))+1+mod(pre{i}-1,N);
 end;
-
-% remove non max delay connections to STR
-
-for i=1:N
-    for del=1:D-1
-        % indices of posts with less than max delay
-        ds = delays{i, del};
-        % for the indices check if they point to STR neuron
-        for k=1:length(ds)
-            % if yes, replace with some other neuron
-            if (ismember(post(i, ds(k)), S(:, 5)))
-                A = S(:, [1, 2, 3, 4, 6, 7]);
-                [rows, cols] = size(A);
-                row_idx = randi(rows);
-                col_idx = randi(cols);
-    
-                post(i, ds(k)) = A(row_idx, col_idx);
-            end
-        end
-    end
-end
-
 STDP = zeros(N,3001+D);
 v = -65*ones(N,1);                      % initial values
 u = 0.2.*v;                             % initial values
 firings=[-D 0];                         % spike timings
 
-%(1 - I1, 2 - I2, 3 - R, 4 - VTA, 5 - STR, 6 - O1, 7 - O2)
-
-% set connectons from * to VTA to 0
-us_vta_mask = ismember(post(:,:), S(:, 4));
-s(us_vta_mask) = 0;
-
-% set connectons from STR to VTA to maximal strength inhibitory
+% set connectons from US to VTA to maximal strength
 us_vta_mask = ismember(post(:,:), S(:, 4));
 filter = true(1000, 1);
-filter(S(:, 5), :) = false;
+filter(S(:, 1), :) = false;
 us_vta_mask(filter, :) = 0;
-s(us_vta_mask) = -sm;
-
-% set connectons from R to VTA to maximal strength
-us_vta_mask = ismember(post(:,:), S(:, 4));
-filter = true(1000, 1);
-filter(S(:, 3), :) = false;
-us_vta_mask(filter, :) = 0;
-s(us_vta_mask) = sm;
+s(us_vta_mask) = sm; 
 
 %---------------
 % new stuff related to DA-STDP
@@ -87,29 +50,35 @@ T=100;         % the duration of experiment
 DA=0;           % level of dopamine above the baseline
 rew=[];
 
-%shist=zeros(3000*T,2);
+%n1=1;           % presynaptic neuron
+%syn=1;          % the synapse number to the postsynaptic neuron
+%n2=post(n1,syn) % postsynaptic neuron
+%s(n1,syn)=0;    % start with 0 value
+
+interval = 20;  % the coincidence interval for n1 and n2
+%n1f=-100;       % the last spike of n1
+%n2f=[];         % the last spike of n2
+shist=zeros(3000*T,2);
 %--------------
 I=zeros(N,1);
-r = 0;
-corr = 0;
+
 for sec=1:T                             % trials
-  %r=100-floor(20*rand()); % after cca 100ms
+  gi = 1;
+  g = 2; % group c1 and then US 2->1
+  groups = zeros(5, 2);
+  r=100-floor(20*rand()); % after cca 100ms
   %paus = 0;
   for t=1:3000                          % simulation of 3 sec WINDOW
     I=zeros(N,1);
-    if(r == 0)
-        t
-        %r = r+1000-250+floor(500*rand());     % next group firing time 1000+-(0..250)
+    if(t == r & g > 0)
+        r = r+1000-250+floor(500*rand());     % next group firing time 1000+-(0..250)
+        groups(gi, :) = [g, t];
         %I(S(:, g))=300; %TODO: 30?
-        v(S(:, 1))=30;
-    end
-    if(corr == 1)
-        t
-        corr = 0;
-        v(S(:, 3))=30;
-    end
+        v(S(:, g))=30;
 
-    r = r - 1;
+        gi = gi + 1;
+        g = g - 1;
+    end
     I=I + 13*(rand(N,1)-0.5);               % random thalamic input 
     fired = find(v>=30);                % indices of fired neurons
     v(fired)=-65;  
@@ -140,56 +109,41 @@ for sec=1:T                             % trials
     end;
     
     % reward condition
-    rew_delay = 5; %500+ceil(250*rand) 
     if (any(ismember(S(:, 4), fired)))
-        rew=[rew,sec*3000+t+rew_delay];
-        %paus = 1;
-    end
-
-    % rewarded input condition
-    is_member_mask = ismember(S(:, 6), fired);
-
-    % Calculate the percentage of elements that are in v
-    percentage_in_v = sum(is_member_mask(:)) / numel(S(:, 6));
-    
-    if (percentage_in_v > 0.5)
-        corr = 1;
-        r = 1000;
-        %paus = 1;
+        rew=[rew,sec*3000+t+500+ceil(250*rand)];
+        paus = 1;
     end
     
+    %{
+    if any(fired==n1)
+        n1f=[n1f,sec*1000+t];
+    end
+    if any(fired==n2)
+        n2f=[n2f,sec*1000+t];
+        if (sec*1000+t-n1f(end)<interval) & (n2f(end)>n1f(end)) % if happened within the interval and was causal ... 
+                                                                % TODO: extend to indirect connection?
+            rew=[rew,sec*1000+t+1000+ceil(2000*rand)];
+        end;
+    end
+    %}
     % apply reward if in this moment
     if any(rew==sec*3000+t)
-        DA=DA+0.5;
+        t
+        DA=DA+0.5
     end;
-
     %shist(sec*3000+t,:)=[s(n1,syn),sd(n1,syn)];
 
   end;
 % ---- plot -------
     sec
   %if(sec > 2500)
-      % all neuron raster
-      subplot(4,1,1)
+      subplot(2,1,1)
       plot(firings(:,1),firings(:,2),'.');
       axis([0 3000 0 N]); 
-      
-      % vta neuron raster
-      subplot(4,1,2);
+
+      subplot(2,1,2);
       firings_vta = firings(ismember(firings(:, 2), S(:, 4)), :);
       plot(firings_vta(:,1),firings_vta(:,2),'.');
-      axis([0 3000 0 N]);
-
-      % O1 neuron raster
-      subplot(4,1,3);
-      firings_o1 = firings(ismember(firings(:, 2), S(:, 6)), :);
-      plot(firings_o1(:,1),firings_o1(:,2),'.');
-      axis([0 3000 0 N]);
-
-      % O2 neuron raster
-      subplot(4,1,4);
-      firings_o2 = firings(ismember(firings(:, 2), S(:, 7)), :);
-      plot(firings_o2(:,1),firings_o2(:,2),'.');
       axis([0 3000 0 N]);
       %hist(v,(-100:1:100));
       %fromS2 = s(S(:, 2),:);
@@ -210,7 +164,7 @@ for sec=1:T                             % trials
   STDP(:,1:D+1)=STDP(:,3001:3001+D);
   ind = find(firings(:,1) > 3001-D);
   firings=[-D 0;firings(ind,1)-3000,firings(ind,2)];
-  
+  groups
   %{
   if (sec > 2500 & paus == 1)
     pause(5)
