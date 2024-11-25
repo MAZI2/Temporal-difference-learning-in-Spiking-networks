@@ -1,55 +1,11 @@
-# -*- coding: utf-8 -*-
-#
-# networks.py
-#
-# This file is part of NEST.
-#
-# Copyright (C) 2004 The NEST Initiative
-#
-# NEST is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 2 of the License, or
-# (at your option) any later version.
-#
-# NEST is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with NEST.  If not, see <http://www.gnu.org/licenses/>.
-
 r"""Classes to encapsulate the neuronal networks.
 ----------------------------------------------------------------
-Two types of network capable of playing pong are implemented. PongNetRSTDP
-can solve the problem by updating the weights of static synapses after
-every simulation step according to the R-STDP rules defined in [1]_.
-
 PongNetDopa uses the actor-critic model described in [2]_ to determine the
 amount of reward to send to the dopaminergic synapses between input and motor
 neurons. In this framework, the motor neurons represent the actor, while a
 secondary network of three populations (termed striatum, VP, and dopaminergic
 neurons) form the critic which modulates dopamine concentration based on
 temporal difference error.
-
-Both of them inherit some functionality from the abstract base class PongNet.
-
-See Also
----------
-`Original implementation <https://github.com/electronicvisions/model-sw-pong>`_
-
-References
-----------
-.. [1] Wunderlich T., et al (2019). Demonstrating advantages of
-       neuromorphic computation: a pilot study. Frontiers in neuroscience, 13,
-       260. https://doi.org/10.3389/fnins.2019.00260
-
-.. [2] Potjans W., Diesmann M.  and Morrison A. (2011). An imperfect
-       dopaminergic error signal can drive temporal-difference learning. PLoS
-       Computational Biology, 7(5), e1001133.
-       https://doi.org/10.1371/journal.pcbi.1001133
-
-:Authors: J Gille, T Wunderlich, Electronic Vision(s)
 """
 
 import logging
@@ -68,6 +24,8 @@ ISI = 10.0
 # Standard deviation of Gaussian current noise in picoampere.
 BG_STD = 220.0
 # Reward to be applied depending on distance to target neuron.
+
+# TODO
 REWARDS_DICT = {0: 1.0, 1: 0.7, 2: 0.4, 3: 0.1}
 
 
@@ -269,7 +227,7 @@ class PongNetDopa(PongNet):
         nest.SetDefaults(
             "stdp_dopamine_synapse",
             {
-                "volume_transmitter": self.vt,
+                "vt": self.vt,
                 "tau_c": 70,
                 "tau_n": 30,
                 "tau_plus": 45,
@@ -351,108 +309,3 @@ class PongNetDopa(PongNet):
 
     def __repr__(self) -> str:
         return ("noisy " if self.apply_noise else "clean ") + "TD"
-
-
-class PongNetRSTDP(PongNet):
-    # Offset for input spikes in every iteration in milliseconds
-    input_t_offset = 1
-    # Learning rate to use in weight updates
-    learning_rate = 0.7
-    # Amplitude of STDP curve in arbitrary units
-    stdp_amplitude = 36.0
-    # Time constant of STDP curve in milliseconds
-    stdp_tau = 64.0
-    # Satuation value for accumulated STDP
-    stdp_saturation = 128
-    # Initial mean weight for synapses between input- and motor neurons
-    mean_weight = 1300.0
-
-    def __init__(self, apply_noise=True, num_neurons=20):
-        super().__init__(apply_noise, num_neurons)
-
-        if apply_noise:
-            self.background_generator = nest.Create("noise_generator", self.num_neurons, params={"std": BG_STD})
-            nest.Connect(self.background_generator, self.motor_neurons, {"rule": "one_to_one"})
-            nest.Connect(
-                self.input_neurons,
-                self.motor_neurons,
-                {"rule": "all_to_all"},
-                {"weight": nest.random.normal(self.mean_weight, 1)},
-            )
-        else:
-            # Because the noise_generators cause additional spikes in the motor
-            # neurons, it is necessary to compensate for their absence by
-            # slightly increasing the mean of the weights between input and
-            # motor neurons
-            nest.Connect(
-                self.input_neurons,
-                self.motor_neurons,
-                {"rule": "all_to_all"},
-                {"weight": nest.random.normal(self.mean_weight * 1.22, 5)},
-            )
-
-    def apply_synaptic_plasticity(self, biological_time):
-        """Rewards network based on how close target and winning neuron are."""
-        reward = self.calculate_reward()
-        self.apply_rstdp(reward)
-
-    def apply_rstdp(self, reward):
-        """Applies the previously calculated reward to all relevant synapses
-        according to R-STDP principle.
-
-        Args:
-            reward (float): reward to be passed on to the synapses.
-        """
-        # Store spike timings of all motor neurons
-        post_events = {}
-        offset = self.motor_neurons[0].get("global_id")
-        for index, event in enumerate(self.spike_recorders.get("events")):
-            post_events[offset + index] = event["times"]
-
-        # Iterate over all connections from the stimulated neuron and change
-        # their weights dependent on spike time correlation and reward
-        for connection in nest.GetConnections(self.input_neurons[self.target_index]):
-            motor_neuron = connection.get("target")
-            motor_spikes = post_events[motor_neuron]
-            correlation = self.calculate_stdp(self.input_train, motor_spikes)
-            old_weight = connection.get("weight")
-            new_weight = old_weight + self.learning_rate * correlation * reward
-            connection.set({"weight": new_weight})
-
-    def calculate_stdp(self, pre_spikes, post_spikes, only_causal=True, next_neighbor=True):
-        """Calculates the STDP trace for given spike trains.
-
-        Args:
-            pre_spikes (list, numpy.array): Presynaptic spike times in ms.
-            post_spikes (list, numpy.array): Postsynaptic spike times in ms.
-            only_causal (bool, optional): Use only facilitation and not
-            depression. Defaults to True.
-            next_neighbor (bool, optional): Use only next-neighbor
-            coincidences. Defaults to True.
-
-        Returns:
-            [float]: Scalar that corresponds to accumulated STDP trace.
-        """
-
-        pre_spikes, post_spikes = np.sort(pre_spikes), np.sort(post_spikes)
-        facilitation = 0
-        depression = 0
-        positions = np.searchsorted(pre_spikes, post_spikes)
-        last_position = -1
-        for spike, position in zip(post_spikes, positions):
-            if position == last_position and next_neighbor:
-                continue  # Only next-neighbor pairs
-            if position > 0:
-                before_spike = pre_spikes[position - 1]
-                facilitation += self.stdp_amplitude * np.exp(-(spike - before_spike) / self.stdp_tau)
-            if position < len(pre_spikes):
-                after_spike = pre_spikes[position]
-                depression += self.stdp_amplitude * np.exp(-(after_spike - spike) / self.stdp_tau)
-            last_position = position
-        if only_causal:
-            return min(facilitation, self.stdp_saturation)
-        else:
-            return min(facilitation - depression, self.stdp_saturation)
-
-    def __repr__(self) -> str:
-        return ("noisy " if self.apply_noise else "clean ") + "R-STDP"

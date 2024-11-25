@@ -1,55 +1,11 @@
-# -*- coding: utf-8 -*-
-#
-# networks.py
-#
-# This file is part of NEST.
-#
-# Copyright (C) 2004 The NEST Initiative
-#
-# NEST is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 2 of the License, or
-# (at your option) any later version.
-#
-# NEST is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with NEST.  If not, see <http://www.gnu.org/licenses/>.
-
 r"""Classes to encapsulate the neuronal networks.
 ----------------------------------------------------------------
-Two types of network capable of playing pong are implemented. PongNetRSTDP
-can solve the problem by updating the weights of static synapses after
-every simulation step according to the R-STDP rules defined in [1]_.
-
 PongNetDopa uses the actor-critic model described in [2]_ to determine the
 amount of reward to send to the dopaminergic synapses between input and motor
 neurons. In this framework, the motor neurons represent the actor, while a
 secondary network of three populations (termed striatum, VP, and dopaminergic
 neurons) form the critic which modulates dopamine concentration based on
 temporal difference error.
-
-Both of them inherit some functionality from the abstract base class PongNet.
-
-See Also
----------
-`Original implementation <https://github.com/electronicvisions/model-sw-pong>`_
-
-References
-----------
-.. [1] Wunderlich T., et al (2019). Demonstrating advantages of
-       neuromorphic computation: a pilot study. Frontiers in neuroscience, 13,
-       260. https://doi.org/10.3389/fnins.2019.00260
-
-.. [2] Potjans W., Diesmann M.  and Morrison A. (2011). An imperfect
-       dopaminergic error signal can drive temporal-difference learning. PLoS
-       Computational Biology, 7(5), e1001133.
-       https://doi.org/10.1371/journal.pcbi.1001133
-
-:Authors: J Gille, T Wunderlich, Electronic Vision(s)
 """
 
 import logging
@@ -68,6 +24,8 @@ ISI = 10.0
 # Standard deviation of Gaussian current noise in picoampere.
 BG_STD = 220.0
 # Reward to be applied depending on distance to target neuron.
+
+# TODO
 REWARDS_DICT = {0: 1.0, 1: 0.7, 2: 0.4, 3: 0.1}
 
 
@@ -150,7 +108,7 @@ class PongNet(ABC):
         """
         self.spike_recorders.set({"n_events": 0})
 
-    def set_input_spiketrain(self, input_cell, biological_time):
+    def set_input_spiketrain(self, input_cell, biological_time, target_cell):
         """Sets a spike train to the input neuron specified by an index.
 
         Args:
@@ -158,7 +116,12 @@ class PongNet(ABC):
             biological_time (float): Current biological time within the NEST
             simulator (in ms).
         """
-        self.target_index = input_cell
+        # reward rule
+        #self.target_index = input_cell
+
+        # I0 - O0
+        self.target_index = target_cell
+
         self.input_train = [biological_time + self.input_t_offset + i * ISI for i in range(N_INPUT_SPIKES)]
         # Round spike timings to 0.1ms to avoid conflicts with simulation time
         self.input_train = [np.round(x, 1) for x in self.input_train]
@@ -168,6 +131,7 @@ class PongNet(ABC):
             nest.SetStatus(self.input_generators[input_neuron], {"spike_times": []})
 
         nest.SetStatus(self.input_generators[input_cell], {"spike_times": self.input_train})
+
 
     def get_max_activation(self):
         """Finds the motor neuron with the highest activation (number of spikes).
@@ -192,19 +156,54 @@ class PongNet(ABC):
             float: Reward between 0 and 1.
         """
         self.winning_neuron = self.get_max_activation()
+        """
         distance = np.abs(self.winning_neuron - self.target_index)
 
         if distance in REWARDS_DICT:
             bare_reward = REWARDS_DICT[distance]
         else:
             bare_reward = 0
+        """
+
+        """
+        bare_reward = 0
+        if self.winning_neuron == self.target_index:
+            bare_reward = 1.0
+        """
+
+        spike_counts = self.get_spike_counts()
+        target_n_spikes = spike_counts[self.target_index]
+        # avoid zero division if none of the neurons fired.
+        total_n_spikes = max(sum(spike_counts), 1)
+
+        bare_reward = target_n_spikes / total_n_spikes
 
         reward = bare_reward - self.mean_reward[self.target_index]
 
+        """
+        self.winning_neuron = self.get_max_activation()
+
+        # Full reward for correct output
+        if self.winning_neuron == self.target_index:
+            bare_reward = 1.0
+        else:
+            # Penalty based on distance from target neuron
+            #distance = abs(self.winning_neuron - self.target_index)
+            bare_reward = 0 #max(0.0, 1.0 - 0.2 * distance)  # Decrease reward as distance increases
+
+        # Compute reward as the difference from mean reward
+
+        reward = bare_reward - self.mean_reward[self.target_index]
+
+        """
         self.mean_reward[self.target_index] = float(self.mean_reward[self.target_index] + reward / 2.0)
 
-        logging.debug(f"Applying reward: {reward}")
-        logging.debug(f"Average reward across all neurons: {np.mean(self.mean_reward)}")
+        #logging.debug(f"Applying reward: {reward}")
+        
+        if(self.typ == "rstdp" and nest.GetKernelStatus("biological_time") % 1000 == 0):
+            #print(f"Average reward across all neurons: {np.mean(self.mean_reward):.4f}", self.typ, self.winning_neuron, reward)
+            print(f"Average reward across all neurons: {np.mean(self.mean_reward):.4f}")
+
 
         self.weight_history.append(self.get_all_weights())
         self.mean_reward_history.append(copy(self.mean_reward))
@@ -232,6 +231,7 @@ class PongNet(ABC):
 
 
 class PongNetDopa(PongNet):
+    typ = "dopa"
     # Base reward current that is applied regardless of performance
     baseline_reward = 100.0
     # Maximum reward current to be applied to the dopaminergic neurons
@@ -347,13 +347,16 @@ class PongNetDopa(PongNet):
         self.dopa_current.start = biological_time
         self.dopa_current.amplitude = reward_current
 
+        spikes = self.get_spike_counts()
+        #print(total_n_spikes, spikes[self.target_index])
+
         self.calculate_reward()
 
     def __repr__(self) -> str:
         return ("noisy " if self.apply_noise else "clean ") + "TD"
 
-
 class PongNetRSTDP(PongNet):
+    typ = "rstdp"
     # Offset for input spikes in every iteration in milliseconds
     input_t_offset = 1
     # Learning rate to use in weight updates

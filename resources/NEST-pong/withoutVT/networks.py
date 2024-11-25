@@ -317,12 +317,12 @@ class PongNetDopa(PongNet):
             {"rule": "all_to_all"},
             {"synapse_model": "stdp_dopamine_synapse", "weight": nest.random.normal(self.mean_weight, self.weight_std)},
         )
-        self.vp = nest.Create("iaf_psc_exp", self.n_critic)
-        nest.Connect(self.striatum, self.vp, syn_spec={"weight": self.w_str_vp})
+        #self.vp = nest.Create("iaf_psc_exp", self.n_critic)
+        #nest.Connect(self.striatum, self.vp, syn_spec={"weight": self.w_str_vp})
         self.dopa = nest.Create("iaf_psc_exp", self.n_critic)
-        nest.Connect(self.vp, self.dopa, syn_spec={"weight": self.w_da})
+        #nest.Connect(self.vp, self.dopa, syn_spec={"weight": self.w_da})
         nest.Connect(self.striatum, self.dopa, syn_spec={"weight": self.w_da, "delay": self.d_dir})
-        nest.Connect(self.dopa, self.vt)
+        #nest.Connect(self.dopa, self.vt)
 
         # Current generator to stimulate dopaminergic neurons based on
         # network performance
