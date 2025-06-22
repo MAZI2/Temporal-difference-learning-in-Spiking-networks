@@ -132,9 +132,10 @@ RESOURCES
 - poglej clanke, ki si jih navedel v DS sem 2
 - associative memory that the physicist John Hopfield discovered in 1982. The Hopfield network
 
-- multiple neuron actor critic and imperfect error?
+- multiple neuron actor critic and imperfect error? Set up actual working example of single layer first
 - is hebbian true in case of weight decrease biologically?
 
+- compare the models of learning rules ... what do they actually differ in and what do I want to use
 - Connect steps. Isolate also notes on paper
 - Paste here the chapters and connect them with actual TODO
 
@@ -169,3 +170,6 @@ Algebraic modeling?
 in neuron to neuron dopamine impl. probabilistic analysis might actually be useful
 Critical paths? … Tracking and describing behaviour
 synchronized behaviour in snns?
+
+The NMDA modelling and the nest approximation example
+https://nest-simulator.readthedocs.io/en/v3.8/model_details/Brunel_Wang_2001_Model_Approximation.html
