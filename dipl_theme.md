@@ -45,6 +45,20 @@ Current TODO:
 
         compare the two, and tasks that one solves better than other
 ------
+Spodbujevano učnje na impulznih nevronskih mrežah:
+    Izdelava modela bioloških nevronov in sinaps in sinaptične plastičnosti. Evalvacija različnih modelov.
+    Izdelava simulatorja in mehanizmov za vizualizacije delovanja impulznih nevronskih mrež.
+    Učenje impulznih nevronskih mrež s pomočjo nagrade.
+        Model sinaptične plastičnost odvisne od nagrajevanja in časovne razporeditvre impulzov (angl. R-STDP) VIR. 
+        Uporaba R-STDP za učenje preproste naloge in klasično pogojevanje.
+
+    Učenje kompleksne naloge - igranje igre Pong:
+        Modeliranje človeškega dompaminskega sistema in nevronska vezja.
+            TD VIR učenje na impulznih nevronskih mrežah.
+            Actor-Critic VIR model
+
+    Primerjava zunanjih orodij in implementacij spodbujevanega učenja na impulznih nevronskih mrežah z našo implementacijo.
+
 Direct TODO:
     using simplest models, acchieve pong learning from scratch. A platform for testing, visualizing learning.
     Connect latest with diploma for easier
