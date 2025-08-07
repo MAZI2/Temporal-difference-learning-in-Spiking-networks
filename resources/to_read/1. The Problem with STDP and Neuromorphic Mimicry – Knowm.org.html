@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en-US" class="js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths js"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <link rel="pingback" href="https://knowm.org/xmlrpc.php">
+    <link rel="shortcut icon" href="https://knowm.org/wp-content/themes/statfort/images/favicon.ico">
+
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+	<title>The Problem with STDP and Neuromorphic Mimicry – Knowm.org</title>
+
+<style id="reCAPTCHA-style">.google-recaptcha-container{display:block;clear:both;}
+.google-recaptcha-container iframe{margin:0;}
+.google-recaptcha-container .plugin-credits a{text-decoration:underline;}</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"><meta name="robots" content="max-image-preview:large">
+<script type="text/javascript" async="" charset="utf-8" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/recaptcha__en_gb.js" crossorigin="anonymous" integrity="sha384-ww2yNxvw2HRUuFQm7zgGkvzyBFmmPUbLQg0r/VzA8AFCO9sR485SgaVLZqtAD/5s"></script><script type="text/javascript" async="" charset="utf-8" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/recaptcha__en_gb.js" crossorigin="anonymous" integrity="sha384-ww2yNxvw2HRUuFQm7zgGkvzyBFmmPUbLQg0r/VzA8AFCO9sR485SgaVLZqtAD/5s"></script><script type="text/javascript">
+var trackScrolling=true;
+var trackScrollingPercentage=false;
+var ScrollingPercentageNumber=25;
+var stLogInterval=15*1000;
+var cutOffTime=900;
+var trackNoEvents=false;
+var trackNoMaxTime=false;
+var docTitle='The Problem with STDP and Neuromorphic Mimicry';
+</script>
+<link rel="dns-prefetch" href="https://maxcdn.bootstrapcdn.com/">
+<link rel="dns-prefetch" href="https://www.google.com/">
+<link rel="alternate" type="application/rss+xml" title="Knowm.org » Feed" href="https://knowm.org/feed/">
+<link rel="alternate" type="application/rss+xml" title="Knowm.org » Comments Feed" href="https://knowm.org/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Knowm.org » The Problem with STDP and Neuromorphic Mimicry Comments Feed" href="https://knowm.org/the-problem-with-stdp-and-neuromorphic-mimicry/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/knowm.org\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.5"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<link rel="stylesheet" id="urvanov_syntax_highlighter-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/urvanov_syntax_highlighter.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="social-icons-widget-widget-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/social_icons_widget.css" type="text/css" media="all">
+<style id="wp-emoji-styles-inline-css" type="text/css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel="stylesheet" id="wp-block-library-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/style.min.css" type="text/css" media="all">
+<style id="classic-theme-styles-inline-css" type="text/css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id="global-styles-inline-css" type="text/css">
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel="stylesheet" id="contact-form-7-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="jquery.fancybox-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/jquery.fancybox.css" type="text/css" media="all">
+<link rel="stylesheet" id="social-icons-general-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/social-icons.css" type="text/css" media="all">
+<link rel="stylesheet" id="mc4wp-form-basic-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/form-basic.css" type="text/css" media="all">
+<link rel="stylesheet" id="prettyPhoto_css-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/prettyphoto.css" type="text/css" media="all">
+<link rel="stylesheet" id="bootstrap_css-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/bootstrap.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="font-awesome_css-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/font-awesome.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="style_css-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="widget_css-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/widget.css" type="text/css" media="all">
+<link rel="stylesheet" id="mediaelement-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/mediaelementplayer-legacy.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-mediaelement-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/wp-mediaelement.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="responsive_css-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/responsive.css" type="text/css" media="all">
+<link rel="stylesheet" id="griwpc-recaptcha-style-css" href="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/recaptcha.css" type="text/css" media="all">
+<style id="griwpc-recaptcha-style-inline-css" type="text/css">
+.google-recaptcha-container{display:block;clear:both;}
+.google-recaptcha-container iframe{margin:0;}
+.google-recaptcha-container .plugin-credits a{text-decoration:underline;}
+</style>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/jquery.min.js" id="jquery-core-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/jquery-migrate.min.js" id="jquery-migrate-js"></script>
+<script type="text/javascript" id="urvanov_syntax_highlighter_js-js-extra">
+/* <![CDATA[ */
+var UrvanovSyntaxHighlighterSyntaxSettings = {"version":"2.8.36","is_admin":"0","ajaxurl":"https:\/\/knowm.org\/wp-admin\/admin-ajax.php","prefix":"urvanov-syntax-highlighter-","setting":"urvanov-syntax-highlighter-setting","selected":"urvanov-syntax-highlighter-setting-selected","changed":"urvanov-syntax-highlighter-setting-changed","special":"urvanov-syntax-highlighter-setting-special","orig_value":"data-orig-value","debug":""};
+var UrvanovSyntaxHighlighterSyntaxStrings = {"copy":"Copied to the clipboard","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/urvanov_syntax_highlighter.min.js" id="urvanov_syntax_highlighter_js-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/jquery.fancybox.js" id="jquery.fancybox-js"></script>
+<link rel="https://api.w.org/" href="https://knowm.org/wp-json/"><link rel="alternate" type="application/json" href="https://knowm.org/wp-json/wp/v2/posts/11790"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://knowm.org/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.5.5">
+<link rel="canonical" href="https://knowm.org/the-problem-with-stdp-and-neuromorphic-mimicry/">
+<link rel="shortlink" href="https://knowm.org/?p=11790">
+<link rel="alternate" type="application/json+oembed" href="https://knowm.org/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fknowm.org%2Fthe-problem-with-stdp-and-neuromorphic-mimicry%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://knowm.org/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fknowm.org%2Fthe-problem-with-stdp-and-neuromorphic-mimicry%2F&amp;format=xml">
+<style> body{ font-size:14px !important; } </style><style type="text/css">
+/* <![CDATA[ */
+img.latex { vertical-align: middle; border: none; }
+/* ]]> */
+</style>
+    
+		<!-- Google tag (gtag.js) -->
+		<script async="" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/google-analytics_analytics.js"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'G-28B86Z4J3K');
+		</script>
+    <style type="text/css">.fancybox-margin{margin-right:15px;}</style></head>
+	<body style="background: #444E58;" class="post-template-default single single-post postid-11790 single-format-standard rtl">
+	  		<!-- Wrapper Start -->
+		<div class="wrapper wrapper_boxed" id="wrappermain-pix">
+				
+	<!-- Header Start -->
+	
+		<header id="header" class="headermain fullwidth">
+	  
+			<!-- Main Header -->
+	
+			<div id="mainheader" class="fullwidth scroll-to-fixed-fixed" style="z-index: 1000; position: fixed; top: 0px; margin-left: 0px; width: 1200px; left: 112.5px;">
+	
+				<div class="container">
+	
+					<div id="logo" class="float-left">
+        				<a href="https://knowm.org/">
+                			<img src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/knowm_site_logo.png" width="250" height="75" alt="Knowm.org">
+        				</a>
+					</div>
+
+					<!-- Right Header -->
+	
+					<div id="rightheader" class="flaot-right">
+																		
+						<!-- Search Area -->
+			
+						<form action="https://knowm.org" id="searchform" method="get" role="search">
+	
+						<div class="searcharea float-right">
+	
+							<a href="#searchbox" class="btnsearch"><em class="fa fa-search"></em></a>
+	
+							<div id="searchbox">
+	
+								<input type="text" name="s" value="Search for:"><button type="submit" class="bgcolr"><em class="fa fa-search"></em></button>
+	
+							</div>
+	
+						</div>
+	
+						</form>
+	
+						<!-- Search Area Close-->
+						
+												
+						<!-- Navigation  -->
+	
+						<nav class="navigation float-right">
+	
+							<ul id="menus"><li id="menu-item-7378" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-7378"><a href="http://knowm.org/">Home</a></li>
+<li id="menu-item-9481" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9481"><a href="https://knowm.org/product/">Shop</a></li>
+<li id="menu-item-15298" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15298"><a href="https://knowm.org/services/">Services</a></li>
+<li id="menu-item-7520" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7520"><a href="https://knowm.org/blog/">Blog</a></li>
+<li id="menu-item-7619" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7619"><a href="https://knowm.org/about/">About</a></li>
+<li id="menu-item-7209" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7209"><a href="https://knowm.org/contact/">Contact</a></li>
+</ul><select class="selectnav" id="selectnav1"><option value="" selected="selected">Menu</option><option value="http://knowm.org/">Home</option><option value="https://knowm.org/product/">Shop</option><option value="https://knowm.org/services/">Services</option><option value="https://knowm.org/blog/">Blog</option><option value="https://knowm.org/about/">About</option><option value="https://knowm.org/contact/">Contact</option></select>	
+						</nav>
+	
+						<!-- Navigation Close -->
+	
+						
+	
+					</div>
+	
+					<!-- Right Header Close -->
+	
+	
+	
+				</div>
+	
+			</div><div style="display: block; width: 1200px; height: 125px; float: left;"></div>
+	
+			<!-- Main Header Close -->
+	
+		</header>
+	
+		<!-- Header Close -->
+	
+	                <script type="text/javascript">
+					jQuery(document).ready(function(){	
+ 						cs_menu_sticky();
+					});
+				</script>
+                                <div class="breadcrumb">
+                	<div class="container">
+                    	<div class="breadcrumb-inner">
+                        	<div class="subtitle"><h1 class="cs-page-title">The Problem with STDP and Neuromorphic Mimicry</h1><p>A brief look into the complexity of neurobiological plasticity</p></div><div class="breadcrumbs"><ul><li><a href="https://knowm.org/">Home</a></li><li><a href="https://knowm.org/category/philosophical/">Philosophical</a></li><li class="active">The Problem with STDP and Neuromorp</li></ul></div>                         </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                
+								<div class="clear"></div>                <!-- Columns Start -->
+                <div class="clear"></div>
+                <!-- Content Section Start -->
+    			<div id="main" role="main">
+    			<!-- Container Start -->
+					<div class="container">
+        			<!-- Row Start -->
+                        <div class="row">
+                        <!-- Need to add code below in function file to call it on all pages -->
+
+                        <!-- Blog Detail Start -->
+                        <div class="content-left col-md-9">
+							<!-- Blog Start -->
+ 							<!-- Blog Post Start -->
+                            <div class="blog blog_detail">
+                            
+
+                            <!-- Article Section Start -->
+                            <article class="cls-post-image post-11790 post type-post status-publish format-standard has-post-thumbnail hentry category-philosophical category-research">
+
+                                <ul class="post-options">
+                                	
+                                    <li><i class="fa fa-calendar"></i><time>2015-12-13</time></li>
+                                    <li><i class="fa fa-user"></i><a href="https://knowm.org/author/alex/">Alex Nugent</a></li>
+                                    
+									<li><i class="fa fa-align-justify"></i><a href="https://knowm.org/category/philosophical/" rel="tag">Philosophical</a>, <a href="https://knowm.org/category/research/" rel="tag">Research</a></li>                                    
+                                    <li><i class="fa fa-comment-o"></i><a href="https://knowm.org/the-problem-with-stdp-and-neuromorphic-mimicry/#respond">0 Comment</a>                                        </li><li class="float-right">
+                                        	<div class="right-sec">
+											          <div class="post-btn">
+            <a class="prevpost" href="https://knowm.org/facebook-open-sources-the-computers-behind-its-artificial-intelligence/" rel="prev"><i class="fa fa-angle-left"></i>Previous</a><a class="nextpost" href="https://knowm.org/how-to-deploy-an-apache-storm-cluster-to-the-amazon-elastic-compute-cloud-ec2/" rel="next">Next<i class="fa fa-angle-right"></i></a>        </div>
+                                                    </div>
+                                        
+                                        </li>
+                                </ul>
+                                <div class="detail_text rich_editor_text">
+                                	<script language="javascript" type="text/javascript"> function PopupWithFancybox(){ jQuery(document).ready(function() { jQuery.fancybox(addText); }); } setTimeout('PopupWithFancybox()', 10000);</script><div id="simple-popup-with-fancybox" style="display: none;"><div class="fancybox-content-inside" style="width:350px"><strong>Are you interested in nanotechnology based AI processors? <br>
+<br>
+<a href="https://knowm.org/knowm-newsletter/" target="_blank">Sign up for our newsletter</a> for progress updates, product announcements and news.</strong><br>
+<br>
+<div id="attachment_15609" style="width: 310px" class="wp-caption aligncenter"><a href="https://knowm.org/knowm-newsletter/" target="_blank"><img fetchpriority="high" decoding="async" aria-describedby="caption-attachment-15609" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm-1X16-Memristor-Array-Chip-Front-2-300x267.jpg" alt="Knowm 1X16 Memristor Array Chip (Front) 2" width="300" height="267" class="size-medium wp-image-15609" srcset="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm-1X16-Memristor-Array-Chip-Front-2-300x267.jpg 300w, The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm-1X16-Memristor-Array-Chip-Front-2-768x685.jpg 768w, The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm-1X16-Memristor-Array-Chip-Front-2.jpg 1024w, The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm-1X16-Memristor-Array-Chip-Front-2-600x535.jpg 600w" sizes="(max-width: 300px) 100vw, 300px"></a><p id="caption-attachment-15609" class="wp-caption-text">Knowm Memristor Array</p></div></div></div><script language="javascript" type="text/javascript"> addText = document.getElementById('simple-popup-with-fancybox').innerHTML;</script>
+<h2>The Biological Complexity Monster</h2>
+<p>For about a decade I have seen the same pattern repeat itself. A 
+circuit designer builds a Spike-Timing-Dependant-Plasticty (STDP) 
+neuron. They justify their efforts because STDP is popular and by saying
+ “that is what the brain does”. This is correct–STDP does occur in the 
+brain. The problem is that <strong>neurons do much more than STDP</strong>.
+ STDP, as you will see in the article, is the tip of the proverbial 
+iceberg. Many take a route of piling on complexity, thinking that if 
+only they could simulate enough of the biological complexity, that 
+perhaps something important might pop out. What level of biological 
+realism will it take to make a useful brain-inspired-computer? The 
+answer is that <strong>biological realism has nothing to do with utility.</strong> Biology may inspire, but it does not select. The purpose is to make useful technology. <em>Useful</em> means that people will use it to solve their problems. This is why Knowm Inc. is focused on <a href="http://knowm.org/primary-and-secondary-performance-metrics/">primary performance benchmarking</a>
+ rather than biological mimicry. When we choose method A over method B, 
+it is because method A performs quantitatively better across a suite of 
+benchmark learning tasks.</p>
+<div style="width: 510px" class="wp-caption aligncenter"><img decoding="async" width="500" class="aligncenter" title="Medusa by mari27454 (Marialba Italia)" alt="medusa photo" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/5348066601_e2942f73ff.jpg"><p class="wp-caption-text"><small>Image by <a href="http://www.flickr.com/photos/23008537@N05/5348066601" target="_blank" rel="noopener noreferrer">mari27454 (Marialba Italia)</a> <a rel="nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by/2.0/" target="_blank" title="Attribution License"><img decoding="async" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/cc.png"></a></small></p></div>
+<p>To put STDP into context, I offer below a (highly) simplified glimpse
+ into the eyes of the biological complexity monster we call ‘neural 
+plasticity’. Every person in the field of ‘Brain-Inspired Computing’ 
+needs to stare this nightmare directly in the face. If you are not 
+turned into stone, paralyzed by the endless complexity, I hope you walk 
+away with a <a href="http://knowm.org/primary-and-secondary-performance-metrics/">more carefully considered guiding principle</a> than strict biological mimicry. Perhaps you may even start to see some <a href="http://knowm.org/knowm/">unifying physical principles</a>.</p>
+<p><em>This material was gathered as part of a document that Hal Greenwald and I prepared for the DARPA SyNAPSE program back in 2010.</em></p>
+<h2>1: Canonical STDP is the tip of the iceberg</h2>
+<p>Canonical STDP is that the strength of the participating synapse is 
+increased (LTP) or decreased (LTD) via precise temporal correlations. 
+However, it may be more accurate to view this process in another way. 
+Positive and negative timing correlations leads to the activation of 
+NMDA receptors. This in turn leads to a cascade of events in the 
+post-synaptic and pre-synaptic neuron which can effect potentially all 
+functional properties of a neuron. Of particular interest are the 
+numerous retrograde effects and the separate “LTP” and “LTD” pathways 
+leading to almost opposite effects.</p>
+<div id="attachment_11792" style="width: 1025px" class="wp-caption aligncenter"><img decoding="async" aria-describedby="caption-attachment-11792" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Screen-Shot-2015-12-12-at-6.31.27-PM_002.png" alt="Plasticity Effects" width="1015" height="448" class="size-full wp-image-11792" srcset="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Screen-Shot-2015-12-12-at-6.31.27-PM.png 1015w, The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Screen-Shot-2015-12-12-at-6.31.27-PM-600x265.png 600w, The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Screen-Shot-2015-12-12-at-6.31.27-PM-300x132.png 300w, The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Screen-Shot-2015-12-12-at-6.31.27-PM-768x339.png 768w" sizes="(max-width: 1015px) 100vw, 1015px"><p id="caption-attachment-11792" class="wp-caption-text">Plasticity Effects</p></div>
+<p>Figure 1: A simplified composite sketch of plasticity effects in the 
+pre- and post-synaptic neurons following NMDA receptor activation. The 
+activation of NMDA receptors can lead to a cascade of effects on the pre
+ and post-synaptic cell, including the release of neurotrophic factors 
+(NT). NF’s, in turn, are implicated in a vast number of cellular 
+functions including and extending vastly beyond synaptic plasticity.</p>
+<h2>2: At least five basic forms of activity-dependent plasticity exist</h2>
+<p>Whereas modification to the synapse is generally regarded as a 
+post-synaptic property, the whole picture is vastly more complicated and
+ includes activity-dependent modifications to:</p>
+<ol>
+<li>Pre-synaptic neurotransmitter release probability</li>
+<li>Post-synaptic strength (“potency”)</li>
+<li>Axonal restructuring</li>
+<li>Dendritic restructuring</li>
+<li>Neuronal excitability</li>
+</ol>
+<p>It is worth consideration that the five properties mentioned 
+constitute a large proportion of the functional properties available to a
+ neuron. It is possible that all functional properties of a neuron are 
+under activity-dependent control.</p>
+<h2>3: Introduction to Long Term Potentiation (LTP)</h2>
+<p>LTP depends on increases in calcium ion concentrations, which are 
+mediated by NMDA receptors. NMDA receptors are voltage-gated glutamate 
+receptors; opening these ion channels requires both glutamate to bind to
+ its receptors and sufficient depolarization to enable the removal of a 
+Mg2+ ion that gates the channel. For this reason, they have been viewed 
+as coincidence/correlation detectors for mediating LTP. Early LTP lasts 
+1-3 hours; extending this to a day or longer requires protein synthesis 
+and gene transcription. LTP leads to an increase in the number of AMPA 
+receptors at synapses and modifies their properties via phosphorylation.
+ Such structural changes lead to enlarged synapses.</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S0896627304006087">Malenka &amp; Bear (2004)</a><br>
+<a href="http://physrev.physiology.org/content/88/2/769.short">Sjöström et al. (2008) </a><br>
+<a href="http://www.nature.com/npp/journal/v33/n1/full/1301559a.html">Citri &amp; Malenka (2008)</a></p>
+<h2>4: Long Term Depression (LTD) is different from and an essential complement to LTP</h2>
+<p>The problem with only having potentiation is that it is inherently 
+unstable; correlated activity leads to increased synaptic strength, 
+which leads to even more correlated activity. Stent (1973) modified 
+Hebb’s postulate to say that when a neuron is not consistently active 
+when a postsynaptic neuron generates an action potential, the synapse is
+ weakened. However, it is not the case that LTD simply occurs in the 
+absence of potentiation or as a result of renormalization of synaptic 
+weights when other competing synapses undergo potentiation. It was once 
+thought that the effects of monocular deprivation in kittens could be 
+explained by such renormalization; however, blocking action potentials 
+by injecting action potentials into the deprived eye prevented LTD. 
+Low-frequency stimulation (typically 0.5-5 Hz for 15 minutes, but it 
+depends on the history of recent activity) leads to NMDA activation, 
+which increases post-synaptic Ca2+ concentrations; preventing the 
+increased [Ca2+] prevents LTD. Internal calcium stores may also be 
+relevant when NMDA receptors are not optimally stimulated, although 
+these could also cause LTD to spread to neighboring synapses. LTP can 
+also be mediated by metabotropic glutamate receptors and endocannabinoid
+ receptors.</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S0896627304006087">Malenka &amp; Bear (2004) </a><br>
+<a href="http://physrev.physiology.org/content/88/2/769.short">Sjöström et al. (2008) </a></p>
+<h2>5: Forms of activity-dependent plasticity seem to be positively correlated</h2>
+<p>Temporally correlated spikes have been show to induced LTP and LTD (STP-LTP and STP-LTD) through multiple pathways.<br>
+NMDA receptor activation leading to an increase in post-synaptic potency
+ also induces the synthesis and release of neurotropic factors, 
+particularly brain derived neurotrophic factor (BDNF). BDNF has been 
+shown to increase the pre-synaptic release probability and is 
+transported retrogradely causing the stabilization of axon branches and 
+the induction of LTP at the pre-synaptic neurons input synapses. BDNF 
+treatment promotes the maturation of presynaptic terminals in 
+dissociated neuronal culture and increases the number of synapses per 
+axon terminal in vivo. Increase of post-synaptic Ca2+, caused by NMDAR 
+activation via STDP and tetanus induction protocols is correlated with 
+dendrite branch stabilization via the expression of CaMKII, as well as 
+in increase in pre-synaptic neuron excitability. NMDAR activation 
+leading to increased neural excitability can occur in the absence of 
+LTP, suggesting separate downstream mechanisms. The immediate changes of
+ intrinsic excitability points to the existence of rapid cytoplasmic 
+signaling mechanisms that cause global modulation of ion channels inthe 
+neuronal membrane.</p>
+<p>Similar and opposite mechanisms exist for the LTD pathway. Contingent
+ on NMDAR activation and weak post-synaptic Ca2+ concentration, a 
+decrease in post-synaptic synaptic strength occurs, which is correlated 
+with a decrease in pre-synaptic release probability. Endocannabinoids 
+released postsynaptically act on presynaptically located endocannabinoid
+ receptors and briefly reduce neurotransmitter release. Endocannabinoids
+ have also been shown to decrease the excitability of pre- synaptic 
+neurons. Again contingent on NMDAR activation, post-synaptic release of 
+NO can trigger a retrograde transport mechanism that leads to LTD of 
+input synapses of the pre-synaptic neuron. NO can disrupt axon growth 
+and act as a retrograde signal to increase neuronal apoptosis (cell 
+suicide).</p>
+<p>To generalize all of the above findings, it could be said that 
+STD-LTP (STD-LTD) causes the post- synaptic dendrite to stabilize 
+(destabilize?), the pre-synaptic neuron to increase (decrease) both its 
+excitability and transmission probability, as well as causing LTP (LTD) 
+in the pre-synaptic neurons, stabilizing (destabilizing?) the 
+pre-synaptic axons and increasing (decreasing) the neurons chances of 
+survival.</p>
+<p><a href="http://physrev.physiology.org/content/86/3/1033.short">Dan &amp; Poo (2006)</a><br>
+<a href="http://www.pnas.org/content/106/45/18890.long">Du &amp; Wei (2009) </a><br>
+<a href="http://physrev.physiology.org/content/88/2/769.short">Sjöström et al. (2008) </a><br>
+<a href="http://www.jneurosci.org/content/29/48/15286.full">Saez (2009)</a></p>
+<h2>6: Homeostatic and Meta Plasticity</h2>
+<p>Homeostatic plasticity, or synaptic scaling, modifies all of a 
+neuron’s synapses in response to prolonged changes in activity. Synaptic
+ scaling is separate from LTP and LTD mechanisms because it does not 
+depend on NMDA receptors. Metaplasticity (“plasticity of plasticity”) 
+also serves to preserve network stability by changing plasticity 
+thresholds so that LTP and LTD become easier or harder to induce over 
+time depending on recent activity. According to this idea, how 
+stimulating a synapse will change its strength cannot be predicted 
+unless its prior history is known. Intrinsic plasticity is another 
+stability mechanism that operates at the neuron level rather than the 
+synapse level and involves changes in the number, properties, and 
+distributions of ion channels. Intrinsic plasticity can alter plasticity
+ thresholds and can affect spike timing in addition to spike rate. In 
+vivo, spontaneous activity can reverse STDP-induced synaptic changes, 
+which could explain why visual adaptation disappears quickly in humans.</p>
+<p><a href="http://www.nature.com/nrn/journal/v4/n11/full/nrn1248.html">Zhang &amp; Linden (2003)</a><br>
+<a href="http://www.nature.com/nrn/journal/v5/n2/full/nrn1327.html">Turrigiano &amp; Nelson (2004)</a><br>
+<a href="http://www.nature.com/nrn/journal/v9/n5/full/nrn2356.html">Abraham &amp; Bear (2008)</a></p>
+<h2>7: Influences of single spikes on plasticity depend on short-term changes in the dynamic state of the synapse.</h2>
+<p>A single synapse can be potentiated or depressed depending on its 
+recent history. Prolonged high frequency presynaptic stimulation or low 
+frequency presynaptic stimulation with postsynaptic depolarization 
+induce LTP. Prolonged low-frequency presynaptic stimulation induces LTD.
+ Pairedpulses separated by less than 20 ms typically produce depression,
+ possibly due to sodium channel inactivation or because the vesicles at 
+the presynaptic terminal are depleted. Paired pulses separated by 20-500
+ ms produce potentiation, possibly because of leftover calcium. When 
+neurons in Layer 2/3 of visual cortex were stimulated with complex spike
+ trains formed of two spike pairs, the first pair had a greater 
+influence on the sign and magnitude of subsequent changes; modeling the 
+interactions between spikes can improve predictions of subsequent 
+synaptic modifications. Synapses with a high probability of vesicle 
+release tend to depress, whereas depressed synapses tend to increase 
+their likelihood of firing. Glia may also play a role by controlling the
+ rate at which neurotransmitters are cleared from the synaptic cleft and
+ by releasing additional modulators to regulate neurotransmitter 
+release. Within a single neuron, synapses can have different forms of 
+plasticity, and knowing which synapses have released vesicles may be 
+more informative than knowing that the neuron has fired an action 
+potential; for this reason, Abbott &amp; Regehr (2004) proposed the use 
+of transmission-triggered averages based on individual synapses rather 
+than spike-triggered averages. A low probability of neurotransmitter 
+release can make a synapse act like a high-pass temporal filter, and a 
+high probability of initial release can make it act like a lowpass 
+filter because subsequent stimulation yields decreased responses (due to
+ adaptation).</p>
+<p><a href="http://www.nature.com/nature/journal/v431/n7010/full/nature03010.html">Abbott &amp; Regehr (2004) </a><br>
+<a href="http://physrev.physiology.org/content/86/3/1033.short">Dan &amp; Poo (2006)</a><br>
+<a href="http://www.nature.com/npp/journal/v33/n1/full/1301559a.html">Citri &amp; Malenka (2008)</a></p>
+<h2>8: Axon pruning results from active competition and requires pre and post-synaptic activation</h2>
+<p>Studies of the developing visual cortex show that axonal pruning is 
+the result of a competitive process that requires pre-synaptic 
+activation. When TTX was injected into the deprived eye of kittens 
+during monocular deprivation experiments, the normal depression response
+ was absent. This experiment has been confirmed with the mouse.</p>
+<p>Following the formation of initial synaptic contacts between 
+motoneurons and target muscles, the initiation of synaptic transmission 
+activates the muscle and results in overt embryonic movements. Chronic 
+blockade of this activity during the cell death period with specific 
+drugs or toxins that cause paralysis prevents the death of all 
+motoneurons.</p>
+<p>Experiments with the neuromuscular junction illustrate clearly a 
+competition for post-synaptic activation. If portions of the 
+post-synaptic cell is prevented from firing, the axons innervating will 
+prune. However, if all the post-synaptic receptors (the whole cell) is 
+blocked, the axons do not prune. This indicates that the post-synaptic 
+cell actually has to fire for a pruning event to take place. An axon’s 
+terminals on one post-synaptic cell cannot compete against themselves 
+but rather serve as a competitive unit vying against the cartels of 
+other axons. In both neurons and glia, the final outcome of this 
+competitive process is the survival of optimal numbers of cells for 
+innervation or myelinations.</p>
+<p><a href="http://www.nature.com/nature/journal/v397/n6717/full/397347a0.html">Rittenhouse, Shouval, Paradiso, &amp; Bear (1999) </a><br>
+<a href="https://openlibrary.org/books/OL10072040M/Fundamental_Neuroscience_Third_Edition">Squire et. al, P.481, 463</a></p>
+<h2>9: The flow of nerve growth factors (NGF) from axon terminals to 
+cell body is necessary and sufficient to support distal axon extension</h2>
+<p>Neuronal cell bodies survive when only their terminals are treated 
+with NGF indicating that target derived NGF available only to neurites 
+can generate and retrogradely transport the signaling required for cell 
+body. Importantly, if NGF is removed from the distal axons but left in 
+the medium bathing the cell bodies, the distal axons retract and 
+degenerate, but the neurons survives. Therefore, NGF signaling initiated
+ at distal axons is both necessary and sufficient to support distal axon
+ extension, whereas NGF signaling in cell bodies alone cannot support 
+distal axon extension. NGF’s are also implicated in LTP.</p>
+<p><a href="https://openlibrary.org/books/OL10072040M/Fundamental_Neuroscience_Third_Edition">Squire et. al, P. 506-507</a><br>
+<a href="http://www.nature.com/nrn/journal/v6/n8/full/nrn1727.html">Zweifel, Kuruvilla and Ginty (2005)</a></p>
+<h2>10: Neurotrophic factors are heavily implicated in synaptic plasticity (and almost everything else)</h2>
+<p>NT receptors are present on both post- and presynaptic sites of the 
+synaptic cleft. In-vitro studies have shown that NT’s, and in particular
+ BDNF, have rapid effects on synaptic transmission. Numerous studies 
+have confirmed that NTFs have important functions in synaptic 
+plasticity, meaning that these synaptotophins regulate the functional 
+strength of synaptic transmission including LTP. Studies have shown NT 
+production during synaptic plasticity events. NT, in turn, influence 
+substantial aspects of neural function, as can be seen from the chart 
+below.</p>
+<div id="attachment_11795" style="width: 550px" class="wp-caption aligncenter"><img decoding="async" aria-describedby="caption-attachment-11795" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Screen-Shot-2015-12-12-at-6.37.15-PM_002.png" alt="Non survival Function of Neurotrophic Factors." width="540" height="688" class="size-full wp-image-11795" srcset="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Screen-Shot-2015-12-12-at-6.37.15-PM.png 540w, The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Screen-Shot-2015-12-12-at-6.37.15-PM-235x300.png 235w" sizes="(max-width: 540px) 100vw, 540px"><p id="caption-attachment-11795" class="wp-caption-text">Non survival Function of Neurotrophic Factors.</p></div>
+<p>Figure 2: Non survival Function of Neurotrophic Factors. Red 
+indicates the trophic factor has been implicated in anterograde 
+transport, blue for retrograde transport. Green indicated that the 
+respective function has been linked to the neurotrophin. Composite 
+generated From Squire, et. al, P. 461-462</p>
+<h2>11: Dendrites are plastic, they can learn, and are capable of contextual logic</h2>
+<p>In addition to changing the mean firing rate, regenerative electrical
+ activity in dendrites can modify the temporal structure of firing 
+patterns of neurons. These changes of the shape of the f/I curve can be 
+viewed as computations performed by the neuron. Shifts of the f/I curve 
+can be interpreted as additions or subtractions, changes of its slope 
+constitute multiplications or divisions, and changes in the firing 
+pattern in response to coincident distal and proximal inputs can be 
+viewed as a logical AND operation.</p>
+<p>Dendritic electrical properties can change in an activity-dependent 
+manner with a time course of milliseconds up to hours and perhaps even 
+days, which means there exist dendritic as well as synaptic learning 
+rules. Dendritic spikes in oblique apical dendrites of hippocampal 
+pyramidal cells are highly plastic and subject to neuromodulation, 
+providing a novel mechanism for memory<br>
+storage.</p>
+<p>Dendritic spikes evoked in distal apical dendrites of hippocampal 
+pyramidal neurons by synaptic stimulation generally fail to propagate to
+ the soma. However, when synapses that are more proximal are also 
+activated, the depolarization enables forward propagation towards the 
+soma. This is especially interesting as the two location are innervated 
+by functionally different inputs: a direct input from the entorhinal 
+cortex to the distal apical dendrites and the Schaffer collateral input 
+to the more proximal apical regions.</p>
+<p>Network activity in different functional states (theta activity 
+versus sharp waves) determines the mode of dendritic integration, thus 
+enabling or disabling the propagation of dendritic spikes to the soma.<br>
+local modulatory synaptic input, which may up- or down-regulate 
+excitability in different dendritic branches, may set different rules 
+for plasticity in different dendritic compartments.</p>
+<p><a href="http://physrev.physiology.org/content/88/2/769.short">Sjöström et al. (2008) </a></p>
+<h2>12: Dendritic spikes can trigger synaptic plasticity</h2>
+<p>Even if dendritic spikes do not forward propagate reliably and 
+therefore fail to contribute directly to axonal output, they can trigger
+ local synaptic plasticity and dendritic release of neurotransmitters.</p>
+<p><a href="http://physrev.physiology.org/content/88/2/769.short">Sjöström et al. (2008) </a></p>
+<h2>13: Plasticity can be synapse specific</h2>
+<p>Plasticity rules are clearly not exclusively determined by dendrites 
+but also by mechanisms residing in the synapse itself. For example, 
+excitatory inputs of different origin that converge onto neighboring 
+dendritic locations of lateral amygdala projection neurons have 
+different forms of plasticity. Inputs from the thalamus readily undergo 
+typical STDP, whereas cortical afferent synapses do not.Connections 
+originating from the same somatosensory cortical L2/3 pyramidal neuronal
+ type have distinct plasticity rules and mechanisms depending on the 
+interneuronal type they target</p>
+<p><a href="http://physrev.physiology.org/content/88/2/769.short">Sjöström et al. (2008) </a></p>
+<h2>14: Critical periods are induced by experience and can be prolonged</h2>
+<p>In cats that are raised in the dark until well past the end of the 
+critical period, cortical neurons continue to be driven binocularly and 
+their responses remain weak. When these animals are finally allowed 
+visual experience, the responses of theses neurons gradually increase in
+ strength and the relative representation of the left and right eyes is 
+shaped by the animals experience. In monocularly deprived cats, the 
+non-deprived eye inputs become predominant. Thus, without 
+experience-driven input, the mechanisms that control ocular 
+representation in the cortex remain in an uncommitted state, waiting for
+ instructions for a prolonged, if not indefinite, period of time.</p>
+<p><a href="https://openlibrary.org/books/OL10072040M/Fundamental_Neuroscience_Third_Edition">Squire et. al, P. 527</a></p>
+<h2>15: Axonal and dendritic remodeling is linked to synaptic plasticity</h2>
+<p>Imaging studies, both in culture and in vivo indicate that when 
+filopodia contact potential synaptic partners, they can lose their 
+motility and become stabilized. These contacts are then thought to 
+transform into synaptic structures.</p>
+<p>The assembly of synapses occurs very rapidly. The time required from 
+initial contact to establishment of a functional synapse is only in the 
+range of 1-2 hours, with the formation of a presynaptic terminal 
+occurring in only 10-20 minutes and the recruitment of post-synaptic 
+neurotransmitter receptors lagging somewhat behind.</p>
+<p>Long-term imaging experiments have shown that in naive adult mice a 
+subset of axonal branches in the cortex can undergo structural 
+rearrangements over lengths of tens of micrometers over several days.</p>
+<p>As these retractions and elongations are associated with turnover of 
+numerous boutons, they are likely to be associated with synapse 
+formation and elimination. Axons from layer 6 pyramidal cells are rich 
+in small terminaux boutons. Terminaux boutons appear and disappear at 
+higher rates, with more than 50% turnover in a month.</p>
+<p>It has been shown that presynaptic activity and glutamate can trigger
+ spine growth. New protrusions seem to preferentially grow towards 
+axonal boutons with active synapses, often ignoring other potential 
+presynaptic elements in the direct vicinity of the dendrite. Glutamate 
+receptor antagonists decrease arbor growth and cause a corresponding 
+decrease in arbor dynamics. These data suggest an intimate association 
+between synaptic transmission, branch dynamics and dendritic arbor 
+development. These observations suggest that glutamate may act as a 
+trophic factor to guide new spines to active boutons. However, it is 
+likely that numerous other cell-autonomous and secreted molecules also 
+contribute to guide new spine growth.</p>
+<p>Under baseline conditions, spines that appear are likely to disappear
+ again within a few days. Conversely, spines that persist for over a 
+week are likely to persist for months. There is a relationship between 
+spine stability and spine size; transient spines are typically small, 
+whereas persistent spines are large. These observations suggest that new
+ spines initiate a competition that leads to the pruning of one of the 
+synapses at a later stage.</p>
+<p>In a study to test the hypothesis that experience-dependent spine 
+growth might contribute to response potentiation, a subset of whiskers 
+from a mouse were trimmed in a chessboard fashion and structural 
+plasticity was analyzed. Induction of plasticity was found to stabilize 
+new spines (13–15%, compared with 5% under baseline conditions) on 
+pyramidal neurons over 2–3 weeks after whisker trimming.</p>
+<p>Training in a forelimb reaching task rapidly induced the growth of 
+new dendritic spines in the motor cortex, which were preferentially 
+stabilized by subsequent training sessions. Spine addition and 
+subtraction, with synapse formation and elimination, are likely to 
+contribute to experience-dependent rewiring of cortical circuits.<br>
+The growth and maintenance of dendritic filopodia on retinal ganglion 
+cells is regulated by acetylcholine during the peak of cholinergic 
+synapse formation, and subsequently by glutamate during the peak of 
+glutamatergic synapse formation. Thus neurotransmission mediated by 
+established synapses may promote the growth and maintenance of nearby 
+filopodia and facilitate further synapse formation where functional 
+synaptic contacts exist.</p>
+<p>In the retinotectal systems of X. laevis and zebrafish larvae, 
+glutamate receptor blockade markedly decreases the branch lifetime of 
+retinal ganglion cell axons and tectal dendrites, indicating that 
+synaptic transmission promotes branch stability.</p>
+<p>Neural activity can modulate the organization of the local 
+cytoskeleton to stabilize neuronal branches. Lohmann et al. Recorded 
+local, spontaneous rises in calcium in retina explants. These rises 
+depend on neurotransmission and calcium-induced calcium release (CICR) 
+from intracellular stores in retinal ganglion cell dendrites, and they 
+serve to maintain the retinal ganglion cell dendrites, as perturbing the
+ spontaneous local calcium activity by pharmacological blockage of the 
+CICR signaling pathway leads to dendrite retraction within a few 
+minutes.</p>
+<p>Dendrite retraction can be prevented by focal calcium uncaging, which
+ raises intracellular calcium locally. The stabilizing effect of calcium
+ is rapid and remains within the dendritic segments where the calcium 
+level is elevated. Since LTP requires elevated post-synaptic calcium, it
+ is reasonable to related LTP with dendritic stabilization.<br>
+Increased Calcium concentration brought on by NMDA receptor activation 
+leads to expression of CaMKII. Due to its ability for 
+autophosphorylation, CaMK activity can outlast the intracellular calcium
+ transient that is needed to activate it. This property is important for
+ the induction of synaptic plasticity. Pharmacological inhibition of 
+CaMKII blocks the induction of long-term potentiation. Upon activation, 
+CaMKII phosphorylates postsynaptic glutamate receptors and thus changes 
+the electrical properties of the synapse. Wu and colleagues showed that 
+CaMKII expression is necessary and sufficient for the transition of 
+tectal cell dendrites from the immature, dynamic state into the mature, 
+stabilized state. Blocking endogenous CaMKII either pharmacologically or
+ by expressing an inhibitory peptide maintains neurons in their rapid 
+growth phase, so that dendritic arbors grow larger than normal.</p>
+<p>The relationship between synaptogenesis and axon development was 
+recently examined by Alsina et al. by time-lapse imaging of X. laevis 
+retinal ganglion cells. The authors observed marked synapse and axon 
+branch remodeling over 24-h recording periods. In comparison to stable 
+branches, branches that were eventually eliminated had, on average, 
+fewer synapses per axon terminal, suggesting that synapse formation and 
+stabilization leads to the stabilization of axon branches.</p>
+<p>Segregation of retinal anglion cell axons from opposite eyes in 
+doubly innervated X. laevis tectum is mainly accounted for by the 
+preferential retraction of axon branches from territories dominated by 
+the other eye, and NMDA receptor blockade reduces branch retraction, 
+suggesting that NMDA receptor activation selectively destabilizes axon 
+branches.<br>
+Newly formed dendrite branches are highly unstable, suggesting that BDNF
+ promotes dendritic arbor growth by accelerating branch dynamics rather 
+than by promoting branch stability. Thus activity- dependent 
+neurotrophin signaling can coordinate the exploratory behavior of axon 
+and dendrite branches to favor the formation of new branches where 
+appropriate synaptic contacts have been established.</p>
+<p>NMDAR antagonists significantly reduced branch dynamics, again 
+indicating that arbor elaboration requires some sort of testing. 
+Blocking AMPARs does not significantly reduce arbor growth rates or 
+branch dynamics in young neurons.<br>
+A model that accommodates much of these data is that during 
+developmental periods of synaptogenesis, synaptic activity increases the
+ emergence of fine dendritic branches. Newly extended branches on axons 
+and dendrites form synapses with only NMDARs. As these synapses mature 
+due to LTP, AMPARs are recruited to the synaptic sites. Mature 
+AMPAR-containing synapses stabilize the branches on which the synapses 
+are located. Stabilized branches then add new branches. These branches 
+in turn establish new NMDAR-only synapses, which are either stabilized 
+through the addition of AMPARs or retracted.</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S0959438800001823">Cline (2001)</a><br>
+<a href="http://www.nature.com/neuro/journal/v7/n4/full/nn1218.html">Hua &amp; Smith (2004)</a><br>
+<a href="http://www.nature.com/nrn/journal/v10/n9/full/nrn2699.html">Holtmaat &amp; Svoboda (2009)</a><br>
+<a href="https://openlibrary.org/books/OL10072040M/Fundamental_Neuroscience_Third_Edition">Squire et. al, P. 426,527</a><br>
+<a href="https://en.wikipedia.org/wiki/CAMK">Wikipedia: Ca2+/calmodulin-dependent protein kinase</a></p>
+<h2>16: Axonal and dendritic remodeling can be rapid and is linked to activity</h2>
+<p>Dendritic and axonal arbors follow the same pattern of arbor 
+development: short branches are rapidly added and retracted from axon 
+arbors with a lifetime of about 10 minutes.</p>
+<p>Retinal ganglion cell axons in living Xenopus larvae add 150% and 
+retract 137% of the initial branch tip number in 2 h. Their 
+post-synaptic partners, the tectal neuron dendrites, add 180% and 
+retract 124% of the initial branch tip number during the same period.</p>
+<p>Dendritic filopodia have average lifetimes on the order of minutes. 
+Widely thought to be potential synapse precursors, motile filopodia may 
+have a crucial role in regulating the rate of synapse turnover during 
+development.<br>
+Post-synaptic densities marked by green fluorescent protein-tagged 
+PSD-95, a post-synaptic density protein, appear, disappear and move 
+along the dendritic shafts within minutes of imaging in neonatal brain 
+slices. In cultured hippocampal neurons, more than 20% of the 
+post-synaptic densities turn over in a 24-h period.</p>
+<p><a href="http://www.sciencedirect.com/science/article/pii/S0959438800001823">Cline (2001)</a><br>
+<a href="http://www.nature.com/neuro/journal/v7/n4/full/nn1218.html">Hua &amp; Smith (2004)</a><br>
+<a href="http://www.nature.com/nrn/journal/v10/n9/full/nrn2699.html">Holtmaat &amp; Svoboda (2009)</a><br>
+<a href="https://openlibrary.org/books/OL10072040M/Fundamental_Neuroscience_Third_Edition">Squire et. al, P. 426,527</a></p>
+<h2>17: LTP can be reversed quickly via spontaneous activity and stabilized with delayed bursts.</h2>
+<p>In a study of the retinotectal system of Xenopus tadpoles it was 
+found that when neurons were allowed to fire spontaneously, the effects 
+of LTP and LTD were rapidly lost. Bursting spikes triggered from random 
+flashes on the retinae were particularly effective at reversing LTP and 
+LTD. Because the bursting spikes triggered by random flashes are largely
+ uncorrelated with the activity of the specific retinotectal connection 
+under examination, the reversal of synaptic modification appeared to 
+result largely from uncorrelated post synaptic spiking induced by other 
+converging inputs on the tectal neuron.<br>
+Preventing the reversal due to spontaneous or background noise could be 
+attained by spaced applications of LTP/LTD inductions. In contrast to 
+the “massed” TBS induction (60 bursts), three episodes of TBS (20 bursts
+ each) within the 20-min period counteracted the effect of spontaneous 
+activity, resulting in persistent synaptic potentiation. Residual 
+potentiation resulting from each TBS episode accumulated when the 
+subsequent TBS episode was applied before the reversal was completed.</p>
+<p><a href="http://www.sciencemag.org/content/300/5627/1953.short">Zhou &amp; Tao (2003) </a></p>
+<h2>18: LTP and LTD can spread</h2>
+<p>The traditional Hebbian view of plasticity is that individual 
+synapses are independent and that only those with correlated activity 
+are modified. There is substantial evidence that other synapses within 
+the same neural network are also modified. LTP and LTD can spread to 
+neighboring synapses. LTP can spread laterally within presynaptic 
+neurons and can backpropagate from postsynaptic neurons. Importantly, 
+lateral or forward propagation from postsynaptic units has not been 
+observed. LTD can spread to other synapses within the presynaptic 
+neuron, can spread laterally to other inputs on the same postsynaptic 
+cell, and can backpropagate from postsynaptic to presynaptic cells. 
+Forward propagation of LTD from postsynaptic neurons has not been 
+observed. When LTP was induced with tetanic stimulation, some 
+unstimulated synapses showed evidence of depression (“heterosynaptic 
+LTD”). The implications are that LTP and LTD can spread via long-range 
+signaling through extracellular space and this spread is restricted to a
+ retrograde direction.</p>
+<p>The target cell-specific presynaptic lateral spread of LTP is 
+reminiscent of the target cell-specific action of brain-derived 
+neurotrophic factor (BDNF) found in these hippocampal cultures, where 
+BDNF- induced potentiation of glutamatergic synaptic transmission was 
+observed only for synapses made onto glutamatergic but not GABAergic 
+neurons (91). Indeed, BDNF has been shown to mediate the retrograde 
+spread of LTP in the retinotecal synapses of the tadpole.</p>
+<p><a href="http://www.annualreviews.org/doi/abs/10.1146/annurev.neuro.24.1.139">Bi &amp; Poo (2001)</a><br>
+<a href="http://www.pnas.org/content/106/45/18890.long">Du &amp; Wei. (2009) </a><br>
+<a href="http://www.pnas.org/content/86/20/8113.short">Bonhoeffer et al. (1989)</a><br>
+<a href="http://authors.library.caltech.edu/1634/">Schuman &amp; Madison (1994) </a><br>
+<a href="http://www.nature.com/nature/journal/v388/n6639/full/388279a0.html">Engert &amp; Bonhoeffer (1997)</a><br>
+<a href="http://www.nature.com/nature/journal/v388/n6641/full/388439a0.html">Fitzsimonds &amp; Song (1997)</a></p>
+<h2>19: Correlated activity modulates pre-synaptic excitability</h2>
+<p>The same spike-timing induction protocols that have been shown to 
+induce LTP and LTD of the participating synapse has also been found to 
+increase and decrease the intrinsic excitability of the pre- synaptic 
+neuron. Similar to LTP/LTD induction, changes in the presynaptic 
+excitability require activation of NMDARs and postsynaptic influx of 
+Ca2, indicating that transsynaptic retrograde signaling is required. 
+However, the changes in intrinsic excitability can occur in the absence 
+of LTP, suggesting separate downstream mechanisms. The immediate changes
+ of intrinsic excitability in many studies point to the existence of 
+rapid cytoplasmic signaling mechanisms that cause global modulation of 
+ion channels in the neuronal membrane.</p>
+<p><a href="http://physrev.physiology.org/content/86/3/1033.short">Dan &amp; Poo (2006)</a></p>
+                                </div>
+                            </article>
+                            <!-- Article Section End -->
+
+
+                            <!-- Post tags Section -->
+                            <div class="post-tags">
+                                <ul>
+                                                                    </ul>
+                            </div>
+                            <!-- Post tags Section Close -->
+                            
+
+
+                            <!-- About Author Section -->
+                                    <div class="about-author">
+            <figure>
+                <a href="https://knowm.org/author/alex/">
+        <img alt="" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/c53a120bd95f4f5c4b5e793a945ed32c_002.png" srcset="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/c53a120bd95f4f5c4b5e793a945ed32c.png 2x" class="avatar avatar-50 photo" height="50" width="50" loading="lazy" decoding="async"></a>
+            </figure>
+            <div class="text">
+                <h2>Alex Nugent</h2>
+                <p>Alex Nugent is the CEO of Knowm Inc. He is an 
+inventor and entrepreneur at the crossroads of natural 
+self-organization, neuromemristive electronics and machine learning. He 
+is an optimist and a problem solver and believes that Nature is the 
+highest form of technology. He lives by the motto that "the best way to 
+predict the future is to invent it."</p>
+                    </div>
+        </div>
+                                    <!-- About Author Section Close -->
+                            
+                            
+                            <!--Related Blog Post Section-->
+                            <div class="element_size_100">
+                                 <header class="cs-heading-title">
+                                    <h2 class="cs-section-title">Related Posts</h2>
+                                 </header>
+                                <div class="blog-grid blog-grid-view-2">
+                                	                                    <article style="float:left;">
+ 										<figure><img src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/20201004_123235-230x172.png" alt=""></figure>                                         <div class="text">
+                                            <h2 class="cs-post-title"><a href="https://knowm.org/memristor-crossbars-as-easy-as-raspberry-pi-part-2/" class="colrhvr">
+											Memristor Crossbars ...</a></h2>
+                                            <p style="display: none;">Read part 1 of this series here Private Beta Ahoy! Well, I c...</p>
+                                        </div>
+                                    </article>
+                                                                        <article style="float:left;">
+ 										<figure><img src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/kTRAM-Server-Raspberry-Pi-3B--230x172.jpeg" alt=""></figure>                                         <div class="text">
+                                            <h2 class="cs-post-title"><a href="https://knowm.org/memristor-crossbars-as-easy-as-raspberry-pi/" class="colrhvr">
+											Memristor Crossbars ...</a></h2>
+                                            <p style="display: none;">Time to Take the Next Step Memristor crossbars, and memristo...</p>
+                                        </div>
+                                    </article>
+                                                                        <article style="float:left;">
+ 										<figure><img src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/riverAndLogEddie-230x172.jpg" alt=""></figure>                                         <div class="text">
+                                            <h2 class="cs-post-title"><a href="https://knowm.org/knowm-history-2001-2011/" class="colrhvr">
+											Knowm Inc History [2...</a></h2>
+                                            <p style="display: none;">The Idea [2001] I was a junior undergraduate physics major w...</p>
+                                        </div>
+                                    </article>
+                                                                        <div class="clear"></div>
+                                </div>
+                            </div>
+                            <!--Related Blog Post Section Close-->
+                           
+
+                            <!-- Newsletter Section Start -->
+
+                            <div id="respond" class="comment-respond">
+                            	<header class="cs-heading-title">
+                                	<h2 class="cs-section-title">Subscribe To Our Newsletter</h2>
+                                </header>
+                            	<p>Join our low volume mailing list to receive the latest news and updates from our team.</p>
+								<form action="//knowm.us10.list-manage.com/subscribe/post?u=38275c9e6abdc48de7b15f50f&amp;id=09f5b5978d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="comment-form" target="_blank" novalidate="">
+								    <p class="comment-form-author"><label for="author">Name</label><input id="mce-FNAME" name="FNAME" class="nameinput" type="text" size="30" tabindex="1"></p>
+								    <p class="comment-form-email"><label for="email">Email<span>(required)</span></label><input id="mce-EMAIL" name="EMAIL" class="emailinput" type="text" size="30" tabindex="2"></p>
+								    <p class="form-submit">
+								      <input name="subscribe" type="submit" id="submit-comment" class="submit" value="Subscribe"> 
+								      <input type="hidden" name="b_38275c9e6abdc48de7b15f50f_09f5b5978d" tabindex="-1" value="">
+								    </p>
+								</form>
+							</div>
+
+							<!-- Newsletter Section Close -->
+
+
+
+									
+ 				<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Comment <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://knowm.org/the-problem-with-stdp-and-neuromorphic-mimicry/#respond" style="display:none;">Cancel reply</a></small></h3><form id="commentform" class="comment-form"><p class="comment-notes">
+                            </p>
+<p class="comment-form-author"><label for="author">Name<span>(required)</span></label><input id="author" name="author" class="nameinput" type="text" size="30" tabindex="1"></p><!-- #form-section-author .form-section -->
+<p class="comment-form-email"><label for="email">Email<span>(required)</span></label><input id="email" name="email" class="emailinput" type="text" size="30" tabindex="2"></p><!-- #form-section-email .form-section -->
+<p class="comment-form-website"><label for="url">Website<span></span></label><input id="url" name="url" type="text" class="websiteinput" size="30" tabindex="3"></p><!-- #<span class="hiddenSpellError" pre="">form-section-url</span> .form-section -->
+<p class="comment-form-comment fullwidth"><label for="comment">Comment: <span></span></label><textarea id="comment" name="comment" class="commenttextarea" rows="4" cols="39"></textarea></p><p id="griwpc-container-id" class="google-recaptcha-container recaptcha-align-left"><span id="griwpc-widget-id" class="g-recaptcha" data-forced="0"><div style="width: 304px; height: 78px;"><div><iframe title="reCAPTCHA" width="304" height="78" role="presentation" name="a-3qpuqefh8hw" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/anchor.html"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></span></p><p class="form-submit"><input name="submit" type="submit" id="submit-comment" class="submit" value="Submit" disabled="disabled"> <input type="hidden" name="comment_post_ID" value="11790" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><input type="hidden" id="killer_value" name="killer_value" value="spam-destroyer-3b9cd8af2494fb628136dfee3125660e"></form>	</div><!-- #respond -->
+					
+                      <!-- Blog Post End -->
+                     </div>
+               	</div>
+		  		                <!--Content Area End-->
+                <!--Right Sidebar Starts-->
+                <div class="col-lg-3 col-md-3 col-sm-3"><div class="widget widget_media_image"><a href="https://knowm.org/knowm-newsletter/"><img width="295" height="166" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Screen-Shot-2019-09-21-at-11.36.17-AM-1.jpg" class="image wp-image-16275  attachment-full size-full" alt="Knowm 32X32 Crossbar" style="max-width: 100%; height: auto;" decoding="async" loading="lazy"></a></div><div class="widget widget_text"><header class="cs-heading-title"><h2 class="cs-section-title">Knowm Newsletter</h2></header>			<div class="textwidget">Are you ready for memristor AI processors? With our newsletter, you will be. 
+<script>(function() {
+	window.mc4wp = window.mc4wp || {
+		listeners: [],
+		forms: {
+			on: function(evt, cb) {
+				window.mc4wp.listeners.push(
+					{
+						event   : evt,
+						callback: cb
+					}
+				);
+			}
+		}
+	}
+})();
+</script><!-- Mailchimp for WordPress v4.9.13 - https://wordpress.org/plugins/mailchimp-for-wp/ --><form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-12636 mc4wp-form-basic" method="post" data-id="12636" data-name="Default sign-up form"><div class="mc4wp-form-fields"><p>
+    <label>First Name</label>
+    <input type="text" name="FNAME">
+</p>
+<p>
+    <label>Last Name</label>
+    <input type="text" name="LNAME">
+</p>
+<p>
+    <label>Email Address</label>
+    <input type="email" name="EMAIL" required="">
+</p>
+
+
+<p>
+	<button class="bgcolr mc4wp-form_button" name="Sign up!">Sign up!</button>
+</p>
+</div><label style="display: none !important;">Leave this field empty if you're human: <input type="text" name="_mc4wp_honeypot" tabindex="-1" autocomplete="off"></label><input type="hidden" name="_mc4wp_timestamp" value="1750603960"><input type="hidden" name="_mc4wp_form_id" value="12636"><input type="hidden" name="_mc4wp_form_element_id" value="mc4wp-form-1"><div class="mc4wp-response"></div></form><!-- / Mailchimp for WordPress Plugin --></div>
+		</div><div class="widget widget_gallery"><header class="cs-heading-title"><h2 class="cs-section-title">Memristor Chips</h2></header>
+				<ul class="gallery-list lightbox">
+
+					
+						 <li>
+
+							<a data-title="Knowm Chips" href="https://knowm.org/product/" target="_blank" data-rel="" rel=""><img width="60" height="60" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/KnowmMemristorChipsInProduction-100x100.jpg" data-alt="Knowm Chips" alt=""></a>
+
+						</li>
+
+				
+						 <li>
+
+							<a data-title="Knowm Chip" href="https://knowm.org/product/" target="_blank" data-rel="" rel=""><img width="60" height="60" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm-1X16-Memristor-Array-Chip-Back-1-100x100.jpg" data-alt="Knowm Chip" alt=""></a>
+
+						</li>
+
+				
+						 <li>
+
+							<a data-title="Knowm Chip" href="https://knowm.org/product/" target="_blank" data-rel="" rel=""><img width="60" height="60" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm-1X16-Memristor-Array-Chip-Front-100x100.jpg" data-alt="Knowm Chip" alt=""></a>
+
+						</li>
+
+				
+						 <li>
+
+							<a data-title="Knowm Chip" href="https://knowm.org/product/" target="_blank" data-rel="" rel=""><img width="60" height="60" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm-1X16-Memristor-Array-Chip-Front-2-100x100.jpg" data-alt="Knowm Chip" alt=""></a>
+
+						</li>
+
+				
+						 <li>
+
+							<a data-title="Knowm Chip" href="https://knowm.org/product/" target="_blank" data-rel="" rel=""><img width="60" height="60" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm-Memristor-Six-Pack-1-100x100.png" data-alt="Knowm Chip" alt=""></a>
+
+						</li>
+
+				
+						 <li>
+
+							<a data-title="Knowm Chip" href="https://knowm.org/product/" target="_blank" data-rel="" rel=""><img width="60" height="60" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm-Carbon-SDC-Memristor-Six-Pack-100x100.png" data-alt="Knowm Chip" alt=""></a>
+
+						</li>
+
+				
+						 <li>
+
+							<a href="https://knowm.org/product" target="_blank" data-rel="" rel=""><img width="60" height="60" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm_32X32_W-SDC_Memristor_Crossbar_Front-100x100.png" data-alt="" alt=""></a>
+
+						</li>
+
+				
+						 <li>
+
+							<a href="https://knowm.org/product" target="_blank" data-rel="" rel=""><img width="60" height="60" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm-W-SDC-Memristor-Crossbar-Wirebond-Close-Up-100x100.jpg" data-alt="" alt=""></a>
+
+						</li>
+
+				
+						 <li>
+
+							<a href="https://knowm.org/product" target="_blank" data-rel="" rel=""><img width="60" height="60" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm-W-SDC-Memristor-Crossbar-Wirebond-Close-Up-Angle-100x1.jpg" data-alt="" alt=""></a>
+
+						</li>
+
+				
+						 <li>
+
+							<a href="https://knowm.org/product" target="_blank" data-rel="" rel=""><img width="60" height="60" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/Knowm-Carbon-SDC-Memristor-Array-Front-100x100.png" data-alt="" alt=""></a>
+
+						</li>
+
+				
+				</ul>
+
+			 
+				
+
+			 </div></div>
+<!-- Columns End -->
+<!--Footer-->
+			   
+             </div>
+            <!-- Row End -->
+        </div>
+	</div>
+    <!-- Content Section End -->
+    <div class="clear"></div>
+    
+		   
+             <!-- Footer Widgets Start -->
+             <div id="footer-widgets" class="fullwidth" style=" background: url('//knowm.org/wp-content/uploads/2015/04/BlackWhiteLeaf_short.jpg') no-repeat scroll center bottom / cover  rgba(0, 0, 0, 0)">
+                <!-- Container Start -->
+                <div class="container">
+                    <!-- Footer Widgets Start -->
+                                        <!-- Footer Widgets End -->
+                </div>
+                <!-- Container End -->
+                <footer id="footer">
+                    <div class="container">
+                    	                        <p class="copright">
+                            ©2015-2024 Knowm Inc. All rights reserved. 
+							                         
+                         </p>
+                          <!-- Language Section Start -->
+
+                            <div class="language-sec">
+
+                                <!-- Wp Language Start -->
+
+                                
+
+                                 
+                            </div>
+
+                            <!-- Language Section End -->
+                        <a class="back-to-top bgcolrhvr" id="btngotop" href=""><em class="fa fa-chevron-up"></em></a>
+                    </div>
+                </footer>
+              </div>
+            <!-- Footer Start -->
+      <div class="clear"></div>
+</div>
+<!-- Wrapper End -->
+
+                              <!--[if lt IE 9]><link rel="stylesheet" href="https://knowm.org/wp-content/themes/statfort/css/ie8.css" /><![endif]-->
+
+        <script>(function() {function maybePrefixUrlField () {
+  const value = this.value.trim()
+  if (value !== '' && value.indexOf('http') !== 0) {
+    this.value = 'http://' + value
+  }
+}
+
+const urlFields = document.querySelectorAll('.mc4wp-form input[type="url"]')
+for (let j = 0; j < urlFields.length; j++) {
+  urlFields[j].addEventListener('blur', maybePrefixUrlField)
+}
+})();</script><script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/comment-reply.min.js" id="comment-reply-js" async="async" data-wp-strategy="async"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/index_002.js" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-extra">
+/* <![CDATA[ */
+var wpcf7 = {"api":{"root":"https:\/\/knowm.org\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/index_003.js" id="contact-form-7-js"></script>
+<script type="text/javascript" id="mediaelement-core-js-before">
+/* <![CDATA[ */
+var mejsL10n = {"language":"en","strings":{"mejs.download-file":"Download File","mejs.install-flash":"You are using a browser that does not have Flash player enabled or installed. Please turn on your Flash player plugin or download the latest version from https:\/\/get.adobe.com\/flashplayer\/","mejs.fullscreen":"Fullscreen","mejs.play":"Play","mejs.pause":"Pause","mejs.time-slider":"Time Slider","mejs.time-help-text":"Use Left\/Right Arrow keys to advance one second, Up\/Down arrows to advance ten seconds.","mejs.live-broadcast":"Live Broadcast","mejs.volume-help-text":"Use Up\/Down Arrow keys to increase or decrease volume.","mejs.unmute":"Unmute","mejs.mute":"Mute","mejs.volume-slider":"Volume Slider","mejs.video-player":"Video Player","mejs.audio-player":"Audio Player","mejs.captions-subtitles":"Captions\/Subtitles","mejs.captions-chapters":"Chapters","mejs.none":"None","mejs.afrikaans":"Afrikaans","mejs.albanian":"Albanian","mejs.arabic":"Arabic","mejs.belarusian":"Belarusian","mejs.bulgarian":"Bulgarian","mejs.catalan":"Catalan","mejs.chinese":"Chinese","mejs.chinese-simplified":"Chinese (Simplified)","mejs.chinese-traditional":"Chinese (Traditional)","mejs.croatian":"Croatian","mejs.czech":"Czech","mejs.danish":"Danish","mejs.dutch":"Dutch","mejs.english":"English","mejs.estonian":"Estonian","mejs.filipino":"Filipino","mejs.finnish":"Finnish","mejs.french":"French","mejs.galician":"Galician","mejs.german":"German","mejs.greek":"Greek","mejs.haitian-creole":"Haitian Creole","mejs.hebrew":"Hebrew","mejs.hindi":"Hindi","mejs.hungarian":"Hungarian","mejs.icelandic":"Icelandic","mejs.indonesian":"Indonesian","mejs.irish":"Irish","mejs.italian":"Italian","mejs.japanese":"Japanese","mejs.korean":"Korean","mejs.latvian":"Latvian","mejs.lithuanian":"Lithuanian","mejs.macedonian":"Macedonian","mejs.malay":"Malay","mejs.maltese":"Maltese","mejs.norwegian":"Norwegian","mejs.persian":"Persian","mejs.polish":"Polish","mejs.portuguese":"Portuguese","mejs.romanian":"Romanian","mejs.russian":"Russian","mejs.serbian":"Serbian","mejs.slovak":"Slovak","mejs.slovenian":"Slovenian","mejs.spanish":"Spanish","mejs.swahili":"Swahili","mejs.swedish":"Swedish","mejs.tagalog":"Tagalog","mejs.thai":"Thai","mejs.turkish":"Turkish","mejs.ukrainian":"Ukrainian","mejs.vietnamese":"Vietnamese","mejs.welsh":"Welsh","mejs.yiddish":"Yiddish"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/mediaelement-and-player.min.js" id="mediaelement-core-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/mediaelement-migrate.min.js" id="mediaelement-migrate-js"></script>
+<script type="text/javascript" id="mediaelement-js-extra">
+/* <![CDATA[ */
+var _wpmejsSettings = {"pluginPath":"\/wp-includes\/js\/mediaelement\/","classPrefix":"mejs-","stretching":"responsive","audioShortcodeLibrary":"mediaelement","videoShortcodeLibrary":"mediaelement"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/wp-mediaelement.min.js" id="wp-mediaelement-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/bootstrap.min.js" id="bootstrap_js-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/modernizr.js" id="modernizr_js-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/jquery.prettyphoto.js" id="prettyphoto_js-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/functions.js" id="functions_js-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/jquery-scrolltofixed.js" id="bscrolltofixed_js-js"></script>
+<script type="text/javascript" id="griwpc-base-js-extra">
+/* <![CDATA[ */
+var griwpco = {"ajax_url":"https:\/\/knowm.org\/wp-admin\/admin-ajax.php","standardQueries":"0","formID":"commentform","formQuery":"#respond form","formQueryElem":"0","buttonID":"submit","buttonQuery":"#respond *[type=","buttonQueryElem":"0","recaptcha_elem":null,"recaptcha_id":"griwpc-widget-id","recaptcha_skey":"6LfNpcEUAAAAAHAh-6-WTym7dUbFRRGv6_n1ABV_","recaptcha_theme":"light","recaptcha_size":"normal","recaptcha_type":"image","recaptcha_align":"left","recaptcha_otcm":"0","recaptcha_tag":"p","recaptcha_lang":"","allowCreditMode":"0","home_link_address":"http:\/\/www.joanmiquelviade.com\/plugin\/google-recaptcha-in-wp-comments-form\/","home_link_title":"reCAPTCHA plugin homepage","home_link_text":"Get reCAPTCHA plugin","version":"9.1.2","reCAPTCHAloaded":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/base.js" id="griwpc-base-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/recaptcha.js" id="google-recaptcha-ini-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/api.js" id="recaptcha-call-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/api_002.js" id="google-recaptcha-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/wp-polyfill-inert.min.js" id="wp-polyfill-inert-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/regenerator-runtime.min.js" id="regenerator-runtime-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/wp-polyfill.min.js" id="wp-polyfill-js"></script>
+<script type="text/javascript" id="wpcf7-recaptcha-js-extra">
+/* <![CDATA[ */
+var wpcf7_recaptcha = {"sitekey":"6Lef5YMUAAAAAGnVV00Ee5ZZiGTVSSTqNrtKemyL","actions":{"homepage":"homepage","contactform":"contactform"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/index.js" id="wpcf7-recaptcha-js"></script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/analyticsjs.js" id="rbr_scripts-js"></script>
+<script type="text/javascript" id="kill_it_dead-js-extra">
+/* <![CDATA[ */
+var spam_destroyer = {"key":"spam-destroyer-3b9cd8af2494fb628136dfee3125660e","lifetime":"3600"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/kill.js" id="kill_it_dead-js"></script>
+<script type="text/javascript" defer="defer" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/forms.js" id="mc4wp-forms-api-js"></script>
+
+<div><div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe title="reCAPTCHA" width="256" height="60" role="presentation" name="a-nzgk9m16qbrv" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/anchor_002.html"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response-100000" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;">03AFcWeA471kV-
+QeDWxYt5Atfkz6139CUevXlzbN9QFXsa3PCrsTztnpe2IqD_TZhIS2r_-
+b87_YmAHIDRyEyYTsgS_6FOM944yqy3ba5hGkzmU3_SH3Abef1reZMJrkoMhsFOTkHUcBDhJDuNDoFpL-5da2FjCv_LPv-
+XstfD49-UQfdJO_p_NACmchQ6fpS2cXdTON_79-OuSGH_xPsuiz-
+WXMA091keJlVJkfTfM7gm94URePixgbpxyWmTScqw_rTe0JIc5wfa2rbEmVSsUa_fc3YJS-
+ldi7KBysfKy8ZISX4A3w0LR5pvHQPXa6MkUy1vb5p5EjNjn-
+nexaHsVh2oeKxsceIcUK79xo6dzG6owpbkV7Hzh1mM-SEFzqmgVJFPDLsfdmMspteb-
+OEncOxm_f-
+AfMYngFwhakYCmfp7MELV7I8m_M5zVeVcO3dSFirq7ZmgqfyWC_llhrPfgZh0BYjeXlYKZ8sGzwqgpPEZBkE-
+sIpnVuEhB6Rtd_fNyCSl-IrGrv6nL6Hu-2du-
+l90UC8NDowa0AAylSjZvIo7G3tZewhTF8rWsHPNR3zU6TB_fUof6YMnttLSeGVAwCeq8z_NFbcCXHlaUQ-
+N-
+dCWUdkSPfCfzZhtbBs4v4MdQ1Mylj_qOewkRjsesOP4u71dnkwl_CJXmN7baw4LAXp_ZxF3ZMTxto7NFBe7biNsy2_kQ73N-7hEJod8tryhtZjEmzC41WnULUBermAjDgjDzfHyY3S8pRCAlc0yJRraM40ZfnWUNRkFq4W7jmNtvVSHt45TXAXV6uXap2iQBC29uNM4TPc4WAp3C_wmH4a8a7Hi8D5mqvc5I_fkMFelBgsIpRTAOxkQL3qmxeIbfm8iVNOqn0EnWyhuyDFJCt0SC7cHEIfp8rxD06R7dMJ0VoHNmX2lJDiXwlvvL9X-
+i1BW-
+eNk6dvs1DR7Rq3tRV7YP0oYn2uwKsFVpyCRg_iiE_h8MbcBA7dzOUa8IO5EtGpk3gMwhuU88BNE_DIUeLagkoVzq0zlt1Rn</textarea></div></div><div style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 3px; position: absolute; transition: visibility 0s linear 0.3s, opacity 0.3s linear; opacity: 0; visibility: hidden; z-index: 2000000000; left: 0px; top: -10000px;"><div style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: rgb(255, 255, 255); opacity: 0.05;" class=""></div><div style="border: 11px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -11px; z-index: 2000000000;" class="g-recaptcha-bubble-arrow"></div><div style="border: 10px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -10px; z-index: 2000000000;" class="g-recaptcha-bubble-arrow"></div><div style="z-index: 2000000000; position: relative;"><iframe title="recaptcha challenge expires in two minutes" style="width: 100%; height: 100%;" name="c-3qpuqefh8hw" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="The%20Problem%20with%20STDP%20and%20Neuromorphic%20Mimicry%20%E2%80%93%20Knowm.org_files/bframe.html"></iframe></div></div></body></html>
