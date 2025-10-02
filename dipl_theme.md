@@ -1,3 +1,6 @@
+Find the nest association test ... redefine it and test. Make some visualizations to debug .. will come in handy later
+Aversive behaviour ... later
+----------
 1. Modeliranje nevronov in sinaps
     - Predstavitev bioloških značilnosti nevronov in sinaps, ki bodo modelirane v nadaljevanju 0.5T
     - Hebbian rule, Izhikhevich, Hodgin-Hyxley
