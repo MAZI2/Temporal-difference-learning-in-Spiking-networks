@@ -1,3 +1,8 @@
+Dropboard:
+https://github.com/ndey96/spiking-actor-critic
+https://spikingjelly.readthedocs.io/zh-cn/0.0.0.0.4/clock_driven_en/7_a2c_cart_pole.html
+https://github.com/fangwei123456/spikingjelly/blob/master/spikingjelly/activation_based/examples/Spiking_A2C.py
+
 1. Modeliranje nevronov in sinaps
     - Predstavitev bioloških značilnosti nevronov in sinaps, ki bodo modelirane v nadaljevanju 0.5T
     - Hebbian rule, Izhikhevich, Hodgin-Hyxley

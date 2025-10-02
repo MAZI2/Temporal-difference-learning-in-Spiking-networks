@@ -1,0 +1,103 @@
+Think of a modular system for creating this network and also other experiments
+
+Wiebke:
+    current-based integrate-and-fire neurons with alpha shaped post-synaptic current
+    weigths in terms of pA
+
+    CORTEX
+    each state - N_s neuron populations, when active mean rate 40.57Hz, when inactive 0.01Hz (see Synaptic-plasticity section for explanation)
+    each population to actor and critic
+
+    connection represents policy
+    ACTOR
+    N_A neurons one for each action
+    the first action fired is chosen
+
+    immediately after chosen, new state population is stimulated
+    AND inhibitory signal to all actor neurons (turns off) for tau_asp ... that ensures that the action is result of the new state compared to previous still - AN ADDITIONAL ASSUMPTION
+
+    connection represents state's value
+    CRITIC
+    N_STR neurons for striatum connected to N_VP neurons for ventral pallidum.
+    direct, indirect both inhibitory pathways. ARE THEY EXPERIMENTALLY SHOWN?
+
+    indirect is fast 2*d_ind, direct is delayed d_dir
+
+    in a rewarded state additional DC stimulation to da after 2*d_ind and lasting until d_dir
+
+    Mean baseline DA is 5Hz
+
+    NOVEL
+    Due to the low baseline firing rate of the dopamine neurons,
+the dopaminergic signal does not have as large a dynamic
+range to represent negative errors as it has to represent positive
+errors
+
+
+
+Look into
+ triplet and quadruplet spike protocol 50
+
+Two key experimentally observed features of the activity of the
+dopaminergic neurons are a constant low background rate with
+phasic activity with asymmetric amplitude depending on whether
+a reward is given or withheld [2]
+
+in general, multiple
+network configurations can produce the same dynamics [43]
+
+18 for the critic module
+
+Supplementary text S1
+
+
+1. Notation
+
+KS
+K
+S
+	​
+
+ or
+K
+K usually denotes the average connectivity fraction or probability of connection between neurons in a network.
+
+For a network with
+N
+N neurons:
+
+K=0.1
+K=0.1 → each neuron connects to ~10% of other neurons
+
+K=1
+K=1 → full connectivity (every neuron connects to every other neuron)
+
+Random connectivity means that each potential synapse is independently present with probability
+K
+K.
+
+2. Random convergent connectivity
+
+Convergent means many pre-synaptic neurons project to the same post-synaptic neuron.
+
+In a random convergent K → 1 pattern:
+
+Each neuron receives input from almost all other neurons (high convergence)
+
+The connections are randomly chosen, not structured
+
+As
+K→1
+K→1, each neuron essentially receives input from the entire network, rather than a sparse subset
+
+Mathematically, for neuron
+i
+i:
+
+Number of pre-synaptic neurons connected to i≈K⋅N
+Number of pre-synaptic neurons connected to i≈K⋅N
+
+K→1  ⟹  
+K→1⟹ dense connectivity
+
+Random → no specific pattern, purely probabilistic
