@@ -1,46 +1,155 @@
-def run_games(self, max_runs=10000):
-    """Runs a simulation of pong games and stores the results.
+import argparse
+import datetime
+import gzip
+import logging
+import os
+import pickle
+import sys
+import time
 
-    Args:
-        max_runs (int, optional): Number of iterations to simulate.
-        Defaults to 10000.
-    """
-    start_time = time.time()
-    run = 0
-    biological_time = 0
+import nest
+import numpy as np
+import gridworld 
+from gridworld_ac import POLL_TIME, GridWorldAC
 
-    while run < max_runs:
-        # input neuron in run (one iteration etc. ball position)
-        self.input_index = self.game.ball.get_cell()[1]
+class AIGridworld:
+    def __init__(self):
+        """A class to run and store pong simulations of two competing spiking
+        neural networks.
 
-        # set inputs for both players
-        self.player1.set_input_spiketrain(self.input_index, biological_time)
-        self.player2.set_input_spiketrain(self.input_index, biological_time)
-
-        logging.debug("Running simulation...")
-        # simulate for 200ms (1 iteration)
-        nest.Simulate(POLL_TIME)
-        # current time in iteration (ms)
-        biological_time = nest.GetKernelStatus("biological_time")
-        print(biological_time)
-        
-
-        # after each iteration ... apply dopamine
-        # network.winning_neuron ?= O1 ? ... apply reward
+        Args:
+            p1 (PongNet): Network to play on the left side.
+            p2 (PongNet): Network to play on the right side.
+            out_folder (str, optional): Name of the output folder. Defaults to
+            current time stamp (YYYY-mm-dd-HH-MM-SS).
         """
-        for network, paddle in zip([self.player1, self.player2], [self.game.l_paddle, self.game.r_paddle]):
-            network.apply_synaptic_plasticity(biological_time)
-            network.reset()
+        self.grid_size = (5, 5)
+        self.start = (0, 0)
+        self.goal = (4, 4)
 
-            position_diff = network.winning_neuron - paddle.get_cell()[1]
-            if position_diff > 0:
-                paddle.move_up()
-            elif position_diff == 0:
-                paddle.dont_move()
-            else:
-                paddle.move_down()
+        self.done = False
+
+        self.game = gridworld.GridWorld(size=self.grid_size, start=self.start, goal=self.goal)
+        self.state = self.game.reset()
+        self.player = GridWorldAC(False)
+
+        """
+        if out_dir == "":
+            out_dir = "{0:%Y-%m-%d-%H-%M-%S}".format(datetime.datetime.now())
+        if os.path.exists(out_dir):
+            print(f"output folder {out_dir} already exists!")
+            sys.exit()
+        os.mkdir(out_dir)
+        self.out_dir = out_dir
         """
 
-        self.run += 1
+        logging.info(f"setup complete for gridworld")
 
-    end_time = time.time()
+    def run_games(self, max_runs=10000):
+        """Runs a simulation of pong games and stores the results.
+
+        Args:
+            max_runs (int, optional): Number of iterations to simulate.
+            Defaults to 10000.
+        """
+        self.game_data = []
+        l_score, r_score = 0, 0
+
+        start_time = time.time()
+        self.run = 0
+        biological_time = 0
+
+        logging.info(f"Starting simulation of {max_runs} iterations of " f"{POLL_TIME}ms each.")
+
+        # 1 state transition
+        while self.run < max_runs:
+            logging.debug("")
+            logging.debug(f"Iteration {self.run}:")
+            
+            self.input_index = self.state[0] * self.grid_size[1] + self.state[1]
+
+            self.player.set_input_spiketrain(self.input_index, biological_time)
+
+            
+            logging.debug("Running simulation...")
+            nest.Simulate(POLL_TIME)
+            biological_time = nest.GetKernelStatus("biological_time")
+
+            self.player.apply_synaptic_plasticity(biological_time)
+            self.player.reset()
+
+            action = self.player.winning_neuron
+
+            #print()
+            #print("state", self.state)
+            #print("action", action)
+
+            self.state, self.reward, self.done = self.game.step(action)
+            self.player.set_state(self.state)
+
+            self.run += 1
+            self.game_data.append(
+                [
+                    self.state,
+                ]
+            )
+            if self.done:
+                print("Reached goal")
+                self.done = False
+                self.state = self.game.reset()
+                self.player.set_state(self.state)
+
+        end_time = time.time()
+        logging.info(
+            f"Simulation of {max_runs} runs complete after: " f"{datetime.timedelta(seconds=end_time - start_time)}"
+        )
+
+        self.game_data = np.array(self.game_data)
+        """
+
+        out_data = dict()
+        out_data["ball_pos"] = self.game_data[:, 0]
+        out_data["left_paddle"] = self.game_data[:, 1]
+        out_data["right_paddle"] = self.game_data[:, 2]
+        out_data["score"] = self.game_data[:, 3]
+
+        logging.info("saving game data...")
+        with open(os.path.join(self.out_dir, "gamestate.pkl"), "wb") as file:
+            pickle.dump(out_data, file)
+
+        logging.info("saving network data...")
+
+        for net, filename in zip([self.player1, self.player2], ["data_left.pkl.gz", "data_right.pkl.gz"]):
+            with gzip.open(os.path.join(self.out_dir, filename), "w") as file:
+                output = {"network_type": repr(net), "with_noise": net.apply_noise}
+                performance_data = net.get_performance_data()
+                output["rewards"] = performance_data[0]
+                output["weights"] = performance_data[1]
+                pickle.dump(output, file)
+
+        """
+        logging.info("Done.")
+
+        weights = self.player.get_all_weights()
+        policy = np.zeros((5, 5, 4))
+
+        k = 0
+        for i in range(5):
+            for j in range(5):
+                policy[i][j] = weights[k]/np.sum(weights[k])
+                k += 1
+
+        self.game.plot_policy((5, 5), policy, start=(0,0), goal=self.goal)
+                
+
+if __name__ == "__main__":
+    nest.set_verbosity("M_WARNING")
+
+    level = logging.INFO
+    format = "%(asctime)s - %(message)s"
+    datefmt = "%H:%M:%S"
+    logging.basicConfig(level=level, format=format, datefmt=datefmt)
+
+    runs=2000
+
+    AIGridworld().run_games(max_runs=runs)

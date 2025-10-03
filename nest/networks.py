@@ -97,9 +97,11 @@ class PongNet(ABC):
         self.winning_neuron = 0
 
         self.input_generators = nest.Create("spike_generator", self.num_neurons)
+        # N_s = 1
         self.input_neurons = nest.Create("parrot_neuron", self.num_neurons)
         nest.Connect(self.input_generators, self.input_neurons, {"rule": "one_to_one"})
 
+        # Actor
         self.motor_neurons = nest.Create("iaf_psc_exp", self.num_neurons)
         self.spike_recorders = nest.Create("spike_recorder", self.num_neurons)
         nest.Connect(self.motor_neurons, self.spike_recorders, {"rule": "one_to_one"})
@@ -233,6 +235,7 @@ class PongNet(ABC):
 
 class PongNetDopa(PongNet):
     # Base reward current that is applied regardless of performance
+    # TODO: chek the mean firing rate
     baseline_reward = 100.0
     # Maximum reward current to be applied to the dopaminergic neurons
     max_reward = 1000
@@ -243,6 +246,7 @@ class PongNetDopa(PongNet):
     # reserves the first part of every simulation step for the application of
     # the dopaminergic reward signal, avoiding interference between it and the
     # spikes caused by the input of the following iteration
+    # TODO: might be wrong
     input_t_offset = 32
 
     # Neuron and synapse parameters:
@@ -254,6 +258,7 @@ class PongNetDopa(PongNet):
     n_critic = 8
     # Synaptic weights from striatum and VP to the dopaminergic neurons
     w_da = -1150
+    # TODO: why so much lower
     # Synaptic weight between striatum and VP
     w_str_vp = -250
     # Synaptic delay for the direct connection between striatum and

@@ -1,13 +1,3 @@
-r"""Classes to encapsulate the neuronal networks.
-----------------------------------------------------------------
-PongNetDopa uses the actor-critic model described in [2]_ to determine the
-amount of reward to send to the dopaminergic synapses between input and motor
-neurons. In this framework, the motor neurons represent the actor, while a
-secondary network of three populations (termed striatum, VP, and dopaminergic
-neurons) form the critic which modulates dopamine concentration based on
-temporal difference error.
-"""
-
 import logging
 from abc import ABC, abstractmethod
 from copy import copy
@@ -24,13 +14,11 @@ ISI = 10.0
 # Standard deviation of Gaussian current noise in picoampere.
 BG_STD = 220.0
 # Reward to be applied depending on distance to target neuron.
-
-# TODO
-REWARDS_DICT = {0: 1.0, 1: 0.7, 2: 0.4, 3: 0.1}
+#REWARDS_DICT = {0: 1.0, 1: 0.7, 2: 0.4, 3: 0.1}
 
 
 class PongNet(ABC):
-    def __init__(self, apply_noise=True, num_neurons=20):
+    def __init__(self, apply_noise=True, num_neurons=25):
         """Abstract base class for network wrappers that learn to play pong.
         Parts of the network that are required for both types of inheriting
         class are created here. Namely, spike_generators and their connected
@@ -47,19 +35,27 @@ class PongNet(ABC):
             to the motor neurons of the network. Defaults to True.
         """
         self.apply_noise = apply_noise
-        self.num_neurons = num_neurons
+        self.num_input_neurons = 25
+        self.num_output_neurons = 4
 
         self.weight_history = []
+        """
         self.mean_reward = np.array([0.0 for _ in range(self.num_neurons)])
         self.mean_reward_history = []
+        """
         self.winning_neuron = 0
 
-        self.input_generators = nest.Create("spike_generator", self.num_neurons)
-        self.input_neurons = nest.Create("parrot_neuron", self.num_neurons)
+        # goal
+        #self.target_index = (4, 4)
+
+        self.input_generators = nest.Create("spike_generator", self.num_input_neurons)
+        # N_s = 1
+        self.input_neurons = nest.Create("parrot_neuron", self.num_input_neurons)
         nest.Connect(self.input_generators, self.input_neurons, {"rule": "one_to_one"})
 
-        self.motor_neurons = nest.Create("iaf_psc_exp", self.num_neurons)
-        self.spike_recorders = nest.Create("spike_recorder", self.num_neurons)
+        # Actor
+        self.motor_neurons = nest.Create("iaf_psc_exp", self.num_output_neurons)
+        self.spike_recorders = nest.Create("spike_recorder", self.num_output_neurons)
         nest.Connect(self.motor_neurons, self.spike_recorders, {"rule": "one_to_one"})
 
     def get_all_weights(self):
@@ -71,7 +67,7 @@ class PongNet(ABC):
         """
         x_offset = self.input_neurons[0].get("global_id")
         y_offset = self.motor_neurons[0].get("global_id")
-        weight_matrix = np.zeros((self.num_neurons, self.num_neurons))
+        weight_matrix = np.zeros((self.num_input_neurons, self.num_output_neurons))
         conns = nest.GetConnections(self.input_neurons, self.motor_neurons)
         for conn in conns:
             source, target, weight = conn.get(["source", "target", "weight"]).values()
@@ -87,8 +83,8 @@ class PongNet(ABC):
             Input neurons are on the first axis, motor neurons on the second
             axis. See get_all_weights().
         """
-        for i in range(self.num_neurons):
-            for j in range(self.num_neurons):
+        for i in range(self.num_input_neurons):
+            for j in range(self.num_outupt_neurons):
                 connection = nest.GetConnections(self.input_neurons[i], self.motor_neurons[j])
                 connection.set({"weight": weights[i, j]})
 
@@ -116,13 +112,12 @@ class PongNet(ABC):
             biological_time (float): Current biological time within the NEST
             simulator (in ms).
         """
-        self.target_index = input_cell
         self.input_train = [biological_time + self.input_t_offset + i * ISI for i in range(N_INPUT_SPIKES)]
         # Round spike timings to 0.1ms to avoid conflicts with simulation time
         self.input_train = [np.round(x, 1) for x in self.input_train]
 
         # clear all input generators
-        for input_neuron in range(self.num_neurons):
+        for input_neuron in range(self.num_input_neurons):
             nest.SetStatus(self.input_generators[input_neuron], {"spike_times": []})
 
         nest.SetStatus(self.input_generators[input_cell], {"spike_times": self.input_train})
@@ -150,6 +145,7 @@ class PongNet(ABC):
             float: Reward between 0 and 1.
         """
         self.winning_neuron = self.get_max_activation()
+
         distance = np.abs(self.winning_neuron - self.target_index)
 
         if distance in REWARDS_DICT:
@@ -157,15 +153,16 @@ class PongNet(ABC):
         else:
             bare_reward = 0
 
+        """
         reward = bare_reward - self.mean_reward[self.target_index]
-
         self.mean_reward[self.target_index] = float(self.mean_reward[self.target_index] + reward / 2.0)
+        """
 
         logging.debug(f"Applying reward: {reward}")
         logging.debug(f"Average reward across all neurons: {np.mean(self.mean_reward)}")
 
         self.weight_history.append(self.get_all_weights())
-        self.mean_reward_history.append(copy(self.mean_reward))
+        #self.mean_reward_history.append(copy(self.mean_reward))
 
         return reward
 
@@ -189,8 +186,9 @@ class PongNet(ABC):
         pass
 
 
-class PongNetDopa(PongNet):
+class GridWorldAC(PongNet):
     # Base reward current that is applied regardless of performance
+    # TODO: chek the mean firing rate
     baseline_reward = 100.0
     # Maximum reward current to be applied to the dopaminergic neurons
     max_reward = 1000
@@ -201,6 +199,7 @@ class PongNetDopa(PongNet):
     # reserves the first part of every simulation step for the application of
     # the dopaminergic reward signal, avoiding interference between it and the
     # spikes caused by the input of the following iteration
+    # TODO: might be wrong
     input_t_offset = 32
 
     # Neuron and synapse parameters:
@@ -212,6 +211,7 @@ class PongNetDopa(PongNet):
     n_critic = 8
     # Synaptic weights from striatum and VP to the dopaminergic neurons
     w_da = -1150
+    # TODO: why so much lower
     # Synaptic weight between striatum and VP
     w_str_vp = -250
     # Synaptic delay for the direct connection between striatum and
@@ -227,7 +227,7 @@ class PongNetDopa(PongNet):
         nest.SetDefaults(
             "stdp_dopamine_synapse",
             {
-                "vt": self.vt,
+                "volume_transmitter": self.vt,
                 "tau_c": 70,
                 "tau_n": 30,
                 "tau_plus": 45,
@@ -248,7 +248,7 @@ class PongNetDopa(PongNet):
                     "weight": nest.random.normal(self.mean_weight, self.weight_std),
                 },
             )
-            self.poisson_noise = nest.Create("poisson_generator", self.num_neurons, params={"rate": self.poisson_rate})
+            self.poisson_noise = nest.Create("poisson_generator", self.num_output_neurons, params={"rate": self.poisson_rate})
             nest.Connect(self.poisson_noise, self.motor_neurons, {"rule": "one_to_one"}, {"weight": self.mean_weight})
         else:
             # Because the poisson_generators cause additional spikes in the
@@ -287,9 +287,21 @@ class PongNetDopa(PongNet):
         self.dopa_current = nest.Create("dc_generator")
         nest.Connect(self.dopa_current, self.dopa)
 
+        self.state = (0, 0)
+
+    def set_state(self, state):
+        """
+        state from 0 to num_input_neurons
+        """
+        self.state = state
+
     def apply_synaptic_plasticity(self, biological_time):
-        """Injects a current into the dopaminergic neurons based on how much of
+        """
+        injects external reward
+        Injects a current into the dopaminergic neurons based on how much of
         the motor neurons' activity stems from the target output neuron.
+        """
+        
         """
         spike_counts = self.get_spike_counts()
         target_n_spikes = spike_counts[self.target_index]
@@ -300,12 +312,36 @@ class PongNetDopa(PongNet):
 
         # Clip the dopaminergic signal to avoid runaway synaptic weights
         reward_current = min(reward_current, self.max_reward)
+        """
+        
+
+        self.winning_neuron = self.get_max_activation()
+        action = self.winning_neuron
+
+        temp_state = [self.state[0], self.state[1]]
+
+        # [up, down, left, right]
+        if action == 0:
+            temp_state[0] -= 1
+        elif action == 1:
+            temp_state[0] += 1
+        elif action == 2:
+            temp_state[1] -= 1
+        elif action == 3:
+            temp_state[1] += 1
+        
+        if temp_state == [4, 4]:
+            reward_current = 600
+            print("REWARDED")
+        else:
+            reward_current = self.baseline_reward
 
         self.dopa_current.stop = biological_time + self.input_t_offset
         self.dopa_current.start = biological_time
         self.dopa_current.amplitude = reward_current
 
-        self.calculate_reward()
+
+        #self.calculate_reward()
 
     def __repr__(self) -> str:
         return ("noisy " if self.apply_noise else "clean ") + "TD"
