@@ -134,38 +134,6 @@ class PongNet(ABC):
         # If multiple neurons have the same activation, one is chosen at random
         return int(np.random.choice(np.flatnonzero(spikes == spikes.max())))
 
-    def calculate_reward(self):
-        """Calculates the reward to be applied to the network based on
-        performance in the previous simulation (distance between target and
-        actual output). For R-STDP this reward informs the learning rule,
-        for dopaminergic plasticity this is just a metric of fitness used for
-        plotting the simulation.
-
-        Returns:
-            float: Reward between 0 and 1.
-        """
-        self.winning_neuron = self.get_max_activation()
-
-        distance = np.abs(self.winning_neuron - self.target_index)
-
-        if distance in REWARDS_DICT:
-            bare_reward = REWARDS_DICT[distance]
-        else:
-            bare_reward = 0
-
-        """
-        reward = bare_reward - self.mean_reward[self.target_index]
-        self.mean_reward[self.target_index] = float(self.mean_reward[self.target_index] + reward / 2.0)
-        """
-
-        logging.debug(f"Applying reward: {reward}")
-        logging.debug(f"Average reward across all neurons: {np.mean(self.mean_reward)}")
-
-        self.weight_history.append(self.get_all_weights())
-        #self.mean_reward_history.append(copy(self.mean_reward))
-
-        return reward
-
     def get_performance_data(self):
         """Retrieves the performance data of the network across all simulations.
 
@@ -288,6 +256,11 @@ class GridWorldAC(PongNet):
         nest.Connect(self.dopa_current, self.dopa)
 
         self.state = (0, 0)
+        self.reward = False
+
+        # dopamine recorder
+        self.dopa_recorder = nest.Create("spike_recorder")
+        nest.Connect(self.dopa, self.dopa_recorder)
 
     def set_state(self, state):
         """
@@ -313,7 +286,6 @@ class GridWorldAC(PongNet):
         # Clip the dopaminergic signal to avoid runaway synaptic weights
         reward_current = min(reward_current, self.max_reward)
         """
-        
 
         self.winning_neuron = self.get_max_activation()
         action = self.winning_neuron
@@ -321,6 +293,7 @@ class GridWorldAC(PongNet):
         temp_state = [self.state[0], self.state[1]]
 
         # [up, down, left, right]
+        """
         if action == 0:
             temp_state[0] -= 1
         elif action == 1:
@@ -335,13 +308,16 @@ class GridWorldAC(PongNet):
             print("REWARDED")
         else:
             reward_current = self.baseline_reward
+        """
+        if self.reward:
+            reward_current = 600
+            self.reward = False
+        else:
+            reward_current = self.baseline_reward
 
         self.dopa_current.stop = biological_time + self.input_t_offset
         self.dopa_current.start = biological_time
         self.dopa_current.amplitude = reward_current
-
-
-        #self.calculate_reward()
 
     def __repr__(self) -> str:
         return ("noisy " if self.apply_noise else "clean ") + "TD"

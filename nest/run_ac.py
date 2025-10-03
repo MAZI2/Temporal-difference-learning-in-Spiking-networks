@@ -14,15 +14,6 @@ from gridworld_ac import POLL_TIME, GridWorldAC
 
 class AIGridworld:
     def __init__(self):
-        """A class to run and store pong simulations of two competing spiking
-        neural networks.
-
-        Args:
-            p1 (PongNet): Network to play on the left side.
-            p2 (PongNet): Network to play on the right side.
-            out_folder (str, optional): Name of the output folder. Defaults to
-            current time stamp (YYYY-mm-dd-HH-MM-SS).
-        """
         self.grid_size = (5, 5)
         self.start = (0, 0)
         self.goal = (4, 4)
