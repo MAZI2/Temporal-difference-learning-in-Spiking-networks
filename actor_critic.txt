@@ -1,4 +1,5 @@
 Think of a modular system for creating this network and also other experiments
+Interpreting accumulated reward
 
 Wiebke:
     current-based integrate-and-fire neurons with alpha shaped post-synaptic current
