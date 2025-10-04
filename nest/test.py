@@ -31,7 +31,7 @@ class AIGridworld:
         logging.info(f"setup complete for gridworld")
 
 
-    def plot_network_activity(self, spike_records, weight_history, dopamine_history, striatum_vms, poll_time=POLL_TIME):
+    def plot_network_activity(self, spike_records, weight_history, weight_history_str, dopamine_history, striatum_vms, poll_time=POLL_TIME):
         """
         Plot raster of input spikes, average weights to striatum, and dopamine signal.
 
@@ -59,11 +59,14 @@ class AIGridworld:
         weight_history = np.array(weight_history)  # shape: (iterations, num_input_neurons)
         weight_history = weight_history[:, [0, 5, 10]]
 
+        weight_history_str = np.array(weight_history_str)  # shape: (iterations, num_input_neurons)
+
+
         # 3️⃣ Plotting
         iterations = len(weight_history)
         time_axis = np.arange(iterations) * poll_time
 
-        fig, axes = plt.subplots(4, 1, figsize=(12, 10), sharex=True)
+        fig, axes = plt.subplots(5, 1, figsize=(12, 10), sharex=True)
 
         # Raster plot
         axes[0].scatter(spike_times, neuron_ids, marker='.', color='black')
@@ -73,9 +76,15 @@ class AIGridworld:
         # Average weights plot
         for neuron_idx in range(weight_history.shape[1]):
             axes[1].plot(time_axis, weight_history[:, neuron_idx], label=f"N{neuron_idx}")
-        axes[1].set_ylabel("Avg weight to striatum")
-        axes[1].set_title("Average synaptic weights: input → striatum")
+        axes[1].set_ylabel("Avg weight to motor")
+        axes[1].set_title("Average synaptic weights: input → motor")
         axes[1].legend(loc='upper right', ncol=5, fontsize=8)
+
+        for neuron_idx in range(weight_history_str.shape[1]):
+            axes[2].plot(time_axis, weight_history_str[:, neuron_idx], label=f"N{neuron_idx}")
+        axes[2].set_ylabel("Avg weight to striatum")
+        axes[2].set_title("Average synaptic weights: input → striatum")
+        axes[2].legend(loc='upper right', ncol=5, fontsize=8)
 
         # Dopamine current plot
         dopa_times = np.array(dopamine_history[1], dtype=float)
@@ -88,14 +97,14 @@ class AIGridworld:
             counts, _ = np.histogram(dopa_times, bins=bins)
             t = bins[:-1]
 
-            axes[2].plot(t, counts, color='orange', drawstyle='steps-post')
+            axes[3].plot(t, counts, color='orange', drawstyle='steps-post')
         else:
-            axes[2].text(0.5, 0.5, "No dopamine spikes", ha='center', va='center', transform=axes[2].transAxes)
+            axes[3].text(0.5, 0.5, "No dopamine spikes", ha='center', va='center', transform=axes[2].transAxes)
 
-        axes[2].set_ylabel("# Dopa neurons spiking")
-        axes[2].set_xlabel("Time (ms)")
-        axes[2].set_title("Dopamine neuron population activity")
-        axes[2].set_xlim(0, time_axis[-1] + poll_time)
+        axes[3].set_ylabel("# Dopa neurons spiking")
+        axes[3].set_xlabel("Time (ms)")
+        axes[3].set_title("Dopamine neuron population activity")
+        axes[3].set_xlim(0, time_axis[-1] + poll_time)
 
 
         # 4️⃣ Striatum membrane potentials
@@ -107,10 +116,10 @@ class AIGridworld:
 
         for neuron_id in neuron_ids:
             mask = senders == neuron_id
-            axes[3].plot(times[mask], V_m[mask], label=f"Neuron {neuron_id}")
-        axes[3].set_ylabel("V_m (mV)")
-        axes[3].set_xlabel("Time (ms)")
-        axes[3].set_title("Striatum neuron membrane potentials")
+            axes[4].plot(times[mask], V_m[mask], label=f"Neuron {neuron_id}")
+        axes[4].set_ylabel("V_m (mV)")
+        axes[4].set_xlabel("Time (ms)")
+        axes[4].set_title("Striatum neuron membrane potentials")
 
 
         plt.tight_layout()
@@ -127,6 +136,7 @@ class AIGridworld:
         # 1 state transition
         spike_records = []
         weight_history = []
+        weight_history_str = []
         dopamine_history = []
 
         while self.run < max_runs:
@@ -148,7 +158,7 @@ class AIGridworld:
             spike_times_list = nest.GetStatus(generators, "spike_times")
             spike_records.append(spike_times_list)
 
-            # Weights input -> striatum
+            # Weights input -> motor 
             x_offset = self.player.input_neurons[0].get("global_id")
             y_offset = self.player.motor_neurons[0].get("global_id")
 
@@ -161,6 +171,20 @@ class AIGridworld:
             
             avg_weights = weight_matrix.mean(axis=1)
             weight_history.append(avg_weights.copy())
+
+            # Weights input -> striatum
+            x_offset = self.player.input_neurons[0].get("global_id")
+            y_offset = self.player.striatum[0].get("global_id")
+
+            weight_matrix_str = np.zeros((self.player.num_input_neurons, self.player.n_critic))
+            conns = nest.GetConnections(self.player.input_neurons, self.player.striatum)
+            #print(conns)
+            for conn in conns:
+                source, target, weight = conn.get(["source", "target", "weight"]).values()
+                weight_matrix_str[source - x_offset, target - y_offset] = weight
+            
+            avg_weights = weight_matrix_str.mean(axis=1)
+            weight_history_str.append(avg_weights.copy())
             
             # Dopamine neuron spikes for this iteration
             dopa_events = nest.GetStatus(self.player.dopa_recorder, "events")[0]
@@ -217,7 +241,7 @@ class AIGridworld:
         #print(spike_records)
         #print(weight_history)
 
-        self.plot_network_activity(spike_records, weight_history, dopamine_history, str_neuron_status)
+        self.plot_network_activity(spike_records, weight_history, weight_history_str, dopamine_history, str_neuron_status)
         end_time = time.time()
 
         weights = self.player.get_all_weights()
