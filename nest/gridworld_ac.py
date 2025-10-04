@@ -206,33 +206,21 @@ class GridWorldAC(PongNet):
             },
         )
 
-        if apply_noise:
-            nest.Connect(
-                self.input_neurons,
-                self.motor_neurons,
-                {"rule": "all_to_all"},
-                {
-                    "synapse_model": "stdp_dopamine_synapse",
-                    "weight": nest.random.normal(self.mean_weight, self.weight_std),
-                },
-            )
-            self.poisson_noise = nest.Create("poisson_generator", self.num_output_neurons, params={"rate": self.poisson_rate})
-            nest.Connect(self.poisson_noise, self.motor_neurons, {"rule": "one_to_one"}, {"weight": self.mean_weight})
-        else:
-            # Because the poisson_generators cause additional spikes in the
-            # motor neurons, it is necessary to compensate for their absence by
-            # slightly increasing the mean of the weights between input and
-            # motor neurons
-            nest.SetDefaults("stdp_dopamine_synapse", {"Wmax": 1750})
-            nest.Connect(
-                self.input_neurons,
-                self.motor_neurons,
-                {"rule": "all_to_all"},
-                {
-                    "synapse_model": "stdp_dopamine_synapse",
-                    "weight": nest.random.normal(self.mean_weight * 1.3, self.weight_std),
-                },
-            )
+        # Because the poisson_generators cause additional spikes in the
+        # motor neurons, it is necessary to compensate for their absence by
+        # slightly increasing the mean of the weights between input and
+        # motor neurons
+        nest.SetDefaults("stdp_dopamine_synapse", {"Wmax": 1750})
+
+        nest.Connect(
+            self.input_neurons,
+            self.motor_neurons,
+            {"rule": "all_to_all"},
+            {
+                "synapse_model": "stdp_dopamine_synapse",
+                "weight": nest.random.normal(self.mean_weight * 1.3, self.weight_std),
+            },
+        )
 
         # Setup the 'critic' as a network of three populations, consisting of
         # the striatum, ventral pallidum (vp) and dopaminergic neurons (dopa)
@@ -241,7 +229,9 @@ class GridWorldAC(PongNet):
             self.input_neurons,
             self.striatum,
             {"rule": "all_to_all"},
-            {"synapse_model": "stdp_dopamine_synapse", "weight": nest.random.normal(self.mean_weight, self.weight_std)},
+            {
+                "synapse_model": "stdp_dopamine_synapse", 
+                "weight": nest.random.normal(self.mean_weight, self.weight_std)},
         )
         self.vp = nest.Create("iaf_psc_exp", self.n_critic)
         nest.Connect(self.striatum, self.vp, syn_spec={"weight": self.w_str_vp})
@@ -261,6 +251,27 @@ class GridWorldAC(PongNet):
         # dopamine recorder
         self.dopa_recorder = nest.Create("spike_recorder")
         nest.Connect(self.dopa, self.dopa_recorder)
+
+        # striatum recorder,multimeter
+        self.str_recorder = nest.Create("spike_recorder")
+        nest.Connect(self.striatum, self.str_recorder)
+
+        self.str_multimeter = nest.Create("multimeter", params={"record_from": ["V_m"], "interval": 0.1})
+        nest.Connect(self.str_multimeter, self.striatum) 
+
+        # VP recorder
+        self.vp_recorder = nest.Create("spike_recorder")
+        nest.Connect(self.vp, self.vp_recorder)
+
+        # Cortex recorder
+        self.cortex_recorder = nest.Create("spike_recorder")
+        nest.Connect(self.input_neurons, self.cortex_recorder)
+
+        # Motor recorder
+        self.motor_recorder = nest.Create("spike_recorder")
+        nest.Connect(self.motor_neurons, self.motor_recorder)
+
+
 
     def set_state(self, state):
         """
@@ -310,6 +321,7 @@ class GridWorldAC(PongNet):
             reward_current = self.baseline_reward
         """
         if self.reward:
+            print("Rewarded")
             reward_current = 600
             self.reward = False
         else:
@@ -318,6 +330,8 @@ class GridWorldAC(PongNet):
         self.dopa_current.stop = biological_time + self.input_t_offset
         self.dopa_current.start = biological_time
         self.dopa_current.amplitude = reward_current
+
+        print("dopa current", self.dopa_current.amplitude)
 
     def __repr__(self) -> str:
         return ("noisy " if self.apply_noise else "clean ") + "TD"

@@ -14,6 +14,8 @@ import matplotlib.pyplot as plt
 import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 
+NEXT_STATES = [(1, 0), (0, 0), (0, 0)]
+
 class AIGridworld:
     def __init__(self):
         self.grid_size = (5, 5)
@@ -29,7 +31,7 @@ class AIGridworld:
         logging.info(f"setup complete for gridworld")
 
 
-    def plot_network_activity(self, spike_records, weight_history, dopamine_history, poll_time=POLL_TIME):
+    def plot_network_activity(self, spike_records, weight_history, dopamine_history, striatum_vms, poll_time=POLL_TIME):
         """
         Plot raster of input spikes, average weights to striatum, and dopamine signal.
 
@@ -42,7 +44,8 @@ class AIGridworld:
         # 1️⃣ Convert spike data into global raster points
         all_spikes = []
         for iter_idx, spike_times_list in enumerate(spike_records):
-            time_offset = iter_idx * poll_time
+            #time_offset = iter_idx * poll_time
+            time_offset = 0
             for neuron_idx, spike_times in enumerate(spike_times_list):
                 for t in spike_times:
                     all_spikes.append((neuron_idx, t + time_offset))
@@ -54,13 +57,13 @@ class AIGridworld:
 
         # 2️⃣ Convert weights and dopamine to arrays
         weight_history = np.array(weight_history)  # shape: (iterations, num_input_neurons)
-        dopamine_history = np.array(dopamine_history)  # shape: (iterations,)
+        weight_history = weight_history[:, [0, 5, 10]]
 
         # 3️⃣ Plotting
         iterations = len(weight_history)
         time_axis = np.arange(iterations) * poll_time
 
-        fig, axes = plt.subplots(3, 1, figsize=(12, 10), sharex=True)
+        fig, axes = plt.subplots(4, 1, figsize=(12, 10), sharex=True)
 
         # Raster plot
         axes[0].scatter(spike_times, neuron_ids, marker='.', color='black')
@@ -75,10 +78,40 @@ class AIGridworld:
         axes[1].legend(loc='upper right', ncol=5, fontsize=8)
 
         # Dopamine current plot
-        axes[2].plot(time_axis, dopamine_history, color='orange')
-        axes[2].set_ylabel("Dopamine current amplitude")
+        dopa_times = np.array(dopamine_history[1], dtype=float)
+
+        if dopa_times.size > 0:
+            # Bin spikes by 1 ms (or smaller if you want higher temporal precision)
+            bin_size = 1.0
+            t_start, t_end = 0, time_axis[-1] + poll_time
+            bins = np.arange(t_start, t_end + bin_size, bin_size)
+            counts, _ = np.histogram(dopa_times, bins=bins)
+            t = bins[:-1]
+
+            axes[2].plot(t, counts, color='orange', drawstyle='steps-post')
+        else:
+            axes[2].text(0.5, 0.5, "No dopamine spikes", ha='center', va='center', transform=axes[2].transAxes)
+
+        axes[2].set_ylabel("# Dopa neurons spiking")
         axes[2].set_xlabel("Time (ms)")
-        axes[2].set_title("Dopamine level (reward signal)")
+        axes[2].set_title("Dopamine neuron population activity")
+        axes[2].set_xlim(0, time_axis[-1] + poll_time)
+
+
+        # 4️⃣ Striatum membrane potentials
+        senders = striatum_vms['senders']
+        times = striatum_vms['times']
+        V_m = striatum_vms['V_m']
+
+        neuron_ids = np.unique(senders)
+
+        for neuron_id in neuron_ids:
+            mask = senders == neuron_id
+            axes[3].plot(times[mask], V_m[mask], label=f"Neuron {neuron_id}")
+        axes[3].set_ylabel("V_m (mV)")
+        axes[3].set_xlabel("Time (ms)")
+        axes[3].set_title("Striatum neuron membrane potentials")
+
 
         plt.tight_layout()
         plt.show()
@@ -97,34 +130,30 @@ class AIGridworld:
         dopamine_history = []
 
         while self.run < max_runs:
-            if self.run == 1:
+            if self.run == 0:
                 self.player.reward = True
 
             self.input_index = self.state[0] * self.grid_size[1] + self.state[1]
             self.player.set_input_spiketrain(self.input_index, biological_time)
 
             logging.debug("Running simulation...")
+            print("sumulating ", self.run)
             nest.Simulate(POLL_TIME)
             biological_time = nest.GetKernelStatus("biological_time")
 
             self.player.apply_synaptic_plasticity(biological_time)
 
-            # ------------------------------
-            # 1) Record input spikes (immediately after simulate)
-            # ------------------------------
+            # Record input spikes
             generators = nest.NodeCollection(self.player.input_generators)
             spike_times_list = nest.GetStatus(generators, "spike_times")
             spike_records.append(spike_times_list)
 
-            # ------------------------------
-            # 2) Read weights input -> striatum (safe read each iteration)
-            # ------------------------------
+            # Weights input -> striatum
             x_offset = self.player.input_neurons[0].get("global_id")
-            y_offset = self.player.striatum[0].get("global_id")
+            y_offset = self.player.motor_neurons[0].get("global_id")
 
-
-            weight_matrix = np.zeros((self.player.num_input_neurons, self.player.n_critic))
-            conns = nest.GetConnections(self.player.input_neurons, self.player.striatum)
+            weight_matrix = np.zeros((self.player.num_input_neurons, self.player.num_output_neurons))
+            conns = nest.GetConnections(self.player.input_neurons, self.player.motor_neurons)
             #print(conns)
             for conn in conns:
                 source, target, weight = conn.get(["source", "target", "weight"]).values()
@@ -133,14 +162,13 @@ class AIGridworld:
             avg_weights = weight_matrix.mean(axis=1)
             weight_history.append(avg_weights.copy())
             
-            # ------------------------------
-            # 3) Record dopamine neuron spikes for this iteration
-            # ------------------------------
-            # Get spike times recorded on dopa_recorder (all time)
+            # Dopamine neuron spikes for this iteration
             dopa_events = nest.GetStatus(self.player.dopa_recorder, "events")[0]
-            print("dopa events", dopa_events)
             dopa_times = np.array(dopa_events.get("times", []), dtype=float)
 
+            
+            dopamine_history.append(dopa_times)
+            """
             # The iteration window is (biological_time - POLL_TIME, biological_time]
             t0 = biological_time - POLL_TIME
             t1 = biological_time
@@ -150,15 +178,21 @@ class AIGridworld:
                 dopamine_history.append(int(mask.sum()))
             else:
                 dopamine_history.append(0)
+            """
 
-            # ------------------------------
-            # 4) cleanup for next iteration
-            # ------------------------------
+            str_events = nest.GetStatus(self.player.str_recorder, "events")[0]
+            vp_events = nest.GetStatus(self.player.vp_recorder, "events")[0]
+
+            str_neuron_status = nest.GetStatus(self.player.str_multimeter, "events")[0]
+
+            print("STRIATUM", str_events)
+            print("VP", vp_events)
+
+            # Cleanup for next iteration
             # Reset only generators' spike_times and the motor spike counters
             for g in self.player.input_generators:
                 nest.SetStatus(g, {"spike_times": []})
             self.player.reset()  # clears motor spike recorders
-
 
             action = self.player.winning_neuron
 
@@ -167,7 +201,7 @@ class AIGridworld:
             #print("action", action)
 
             #self.state, self.reward, self.done = self.game.step(action)
-            self.state = (1, 0)
+            self.state = NEXT_STATES[self.run]
             self.done = False
 
 
@@ -180,9 +214,10 @@ class AIGridworld:
                 self.state = self.game.reset()
                 self.player.set_state(self.state)
 
-        print(weight_history)
+        #print(spike_records)
+        #print(weight_history)
 
-        self.plot_network_activity(spike_records, weight_history, dopamine_history)
+        self.plot_network_activity(spike_records, weight_history, dopamine_history, str_neuron_status)
         end_time = time.time()
 
         weights = self.player.get_all_weights()
@@ -198,6 +233,6 @@ class AIGridworld:
 
 
 if __name__ == "__main__":
-    runs=3
+    runs=len(NEXT_STATES)
 
     AIGridworld().run_games(max_runs=runs)
