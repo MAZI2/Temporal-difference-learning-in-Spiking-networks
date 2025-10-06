@@ -111,7 +111,7 @@ class AIGridworld:
         axes[2].set_title("Average synaptic weights: input → striatum")
         axes[2].legend(loc='upper right', ncol=5, fontsize=8)
 
-        bin_size = 30.0           # ms
+        bin_size = 5.0           # ms
         bins = np.arange(0, time_axis[-1] + bin_size, bin_size)
         bin_centers = (bins[:-1] + bins[1:]) / 2.0
 

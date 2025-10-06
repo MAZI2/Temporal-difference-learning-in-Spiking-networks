@@ -6,11 +6,11 @@ import nest
 import numpy as np
 
 # Simulation time per iteration in milliseconds.
-POLL_TIME = 200
+POLL_TIME = 400
 # Number of spikes in an input spiketrain per iteration.
-N_INPUT_SPIKES = 20
+N_INPUT_SPIKES = 400
 # Inter-spike interval of the input spiketrain.
-ISI = 10.0
+ISI = 1.0
 # Standard deviation of Gaussian current noise in picoampere.
 BG_STD = 220.0
 # Reward to be applied depending on distance to target neuron.
@@ -150,7 +150,6 @@ class PongNet(ABC):
 
 class GridWorldAC(PongNet):
     # Base reward current that is applied regardless of performance
-    # TODO: chek the mean firing rate
     baseline_reward = 100.0
     # Maximum reward current to be applied to the dopaminergic neurons
     max_reward = 1000
@@ -162,7 +161,7 @@ class GridWorldAC(PongNet):
     # the dopaminergic reward signal, avoiding interference between it and the
     # spikes caused by the input of the following iteration
     # TODO: might be wrong
-    input_t_offset = 32
+    input_t_offset = 1
 
     # Neuron and synapse parameters:
     # Initial mean weight for synapses between input- and motor neurons
@@ -172,26 +171,26 @@ class GridWorldAC(PongNet):
     w_c_a = 30
     w_c_a_max = 90
 
-    w_c_str = 30
-    w_c_str_max = 130
+    w_c_str = 150
+    w_c_str_max = 200
 
-    w_str_vp = -348
-    w_str_da = -1593.75
-    w_vp_da = -1593.75
+    w_str_vp = -50
+    w_str_da = -100
+    w_vp_da = -100
 
     d_dir = 200
 
     # External
     w_ex_vp = 45.61
-    rate_ex_vp = 9000
+    rate_ex_vp = 4000
 
     w_ex_da = 45.61
-    rate_ex_da = 29000
+    rate_ex_da = 10000
 
     w_ex_all = 100
     w_in_all = -100
-    rate_ex_all = 15000
-    rate_in_all = 12000
+    rate_ex_all = 10
+    rate_in_all = 5
 
     def __init__(self, apply_noise=True, num_neurons=20):
         super().__init__(apply_noise, num_neurons)
@@ -450,7 +449,7 @@ class GridWorldAC(PongNet):
         else:
             reward_current = self.baseline_reward
 
-        self.dopa_current.stop = biological_time + self.input_t_offset
+        self.dopa_current.stop = biological_time + self.d_dir
         self.dopa_current.start = biological_time
         self.dopa_current.amplitude = reward_current
 
