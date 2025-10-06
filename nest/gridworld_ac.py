@@ -16,24 +16,18 @@ BG_STD = 220.0
 # Reward to be applied depending on distance to target neuron.
 #REWARDS_DICT = {0: 1.0, 1: 0.7, 2: 0.4, 3: 0.1}
 
+neuron_params = {
+    "C_m": 250.0,      # membrane capacitance in pF
+    "tau_m": 10.0,     # membrane time constant in ms
+    "V_reset": 0.0,  # reset potential mV
+    "V_th": 20.0,     # spike threshold mV
+    "t_ref": 0.5,      # absolute refractory period ms
+    "V_m": 0.0,      # initial membrane potential mV
+    "E_L": 0.0,      # resting potential mV
+}
 
 class PongNet(ABC):
     def __init__(self, apply_noise=True, num_neurons=25):
-        """Abstract base class for network wrappers that learn to play pong.
-        Parts of the network that are required for both types of inheriting
-        class are created here. Namely, spike_generators and their connected
-        parrot_neurons, which serve as input, as well as iaf_psc_exp neurons
-        and their corresponding spike_recorders which serve as output. The
-        connection between input and output is not established here because it
-        is dependent on the plasticity rule used.
-
-        Args:
-            num_neurons (int, optional): Number of neurons in both the input and
-            output layer. Changes here need to be matched in the game
-            simulation in pong.py. Defaults to 20.
-            apply_noise (bool, optional): If True, Poisson noise is applied
-            to the motor neurons of the network. Defaults to True.
-        """
         self.apply_noise = apply_noise
         self.num_input_neurons = 25
         self.num_output_neurons = 4
@@ -54,7 +48,7 @@ class PongNet(ABC):
         nest.Connect(self.input_generators, self.input_neurons, {"rule": "one_to_one"})
 
         # Actor
-        self.motor_neurons = nest.Create("iaf_psc_exp", self.num_output_neurons)
+        self.motor_neurons = nest.Create("iaf_psc_alpha", self.num_output_neurons, params=neuron_params)
         self.spike_recorders = nest.Create("spike_recorder", self.num_output_neurons)
         nest.Connect(self.motor_neurons, self.spike_recorders, {"rule": "one_to_one"})
 
@@ -172,24 +166,37 @@ class GridWorldAC(PongNet):
 
     # Neuron and synapse parameters:
     # Initial mean weight for synapses between input- and motor neurons
-    mean_weight = 1275.0
-    # Standard deviation for starting weights
     weight_std = 8
-    # Number of neurons per population in the critic-network
     n_critic = 8
-    # Synaptic weights from striatum and VP to the dopaminergic neurons
-    w_da = -1150
-    # TODO: why so much lower
-    # Synaptic weight between striatum and VP
-    w_str_vp = -250
-    # Synaptic delay for the direct connection between striatum and
-    # dopaminergic neurons
+
+    w_c_a = 30
+    w_c_a_max = 90
+
+    w_c_str = 30
+    w_c_str_max = 130
+
+    w_str_vp = -348
+    w_str_da = -1593.75
+    w_vp_da = -1593.75
+
     d_dir = 200
-    # Rate (Hz) for the background poisson generators
-    poisson_rate = 15
+
+    # External
+    w_ex_vp = 45.61
+    rate_ex_vp = 9000
+
+    w_ex_da = 45.61
+    rate_ex_da = 29000
+
+    w_ex_all = 100
+    w_in_all = -100
+    rate_ex_all = 15000
+    rate_in_all = 12000
 
     def __init__(self, apply_noise=True, num_neurons=20):
         super().__init__(apply_noise, num_neurons)
+
+
 
         self.vt = nest.Create("volume_transmitter")
         nest.SetDefaults(
@@ -211,33 +218,56 @@ class GridWorldAC(PongNet):
         # slightly increasing the mean of the weights between input and
         # motor neurons
         nest.SetDefaults("stdp_dopamine_synapse", {"Wmax": 1750})
+        # Input → motor
+        nest.CopyModel(
+            "stdp_dopamine_synapse",
+            "stdp_motor_synapse",
+            {
+                "volume_transmitter": self.vt,
+                "Wmin": self.w_c_a,
+                "Wmax": self.w_c_a_max,
+            }
+        )
+
+        # Input → striatum
+        nest.CopyModel(
+            "stdp_dopamine_synapse",
+            "stdp_striatum_synapse",
+            {
+                "volume_transmitter": self.vt,
+                "Wmin": self.w_c_str,
+                "Wmax": self.w_c_str_max,
+            }
+        )
 
         nest.Connect(
             self.input_neurons,
             self.motor_neurons,
             {"rule": "all_to_all"},
             {
-                "synapse_model": "stdp_dopamine_synapse",
-                "weight": nest.random.normal(self.mean_weight * 1.3, self.weight_std),
+                "synapse_model": "stdp_motor_synapse",
+                "weight": nest.random.normal(self.w_c_a, self.weight_std),
             },
         )
 
-        # Setup the 'critic' as a network of three populations, consisting of
-        # the striatum, ventral pallidum (vp) and dopaminergic neurons (dopa)
-        self.striatum = nest.Create("iaf_psc_exp", self.n_critic)
+        self.striatum = nest.Create("iaf_psc_alpha", self.n_critic, params=neuron_params)
         nest.Connect(
             self.input_neurons,
             self.striatum,
             {"rule": "all_to_all"},
             {
-                "synapse_model": "stdp_dopamine_synapse", 
-                "weight": nest.random.normal(self.mean_weight, self.weight_std)},
+                "synapse_model": "stdp_striatum_synapse", 
+                "weight": nest.random.normal(self.w_c_str, self.weight_std),
+            },
         )
-        self.vp = nest.Create("iaf_psc_exp", self.n_critic)
+
+        
+        self.vp = nest.Create("iaf_psc_alpha", self.n_critic, params=neuron_params)
         nest.Connect(self.striatum, self.vp, syn_spec={"weight": self.w_str_vp})
-        self.dopa = nest.Create("iaf_psc_exp", self.n_critic)
-        nest.Connect(self.vp, self.dopa, syn_spec={"weight": self.w_da})
-        nest.Connect(self.striatum, self.dopa, syn_spec={"weight": self.w_da, "delay": self.d_dir})
+
+        self.dopa = nest.Create("iaf_psc_alpha", self.n_critic, params=neuron_params)
+        nest.Connect(self.vp, self.dopa, syn_spec={"weight": self.w_vp_da})
+        nest.Connect(self.striatum, self.dopa, syn_spec={"weight": self.w_str_da, "delay": self.d_dir})
         nest.Connect(self.dopa, self.vt)
 
         # Current generator to stimulate dopaminergic neurons based on
@@ -263,6 +293,10 @@ class GridWorldAC(PongNet):
         self.vp_recorder = nest.Create("spike_recorder")
         nest.Connect(self.vp, self.vp_recorder)
 
+        self.vp_multimeter = nest.Create("multimeter", params={"record_from": ["V_m"], "interval": 0.1})
+        nest.Connect(self.vp_multimeter, self.vp) 
+
+
         # Cortex recorder
         self.cortex_recorder = nest.Create("spike_recorder")
         nest.Connect(self.input_neurons, self.cortex_recorder)
@@ -270,6 +304,95 @@ class GridWorldAC(PongNet):
         # Motor recorder
         self.motor_recorder = nest.Create("spike_recorder")
         nest.Connect(self.motor_neurons, self.motor_recorder)
+
+        # Poisson input to vp
+        self.poisson_vp = nest.Create("poisson_generator", params={"rate": self.rate_ex_vp}) 
+        nest.Connect(
+            self.poisson_vp,
+            self.vp,
+            conn_spec={"rule": "all_to_all"},
+            syn_spec={"weight": self.w_ex_vp}
+        )
+        self.poisson_da = nest.Create("poisson_generator", params={"rate": self.rate_ex_da}) 
+        nest.Connect(
+            self.poisson_da,
+            self.dopa,
+            conn_spec={"rule": "all_to_all"},
+            syn_spec={"weight": self.w_ex_da}
+        )
+
+        # Poisson input to all neurons (excitatory and inhibitory)
+        self.poisson_all_ex = nest.Create("poisson_generator", params={"rate": self.rate_ex_all})
+        self.poisson_all_inh = nest.Create("poisson_generator", params={"rate": self.rate_in_all})
+        nest.Connect(
+            self.poisson_all_ex,
+            self.vp,
+            conn_spec={"rule": "all_to_all"},
+            syn_spec={"weight": self.w_ex_all}
+        )
+        nest.Connect(
+            self.poisson_all_inh,
+            self.vp,
+            conn_spec={"rule": "all_to_all"},
+            syn_spec={"weight": self.w_in_all}
+        )
+        nest.Connect(
+            self.poisson_all_ex,
+            self.striatum,
+            conn_spec={"rule": "all_to_all"},
+            syn_spec={"weight": self.w_ex_all}
+        )
+        nest.Connect(
+            self.poisson_all_inh,
+            self.striatum,
+            conn_spec={"rule": "all_to_all"},
+            syn_spec={"weight": self.w_in_all}
+        )
+
+        nest.Connect(
+            self.poisson_all_ex,
+            self.input_neurons,
+            conn_spec={"rule": "all_to_all"},
+            syn_spec={"weight": self.w_ex_all}
+        )
+        nest.Connect(
+            self.poisson_all_inh,
+            self.input_neurons,
+            conn_spec={"rule": "all_to_all"},
+            syn_spec={"weight": self.w_in_all}
+        )
+
+
+        """
+        nest.Connect(
+            self.poisson_all_ex,
+            self.motor_neurons,
+            conn_spec={"rule": "all_to_all"},
+            syn_spec={"weight": self.w_ex_all}
+        )
+        
+        nest.Connect(
+            self.poisson_all_ex,
+            self.dopa,
+            conn_spec={"rule": "all_to_all"},
+            syn_spec={"weight": self.w_ex_all}
+        )
+
+        # inhibitory
+        nest.Connect(
+            self.poisson_all_inh,
+            self.motor_neurons,
+            conn_spec={"rule": "all_to_all"},
+            syn_spec={"weight": self.w_in_all}
+        )
+        
+        nest.Connect(
+            self.poisson_all_inh,
+            self.dopa,
+            conn_spec={"rule": "all_to_all"},
+            syn_spec={"weight": self.w_in_all}
+        )
+        """
 
 
 

@@ -13,8 +13,9 @@ import matplotlib.pyplot as plt
 
 import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
-
-NEXT_STATES = [(1, 0), (0, 0), (0, 0)]
+#[(0, 0) ...
+NEXT_STATES = [(1, 0), (0, 0), (0, 0), (0, 0)]
+REWARDED_STATES = [1, 0, 1, 0]
 
 class AIGridworld:
     def __init__(self):
@@ -31,7 +32,31 @@ class AIGridworld:
         logging.info(f"setup complete for gridworld")
 
 
-    def plot_network_activity(self, spike_records, weight_history, weight_history_str, dopamine_history, striatum_vms, poll_time=POLL_TIME):
+    def compute_avg_firing_rate(self, spike_events, num_neurons, bins, bin_size):
+        """
+        spike_events: dictionary from NEST, keys 'senders' and 'times'
+        num_neurons: number of neurons in this population
+        bins: global bin edges
+        """
+        senders = spike_events['senders']
+        times = spike_events['times']
+        
+        if len(times) == 0:
+            return np.zeros(len(bins)-1)
+        
+        all_counts = np.zeros((num_neurons, len(bins)-1))
+        neuron_ids = np.unique(senders)
+        
+        for i, neuron in enumerate(neuron_ids):
+            mask = senders == neuron
+            counts, _ = np.histogram(times[mask], bins=bins)
+            all_counts[i, :] = counts
+        
+        # Convert to firing rate in Hz: spikes / neuron / second
+        rates = all_counts.mean(axis=0) / (bin_size / 1000.0)
+        return rates
+
+    def plot_network_activity(self, spike_records, weight_history, weight_history_str, dopa_spikes, str_spikes, vp_spikes, poll_time=POLL_TIME):
         """
         Plot raster of input spikes, average weights to striatum, and dopamine signal.
 
@@ -66,7 +91,7 @@ class AIGridworld:
         iterations = len(weight_history)
         time_axis = np.arange(iterations) * poll_time
 
-        fig, axes = plt.subplots(5, 1, figsize=(12, 10), sharex=True)
+        fig, axes = plt.subplots(6, 1, figsize=(12, 10), sharex=True)
 
         # Raster plot
         axes[0].scatter(spike_times, neuron_ids, marker='.', color='black')
@@ -86,42 +111,28 @@ class AIGridworld:
         axes[2].set_title("Average synaptic weights: input → striatum")
         axes[2].legend(loc='upper right', ncol=5, fontsize=8)
 
-        # Dopamine current plot
-        dopa_times = np.array(dopamine_history[1], dtype=float)
+        bin_size = 30.0           # ms
+        bins = np.arange(0, time_axis[-1] + bin_size, bin_size)
+        bin_centers = (bins[:-1] + bins[1:]) / 2.0
 
-        if dopa_times.size > 0:
-            # Bin spikes by 1 ms (or smaller if you want higher temporal precision)
-            bin_size = 1.0
-            t_start, t_end = 0, time_axis[-1] + poll_time
-            bins = np.arange(t_start, t_end + bin_size, bin_size)
-            counts, _ = np.histogram(dopa_times, bins=bins)
-            t = bins[:-1]
+        print(self.player.n_critic)
+        str_rates = self.compute_avg_firing_rate(str_spikes, num_neurons=self.player.n_critic, bins=bins, bin_size=bin_size)
+        vp_rates = self.compute_avg_firing_rate(vp_spikes, num_neurons=self.player.n_critic, bins=bins, bin_size=bin_size)
+        dopa_rates = self.compute_avg_firing_rate(dopa_spikes, num_neurons=self.player.n_critic, bins=bins, bin_size=bin_size)
 
-            axes[3].plot(t, counts, color='orange', drawstyle='steps-post')
-        else:
-            axes[3].text(0.5, 0.5, "No dopamine spikes", ha='center', va='center', transform=axes[2].transAxes)
+        axes[3].plot(bin_centers, str_rates, color='k')
+        axes[3].set_ylabel("STR firing rate (Hz)")
+        axes[3].set_title("Average STR activity")
 
-        axes[3].set_ylabel("# Dopa neurons spiking")
-        axes[3].set_xlabel("Time (ms)")
-        axes[3].set_title("Dopamine neuron population activity")
-        axes[3].set_xlim(0, time_axis[-1] + poll_time)
+        axes[4].plot(bin_centers, vp_rates, color='r')
+        axes[4].set_ylabel("VP firing rate (Hz)")
+        axes[4].set_title("Average VP activity")
 
-
-        # 4️⃣ Striatum membrane potentials
-        senders = striatum_vms['senders']
-        times = striatum_vms['times']
-        V_m = striatum_vms['V_m']
-
-        neuron_ids = np.unique(senders)
-
-        for neuron_id in neuron_ids:
-            mask = senders == neuron_id
-            axes[4].plot(times[mask], V_m[mask], label=f"Neuron {neuron_id}")
-        axes[4].set_ylabel("V_m (mV)")
-        axes[4].set_xlabel("Time (ms)")
-        axes[4].set_title("Striatum neuron membrane potentials")
-
-
+        axes[5].plot(bin_centers, dopa_rates, color='b')
+        axes[5].set_ylabel("Dopa firing rate (Hz)")
+        axes[5].set_xlabel("Time (ms)")
+        axes[5].set_title("Average Dopa activity")
+        
         plt.tight_layout()
         plt.show()
 
@@ -140,8 +151,12 @@ class AIGridworld:
         dopamine_history = []
 
         while self.run < max_runs:
-            if self.run == 0:
+            """
+            if REWARDED_STATES[self.run] == 1:
                 self.player.reward = True
+            else:
+                self.player.reward = False
+            """
 
             self.input_index = self.state[0] * self.grid_size[1] + self.state[1]
             self.player.set_input_spiketrain(self.input_index, biological_time)
@@ -186,12 +201,6 @@ class AIGridworld:
             avg_weights = weight_matrix_str.mean(axis=1)
             weight_history_str.append(avg_weights.copy())
             
-            # Dopamine neuron spikes for this iteration
-            dopa_events = nest.GetStatus(self.player.dopa_recorder, "events")[0]
-            dopa_times = np.array(dopa_events.get("times", []), dtype=float)
-
-            
-            dopamine_history.append(dopa_times)
             """
             # The iteration window is (biological_time - POLL_TIME, biological_time]
             t0 = biological_time - POLL_TIME
@@ -206,11 +215,8 @@ class AIGridworld:
 
             str_events = nest.GetStatus(self.player.str_recorder, "events")[0]
             vp_events = nest.GetStatus(self.player.vp_recorder, "events")[0]
-
-            str_neuron_status = nest.GetStatus(self.player.str_multimeter, "events")[0]
-
-            print("STRIATUM", str_events)
-            print("VP", vp_events)
+            print(vp_events)
+            dopa_events = nest.GetStatus(self.player.dopa_recorder, "events")[0]
 
             # Cleanup for next iteration
             # Reset only generators' spike_times and the motor spike counters
@@ -241,7 +247,7 @@ class AIGridworld:
         #print(spike_records)
         #print(weight_history)
 
-        self.plot_network_activity(spike_records, weight_history, weight_history_str, dopamine_history, str_neuron_status)
+        self.plot_network_activity(spike_records, weight_history, weight_history_str, dopa_events, str_events, vp_events)
         end_time = time.time()
 
         weights = self.player.get_all_weights()
