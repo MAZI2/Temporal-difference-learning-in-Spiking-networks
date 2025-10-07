@@ -15,7 +15,7 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 #[(0, 0) ...
 NEXT_STATES = [(1, 0), (0, 0), (0, 0), (0, 0)]
-REWARDED_STATES = [1, 0, 1, 0]
+REWARDED_STATES = [1, 0, 0, 0]
 
 class AIGridworld:
     def __init__(self):
@@ -56,7 +56,7 @@ class AIGridworld:
         rates = all_counts.mean(axis=0) / (bin_size / 1000.0)
         return rates
 
-    def plot_network_activity(self, spike_records, weight_history, weight_history_str, dopa_spikes, str_spikes, vp_spikes, poll_time=POLL_TIME):
+    def plot_network_activity(self, spike_records, weight_history, weight_history_str, time_points_str, dopa_spikes, str_spikes, vp_spikes, poll_time=POLL_TIME):
         """
         Plot raster of input spikes, average weights to striatum, and dopamine signal.
 
@@ -85,7 +85,7 @@ class AIGridworld:
         weight_history = weight_history[:, [0, 5, 10]]
 
         weight_history_str = np.array(weight_history_str)  # shape: (iterations, num_input_neurons)
-
+        time_points_str = np.array(time_points_str)
 
         # 3️⃣ Plotting
         iterations = len(weight_history)
@@ -105,17 +105,18 @@ class AIGridworld:
         axes[1].set_title("Average synaptic weights: input → motor")
         axes[1].legend(loc='upper right', ncol=5, fontsize=8)
 
-        for neuron_idx in range(weight_history_str.shape[1]):
-            axes[2].plot(time_axis, weight_history_str[:, neuron_idx], label=f"N{neuron_idx}")
+        print(weight_history_str[:, 0])
+        print(time_points_str)
+        axes[2].plot(time_points_str, weight_history_str[:, 0], label=f"N0")
         axes[2].set_ylabel("Avg weight to striatum")
         axes[2].set_title("Average synaptic weights: input → striatum")
         axes[2].legend(loc='upper right', ncol=5, fontsize=8)
+
 
         bin_size = 5.0           # ms
         bins = np.arange(0, time_axis[-1] + bin_size, bin_size)
         bin_centers = (bins[:-1] + bins[1:]) / 2.0
 
-        print(self.player.n_critic)
         str_rates = self.compute_avg_firing_rate(str_spikes, num_neurons=self.player.n_critic, bins=bins, bin_size=bin_size)
         vp_rates = self.compute_avg_firing_rate(vp_spikes, num_neurons=self.player.n_critic, bins=bins, bin_size=bin_size)
         dopa_rates = self.compute_avg_firing_rate(dopa_spikes, num_neurons=self.player.n_critic, bins=bins, bin_size=bin_size)
@@ -147,23 +148,44 @@ class AIGridworld:
         # 1 state transition
         spike_records = []
         weight_history = []
+        time_points_str = []
         weight_history_str = []
         dopamine_history = []
 
         while self.run < max_runs:
-            """
             if REWARDED_STATES[self.run] == 1:
                 self.player.reward = True
             else:
                 self.player.reward = False
-            """
 
             self.input_index = self.state[0] * self.grid_size[1] + self.state[1]
             self.player.set_input_spiketrain(self.input_index, biological_time)
 
             logging.debug("Running simulation...")
             print("sumulating ", self.run)
-            nest.Simulate(POLL_TIME)
+            step_size = 10
+            for t in range(0, POLL_TIME, step_size):
+                nest.Simulate(step_size)
+
+                conns = nest.GetConnections(source=self.player.input_neurons, target=self.player.striatum)
+                sources = np.array(conns.source)
+                weights = np.array(conns.get("weight"))
+
+                # compute mean per input neuron
+                means_per_input = []
+                for src in self.player.input_neurons:
+                    mask = sources == src.global_id
+                    if np.any(mask):
+                        means_per_input.append(np.mean(weights[mask]))
+                    else:
+                        means_per_input.append(np.nan)
+
+                weight_history_str.append(means_per_input)
+                time_points_str.append(self.run * POLL_TIME + t + step_size)
+
+
+            #nest.Simulate(POLL_TIME)
+
             biological_time = nest.GetKernelStatus("biological_time")
 
             self.player.apply_synaptic_plasticity(biological_time)
@@ -188,6 +210,7 @@ class AIGridworld:
             weight_history.append(avg_weights.copy())
 
             # Weights input -> striatum
+            """
             x_offset = self.player.input_neurons[0].get("global_id")
             y_offset = self.player.striatum[0].get("global_id")
 
@@ -200,6 +223,7 @@ class AIGridworld:
             
             avg_weights = weight_matrix_str.mean(axis=1)
             weight_history_str.append(avg_weights.copy())
+            """
             
             """
             # The iteration window is (biological_time - POLL_TIME, biological_time]
@@ -215,7 +239,6 @@ class AIGridworld:
 
             str_events = nest.GetStatus(self.player.str_recorder, "events")[0]
             vp_events = nest.GetStatus(self.player.vp_recorder, "events")[0]
-            print(vp_events)
             dopa_events = nest.GetStatus(self.player.dopa_recorder, "events")[0]
 
             # Cleanup for next iteration
@@ -247,7 +270,7 @@ class AIGridworld:
         #print(spike_records)
         #print(weight_history)
 
-        self.plot_network_activity(spike_records, weight_history, weight_history_str, dopa_events, str_events, vp_events)
+        self.plot_network_activity(spike_records, weight_history, weight_history_str, time_points_str, dopa_events, str_events, vp_events)
         end_time = time.time()
 
         weights = self.player.get_all_weights()

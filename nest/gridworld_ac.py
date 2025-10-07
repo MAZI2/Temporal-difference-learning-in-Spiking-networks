@@ -8,7 +8,7 @@ import numpy as np
 # Simulation time per iteration in milliseconds.
 POLL_TIME = 400
 # Number of spikes in an input spiketrain per iteration.
-N_INPUT_SPIKES = 400
+N_INPUT_SPIKES = 200
 # Inter-spike interval of the input spiketrain.
 ISI = 1.0
 # Standard deviation of Gaussian current noise in picoampere.
@@ -161,7 +161,7 @@ class GridWorldAC(PongNet):
     # the dopaminergic reward signal, avoiding interference between it and the
     # spikes caused by the input of the following iteration
     # TODO: might be wrong
-    input_t_offset = 1
+    input_t_offset = 200
 
     # Neuron and synapse parameters:
     # Initial mean weight for synapses between input- and motor neurons
@@ -202,13 +202,13 @@ class GridWorldAC(PongNet):
             "stdp_dopamine_synapse",
             {
                 "volume_transmitter": self.vt,
-                "tau_c": 70,
-                "tau_n": 30,
+                "tau_c": 250,
+                "tau_n": 200,
                 "tau_plus": 45,
                 "Wmin": 1220,
                 "Wmax": 1550,
                 "b": 0.028,
-                "A_plus": 0.85,
+                "A_plus": 0.81,
             },
         )
 
@@ -335,6 +335,7 @@ class GridWorldAC(PongNet):
             conn_spec={"rule": "all_to_all"},
             syn_spec={"weight": self.w_in_all}
         )
+        """
         nest.Connect(
             self.poisson_all_ex,
             self.striatum,
@@ -360,6 +361,7 @@ class GridWorldAC(PongNet):
             conn_spec={"rule": "all_to_all"},
             syn_spec={"weight": self.w_in_all}
         )
+        """
 
 
         """
@@ -444,7 +446,7 @@ class GridWorldAC(PongNet):
         """
         if self.reward:
             print("Rewarded")
-            reward_current = 600
+            reward_current = 2600
             self.reward = False
         else:
             reward_current = self.baseline_reward
