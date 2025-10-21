@@ -1,2 +1,8 @@
 .DS_Store
 *.asv
+
+nest/nest-build
+nest/nest-extension-module
+nest/nest-install
+nest/nest-simulator
+nest/delayed_eligibility_synapse/build

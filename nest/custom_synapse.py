@@ -4,64 +4,83 @@ import matplotlib.pyplot as plt
 # ===============================
 # PARAMETERS
 # ===============================
-dt = 1.0            # ms, simulation timestep
-sim_time = 300      # ms
+dt = 1.0            # ms
+sim_time = 1000      # ms
 
-pre_spike_times = [100.0]       # ms
-post_spike_times = [120.0]      # ms
-dopamine_spike_times = [150.0]  # ms
+pre_spike_times = [100.0]
+post_spike_times = [120.0]
+dopamine_spike_times = [200.0]
 
 # Synapse parameters
-A_plus = 0.05          # base potentiation scale
-tau_c = 50.0           # ms, eligibility decay
-tau_n = 50.0           # ms, dopamine decay
-delta_t_opt = 30.0     # ms, optimal dopamine delay after post spike
-sigma = 10.0           # ms, width of Gaussian timing window
+A_plus = 0.05
+tau_c = 50.0          # eligibility decay (ms)
+tau_n = 300.0          # dopamine decay (ms)
+tau_k = 30.0
+k = 0.1          # kernel time constant (ms)
+inflect = 150
 
 # ===============================
-# CUSTOM GAUSSIAN DA SYNAPSE
+# CUSTOM EXPONENTIAL KERNEL SYNAPSE
 # ===============================
-class GaussianDASynapse:
-    def __init__(self, A_plus, tau_c, tau_n, delta_t_opt, sigma):
+class ExpKernelDASynapse:
+    def __init__(self, A_plus, tau_c, tau_n, tau_k, k, inflect):
         self.A_plus = A_plus
         self.tau_c = tau_c
         self.tau_n = tau_n
-        self.delta_t_opt = delta_t_opt
-        self.sigma = sigma
+        self.tau_k = tau_k
+        self.k = k
+        self.inflect = inflect
 
         self.c = 0.0          # eligibility
         self.n = 0.0          # dopamine trace
         self.weight = 0.0     # synaptic weight
         self.last_post_spike = None
+        self.last_dopa_spike = None
 
         # history for plotting
         self.history = {
             "time": [], "weight": [], "c": [], "n": [], "timing_factor": []
         }
 
+    def exponential_kernel(self, delta_t):
+        """Exponential rise kernel: 0 at 0, →1 as delta_t→∞"""
+        if delta_t <= 0:
+            return 0.0
+        return 1 - np.exp(-delta_t / self.tau_k)
+
+    def logistic_kernel(self, delta_t):
+        f_raw = 1 / (1 + np.exp(-self.k * (delta_t - self.inflect)))
+
+        # shift so f(0)=0 and normalize to 1
+        f = (f_raw - (1 / (1 + np.exp(self.k * self.inflect)))) / (1 - 1 / (1 + np.exp(self.k * self.inflect)))
+
+        return f
+
     def update(self, t, pre_spikes, post_spikes, dopamine_spikes):
         # Decay traces
-        self.c *= np.exp(-dt/self.tau_c)
-        self.n *= np.exp(-dt/self.tau_n)
+        self.c *= np.exp(-dt / self.tau_c)
+        self.n *= np.exp(-dt / self.tau_n)
 
-        # Handle pre spike: increment eligibility
-        if t in pre_spikes:
+        # Pre spike increases eligibility
+        if any(abs(t - s) < 0.5 for s in pre_spikes):
             self.c += 1.0
 
-        # Handle post spike: record last post spike time
-        if t in post_spikes:
+        # Record post spike time
+        if any(abs(t - s) < 0.5 for s in post_spikes):
             self.last_post_spike = t
 
-        # Handle dopamine spike: update weight using Gaussian timing
-        timing_factor = 0.0
-        if t in dopamine_spikes and self.last_post_spike is not None:
-            delta_t = t - self.last_post_spike
-            timing_factor = np.exp(-((delta_t - self.delta_t_opt)**2) / (2*self.sigma**2))
-            self.weight += self.A_plus * self.c * self.n * timing_factor
-
-        # If dopamine spike occurs, increase dopamine trace
-        if t in dopamine_spikes:
+        # Dopamine spike → increase dopamine trace
+        if any(abs(t - s) < 0.5 for s in dopamine_spikes):
             self.n += 1.0
+            self.last_dopa_spike = t
+
+        # Weight update: if dopamine has occurred, compute timing_factor relative to post spike
+        timing_factor = 0.0
+        if self.last_post_spike is not None: #and self.last_dopa_spike is not None:
+            delta_t = t - self.last_post_spike#self.last_dopa_spike - self.last_post_spike
+            timing_factor = self.logistic_kernel(delta_t)
+            print(t, delta_t)
+            self.weight += self.A_plus * self.c * self.n * timing_factor
 
         # record history
         self.history["time"].append(t)
@@ -73,7 +92,7 @@ class GaussianDASynapse:
 # ===============================
 # SIMULATION LOOP
 # ===============================
-syn = GaussianDASynapse(A_plus, tau_c, tau_n, delta_t_opt, sigma)
+syn = ExpKernelDASynapse(A_plus, tau_c, tau_n, tau_k, k, inflect)
 time_points = np.arange(0, sim_time + dt, dt)
 
 for t in time_points:
@@ -97,7 +116,7 @@ plt.ylabel("n")
 plt.legend()
 
 plt.subplot(4,1,3)
-plt.plot(history["time"], history["timing_factor"], label="Timing factor", color='green')
+plt.plot(history["time"], history["timing_factor"], label="Exponential kernel(t)", color='green')
 plt.ylabel("Timing factor")
 plt.legend()
 
