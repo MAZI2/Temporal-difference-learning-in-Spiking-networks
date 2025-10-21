@@ -1,0 +1,35 @@
+git clone https://github.com/nest/nest-simulator.git
+mkdir nest-build
+cd nest-build
+
+conda install cython
+
+
+cmake ../nest-simulator \
+      -DCMAKE_INSTALL_PREFIX=../nest-install \
+      -Dwith-python=ON \
+      -DPYTHON_EXECUTABLE=$(which python3)
+
+make -j
+or make -j2
+make install
+
+export PYTHONPATH=/path/to/nest-install/lib/python3.11/site-packages:$PYTHONPATH
+export LD_LIBRARY_PATH=/home/matjaz/Matjez/Sola/Diploma/Temporal-difference-learning-in-Spiking-networks/nest/nest-install/lib:$LD_LIBRARY_PATH
+
+cmake -Dwith-nest=/Users/matjeez/Matjez/Sola/dipl/Temporal-difference-learning-in-Spiking-networks/nest/nest-install/bin/nest-config ..
+
+mac:
+cmake ../nest-simulator \
+  -DCMAKE_INSTALL_PREFIX=../nest-install \
+  -Dwith-python=ON \
+  -DPYTHON_EXECUTABLE=$(which python3) \
+  -DCMAKE_C_COMPILER=/opt/homebrew/opt/llvm/bin/clang \
+  -DCMAKE_CXX_COMPILER=/opt/homebrew/opt/llvm/bin/clang++ \
+  -DOpenMP_C_FLAGS="-Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include" \
+  -DOpenMP_C_LIB_NAMES="omp" \
+  -DOpenMP_omp_LIBRARY=/opt/homebrew/opt/libomp/lib/libomp.dylib \
+  -DOpenMP_CXX_FLAGS="-Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include" \
+  -DOpenMP_CXX_LIB_NAMES="omp" \
+  -DOpenMP_omp_LIBRARY_RELEASE=/opt/homebrew/opt/libomp/lib/libomp.dylib
+
