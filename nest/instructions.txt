@@ -18,6 +18,9 @@ export PYTHONPATH=/path/to/nest-install/lib/python3.11/site-packages:$PYTHONPATH
 export LD_LIBRARY_PATH=/home/matjaz/Matjez/Sola/Diploma/Temporal-difference-learning-in-Spiking-networks/nest/nest-install/lib:$LD_LIBRARY_PATH
 
 cmake -Dwith-nest=/Users/matjeez/Matjez/Sola/dipl/Temporal-difference-learning-in-Spiking-networks/nest/nest-install/bin/nest-config ..
+make -j2
+source /home/matjaz/Matjez/Sola/Diploma/Temporal-difference-learning-in-Spiking-networks/nest/nest-install/bin/nest_vars.sh
+./install.sh
 
 mac:
 cmake ../nest-simulator \

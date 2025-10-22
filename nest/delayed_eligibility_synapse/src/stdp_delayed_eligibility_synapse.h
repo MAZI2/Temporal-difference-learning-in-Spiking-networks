@@ -138,7 +138,7 @@ stdp_delayed_eligibility_synapse<targetidentifierT>::process_delayed_c_(
     double t_current,
     const STDPDelayedEligibilityCommonProperties& cp)
 {
-    std::cout << "[DEBUG] process_delayed_c_ at t_current=" << t_current << std::endl;
+    //std::cout << "[DEBUG] process_delayed_c_ at t_current=" << t_current << std::endl;
     // Apply all delayed eligibility traces that are due
     while (!delayed_c_.empty() && delayed_c_.front().first <= t_current)
     {
@@ -170,7 +170,7 @@ stdp_delayed_eligibility_synapse<targetidentifierT>::stdp_delayed_eligibility_sy
       t_last_update_(0.0),
       t_lastspike_(0.0)
 {
-  std::cout << "[DEBUG] stdp_delayed_eligibility_synapse constructed" << std::endl;
+  //std::cout << "[DEBUG] stdp_delayed_eligibility_synapse constructed" << std::endl;
 }
 
 template <typename targetidentifierT>
@@ -316,6 +316,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::facilitate_( double kplus
 {
   c_ += cp.A_plus_ * kplus;
   // Schedule delayed application
+  std::cout << "[DEBUG] facilitate" << std::endl;
   delayed_c_.emplace_back(t_last_update_ + cp.tau_c_delay_, c_);
   std::cout << "[DEBUG] facilitate_: c=" << c_ << ", scheduled delayed_c at "
               << t_last_update_ + cp.tau_c_delay_ << std::endl;
@@ -362,7 +363,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::send( Event& e, size_t t,
   double t_spike = e.get_stamp().get_ms();
   std::cout << "[DEBUG] spike time: " << t_spike << ", weight: " << weight_ << std::endl;
   // first, apply all due delayed eligibility traces
-  this->process_delayed_c_(t_spike, cp);
+//  this->process_delayed_c_(t_spike, cp);
 
   // get history of dopamine spikes
   const std::vector< spikecounter >& modulator_spikes = cp.volume_transmitter_->deliver_spikes();
@@ -381,8 +382,11 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::send( Event& e, size_t t,
   // facilitation due to postsynaptic spikes since last update
   double t0 = t_last_update_;
   double minus_dt;
+      std::cout << "eee from" << t_last_update_ - dendritic_delay << "to" << t_spike - dendritic_delay << std::endl;
+
   while ( start != finish )
   {
+    std::cout << "bbb" << t_spike << ", weight: " << weight_ << std::endl;
     process_modulator_spikes_( modulator_spikes, t0, start->t_ + dendritic_delay, cp );
     t0 = start->t_ + dendritic_delay;
     minus_dt = t_last_update_ - t0;
@@ -409,6 +413,17 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::send( Event& e, size_t t,
   t_last_update_ = t_spike;
   t_lastspike_ = t_spike;
 
+   std::deque<histentry>::iterator hist_start, hist_end;
+  target->get_history(0.0, e.get_stamp().get_ms(), &hist_start, &hist_end);
+
+  std::cout << "[DEBUG] full history:" << std::endl;
+  for (auto it = hist_start; it != hist_end; ++it)
+  {
+      std::cout << "  spike at t = " << it->t_ << std::endl;
+  }
+
+
+
   std::cout << "[DEBUG] send() finished, new weight: " << weight_ << std::endl;
   return true;
 }
@@ -420,7 +435,18 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
   const double t_trig,
   const STDPDelayedEligibilityCommonProperties& cp )
 {
-  this->process_delayed_c_(t_trig, cp);
+  /*
+  if (kernel().vp_manager.get_thread_id() == 0) // print only from thread 0 to avoid spam
+    {
+        std::cout << "[DEBUG synapse] time=" << t_trig
+                  << " c=" << c_
+                  << " n=" << n_
+                  << " weight=" << weight_
+                  << std::endl;
+        std::fflush(stdout); // ensure immediate output
+    }
+    */
+//  this->process_delayed_c_(t_trig, cp);
   // propagate all state variables to time t_trig
   // this does not include the depression trace K_minus, which is updated in the
   // postsyn. neuron
@@ -437,8 +463,12 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
   // facilitation due to postsyn. spikes since last update
   double t0 = t_last_update_;
   double minus_dt;
+  std::cout << "gggxx from" << t_last_update_ - dendritic_delay << "to" << t_trig - dendritic_delay << std::endl;
+
   while ( start != finish )
   {
+    std::cout << "UUUUU" << t_last_update_ - dendritic_delay << "to" << t_trig - dendritic_delay << std::endl;
+
     process_modulator_spikes_( modulator_spikes, t0, start->t_ + dendritic_delay, cp );
     t0 = start->t_ + dendritic_delay;
     minus_dt = t_last_update_ - t0;
@@ -468,16 +498,13 @@ void stdp_delayed_eligibility_synapse<targetidentifierT>::check_connection(
     ConnTestDummyNode dummy_target;
     this->Connection<targetidentifierT>::check_connection_(dummy_target, src, tgt, receptor_type);
 
-    // Step 2: synapse-specific checks
-    if (cp.Wmin_ < 0)
+
+    if ( not cp.volume_transmitter_ )
     {
-        throw BadProperty("Wmin must be non-negative.");
+      throw BadProperty( "No volume transmitter has been assigned to the dopamine synapse." );
     }
 
-    if (cp.Wmax_ < cp.Wmin_)
-    {
-        throw BadProperty("Wmax must be greater than Wmin.");
-    }
+    tgt.register_stdp_connection( t_lastspike_ - get_delay(), get_delay() );
 
     // Add any other synapse-specific rules here
 }

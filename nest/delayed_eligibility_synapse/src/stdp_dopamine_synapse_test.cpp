@@ -1,28 +1,56 @@
-#include "stdp_delayed_eligibility_synapse.h"
-#include "stdp_delayed_eligibility_synapse_names.h"
+/*
+ *  stdp_dopamine_synapse.cpp
+ *
+ *  This file is part of NEST.
+ *
+ *  Copyright (C) 2004 The NEST Initiative
+ *
+ *  NEST is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  NEST is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with NEST.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
+#include "stdp_dopamine_synapse_test.h"
+
+// Includes from nestkernel:
 #include "common_synapse_properties.h"
 #include "connector_model.h"
 #include "event.h"
 #include "kernel_manager.h"
 #include "nest_impl.h"
 
+// Includes from sli:
 #include "dictdatum.h"
+
+void
+nest::register_stdp_dopamine_synapse_test( const std::string& name )
+{
+  register_connection_model< stdp_dopamine_synapse_test >( name );
+}
 
 namespace nest
 {
+//
+// Implementation of class STDPDopaTestCommonProperties.
+//
 
-// ------------------------------
-// STDPDelayedEligibilityCommonProperties
-// ------------------------------
-STDPDelayedEligibilityCommonProperties::STDPDelayedEligibilityCommonProperties()
-    : CommonSynapseProperties()
+STDPDopaTestCommonProperties::STDPDopaTestCommonProperties()
+  : CommonSynapseProperties()
   , volume_transmitter_( nullptr )
   , A_plus_( 1.0 )
   , A_minus_( 1.5 )
   , tau_plus_( 20.0 )
   , tau_c_( 1000.0 )
-  , tau_c_delay_(0.0)
   , tau_n_( 200.0 )
   , b_( 0.0 )
   , Wmin_( 0.0 )
@@ -30,7 +58,8 @@ STDPDelayedEligibilityCommonProperties::STDPDelayedEligibilityCommonProperties()
 {
 }
 
-void STDPDelayedEligibilityCommonProperties::get_status(DictionaryDatum& d) const
+void
+STDPDopaTestCommonProperties::get_status( DictionaryDatum& d ) const
 {
   CommonSynapseProperties::get_status( d );
 
@@ -41,14 +70,14 @@ void STDPDelayedEligibilityCommonProperties::get_status(DictionaryDatum& d) cons
   def< double >( d, names::A_minus, A_minus_ );
   def< double >( d, names::tau_plus, tau_plus_ );
   def< double >( d, names::tau_c, tau_c_ );
-  def< double >( d, names::tau_c_delay, tau_c_delay_ );
   def< double >( d, names::tau_n, tau_n_ );
   def< double >( d, names::b, b_ );
   def< double >( d, names::Wmin, Wmin_ );
   def< double >( d, names::Wmax, Wmax_ );
 }
 
-void STDPDelayedEligibilityCommonProperties::set_status(const DictionaryDatum& d, ConnectorModel& cm)
+void
+STDPDopaTestCommonProperties::set_status( const DictionaryDatum& d, ConnectorModel& cm )
 {
   CommonSynapseProperties::set_status( d, cm );
 
@@ -75,19 +104,10 @@ void STDPDelayedEligibilityCommonProperties::set_status(const DictionaryDatum& d
   updateValue< double >( d, names::A_minus, A_minus_ );
   updateValue< double >( d, names::tau_plus, tau_plus_ );
   updateValue< double >( d, names::tau_c, tau_c_ );
-  updateValue< double >( d, names::tau_c_delay, tau_c_delay_ );
   updateValue< double >( d, names::tau_n, tau_n_ );
   updateValue< double >( d, names::b, b_ );
   updateValue< double >( d, names::Wmin, Wmin_ );
   updateValue< double >( d, names::Wmax, Wmax_ );
 }
 
-// ------------------------------
-// Module registration
-// ------------------------------
-void register_stdp_delayed_eligibility_synapse(const std::string& name)
-{
-    register_connection_model<stdp_delayed_eligibility_synapse>(name);
-}
-
-} // namespace nest
+} // of namespace nest

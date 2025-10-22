@@ -2,6 +2,10 @@ set(MODULE_SOURCES
     mymodule.cpp
     stdp_delayed_eligibility_synapse.h
     stdp_delayed_eligibility_synapse.cpp
+    stdp_delayed_eligibility_synapse_names.h
+    stdp_delayed_eligibility_synapse_names.cpp
+    stdp_dopamine_synapse_test.h
+    stdp_dopamine_synapse_test.cpp
 )
 
 add_library( ${MODULE_NAME}_module MODULE ${MODULE_SOURCES} )

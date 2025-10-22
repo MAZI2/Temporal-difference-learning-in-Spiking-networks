@@ -22,6 +22,7 @@
 
 // include headers with your own stuff
 #include "stdp_delayed_eligibility_synapse.h"
+#include "stdp_dopamine_synapse_test.h"
 
 #include "nest_extension_interface.h"
 
@@ -45,4 +46,5 @@ void nest::MyModule::initialize()
   /* Register a synapse type.
    */
   nest::register_stdp_delayed_eligibility_synapse( "delayed_synapse" );
+  nest::register_stdp_dopamine_synapse_test( "test_synapse" );
 }
