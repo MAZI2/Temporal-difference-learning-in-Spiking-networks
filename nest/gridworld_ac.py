@@ -16,6 +16,8 @@ BG_STD = 220.0
 # Reward to be applied depending on distance to target neuron.
 #REWARDS_DICT = {0: 1.0, 1: 0.7, 2: 0.4, 3: 0.1}
 
+nest.Install("mymodule")
+
 neuron_params = {
     "C_m": 250.0,      # membrane capacitance in pF
     "tau_m": 10.0,     # membrane time constant in ms
@@ -172,7 +174,7 @@ class GridWorldAC(PongNet):
     w_c_a_max = 90
 
     w_c_str = 150
-    w_c_str_max = 200
+    w_c_str_max = 500
 
     w_str_vp = -50
     w_str_da = -100
@@ -185,7 +187,7 @@ class GridWorldAC(PongNet):
     rate_ex_vp = 4000
 
     w_ex_da = 45.61
-    rate_ex_da = 10000
+    rate_ex_da = 5000
 
     w_ex_all = 100
     w_in_all = -100
@@ -202,14 +204,13 @@ class GridWorldAC(PongNet):
             "delayed_synapse",
             {
                 "volume_transmitter": self.vt,
-                "tau_c": 50,
+                "tau_c": 10,
                 "tau_c_delay": 200,
-                "tau_n": 50,
-                "tau_plus": 45,
-                "Wmin": 1220,
-                "Wmax": 1550,
-                "b": 0.028,
-                "A_plus": 0.81,
+                "tau_n": 10,
+                "tau_plus": 50,
+                "b": 0.0,
+                "A_plus": 0.01,
+                "A_minus": 0.01
             },
         )
 

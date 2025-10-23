@@ -6,6 +6,9 @@ import os
 import pickle
 import sys
 import time
+import io
+import re
+from contextlib import contextmanager
 
 import nest
 import numpy as np
@@ -15,7 +18,7 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 #[(0, 0) ...
 NEXT_STATES = [(1, 0), (0, 0), (0, 0), (0, 0)]
-REWARDED_STATES = [1, 0, 0, 0]
+REWARDED_STATES = [0, 0, 0, 0]
 
 class AIGridworld:
     def __init__(self):
@@ -105,9 +108,9 @@ class AIGridworld:
         axes[1].set_title("Average synaptic weights: input → motor")
         axes[1].legend(loc='upper right', ncol=5, fontsize=8)
 
-        print(weight_history_str[:, 0])
-        print(time_points_str)
         axes[2].plot(time_points_str, weight_history_str[:, 0], label=f"N0")
+        axes[2].plot(time_points_str, weight_history_str[:, 5], label=f"N5")
+
         axes[2].set_ylabel("Avg weight to striatum")
         axes[2].set_title("Average synaptic weights: input → striatum")
         axes[2].legend(loc='upper right', ncol=5, fontsize=8)
@@ -158,8 +161,9 @@ class AIGridworld:
             else:
                 self.player.reward = False
 
-            self.input_index = self.state[0] * self.grid_size[1] + self.state[1]
-            self.player.set_input_spiketrain(self.input_index, biological_time)
+            if self.run == 0:
+                self.input_index = self.state[0] * self.grid_size[1] + self.state[1]
+                self.player.set_input_spiketrain(self.input_index, biological_time)
 
             logging.debug("Running simulation...")
             print("sumulating ", self.run)
@@ -185,6 +189,13 @@ class AIGridworld:
 
 
             #nest.Simulate(POLL_TIME)
+
+            str_events = nest.GetStatus(self.player.str_recorder, "events")[0]
+
+            # 'senders' contains the neuron IDs that emitted spikes
+            neuron_ids = str_events['senders']
+
+            print("Striatum neuron IDs that fired spikes:", neuron_ids)
 
             biological_time = nest.GetKernelStatus("biological_time")
 

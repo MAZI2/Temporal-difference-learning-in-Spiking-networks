@@ -385,7 +385,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::facilitate_( double kplus
 
   // Schedule delayed application
   //delayed_c_.emplace_back(t_last_update_ + cp.tau_c_delay_, c_);
-  std::cout << "[DEBUG] facilitate_: c=" << c_ << std::endl;
+  //std::cout << "[DEBUG] facilitate_: c=" << c_ << std::endl;
 }
 
 template < typename targetidentifierT >
@@ -401,7 +401,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::depress_( double kminus, 
 
   // Schedule delayed application
   //delayed_c_.emplace_back(t_last_update_ + cp.tau_c_delay_, c_);
-  std::cout << "[DEBUG] depress_: c=" << c_ << std::endl;
+  //std::cout << "[DEBUG] depress_: c=" << c_ << std::endl;
 }
 
 /**
@@ -430,7 +430,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::send( Event& e, size_t t,
   double dendritic_delay = get_delay();
 
   double t_spike = e.get_stamp().get_ms();
-  std::cout << "[DEBUG] spike time: " << t_spike << ", weight: " << weight_ << std::endl;
+  //std::cout << "[DEBUG] spike time: " << t_spike << ", weight: " << weight_ << std::endl;
   // first, apply all due delayed eligibility traces
 //  this->process_delayed_c_(t_spike, cp);
 
@@ -491,7 +491,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::send( Event& e, size_t t,
   }
   */
 
-  std::cout << "[DEBUG] send() finished, new weight: " << weight_ << std::endl;
+  //std::cout << "[DEBUG] send() finished, new weight: " << weight_ << std::endl;
   return true;
 }
 
@@ -550,20 +550,26 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
   t_last_update_ = t_trig;
   modulator_spike_idx_ = 0;
 
+
   double t_past = t_trig - cp.tau_c_delay_;
 
-    // Retrieve the delayed eligibility trace
-    double c_delayed = get_c_delayed_(t_past, cp);
+  // Retrieve the delayed eligibility trace
+  double c_delayed = get_c_delayed_(t_past, cp);
 
-    // Print it for debugging
-    std::cout << "[DEBUG trigger_update_weight] "
-              << "t_trig=" << t_trig
-              << " | tau_c_delay_=" << cp.tau_c_delay_
-              << " | t_past=" << t_past
-              << " | c_current=" << c_
-              << " | c_delayed=" << c_delayed
-              << " | n=" << n_
-              << std::endl;
+  // Print it for debugging
+
+  Node* post = get_target(t);
+
+  std::cout << "[DEBUG trigger_update_weight] "
+            << " | post_node_id=" << (post ? post->get_node_id() : -1)
+            << " | t_trig=" << t_trig
+            << " | tau_c_delay_=" << cp.tau_c_delay_
+            << " | t_past=" << t_past
+            << " | c_current=" << c_
+            << " | c_delayed=" << c_delayed
+            << " | n=" << n_
+            << std::endl;
+
 }
 
 template <typename targetidentifierT>
