@@ -36,3 +36,8 @@ cmake ../nest-simulator \
   -DOpenMP_CXX_LIB_NAMES="omp" \
   -DOpenMP_omp_LIBRARY_RELEASE=/opt/homebrew/opt/libomp/lib/libomp.dylib
 
+make -j2 && cd .. && ./install.sh && cd build
+
+w(t) = f(c(t - \tau_c_delay), n(t))
+instead of
+w(t)=f(c(t),n(t))

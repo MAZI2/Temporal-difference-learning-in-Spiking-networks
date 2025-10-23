@@ -199,11 +199,12 @@ class GridWorldAC(PongNet):
 
         self.vt = nest.Create("volume_transmitter")
         nest.SetDefaults(
-            "stdp_dopamine_synapse",
+            "delayed_synapse",
             {
                 "volume_transmitter": self.vt,
-                "tau_c": 250,
-                "tau_n": 200,
+                "tau_c": 50,
+                "tau_c_delay": 200,
+                "tau_n": 50,
                 "tau_plus": 45,
                 "Wmin": 1220,
                 "Wmax": 1550,
@@ -216,10 +217,10 @@ class GridWorldAC(PongNet):
         # motor neurons, it is necessary to compensate for their absence by
         # slightly increasing the mean of the weights between input and
         # motor neurons
-        nest.SetDefaults("stdp_dopamine_synapse", {"Wmax": 1750})
+        nest.SetDefaults("delayed_synapse", {"Wmax": 1750})
         # Input → motor
         nest.CopyModel(
-            "stdp_dopamine_synapse",
+            "delayed_synapse",
             "stdp_motor_synapse",
             {
                 "volume_transmitter": self.vt,
@@ -230,7 +231,7 @@ class GridWorldAC(PongNet):
 
         # Input → striatum
         nest.CopyModel(
-            "stdp_dopamine_synapse",
+            "delayed_synapse",
             "stdp_striatum_synapse",
             {
                 "volume_transmitter": self.vt,

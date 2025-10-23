@@ -25,6 +25,7 @@
 #include "connection.h"
 #include "spikecounter.h"
 #include <deque>
+#include <utility>
 
 namespace nest
 {
@@ -103,7 +104,7 @@ public:
   void set_weight(double w) { weight_ = w; }
 
 private:
-  void process_delayed_c_(double t_current, const STDPDelayedEligibilityCommonProperties& cp);
+//  void process_delayed_c_(double t_current, const STDPDelayedEligibilityCommonProperties& cp);
   void update_modulator_(const std::vector<spikecounter>& modulator_spikes,
                          const STDPDelayedEligibilityCommonProperties& cp);
 
@@ -116,15 +117,18 @@ private:
 
   void facilitate_(double kplus, const STDPDelayedEligibilityCommonProperties& cp);
   void depress_(double kminus, const STDPDelayedEligibilityCommonProperties& cp);
+  double get_c_delayed_(double t_current, const STDPDelayedEligibilityCommonProperties& cp);
 
   double weight_;
   double Kplus_;
   double c_;
+  // c history
+  std::deque<std::pair<double, double>> c_history_;
   double n_;
   size_t modulator_spike_idx_;
   double t_last_update_;
   double t_lastspike_;
-  std::deque<std::pair<double, double>> delayed_c_;
+//  std::deque<std::pair<double, double>> delayed_c_;
 };
 
 // ========================================================
@@ -132,13 +136,14 @@ private:
 // ========================================================
 
 // Add a helper to process all delayed eligibility traces due at current time
+/*
 template <typename targetidentifierT>
 inline void
 stdp_delayed_eligibility_synapse<targetidentifierT>::process_delayed_c_(
     double t_current,
     const STDPDelayedEligibilityCommonProperties& cp)
 {
-    //std::cout << "[DEBUG] process_delayed_c_ at t_current=" << t_current << std::endl;
+    std::cout << "[DEBUG] process_delayed_c_= " << c_ << "  at t_current=" << t_current << std::endl;
     // Apply all delayed eligibility traces that are due
     while (!delayed_c_.empty() && delayed_c_.front().first <= t_current)
     {
@@ -148,7 +153,7 @@ stdp_delayed_eligibility_synapse<targetidentifierT>::process_delayed_c_(
         // propagate weight from the time of the delayed eligibility trace to now
         double minus_dt = t_delayed - t_last_update_;
 
-        std::cout << "[DEBUG] applying delayed c: " << c_delayed << ", minus_dt=" << minus_dt << std::endl;
+        std::cout << "[DEBUG] " << t_current << " applying delayed c: " << c_delayed << ", minus_dt=" << minus_dt << std::endl;
         update_weight_(c_delayed, n_, minus_dt, cp);
 
         // Remove the processed trace
@@ -156,8 +161,35 @@ stdp_delayed_eligibility_synapse<targetidentifierT>::process_delayed_c_(
     }
 
     // Update last update time to current time
-    t_last_update_ = t_current;
+    // t_last_update_ = t_current;
 }
+*/
+
+template <typename targetidentifierT>
+double
+stdp_delayed_eligibility_synapse<targetidentifierT>::get_c_delayed_(
+    double t_current,
+    const STDPDelayedEligibilityCommonProperties& cp)
+{
+    double t_target = t_current - cp.tau_c_delay_;
+
+    if (c_history_.empty())
+        return c_; // fallback if no history
+
+    // too early — use earliest known
+    if (t_target <= c_history_.front().first)
+        return c_history_.front().second;
+
+    // find most recent entry before t_target
+    for (auto it = c_history_.rbegin(); it != c_history_.rend(); ++it)
+    {
+        if (it->first <= t_target)
+            return it->second;
+    }
+
+    return c_; // fallback (shouldn't happen)
+}
+
 
 template <typename targetidentifierT>
 stdp_delayed_eligibility_synapse<targetidentifierT>::stdp_delayed_eligibility_synapse()
@@ -271,11 +303,16 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::process_modulator_spikes_
     // of last dopa spike
     double n0 =
       n_ * std::exp( ( modulator_spikes[ modulator_spike_idx_ ].spike_time_ - t0 ) / cp.tau_n_ ); // dopamine trace n at time t0
-    update_weight_( c_, n0, t0 - modulator_spikes[ modulator_spike_idx_ + 1 ].spike_time_, cp );
+
+//    update_weight_( c_, n0, t0 - modulator_spikes[ modulator_spike_idx_ + 1 ].spike_time_, cp );
+    double c_delayed = get_c_delayed_(t0, cp);
+    update_weight_(c_delayed, n0,
+                   t0 - modulator_spikes[modulator_spike_idx_ + 1].spike_time_,
+                   cp);
     update_modulator_( modulator_spikes, cp );
 
     // process remaining dopa spikes in (t0, t1]
-    double cd;
+    //double cd;
     while ( ( modulator_spikes.size() > modulator_spike_idx_ + 1 )
       and ( t1 - modulator_spikes[ modulator_spike_idx_ + 1 ].spike_time_ > -1.0 * kernel().connection_manager.get_stdp_eps() ) )
     {
@@ -283,18 +320,32 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::process_modulator_spikes_
       // weight and dopamine trace n are at time of last dopa spike td but
       // eligibility c is at time
       // t0
-      cd = c_
-        * std::exp( ( t0 - modulator_spikes[ modulator_spike_idx_ ].spike_time_ ) / cp.tau_c_ ); // eligibility c at time of td
-      update_weight_(
-        cd, n_, modulator_spikes[ modulator_spike_idx_ ].spike_time_ - modulator_spikes[ modulator_spike_idx_ + 1 ].spike_time_, cp );
+
+      //cd = c_
+      //  * std::exp( ( t0 - modulator_spikes[ modulator_spike_idx_ ].spike_time_ ) / cp.tau_c_ ); // eligibility c at time of td
+      //update_weight_(
+      //  cd, n_, modulator_spikes[ modulator_spike_idx_ ].spike_time_ - modulator_spikes[ modulator_spike_idx_ + 1 ].spike_time_, cp );
+      double spike_time_prev = modulator_spikes[modulator_spike_idx_].spike_time_;
+      double spike_time_next = modulator_spikes[modulator_spike_idx_ + 1].spike_time_;
+
+      // --- ✅ get delayed c at the time of the previous dopa spike ---
+      c_delayed = get_c_delayed_(spike_time_prev, cp);
+      update_weight_(c_delayed, n_,
+                     spike_time_prev - spike_time_next,
+                     cp);
       update_modulator_( modulator_spikes, cp );
     }
 
     // propagate weight up to t1
     // weight and dopamine trace n are at time of last dopa spike td but
     // eligibility c is at time t0
-    cd = c_ * std::exp( ( t0 - modulator_spikes[ modulator_spike_idx_ ].spike_time_ ) / cp.tau_c_ ); // eligibility c at time td
-    update_weight_( cd, n_, modulator_spikes[ modulator_spike_idx_ ].spike_time_ - t1, cp );
+    //cd = c_ * std::exp( ( t0 - modulator_spikes[ modulator_spike_idx_ ].spike_time_ ) / cp.tau_c_ ); // eligibility c at time td
+    //update_weight_( cd, n_, modulator_spikes[ modulator_spike_idx_ ].spike_time_ - t1, cp );
+    double spike_time_last = modulator_spikes[modulator_spike_idx_].spike_time_;
+    c_delayed = get_c_delayed_(spike_time_last, cp);
+    update_weight_(c_delayed, n_,
+                   spike_time_last - t1,
+                   cp);
   }
   else
   {
@@ -303,11 +354,22 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::process_modulator_spikes_
     // of last dopa spike
     double n0 =
       n_ * std::exp( ( modulator_spikes[ modulator_spike_idx_ ].spike_time_ - t0 ) / cp.tau_n_ ); // dopamine trace n at time t0
-    update_weight_( c_, n0, t0 - t1, cp );
+    //update_weight_( c_, n0, t0 - t1, cp );
+    double c_delayed = get_c_delayed_(t0, cp);
+
+    update_weight_(c_delayed, n0, t0 - t1, cp);
   }
 
   // update eligibility trace c for interval (t0, t1]
   c_ = c_ * std::exp( ( t0 - t1 ) / cp.tau_c_ );
+  c_history_.emplace_back(t1, c_);
+
+  // trim entries older than ~1.5× delay window
+  while (!c_history_.empty() &&
+         (t1 - c_history_.front().first > cp.tau_c_delay_ * 1.5))
+  {
+    c_history_.pop_front();
+  }
 }
 
 template < typename targetidentifierT >
@@ -315,11 +377,15 @@ inline void
 stdp_delayed_eligibility_synapse< targetidentifierT >::facilitate_( double kplus, const STDPDelayedEligibilityCommonProperties& cp )
 {
   c_ += cp.A_plus_ * kplus;
+
+  c_history_.emplace_back(t_last_update_, c_);
+  while (!c_history_.empty() &&
+         t_last_update_ - c_history_.front().first > cp.tau_c_delay_ * 1.5)
+    c_history_.pop_front();
+
   // Schedule delayed application
-  std::cout << "[DEBUG] facilitate" << std::endl;
-  delayed_c_.emplace_back(t_last_update_ + cp.tau_c_delay_, c_);
-  std::cout << "[DEBUG] facilitate_: c=" << c_ << ", scheduled delayed_c at "
-              << t_last_update_ + cp.tau_c_delay_ << std::endl;
+  //delayed_c_.emplace_back(t_last_update_ + cp.tau_c_delay_, c_);
+  std::cout << "[DEBUG] facilitate_: c=" << c_ << std::endl;
 }
 
 template < typename targetidentifierT >
@@ -327,10 +393,15 @@ inline void
 stdp_delayed_eligibility_synapse< targetidentifierT >::depress_( double kminus, const STDPDelayedEligibilityCommonProperties& cp )
 {
   c_ -= cp.A_minus_ * kminus;
+
+  c_history_.emplace_back(t_last_update_, c_);
+    while (!c_history_.empty() &&
+           t_last_update_ - c_history_.front().first > cp.tau_c_delay_ * 1.5)
+      c_history_.pop_front();
+
   // Schedule delayed application
-  delayed_c_.emplace_back(t_last_update_ + cp.tau_c_delay_, c_);
-  std::cout << "[DEBUG] depress_: c=" << c_ << ", scheduled delayed_c at "
-              << t_last_update_ + cp.tau_c_delay_ << std::endl;
+  //delayed_c_.emplace_back(t_last_update_ + cp.tau_c_delay_, c_);
+  std::cout << "[DEBUG] depress_: c=" << c_ << std::endl;
 }
 
 /**
@@ -342,8 +413,6 @@ template < typename targetidentifierT >
 inline bool
 stdp_delayed_eligibility_synapse< targetidentifierT >::send( Event& e, size_t t, const STDPDelayedEligibilityCommonProperties& cp )
 {
-  std::cout << "[DEBUG] send() called, t=" << t << std::endl;
-
   Node* target = get_target( t );
   if (!target)
   {
@@ -382,11 +451,9 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::send( Event& e, size_t t,
   // facilitation due to postsynaptic spikes since last update
   double t0 = t_last_update_;
   double minus_dt;
-      std::cout << "eee from" << t_last_update_ - dendritic_delay << "to" << t_spike - dendritic_delay << std::endl;
 
   while ( start != finish )
   {
-    std::cout << "bbb" << t_spike << ", weight: " << weight_ << std::endl;
     process_modulator_spikes_( modulator_spikes, t0, start->t_ + dendritic_delay, cp );
     t0 = start->t_ + dendritic_delay;
     minus_dt = t_last_update_ - t0;
@@ -416,13 +483,13 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::send( Event& e, size_t t,
    std::deque<histentry>::iterator hist_start, hist_end;
   target->get_history(0.0, e.get_stamp().get_ms(), &hist_start, &hist_end);
 
+  /*
   std::cout << "[DEBUG] full history:" << std::endl;
   for (auto it = hist_start; it != hist_end; ++it)
   {
       std::cout << "  spike at t = " << it->t_ << std::endl;
   }
-
-
+  */
 
   std::cout << "[DEBUG] send() finished, new weight: " << weight_ << std::endl;
   return true;
@@ -463,12 +530,9 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
   // facilitation due to postsyn. spikes since last update
   double t0 = t_last_update_;
   double minus_dt;
-  std::cout << "gggxx from" << t_last_update_ - dendritic_delay << "to" << t_trig - dendritic_delay << std::endl;
 
   while ( start != finish )
   {
-    std::cout << "UUUUU" << t_last_update_ - dendritic_delay << "to" << t_trig - dendritic_delay << std::endl;
-
     process_modulator_spikes_( modulator_spikes, t0, start->t_ + dendritic_delay, cp );
     t0 = start->t_ + dendritic_delay;
     minus_dt = t_last_update_ - t0;
@@ -485,6 +549,21 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
 
   t_last_update_ = t_trig;
   modulator_spike_idx_ = 0;
+
+  double t_past = t_trig - cp.tau_c_delay_;
+
+    // Retrieve the delayed eligibility trace
+    double c_delayed = get_c_delayed_(t_past, cp);
+
+    // Print it for debugging
+    std::cout << "[DEBUG trigger_update_weight] "
+              << "t_trig=" << t_trig
+              << " | tau_c_delay_=" << cp.tau_c_delay_
+              << " | t_past=" << t_past
+              << " | c_current=" << c_
+              << " | c_delayed=" << c_delayed
+              << " | n=" << n_
+              << std::endl;
 }
 
 template <typename targetidentifierT>
