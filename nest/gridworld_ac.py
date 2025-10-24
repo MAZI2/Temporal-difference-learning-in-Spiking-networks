@@ -163,7 +163,7 @@ class GridWorldAC(PongNet):
     # the dopaminergic reward signal, avoiding interference between it and the
     # spikes caused by the input of the following iteration
     # TODO: might be wrong
-    input_t_offset = 200
+    input_t_offset = 1
 
     # Neuron and synapse parameters:
     # Initial mean weight for synapses between input- and motor neurons
