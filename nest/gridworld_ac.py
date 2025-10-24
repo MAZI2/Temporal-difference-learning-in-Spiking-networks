@@ -6,7 +6,7 @@ import nest
 import numpy as np
 
 # Simulation time per iteration in milliseconds.
-POLL_TIME = 400
+POLL_TIME = 200
 # Number of spikes in an input spiketrain per iteration.
 N_INPUT_SPIKES = 200
 # Inter-spike interval of the input spiketrain.
@@ -31,7 +31,7 @@ neuron_params = {
 class PongNet(ABC):
     def __init__(self, apply_noise=True, num_neurons=25):
         self.apply_noise = apply_noise
-        self.num_input_neurons = 25
+        self.num_input_neurons = 9
         self.num_output_neurons = 4
 
         self.weight_history = []
@@ -170,29 +170,29 @@ class GridWorldAC(PongNet):
     weight_std = 8
     n_critic = 8
 
-    w_c_a = 30
-    w_c_a_max = 90
+    w_c_a = 150
+    w_c_a_max = 500
 
     w_c_str = 150
     w_c_str_max = 500
 
-    w_str_vp = -50
-    w_str_da = -100
-    w_vp_da = -100
+    w_str_vp = -25
+    w_str_da = -45
+    w_vp_da = -45
 
     d_dir = 200
 
     # External
     w_ex_vp = 45.61
-    rate_ex_vp = 4000
+    rate_ex_vp = 5000
 
     w_ex_da = 45.61
     rate_ex_da = 5000
 
     w_ex_all = 100
     w_in_all = -100
-    rate_ex_all = 10
-    rate_in_all = 5
+    rate_ex_all = 0
+    rate_in_all = 0
 
     def __init__(self, apply_noise=True, num_neurons=20):
         super().__init__(apply_noise, num_neurons)
@@ -208,9 +208,9 @@ class GridWorldAC(PongNet):
                 "tau_c_delay": 200,
                 "tau_n": 10,
                 "tau_plus": 50,
-                "b": 0.0,
-                "A_plus": 0.01,
-                "A_minus": 0.01
+                "b": 0.01,
+                "A_plus": 0.001,
+                "A_minus": 0.001
             },
         )
 
@@ -337,7 +337,6 @@ class GridWorldAC(PongNet):
             conn_spec={"rule": "all_to_all"},
             syn_spec={"weight": self.w_in_all}
         )
-        """
         nest.Connect(
             self.poisson_all_ex,
             self.striatum,
@@ -363,10 +362,8 @@ class GridWorldAC(PongNet):
             conn_spec={"rule": "all_to_all"},
             syn_spec={"weight": self.w_in_all}
         )
-        """
 
 
-        """
         nest.Connect(
             self.poisson_all_ex,
             self.motor_neurons,
@@ -395,7 +392,6 @@ class GridWorldAC(PongNet):
             conn_spec={"rule": "all_to_all"},
             syn_spec={"weight": self.w_in_all}
         )
-        """
 
 
 
@@ -448,7 +444,7 @@ class GridWorldAC(PongNet):
         """
         if self.reward:
             print("Rewarded")
-            reward_current = 2600
+            reward_current = 600
             self.reward = False
         else:
             reward_current = self.baseline_reward
