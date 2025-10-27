@@ -9,22 +9,42 @@ import time
 import io
 import re
 from contextlib import contextmanager
+import random
 
 import nest
 import numpy as np
 import matplotlib.pyplot as plt
 
-import gridworld
-from gridworld_ac import POLL_TIME, GridWorldAC
 #[(0, 0) ...
 NEXT_STATES = [(1, 0), (0, 0), (0, 0), (0, 0), (0, 0)]
 REWARDED_STATES = [1, 0, 0, 0, 0]
+SEED = 12301
+
+# reset kernel first (very important)
+nest.ResetKernel()
+
+# force single-threaded deterministic execution (recommended for debugging)
+# if you want multi-threaded reproducibility you must ensure the same number
+# of threads on each run and accept more complexity.
+nest.SetKernelStatus({
+    "rng_seed": SEED,
+    "local_num_threads": 1
+})
+
+
+
+# also seed Python / NumPy RNGs (so any np.random or random calls are reproducible)
+np.random.seed(SEED)
+random.seed(SEED)
 nest.set_verbosity("M_FATAL")
 
-# Set master seed (main RNG)
-nest.SetKernelStatus({"rng_seed": 123})
+nest.Install("mymodule")
 
-RUNS = 100
+import gridworld
+from gridworld_ac import POLL_TIME, GridWorldAC
+
+
+RUNS = 150
 class AIGridworld:
     def __init__(self):
         self.grid_size = (3, 3)
@@ -138,7 +158,7 @@ class AIGridworld:
         axes[1].legend(loc='upper right', ncol=5, fontsize=8)
 
 
-        bin_size = 5.0           # ms
+        bin_size = 15.0           # ms
         bins = np.arange(0, time_axis[-1] + bin_size, bin_size)
         bin_centers = (bins[:-1] + bins[1:]) / 2.0
 
@@ -166,6 +186,10 @@ class AIGridworld:
         axes[5].set_yticks(np.arange(9))
         axes[5].set_ylim(-0.5, 8.5)
         axes[5].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+
+        for ax in axes:
+            ax.grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+            ax.set_xticks(np.arange(0, time_axis[-1] + 200, 200))  # vertical grid every 200 ms
 
         
         plt.tight_layout()
