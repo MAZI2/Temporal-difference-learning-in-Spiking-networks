@@ -91,6 +91,7 @@ class PongNet(ABC):
             numpy.array: Array of spike counts of all motor neurons.
         """
         events = self.spike_recorders.get("n_events")
+        print("events", events)
         return np.array(events)
 
     def reset(self):
@@ -117,17 +118,41 @@ class PongNet(ABC):
 
         nest.SetStatus(self.input_generators[input_cell], {"spike_times": self.input_train})
 
-    def get_max_activation(self):
-        """Finds the motor neuron with the highest activation (number of spikes).
-
-        Returns:
-            int: Index of the motor neuron with the highest activation.
+    def get_max_activation(self, start, end):
         """
-        spikes = self.get_spike_counts()
-        logging.debug(f"Got spike counts: {spikes}")
+        Returns the local index of the motor neuron with the highest average firing rate
+        in the interval [start, end] (ms).
+        """
+        events = nest.GetStatus(self.motor_recorder, "events")[0]
+        senders = np.array(events['senders'])
+        times = np.array(events['times'])
 
-        # If multiple neurons have the same activation, one is chosen at random
-        return int(np.random.choice(np.flatnonzero(spikes == spikes.max())))
+        avg_rates = []
+
+        for local_idx, neuron in enumerate(self.motor_neurons):
+            neuron_id = neuron.global_id
+
+            # spikes from this neuron in the interval
+            neuron_spikes = times[(senders == neuron_id) & (times >= start) & (times <= end)]
+
+            if len(neuron_spikes) < 2:
+                avg_rates.append(0.0)  # Not enough spikes to compute rate
+            else:
+                isi = np.diff(neuron_spikes)  # inter-spike intervals in ms
+#                print(isi)
+                avg_rate = 1000.0 / np.mean(isi)  # Hz
+                avg_rates.append(avg_rate)
+
+        avg_rates = np.array(avg_rates)
+        
+        # Get indices of neurons with max rate
+        max_indices = np.flatnonzero(avg_rates == avg_rates.max())
+#        print(start, end)
+#        print(max_indices)
+        
+        # Return local index (0..N-1) randomly if there are ties
+        return int(np.random.choice(max_indices))
+
 
     def get_performance_data(self):
         """Retrieves the performance data of the network across all simulations.
@@ -154,6 +179,7 @@ class GridWorldAC(PongNet):
     baseline_reward = 100.0
     # Maximum reward current to be applied to the dopaminergic neurons
     max_reward = 1000
+    action = None
     # Constant scaling factor for determining the current to be applied to the
     # dopaminergic neurons
     dopa_signal_factor = 4800
@@ -169,7 +195,7 @@ class GridWorldAC(PongNet):
     weight_std = 8
     n_critic = 8
 
-    w_c_a = 150
+    w_c_a = 100
     w_c_a_max = 1000
 
     w_c_str = 150
@@ -226,6 +252,13 @@ class GridWorldAC(PongNet):
                 "volume_transmitter": self.vt,
                 "Wmin": self.w_c_a,
                 "Wmax": self.w_c_a_max,
+                "tau_c": 5,
+                "tau_c_delay": 200,
+                "tau_n": 10,
+                "tau_plus": 20,
+                "b": 0.1,
+                "A_plus": 0.8,
+                "A_minus": 0.8
             }
         )
 
@@ -362,13 +395,14 @@ class GridWorldAC(PongNet):
             syn_spec={"weight": self.w_in_all}
         )
 
-
+        """
         nest.Connect(
             self.poisson_all_ex,
             self.motor_neurons,
             conn_spec={"rule": "all_to_all"},
-            syn_spec={"weight": self.w_ex_all}
+            syn_spec={"weight": self.w_ex_all+0}
         )
+        """
         
         nest.Connect(
             self.poisson_all_ex,
@@ -378,12 +412,14 @@ class GridWorldAC(PongNet):
         )
 
         # inhibitory
+        """
         nest.Connect(
             self.poisson_all_inh,
             self.motor_neurons,
             conn_spec={"rule": "all_to_all"},
-            syn_spec={"weight": self.w_in_all}
+            syn_spec={"weight": self.w_in_all+0}
         )
+        """
         
         nest.Connect(
             self.poisson_all_inh,
@@ -392,6 +428,19 @@ class GridWorldAC(PongNet):
             syn_spec={"weight": self.w_in_all}
         )
 
+        # ------- Suppresion signal after action
+
+        """
+        nest.Connect(
+            self.motor_neurons,
+            self.motor_neurons,
+            conn_spec={"rule": "all_to_all"},
+            syn_spec={"weight": -50000, "delay": 1}
+        )
+        """
+
+        self.supp_current = nest.Create("dc_generator")
+        nest.Connect(self.supp_current, self.motor_neurons)
 
 
     def set_state(self, state):
@@ -400,7 +449,35 @@ class GridWorldAC(PongNet):
         """
         self.state = state
 
-    def apply_synaptic_plasticity(self, biological_time):
+    def get_action(self, biological_time, end_time):
+        if self.action is None:
+            # Get spikes from motor recorder
+            motor_events = nest.GetStatus(self.motor_recorder, "events")[0]
+            senders = np.array(motor_events["senders"])
+            times = np.array(motor_events["times"])
+
+            # Only consider spikes in the current simulation window
+            mask = (times >= biological_time) & (times <= end_time)
+            if not np.any(mask):
+                return  # no spikes → no action
+
+            recent_times = times[mask]
+            recent_senders = senders[mask]
+
+            # Find the earliest spike in this interval
+            earliest_idx = np.argmin(recent_times)
+            first_firing_global_id = recent_senders[earliest_idx]
+
+            # Map global ID to local motor index
+            id_to_idx = {n.global_id: i for i, n in enumerate(self.motor_neurons)}
+            self.action = id_to_idx[first_firing_global_id]
+
+            # Apply suppressive current
+            self.supp_current.start = biological_time
+            self.supp_current.stop = end_time
+            self.supp_current.amplitude = -10000 
+
+    def apply_synaptic_plasticity(self, biological_time, start, end):
         """
         injects external reward
         Injects a current into the dopaminergic neurons based on how much of
@@ -419,10 +496,10 @@ class GridWorldAC(PongNet):
         reward_current = min(reward_current, self.max_reward)
         """
 
-        self.winning_neuron = self.get_max_activation()
-        action = self.winning_neuron
+        #self.winning_neuron = self.get_max_activation(start, end)
+        #action = self.winning_neuron
 
-        temp_state = [self.state[0], self.state[1]]
+        #temp_state = [self.state[0], self.state[1]]
 
         # [up, down, left, right]
         """
@@ -452,7 +529,7 @@ class GridWorldAC(PongNet):
         self.dopa_current.start = biological_time
         self.dopa_current.amplitude = reward_current
 
-        print("dopa current", self.dopa_current.amplitude)
+        #print("dopa current", self.dopa_current.amplitude)
 
     def __repr__(self) -> str:
         return ("noisy " if self.apply_noise else "clean ") + "TD"
