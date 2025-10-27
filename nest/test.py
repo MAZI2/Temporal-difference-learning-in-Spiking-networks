@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 NEXT_STATES = [(1, 0), (0, 0), (0, 0), (0, 0), (0, 0)]
 REWARDED_STATES = [1, 0, 0, 0, 0]
 #SEED = 12301
-SEED = 12312
+SEED = 12313
 
 # reset kernel first (very important)
 nest.ResetKernel()
@@ -45,12 +45,13 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 
 
-RUNS = 300
+RUNS = 3000
 class AIGridworld:
     def __init__(self):
         self.grid_size = (3, 3)
         self.start = (0, 0)
         self.goal = (2, 2)
+        self.debug = False 
 
         self.done = False
 
@@ -136,21 +137,6 @@ class AIGridworld:
 
 
         # Average weights plot
-        """
-        axes[0].plot(time_points_motor, weight_history_motor[:, 0], label=f"N0")
-        axes[0].plot(time_points_motor, weight_history_motor[:, 1], label=f"N1")
-        axes[0].plot(time_points_motor, weight_history_motor[:, 2], label=f"N2")
-        axes[0].plot(time_points_motor, weight_history_motor[:, 3], label=f"N3")
-        axes[0].plot(time_points_motor, weight_history_motor[:, 4], label=f"N4")
-        axes[0].plot(time_points_motor, weight_history_motor[:, 5], label=f"N5")
-        axes[0].plot(time_points_motor, weight_history_motor[:, 6], label=f"N6")
-        axes[0].plot(time_points_motor, weight_history_motor[:, 7], label=f"N7")
-        axes[0].plot(time_points_motor, weight_history_motor[:, 8], label=f"N8")
-        axes[0].set_ylabel("Avg weight to motor")
-        axes[0].set_title("Average synaptic weights: input → motor")
-        axes[0].legend(loc='upper right', ncol=5, fontsize=8)
-        """
-
         weight_history_input5 = np.array(weight_history_input5)  # shape: (iterations, num_motor_neurons)
         weight_history_input7 = np.array(weight_history_input7)
         weight_history_input6 = np.array(weight_history_input6)
@@ -165,32 +151,30 @@ class AIGridworld:
         axes[0].set_ylabel("Weight (pA)")
         axes[0].legend(fontsize=7, ncol=4)
 
-        """
         axes[1].set_title("Weights from input neuron 7 → motor neurons")
         for j in range(num_motor):
             axes[1].plot(time_points_motor, weight_history_input7[:, j], label=f"Motor {j}")
         axes[1].set_ylabel("Weight (pA)")
         axes[1].legend(fontsize=7, ncol=4)
-        """
 
-        axes[1].set_title("Weights from input neuron 6 → motor neurons")
+        axes[2].set_title("Weights from input neuron 6 → motor neurons")
         for j in range(num_motor):
-            axes[1].plot(time_points_motor, weight_history_input6[:, j], label=f"Motor {j}")
-        axes[1].set_ylabel("Weight (pA)")
-        axes[1].legend(fontsize=7, ncol=4)
+            axes[2].plot(time_points_motor, weight_history_input6[:, j], label=f"Motor {j}")
+        axes[2].set_ylabel("Weight (pA)")
+        axes[2].legend(fontsize=7, ncol=4)
 
-        axes[2].plot(time_points_str, weight_history_str[:, 0], label=f"N0")
-        axes[2].plot(time_points_str, weight_history_str[:, 1], label=f"N1")
-        axes[2].plot(time_points_str, weight_history_str[:, 2], label=f"N2")
-        axes[2].plot(time_points_str, weight_history_str[:, 3], label=f"N3")
-        axes[2].plot(time_points_str, weight_history_str[:, 4], label=f"N4")
-        axes[2].plot(time_points_str, weight_history_str[:, 5], label=f"N5")
-        axes[2].plot(time_points_str, weight_history_str[:, 6], label=f"N6")
-        axes[2].plot(time_points_str, weight_history_str[:, 7], label=f"N7")
-        axes[2].plot(time_points_str, weight_history_str[:, 8], label=f"N8")
-        axes[2].set_ylabel("Avg weight to striatum")
-        axes[2].set_title("Average synaptic weights: input → striatum")
-        axes[2].legend(loc='upper right', ncol=5, fontsize=8)
+        axes[3].plot(time_points_str, weight_history_str[:, 0], label=f"N0")
+        axes[3].plot(time_points_str, weight_history_str[:, 1], label=f"N1")
+        axes[3].plot(time_points_str, weight_history_str[:, 2], label=f"N2")
+        axes[3].plot(time_points_str, weight_history_str[:, 3], label=f"N3")
+        axes[3].plot(time_points_str, weight_history_str[:, 4], label=f"N4")
+        axes[3].plot(time_points_str, weight_history_str[:, 5], label=f"N5")
+        axes[3].plot(time_points_str, weight_history_str[:, 6], label=f"N6")
+        axes[3].plot(time_points_str, weight_history_str[:, 7], label=f"N7")
+        axes[3].plot(time_points_str, weight_history_str[:, 8], label=f"N8")
+        axes[3].set_ylabel("Avg weight to striatum")
+        axes[3].set_title("Average synaptic weights: input → striatum")
+        axes[3].legend(loc='upper right', ncol=5, fontsize=8)
 
 
         bin_size = 15.0           # ms
@@ -201,27 +185,38 @@ class AIGridworld:
         vp_rates = self.compute_avg_firing_rate(vp_spikes, num_neurons=self.player.n_critic, bins=bins, bin_size=bin_size)
         dopa_rates = self.compute_avg_firing_rate(dopa_spikes, num_neurons=self.player.n_critic, bins=bins, bin_size=bin_size)
 
-        axes[3].plot(bin_centers, str_rates, color='k')
-        axes[3].set_ylabel("STR firing rate (Hz)")
-        axes[3].set_title("Average STR activity")
+        axes[4].plot(bin_centers, str_rates, color='k')
+        axes[4].set_ylabel("STR firing rate (Hz)")
+        axes[4].set_title("Average STR activity")
 
-        axes[4].plot(bin_centers, vp_rates, color='r')
-        axes[4].set_ylabel("VP firing rate (Hz)")
-        axes[4].set_title("Average VP activity")
+        axes[5].plot(bin_centers, vp_rates, color='r')
+        axes[5].set_ylabel("VP firing rate (Hz)")
+        axes[5].set_title("Average VP activity")
 
-        axes[5].plot(bin_centers, dopa_rates, color='b')
-        axes[5].set_ylabel("Dopa firing rate (Hz)")
-        axes[5].set_xlabel("Time (ms)")
-        axes[5].set_title("Average Dopa activity")
+        axes[6].plot(bin_centers, dopa_rates, color='b')
+        axes[6].set_ylabel("Dopa firing rate (Hz)")
+        axes[6].set_xlabel("Time (ms)")
+        axes[6].set_title("Average Dopa activity")
 
         # Raster plot
-        axes[6].scatter(spike_times, neuron_ids, marker='.', color='black')
-        axes[6].set_ylabel("Input neuron index")
-        axes[6].set_title("Input neuron spikes (raster)")
-        axes[6].set_yticks(np.arange(9))
-        axes[6].set_ylim(-0.5, 8.5)
-        axes[6].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+        axes[7].scatter(spike_times, neuron_ids, marker='.', color='black')
+        axes[7].set_ylabel("Input neuron index")
+        axes[7].set_title("Input neuron spikes (raster)")
+        axes[7].set_yticks(np.arange(9))
+        axes[7].set_ylim(-0.5, 8.5)
+        axes[7].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
 
+
+        axes[8].step(np.arange(len(winning_history)) * poll_time, winning_history, where='post', color='green')
+        axes[8].set_ylabel("Winning neuron")
+        axes[8].set_xlabel("Time (ms)")
+        axes[8].set_title("Winning motor neuron per iteration")
+        axes[8].set_yticks(np.arange(len(self.player.motor_neurons)))
+        axes[8].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
+        axes[8].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+
+        """
+        # raster plot
         motor_events = nest.GetStatus(self.player.motor_recorder, "events")[0]  # dictionary with 'senders' and 'times'
         motor_senders = motor_events['senders']
         motor_times = motor_events['times']
@@ -229,22 +224,13 @@ class AIGridworld:
         motor_id_to_idx = {neuron.global_id: i for i, neuron in enumerate(self.player.motor_neurons)}
         motor_indices = np.array([motor_id_to_idx[s] for s in motor_senders])
 
-
-        axes[7].step(np.arange(len(winning_history)) * poll_time, winning_history, where='post', color='green')
-        axes[7].set_ylabel("Winning neuron")
-        axes[7].set_xlabel("Time (ms)")
-        axes[7].set_title("Winning motor neuron per iteration")
-        axes[7].set_yticks(np.arange(len(self.player.motor_neurons)))
-        axes[7].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
-        axes[7].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
-
-        # raster plot
-        axes[8].scatter(motor_times, motor_indices, marker='.', color='green')
-        axes[8].set_ylabel("Motor neuron")
-        axes[8].set_title("Motor neuron spikes (raster)")
-        axes[8].set_yticks(np.arange(len(self.player.motor_neurons)))
-        axes[8].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
-        axes[8].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+        axes[9].scatter(motor_times, motor_indices, marker='.', color='green')
+        axes[9].set_ylabel("Motor neuron")
+        axes[9].set_title("Motor neuron spikes (raster)")
+        axes[9].set_yticks(np.arange(len(self.player.motor_neurons)))
+        axes[9].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
+        axes[9].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+        """
 
 
         
@@ -283,6 +269,10 @@ class AIGridworld:
         for local_idx, neuron in enumerate(self.player.motor_neurons):
             print(f"Local index: {local_idx}, Global ID: {neuron.global_id}")
 
+        for local_idx, neuron in enumerate(self.player.input_neurons):
+            print(f"Local index: {local_idx}, Global ID: {neuron.global_id}")
+
+
 
         while self.run < max_runs:
             """
@@ -297,88 +287,93 @@ class AIGridworld:
 
             logging.debug("Running simulation...")
             print("sumulating ", self.run)
-            step_size = 10
+            if self.debug:
+                step_size = 10
+            else:
+                step_size = POLL_TIME
             for t in range(0, POLL_TIME, step_size):
                 nest.Simulate(step_size)
 
                 #self.player.get_action(self.run*POLL_TIME, (self.run+1)*POLL_TIME)
+                if self.debug:
+                    conns = nest.GetConnections(source=self.player.input_neurons, target=self.player.striatum)
+                    sources = np.array(conns.source)
+                    weights = np.array(conns.get("weight"))
 
-                conns = nest.GetConnections(source=self.player.input_neurons, target=self.player.striatum)
-                sources = np.array(conns.source)
-                weights = np.array(conns.get("weight"))
+                    conns_motor = nest.GetConnections(source=self.player.input_neurons, target=self.player.motor_neurons)
+                    sources_motor = np.array(conns_motor.source)
+                    weights_motor = np.array(conns_motor.get("weight"))
 
-                conns_motor = nest.GetConnections(source=self.player.input_neurons, target=self.player.motor_neurons)
-                sources_motor = np.array(conns_motor.source)
-                weights_motor = np.array(conns_motor.get("weight"))
-
-                targets_motor = np.array(conns_motor.target)
-
-
-                # compute mean per input neuron
-                means_per_input = []
-                means_per_input_motor = []
-                for src in self.player.input_neurons:
-                    mask = sources == src.global_id
-                    if np.any(mask):
-                        means_per_input.append(np.mean(weights[mask]))
-                    else:
-                        means_per_input.append(np.nan)
-
-                    mask = sources_motor == src.global_id
-                    if np.any(mask):
-                        means_per_input_motor.append(np.mean(weights_motor[mask]))
-                    else:
-                        means_per_input_motor.append(np.nan)
-
-                weight_history_str.append(means_per_input)
-                time_points_str.append(self.run * POLL_TIME + t + step_size)
-
-                weight_history_motor.append(means_per_input_motor)
-                time_points_motor.append(self.run * POLL_TIME + t + step_size)
-
-                num_motor_neurons = len(self.player.motor_neurons)
-
-                # prepare per-target weight vectors
-                weights_input5 = np.full(num_motor_neurons, np.nan)
-                weights_input7 = np.full(num_motor_neurons, np.nan)
-                weights_input6 = np.full(num_motor_neurons, np.nan)
-
-                input_neuron = 6
-
-                for idx, target in enumerate(self.player.motor_neurons):
-                    mask5 = (sources_motor == self.player.input_neurons[5].global_id) & (targets_motor == target.global_id)
-                    mask7 = (sources_motor == self.player.input_neurons[7].global_id) & (targets_motor == target.global_id)
-                    mask6 = (sources_motor == self.player.input_neurons[input_neuron].global_id) & (targets_motor == target.global_id)
-                    if np.any(mask5):
-                        weights_input5[idx] = weights_motor[mask5][0]
-                    if np.any(mask7):
-                        weights_input7[idx] = weights_motor[mask7][0]
-                    if np.any(mask6):
-                        weights_input6[idx] = weights_motor[mask6][0]
-
-                weight_history_input5.append(weights_input5)
-                weight_history_input7.append(weights_input7)
-                weight_history_input6.append(weights_input6)
+                    targets_motor = np.array(conns_motor.target)
 
 
-            str_events = nest.GetStatus(self.player.str_recorder, "events")[0]
+                    # compute mean per input neuron
+                    means_per_input = []
+                    means_per_input_motor = []
+                    for src in self.player.input_neurons:
+                        mask = sources == src.global_id
+                        if np.any(mask):
+                            means_per_input.append(np.mean(weights[mask]))
+                        else:
+                            means_per_input.append(np.nan)
 
-            # 'senders' contains the neuron IDs that emitted spikes
-            neuron_ids = str_events['senders']
+                        mask = sources_motor == src.global_id
+                        if np.any(mask):
+                            means_per_input_motor.append(np.mean(weights_motor[mask]))
+                        else:
+                            means_per_input_motor.append(np.nan)
 
-            #print("Striatum neuron IDs that fired spikes:", neuron_ids)
+                    weight_history_str.append(means_per_input)
+                    time_points_str.append(self.run * POLL_TIME + t + step_size)
+
+                    weight_history_motor.append(means_per_input_motor)
+                    time_points_motor.append(self.run * POLL_TIME + t + step_size)
+
+                    num_motor_neurons = len(self.player.motor_neurons)
+
+                    # prepare per-target weight vectors
+                    weights_input5 = np.full(num_motor_neurons, np.nan)
+                    weights_input7 = np.full(num_motor_neurons, np.nan)
+                    weights_input6 = np.full(num_motor_neurons, np.nan)
+
+                    input_neuron = 6
+
+                    for idx, target in enumerate(self.player.motor_neurons):
+                        mask5 = (sources_motor == self.player.input_neurons[5].global_id) & (targets_motor == target.global_id)
+                        mask7 = (sources_motor == self.player.input_neurons[7].global_id) & (targets_motor == target.global_id)
+                        mask6 = (sources_motor == self.player.input_neurons[input_neuron].global_id) & (targets_motor == target.global_id)
+                        if np.any(mask5):
+                            weights_input5[idx] = weights_motor[mask5][0]
+                        if np.any(mask7):
+                            weights_input7[idx] = weights_motor[mask7][0]
+                        if np.any(mask6):
+                            weights_input6[idx] = weights_motor[mask6][0]
+
+                    weight_history_input5.append(weights_input5)
+                    weight_history_input7.append(weights_input7)
+                    weight_history_input6.append(weights_input6)
 
             biological_time = nest.GetKernelStatus("biological_time")
 
+            if self.debug:
+                str_events = nest.GetStatus(self.player.str_recorder, "events")[0]
 
-            # Record input spikes
-            generators = nest.NodeCollection(self.player.input_generators)
-            spike_times_list = nest.GetStatus(generators, "spike_times")
-            spike_records.append(spike_times_list)
+                # 'senders' contains the neuron IDs that emitted spikes
+                neuron_ids = str_events['senders']
 
-            str_events = nest.GetStatus(self.player.str_recorder, "events")[0]
-            vp_events = nest.GetStatus(self.player.vp_recorder, "events")[0]
-            dopa_events = nest.GetStatus(self.player.dopa_recorder, "events")[0]
+                #print("Striatum neuron IDs that fired spikes:", neuron_ids)
+
+
+                # Record input spikes
+                generators = nest.NodeCollection(self.player.input_generators)
+                spike_times_list = nest.GetStatus(generators, "spike_times")
+                spike_records.append(spike_times_list)
+
+                str_events = nest.GetStatus(self.player.str_recorder, "events")[0]
+                vp_events = nest.GetStatus(self.player.vp_recorder, "events")[0]
+                dopa_events = nest.GetStatus(self.player.dopa_recorder, "events")[0]
+
+
 
             # Cleanup for next iteration
             # Reset only generators' spike_times and the motor spike counters
@@ -425,31 +420,51 @@ class AIGridworld:
         #print(spike_records)
         #print(weight_history)
 
-        self.plot_network_activity(spike_records, 
-                                   weight_history_motor, 
-                                   weight_history_str, 
-                                   time_points_str, 
-                                   time_points_motor, 
-                                   dopa_events, 
-                                   str_events, 
-                                   vp_events,
-                                   weight_history_input5,
-                                    weight_history_input7,
-                                    weight_history_input6,
-                                    winning_history
-                                   )
+        if self.debug:
+            self.plot_network_activity(spike_records, 
+                                       weight_history_motor, 
+                                       weight_history_str, 
+                                       time_points_str, 
+                                       time_points_motor, 
+                                       dopa_events, 
+                                       str_events, 
+                                       vp_events,
+                                       weight_history_input5,
+                                        weight_history_input7,
+                                        weight_history_input6,
+                                        winning_history
+                                       )
         end_time = time.time()
 
         weights = self.player.get_all_weights()
         policy = np.zeros((3, 3, 4))
 
+        """
         k = 0
         for i in range(3):
             for j in range(3):
                 policy[i][j] = weights[k]/np.sum(weights[k])
                 k += 1
+        """
 
-        self.game.plot_policy((3, 3), policy, start=(0,0), goal=self.goal)
+        connections_data = {}
+
+        # Collect connections for key projections
+        connections_data["input_to_motor"] = nest.GetConnections(source=self.player.input_neurons,
+                                                                 target=self.player.motor_neurons).get(["source", "target", "weight"])
+        connections_data["input_to_striatum"] = nest.GetConnections(source=self.player.input_neurons,
+                                                                    target=self.player.striatum).get(["source", "target", "weight"])
+
+        # Optionally include dopamine or inhibitory connections if relevant
+        # connections_data["str_to_vp"] = nest.GetConnections(source=self.player.striatum, target=self.player.vp).get(["source", "target", "weight"])
+
+        # Save with pickle
+        with open("connections.pkl", "wb") as f:
+            pickle.dump(connections_data, f)
+
+        print("✅ Saved NEST connections to connections.pkl")
+
+        #self.game.plot_policy((3, 3), policy, start=(0,0), goal=self.goal)
 
 
 if __name__ == "__main__":
