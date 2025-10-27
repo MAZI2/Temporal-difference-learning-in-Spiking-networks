@@ -45,7 +45,7 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 
 
-RUNS = 70
+RUNS = 300
 class AIGridworld:
     def __init__(self):
         self.grid_size = (3, 3)
@@ -165,17 +165,19 @@ class AIGridworld:
         axes[0].set_ylabel("Weight (pA)")
         axes[0].legend(fontsize=7, ncol=4)
 
+        """
         axes[1].set_title("Weights from input neuron 7 → motor neurons")
         for j in range(num_motor):
             axes[1].plot(time_points_motor, weight_history_input7[:, j], label=f"Motor {j}")
         axes[1].set_ylabel("Weight (pA)")
         axes[1].legend(fontsize=7, ncol=4)
+        """
 
-#        axes[1].set_title("Weights from input neuron 6 → motor neurons")
-#        for j in range(num_motor):
-#            axes[1].plot(time_points_motor, weight_history_input6[:, j], label=f"Motor {j}")
-#        axes[1].set_ylabel("Weight (pA)")
-#        axes[1].legend(fontsize=7, ncol=4)
+        axes[1].set_title("Weights from input neuron 6 → motor neurons")
+        for j in range(num_motor):
+            axes[1].plot(time_points_motor, weight_history_input6[:, j], label=f"Motor {j}")
+        axes[1].set_ylabel("Weight (pA)")
+        axes[1].legend(fontsize=7, ncol=4)
 
         axes[2].plot(time_points_str, weight_history_str[:, 0], label=f"N0")
         axes[2].plot(time_points_str, weight_history_str[:, 1], label=f"N1")
@@ -447,7 +449,7 @@ class AIGridworld:
                 policy[i][j] = weights[k]/np.sum(weights[k])
                 k += 1
 
-        #self.game.plot_policy((3, 3), policy, start=(0,0), goal=self.goal)
+        self.game.plot_policy((3, 3), policy, start=(0,0), goal=self.goal)
 
 
 if __name__ == "__main__":
