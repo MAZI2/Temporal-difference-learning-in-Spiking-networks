@@ -252,7 +252,7 @@ class GridWorldAC(PongNet):
                 "volume_transmitter": self.vt,
                 "Wmin": self.w_c_a,
                 "Wmax": self.w_c_a_max,
-                "tau_c": 5,
+                "tau_c": 20,
                 "tau_c_delay": 200,
                 "tau_n": 10,
                 "tau_plus": 20,

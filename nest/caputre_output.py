@@ -18,28 +18,40 @@ debug_pattern = re.compile(
     r"\[DEBUG trigger_update_weight\]\s*\|\s*post_node_id=(\d+)\s*\|\s*t_trig=(\S+)\s*\|.*?c_delayed=(\S+)"
 )
 
+# Extract all matches
 debug_data = [
     (int(m.group(1)), float(m.group(2)), float(m.group(3)))
     for m in debug_pattern.finditer(output)
 ]
-# print(debug_data)
 
-debug_data = [ (t, c) for post_id, t, c in debug_data if post_id == 19 ]
+# 3️⃣ Filter for neurons of interest
+target_neurons = [19, 20, 21, 22]
+neuron_data = {nid: [] for nid in target_neurons}
 
-print(f"Collected {len(debug_data)} debug lines for neuron 66")
+for post_id, t, c in debug_data:
+    if post_id in neuron_data:
+        neuron_data[post_id].append((t, c))
 
-# 4️⃣ Plot
-if debug_data:
-    time_points, c_delayed_values = zip(*debug_data)
-    # print(time_points, c_delayed_values)
+# 4️⃣ Plot results
+valid_neurons = [nid for nid, data in neuron_data.items() if data]
 
-    plt.figure(figsize=(10, 4))
-    plt.plot(time_points, c_delayed_values, linestyle='-', color='purple')
-    plt.xlabel("Time (ms)")
-    plt.ylabel("c_delayed")
-    plt.title("Eligibility trace c_delayed for post neuron 66")
-    plt.grid(True)
+if valid_neurons:
+    fig, axes = plt.subplots(len(valid_neurons), 1, figsize=(10, 2 * len(valid_neurons)), sharex=True)
+
+    if len(valid_neurons) == 1:
+        axes = [axes]  # Ensure iterable if only one neuron
+
+    for ax, nid in zip(axes, valid_neurons):
+        data = sorted(neuron_data[nid], key=lambda x: x[0])  # sort by time
+        time_points, c_delayed_values = zip(*data)
+        ax.plot(time_points, c_delayed_values, label=f"Neuron {nid}", color="purple")
+        ax.set_ylabel("c_delayed")
+        ax.set_title(f"Eligibility trace for post neuron {nid}")
+        ax.grid(True)
+        ax.legend(loc="upper right")
+
+    axes[-1].set_xlabel("Time (ms)")
     plt.tight_layout()
     plt.show()
 else:
-    print("No c_delayed entries found for post neuron 66")
+    print("No c_delayed entries found for neurons 19–22.")
