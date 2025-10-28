@@ -72,7 +72,7 @@ def plot_policy(input_to_motor, input_to_striatum, input_map, motor_map, grid_si
                     arrow_dx += dx * avg_w
                     arrow_dy += dy * avg_w
 
-            length = np.sqrt(arrow_dx**2 + arrow_dy**2)*2
+            length = np.sqrt(arrow_dx**2 + arrow_dy**2)
             if length > 0:
                 arrow_dx /= length
                 arrow_dy /= length
@@ -118,11 +118,103 @@ for src in unique_sources:
 for src, avg_w in avg_weights_per_input.items():
     print(f"Input neuron {src}: average weight to all motor neurons = {avg_w:.3f}")
 
+# 3x3
 motor_map = {19: 0, 20: 1, 21: 2, 22: 3}
 input_map = {
     10: 0, 11: 1, 12: 2, 13: 3, 14: 4,
     15: 5, 16: 6, 17: 7, 18: 8
 }
+"""
+# 4x4
+motor_map = {
+    33: 0,
+    34: 1,
+    35: 2,
+    36: 3
+}
+
+input_map = {
+    17: 0,
+    18: 1,
+    19: 2,
+    20: 3,
+    21: 4,
+    22: 5,
+    23: 6,
+    24: 7,
+    25: 8,
+    26: 9,
+    27: 10,
+    28: 11,
+    29: 12,
+    30: 13,
+    31: 14,
+    32: 15
+}
+"""
+"""
+#5x5
+motor_map = {
+    51: 0,
+    52: 1,
+    53: 2,
+    54: 3
+}
+
+input_map = {
+    26: 0,
+    27: 1,
+    28: 2,
+    29: 3,
+    30: 4,
+    31: 5,
+    32: 6,
+    33: 7,
+    34: 8,
+    35: 9,
+    36: 10,
+    37: 11,
+    38: 12,
+    39: 13,
+    40: 14,
+    41: 15,
+    42: 16,
+    43: 17,
+    44: 18,
+    45: 19,
+    46: 20,
+    47: 21,
+    48: 22,
+    49: 23,
+    50: 24
+}
+"""
+
+# --- Compute and print average input→striatum weights ---
+sources_str = np.array(connections_data["input_to_striatum"]["source"])
+targets_str = np.array(connections_data["input_to_striatum"]["target"])
+weights_str = np.array(connections_data["input_to_striatum"]["weight"])
+
+valid_mask_str = np.isin(sources_str, list(input_map.keys()))
+sources_str = sources_str[valid_mask_str]
+weights_str = weights_str[valid_mask_str]
+
+unique_sources_str = np.unique(sources_str)
+avg_weights_per_input_str = {}
+
+for src in unique_sources_str:
+    mask = sources_str == src
+    avg_weight = np.mean(weights_str[mask])
+    avg_weights_per_input_str[src] = avg_weight
+
+print("\nAverage input→striatum weights:\n")
+for src_global, avg_w in avg_weights_per_input_str.items():
+    src_local = input_map.get(src_global, None)
+    if src_local is not None:
+        print(f"Input neuron {src_global} (local {src_local}): average weight to striatum = {avg_w:.3f}")
+
+
+
 
 # Filter only connections that exist in these maps
 valid_mask = np.isin(sources, list(input_map.keys())) & np.isin(targets, list(motor_map.keys()))
@@ -174,12 +266,8 @@ for i, src_local in enumerate(unique_inputs):
 plot_policy(
     input_to_motor=connections_data["input_to_motor"],
     input_to_striatum=connections_data["input_to_striatum"],
-    input_map={
-        10: 0, 11: 1, 12: 2,
-        13: 3, 14: 4, 15: 5,
-        16: 6, 17: 7, 18: 8
-    },
-    motor_map={19: 0, 20: 1, 21: 2, 22: 3},
-    grid_size=(3, 3)
+    input_map=input_map,
+    motor_map=motor_map,
+    grid_size=grid_size
 )
 

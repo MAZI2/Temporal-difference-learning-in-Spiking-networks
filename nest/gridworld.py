@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import random
 
 class GridWorld:
     def __init__(self, size=(5, 5), start=(0, 0), goal=(4, 4)):
@@ -14,9 +15,28 @@ class GridWorld:
             3: (0, 1)    # right
         }
 
-    def reset(self):
-        self.state = self.start
+    def reset(self, random_start=False):
+        """
+        Reset environment.
+        If random_start=True, choose a random starting position that is not the goal.
+        """
+        if random_start:
+            self.state = self.get_random_start()
+        else:
+            self.state = self.start
         return self.state
+
+    def get_random_start(self):
+        """
+        Choose a random cell in the grid that is not the goal.
+        """
+        all_positions = [
+            (i, j)
+            for i in range(self.size[0])
+            for j in range(self.size[1])
+            if (i, j) != self.goal
+        ]
+        return random.choice(all_positions)
 
     def step(self, action):
         dx, dy = self.actions[action]

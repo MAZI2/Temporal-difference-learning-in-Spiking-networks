@@ -24,14 +24,13 @@ debug_data = [
 ]
 # print(debug_data)
 
-# 3️⃣ Filter for post_neuron_id = 66
-debug_data_66 = [ (t, c) for post_id, t, c in debug_data if post_id == 19 ]
+debug_data = [ (t, c) for post_id, t, c in debug_data if post_id == 19 ]
 
-print(f"Collected {len(debug_data_66)} debug lines for neuron 66")
+print(f"Collected {len(debug_data)} debug lines for neuron 66")
 
 # 4️⃣ Plot
-if debug_data_66:
-    time_points, c_delayed_values = zip(*debug_data_66)
+if debug_data:
+    time_points, c_delayed_values = zip(*debug_data)
     # print(time_points, c_delayed_values)
 
     plt.figure(figsize=(10, 4))

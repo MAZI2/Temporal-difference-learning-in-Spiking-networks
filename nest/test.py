@@ -1,4 +1,4 @@
-import argparse
+import argparse 
 import datetime
 import gzip
 import logging
@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 NEXT_STATES = [(1, 0), (0, 0), (0, 0), (0, 0), (0, 0)]
 REWARDED_STATES = [1, 0, 0, 0, 0]
 #SEED = 12301
-SEED = 12313
+SEED = 12340
 
 # reset kernel first (very important)
 nest.ResetKernel()
@@ -45,19 +45,25 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 
 
-RUNS = 3000
+RUNS = 30
 class AIGridworld:
     def __init__(self):
         self.grid_size = (3, 3)
-        self.start = (0, 0)
+        self.start = (1, 2)
         self.goal = (2, 2)
-        self.debug = False 
+        self.debug = True 
+        self.loadWeights = False 
 
         self.done = False
 
         self.game = gridworld.GridWorld(size=self.grid_size, start=self.start, goal=self.goal)
         self.state = self.game.reset()
         self.player = GridWorldAC(False)
+        if self.loadWeights:
+            if os.path.exists("connections_b.pkl"):
+                with open("connections_b.pkl", "rb") as f:
+                    connections_data = pickle.load(f)
+                self.player.load_saved_weights(connections_data)
 
         logging.info(f"setup complete for gridworld")
 
@@ -133,7 +139,7 @@ class AIGridworld:
         # 3️⃣ Plotting
         time_axis = np.arange(RUNS) * poll_time
 
-        fig, axes = plt.subplots(9, 1, figsize=(12, 14), sharex=True)
+        fig, axes = plt.subplots(8, 1, figsize=(12, 20), sharex=True)
 
 
         # Average weights plot
@@ -171,7 +177,16 @@ class AIGridworld:
         axes[3].plot(time_points_str, weight_history_str[:, 5], label=f"N5")
         axes[3].plot(time_points_str, weight_history_str[:, 6], label=f"N6")
         axes[3].plot(time_points_str, weight_history_str[:, 7], label=f"N7")
+        """
         axes[3].plot(time_points_str, weight_history_str[:, 8], label=f"N8")
+        axes[3].plot(time_points_str, weight_history_str[:, 9], label=f"N9")
+        axes[3].plot(time_points_str, weight_history_str[:, 10], label=f"N10")
+        axes[3].plot(time_points_str, weight_history_str[:, 11], label=f"N11")
+        axes[3].plot(time_points_str, weight_history_str[:, 12], label=f"N12")
+        axes[3].plot(time_points_str, weight_history_str[:, 13], label=f"N13")
+        axes[3].plot(time_points_str, weight_history_str[:, 14], label=f"N14")
+        """
+
         axes[3].set_ylabel("Avg weight to striatum")
         axes[3].set_title("Average synaptic weights: input → striatum")
         axes[3].legend(loc='upper right', ncol=5, fontsize=8)
@@ -185,6 +200,7 @@ class AIGridworld:
         vp_rates = self.compute_avg_firing_rate(vp_spikes, num_neurons=self.player.n_critic, bins=bins, bin_size=bin_size)
         dopa_rates = self.compute_avg_firing_rate(dopa_spikes, num_neurons=self.player.n_critic, bins=bins, bin_size=bin_size)
 
+        """
         axes[4].plot(bin_centers, str_rates, color='k')
         axes[4].set_ylabel("STR firing rate (Hz)")
         axes[4].set_title("Average STR activity")
@@ -192,30 +208,32 @@ class AIGridworld:
         axes[5].plot(bin_centers, vp_rates, color='r')
         axes[5].set_ylabel("VP firing rate (Hz)")
         axes[5].set_title("Average VP activity")
+        """
 
-        axes[6].plot(bin_centers, dopa_rates, color='b')
-        axes[6].set_ylabel("Dopa firing rate (Hz)")
-        axes[6].set_xlabel("Time (ms)")
-        axes[6].set_title("Average Dopa activity")
+        axes[4].plot(bin_centers, dopa_rates, color='b')
+        axes[4].set_ylabel("Dopa firing rate (Hz)")
+        axes[4].set_xlabel("Time (ms)")
+        axes[4].set_title("Average Dopa activity")
 
         # Raster plot
-        axes[7].scatter(spike_times, neuron_ids, marker='.', color='black')
-        axes[7].set_ylabel("Input neuron index")
-        axes[7].set_title("Input neuron spikes (raster)")
-        axes[7].set_yticks(np.arange(9))
-        axes[7].set_ylim(-0.5, 8.5)
-        axes[7].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+        axes[5].scatter(spike_times, neuron_ids, marker='.', color='black')
+        axes[5].set_ylabel("Input neuron index")
+        axes[5].set_title("Input neuron spikes (raster)")
+#        axes[5].set_yticks(np.arange(16))
+#        axes[5].set_ylim(-0.5, 15.5)
+        axes[5].set_yticks(np.arange(9))
+        axes[5].set_ylim(-0.5, 8.5)     
+        axes[5].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
 
 
-        axes[8].step(np.arange(len(winning_history)) * poll_time, winning_history, where='post', color='green')
-        axes[8].set_ylabel("Winning neuron")
-        axes[8].set_xlabel("Time (ms)")
-        axes[8].set_title("Winning motor neuron per iteration")
-        axes[8].set_yticks(np.arange(len(self.player.motor_neurons)))
-        axes[8].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
-        axes[8].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+        axes[6].step(np.arange(len(winning_history)) * poll_time, winning_history, where='post', color='green')
+        axes[6].set_ylabel("Winning neuron")
+        axes[6].set_xlabel("Time (ms)")
+        axes[6].set_title("Winning motor neuron per iteration")
+        axes[6].set_yticks(np.arange(len(self.player.motor_neurons)))
+        axes[6].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
+        axes[6].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
 
-        """
         # raster plot
         motor_events = nest.GetStatus(self.player.motor_recorder, "events")[0]  # dictionary with 'senders' and 'times'
         motor_senders = motor_events['senders']
@@ -224,13 +242,12 @@ class AIGridworld:
         motor_id_to_idx = {neuron.global_id: i for i, neuron in enumerate(self.player.motor_neurons)}
         motor_indices = np.array([motor_id_to_idx[s] for s in motor_senders])
 
-        axes[9].scatter(motor_times, motor_indices, marker='.', color='green')
-        axes[9].set_ylabel("Motor neuron")
-        axes[9].set_title("Motor neuron spikes (raster)")
-        axes[9].set_yticks(np.arange(len(self.player.motor_neurons)))
-        axes[9].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
-        axes[9].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
-        """
+        axes[7].scatter(motor_times, motor_indices, marker='.', color='green')
+        axes[7].set_ylabel("Motor neuron")
+        axes[7].set_title("Motor neuron spikes (raster)")
+        axes[7].set_yticks(np.arange(len(self.player.motor_neurons)))
+        axes[7].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
+        axes[7].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
 
 
         
@@ -336,12 +353,14 @@ class AIGridworld:
                     weights_input7 = np.full(num_motor_neurons, np.nan)
                     weights_input6 = np.full(num_motor_neurons, np.nan)
 
-                    input_neuron = 6
+                    input_neuron1 = 5#10
+                    input_neuron2 = 7#11
+                    input_neuron3= 6#14
 
                     for idx, target in enumerate(self.player.motor_neurons):
-                        mask5 = (sources_motor == self.player.input_neurons[5].global_id) & (targets_motor == target.global_id)
-                        mask7 = (sources_motor == self.player.input_neurons[7].global_id) & (targets_motor == target.global_id)
-                        mask6 = (sources_motor == self.player.input_neurons[input_neuron].global_id) & (targets_motor == target.global_id)
+                        mask5 = (sources_motor == self.player.input_neurons[input_neuron1].global_id) & (targets_motor == target.global_id)
+                        mask7 = (sources_motor == self.player.input_neurons[input_neuron2].global_id) & (targets_motor == target.global_id)
+                        mask6 = (sources_motor == self.player.input_neurons[input_neuron3].global_id) & (targets_motor == target.global_id)
                         if np.any(mask5):
                             weights_input5[idx] = weights_motor[mask5][0]
                         if np.any(mask7):
@@ -414,7 +433,7 @@ class AIGridworld:
             if self.done:
                 print("REACHED GOAL")
                 self.done = False
-                self.state = self.game.reset()
+                self.state = self.game.reset(random_start=True)
                 self.player.set_state(self.state)
 
         #print(spike_records)
@@ -436,35 +455,20 @@ class AIGridworld:
                                        )
         end_time = time.time()
 
-        weights = self.player.get_all_weights()
-        policy = np.zeros((3, 3, 4))
+        if True:#not self.debug:
+            connections_data = {}
 
-        """
-        k = 0
-        for i in range(3):
-            for j in range(3):
-                policy[i][j] = weights[k]/np.sum(weights[k])
-                k += 1
-        """
+            # Collect connections for key projections
+            connections_data["input_to_motor"] = nest.GetConnections(source=self.player.input_neurons,
+                                                                     target=self.player.motor_neurons).get(["source", "target", "weight"])
+            connections_data["input_to_striatum"] = nest.GetConnections(source=self.player.input_neurons,
+                                                                        target=self.player.striatum).get(["source", "target", "weight"])
 
-        connections_data = {}
+            # Save with pickle
+            with open("connections.pkl", "wb") as f:
+                pickle.dump(connections_data, f)
 
-        # Collect connections for key projections
-        connections_data["input_to_motor"] = nest.GetConnections(source=self.player.input_neurons,
-                                                                 target=self.player.motor_neurons).get(["source", "target", "weight"])
-        connections_data["input_to_striatum"] = nest.GetConnections(source=self.player.input_neurons,
-                                                                    target=self.player.striatum).get(["source", "target", "weight"])
-
-        # Optionally include dopamine or inhibitory connections if relevant
-        # connections_data["str_to_vp"] = nest.GetConnections(source=self.player.striatum, target=self.player.vp).get(["source", "target", "weight"])
-
-        # Save with pickle
-        with open("connections.pkl", "wb") as f:
-            pickle.dump(connections_data, f)
-
-        print("✅ Saved NEST connections to connections.pkl")
-
-        #self.game.plot_policy((3, 3), policy, start=(0,0), goal=self.goal)
+            print("✅ Saved NEST connections to connections.pkl")
 
 
 if __name__ == "__main__":
