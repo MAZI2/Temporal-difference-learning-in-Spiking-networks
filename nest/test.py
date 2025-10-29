@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 NEXT_STATES = [(1, 0), (0, 0), (0, 0), (0, 0), (0, 0)]
 REWARDED_STATES = [1, 0, 0, 0, 0]
 #SEED = 12301
-SEED = 12340
+SEED = 12351
 
 # reset kernel first (very important)
 nest.ResetKernel()
@@ -29,7 +29,6 @@ nest.ResetKernel()
 # of threads on each run and accept more complexity.
 nest.SetKernelStatus({
     "rng_seed": SEED,
-    "local_num_threads": 1
 })
 
 
@@ -45,13 +44,13 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 
 
-RUNS = 30
+RUNS = 3000
 class AIGridworld:
     def __init__(self):
         self.grid_size = (3, 3)
         self.start = (1, 2)
         self.goal = (2, 2)
-        self.debug = True 
+        self.debug = False 
         self.loadWeights = False 
 
         self.done = False
@@ -249,12 +248,33 @@ class AIGridworld:
         axes[7].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
         axes[7].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
 
-
-        
-
-        for ax in axes:
+        def plot_raster(ax, recorder, neurons, color, title):
+            events = nest.GetStatus(recorder, "events")[0]
+            senders = events['senders']
+            times = events['times']
+            id_to_idx = {n.global_id: i for i, n in enumerate(neurons)}
+            indices = np.array([id_to_idx[s] for s in senders if s in id_to_idx])
+            ax.scatter(times, indices, marker='.', color=color)
+            ax.set_ylabel("Neuron index")
+            ax.set_title(title)
+            ax.set_yticks(np.arange(len(neurons)))
+            ax.set_ylim(-0.5, len(neurons) - 0.5)
             ax.grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
-            ax.set_xticks(np.arange(0, time_axis[-1] + 200, 200))  # vertical grid every 200 ms
+
+
+        # Copy previous plots into new figure
+#        for i, ax_old in enumerate(fig.axes[:8]):
+#            fig.axes[i] = ax_old
+
+        # Append three raster plots
+#        plot_raster(axes[8], self.player.intermediate_motor1_recorder, self.player.intermediate_motor1, "orange", "Intermediate Motor 1 spikes (raster)")
+#        plot_raster(axes[9], self.player.intermediate_motor2_recorder, self.player.intermediate_motor2, "teal", "Intermediate Motor 2 spikes (raster)")
+#        plot_raster(axes[10], self.player.intermediate_motor_recorder, self.player.intermediate_motor, "purple", "Intermediate Motor spikes (raster)")
+        
+        #
+        # for ax in axes:
+        #     ax.grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+        #     ax.set_xticks(np.arange(0, time_axis[-1] + 200, 10))  # vertical grid every 200 ms
 
         
         plt.tight_layout()
@@ -286,8 +306,10 @@ class AIGridworld:
         for local_idx, neuron in enumerate(self.player.motor_neurons):
             print(f"Local index: {local_idx}, Global ID: {neuron.global_id}")
 
-        for local_idx, neuron in enumerate(self.player.input_neurons):
+        """
+        for local_idx, neuron in enumerate(self.player.intermediate_motor):
             print(f"Local index: {local_idx}, Global ID: {neuron.global_id}")
+        """
 
 
 
@@ -301,6 +323,7 @@ class AIGridworld:
 
             self.input_index = self.state[0] * self.grid_size[1] + self.state[1]
             self.player.set_input_spiketrain(self.input_index, biological_time)
+            self.player.suppress_dopa(biological_time)
 
             logging.debug("Running simulation...")
             print("sumulating ", self.run)
@@ -308,11 +331,20 @@ class AIGridworld:
                 step_size = 10
             else:
                 step_size = POLL_TIME
+            """
+            step_size = 1
+            """
             for t in range(0, POLL_TIME, step_size):
+                biological_time = nest.GetKernelStatus("biological_time")
                 nest.Simulate(step_size)
 
-                #self.player.get_action(self.run*POLL_TIME, (self.run+1)*POLL_TIME)
+                """
+                if biological_time <= (self.run+1)*POLL_TIME:
+                    self.player.get_action(biological_time, (self.run+1)*POLL_TIME)
+                """
+                
                 if self.debug:
+                    #print("supp current", self.player.supp_current.amplitude)
                     conns = nest.GetConnections(source=self.player.input_neurons, target=self.player.striatum)
                     sources = np.array(conns.source)
                     weights = np.array(conns.get("weight"))

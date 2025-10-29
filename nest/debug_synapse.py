@@ -1,69 +1,93 @@
 import re
 import matplotlib.pyplot as plt
+from collections import defaultdict
 
-#LOG_FILE = "c_delayed_out.txt"
-LOG_FILE = "c_current_out.txt"
+# ----------------------------------
+# Config
+# ----------------------------------
+LOG_FILE = "out.txt"   # or "c_delayed_out.txt"
+start =0                     # time filter
+end = 200
+plot_ix = 5                      # index within each t_trig block
+pattern = re.compile(
+    r"post_node_id=(\d+).*?t_trig=(\d+).*?c_current=([\-0-9.eE]+)"
+)
+# (use c_delayed=... instead of c_current=... if plotting c_delayed)
 
-# Regex to extract t_trig and c_delayed
-#pattern = re.compile(r"t_trig=(\d+).*?c_delayed=([\-0-9.eE]+)")
-pattern = re.compile(r"t_trig=(\d+).*?c_current=([\-0-9.eE]+)")
-
+# ----------------------------------
 # Parse the log file
+# ----------------------------------
 with open(LOG_FILE, "r") as f:
     lines = f.readlines()
 
-# Collect per t_trig in order
-blocks = []
-current_ttrig = None
-current_block = []
+# Store (t_trig, c_val) for each neuron separately
+neuron_data = defaultdict(list)
 
-for ix, line in enumerate(lines):
+for line in lines:
     m = pattern.search(line)
-
     if not m:
         continue
 
-    t_trig = int(m.group(1))
-    c_delayed = float(m.group(2))
+    post_id = int(m.group(1))
+    t_trig = int(m.group(2))
+    c_val = float(m.group(3))
 
-    if current_ttrig is None:
-        current_ttrig = t_trig
-        current_block = [c_delayed]
-    elif t_trig == current_ttrig:
-        current_block.append(c_delayed)
-    else:
+    if not (start < t_trig < end):
+        continue
+
+    neuron_data[post_id].append((t_trig, c_val))
+
+# ----------------------------------
+# Group by t_trig for each neuron (preserving order)
+# ----------------------------------
+neuron_blocks = {}
+
+for post_id, entries in neuron_data.items():
+    blocks = []
+    current_ttrig = None
+    current_block = []
+
+    for (t_trig, c_val) in entries:
+        if current_ttrig is None:
+            current_ttrig = t_trig
+            current_block = [c_val]
+        elif t_trig == current_ttrig:
+            current_block.append(c_val)
+        else:
+            blocks.append((current_ttrig, current_block))
+            current_ttrig = t_trig
+            current_block = [c_val]
+
+    if current_block:
         blocks.append((current_ttrig, current_block))
-        current_ttrig = t_trig
-        current_block = [c_delayed]
 
-if current_block:
-    blocks.append((current_ttrig, current_block))
+    neuron_blocks[post_id] = blocks
 
-print(f"Found {len(blocks)} t_trig blocks")
-print("block", blocks[0])
+# ----------------------------------
+# Plot stacked vertically (one subplot per neuron)
+# ----------------------------------
+fig, axes = plt.subplots(len(neuron_blocks), 1, figsize=(8, 4 * len(neuron_blocks)), sharex=True)
 
-# We need to align by index — all blocks should be same length
-min_len = min(len(block[1]) for block in blocks)
-print(min_len)
-print(f"Using first {min_len} entries per block for alignment")
-
-# Build series per line index
-index_series = []
-for i in range(min_len):
-    x_vals = [b[0] for b in blocks]  # t_trig values
-    y_vals = [b[1][i] for b in blocks]
-    index_series.append((x_vals, y_vals))
-
-# Plot each line index as its own subplot
-fig, axes = plt.subplots(min_len, 1, figsize=(8, 2 * min_len), sharex=True)
-if min_len == 1:
+if len(neuron_blocks) == 1:
     axes = [axes]
 
-for i, (ax, (x_vals, y_vals)) in enumerate(zip(axes, index_series)):
-    ax.plot(x_vals, y_vals, color='purple')
-    ax.set_title(f"Line index {i}")
-    ax.set_ylabel("c_delayed")
+for ax, (post_id, blocks) in zip(axes, sorted(neuron_blocks.items())):
+    if not blocks:
+        continue
+
+    min_len = min(len(block[1]) for block in blocks)
+    if plot_ix >= min_len:
+        print(f"Skipping neuron {post_id}: plot_ix={plot_ix} out of range (max {min_len-1})")
+        continue
+
+    x_vals = [b[0] for b in blocks]
+    y_vals = [b[1][plot_ix] for b in blocks]
+
+    ax.plot(x_vals, y_vals, color='purple', label=f"post_node_id={post_id}")
+    ax.set_title(f"Neuron {post_id} — index {plot_ix} (t_trig {start}-{end})")
+    ax.set_ylabel("c_current")
     ax.grid(True)
+    ax.legend()
 
 axes[-1].set_xlabel("t_trig")
 

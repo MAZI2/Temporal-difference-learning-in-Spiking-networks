@@ -4,6 +4,7 @@ import io
 import os
 import re
 from contextlib import contextmanager
+import sys
 
 # -------------------------
 # NEST setup
@@ -34,25 +35,25 @@ post = nest.Create("spike_generator", {"spike_times": [12.0, 52.0, 92.0]})
 pg = nest.Create("poisson_generator", params={"rate": 200.0})  # pre-syn
 vt = nest.Create("volume_transmitter")
 
-dopa_spike_times = [float(t) for t in range(201, 401, 20)]
+dopa_spike_times = [float(t) for t in range(1, 401, 20)]
 mod_spikes = nest.Create("spike_generator", {"spike_times": dopa_spike_times})
 dopa = nest.Create("parrot_neuron")
 nest.Connect(mod_spikes, dopa)
 nest.Connect(dopa, vt)
 
-nest.SetDefaults(
-            "stdp_dopamine_synapse",
-            {
-                "volume_transmitter": vt,
-                "tau_c": 50,
-                "tau_n": 50,
-                "tau_plus": 100,
-                "Wmin": 1220,
-                "Wmax": 1550,
-                "b": 0.0,
-                "A_plus": 0.6,
-            },
-        )
+# nest.SetDefaults(
+#             "stdp_dopamine_synapse",
+#             {
+#                 "volume_transmitter": vt,
+#                 "tau_c": 50,
+#                 "tau_n": 50,
+#                 "tau_plus": 100,
+#                 "Wmin": 1220,
+#                 "Wmax": 1550,
+#                 "b": 0.0,
+#                 "A_plus": 0.6,
+#             },
+#         )
 nest.SetDefaults(
             "delayed_synapse",
             {
@@ -72,7 +73,11 @@ nest.SetDefaults(
 #                         {"synapse_model": "stdp_dopamine_synapse", "weight": 150.0})
 syn_conn = nest.Connect(neuron, neuron2, {"rule": "all_to_all"},
                         {"synapse_model": "delayed_synapse"})
+print(nest.GetConnections(neuron, neuron2))
+
 nest.Connect(pre, neuron)
+
+
 
 # -------------------------
 # Helpers for capturing C++ stdout
@@ -98,6 +103,7 @@ debug_pattern = re.compile(
     r"c_delayed=(\S+).*?"
     r"n=(\S+)"
 )
+
 
 c_delayed_data = []
 n_data = []

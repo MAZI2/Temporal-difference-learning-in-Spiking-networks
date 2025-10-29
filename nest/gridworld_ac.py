@@ -8,7 +8,7 @@ import numpy as np
 # Simulation time per iteration in milliseconds.
 POLL_TIME = 200
 # Number of spikes in an input spiketrain per iteration.
-N_INPUT_SPIKES = 200
+N_INPUT_SPIKES = 150
 # Inter-spike interval of the input spiketrain.
 ISI = 1.0
 # Standard deviation of Gaussian current noise in picoampere.
@@ -44,11 +44,20 @@ class PongNet(ABC):
         #self.target_index = (4, 4)
 
         self.input_generators = nest.Create("spike_generator", self.num_input_neurons)
+        self.vp_generators = nest.Create("spike_generator", self.n_critic)
+
         # N_s = 1
         self.input_neurons = nest.Create("parrot_neuron", self.num_input_neurons)
         nest.Connect(self.input_generators, self.input_neurons, {"rule": "one_to_one"})
 
-        # Actor
+        # Motor
+        """
+        self.intermediate_motor = nest.Create("iaf_psc_alpha", self.num_input_neurons, params=neuron_params)
+        self.intermediate_motor1 = nest.Create("iaf_psc_alpha", self.num_input_neurons, params=neuron_params)
+        self.intermediate_motor2 = nest.Create("iaf_psc_alpha", self.num_input_neurons, params=neuron_params)
+        """
+
+
         self.motor_neurons = nest.Create("iaf_psc_alpha", self.num_output_neurons, params=neuron_params)
         self.spike_recorders = nest.Create("spike_recorder", self.num_output_neurons)
         nest.Connect(self.motor_neurons, self.spike_recorders, {"rule": "one_to_one"})
@@ -100,6 +109,11 @@ class PongNet(ABC):
         """
         self.spike_recorders.set({"n_events": 0})
 
+    def suppress_dopa(self, biological_time):
+        self.supp_current.stop = biological_time+200
+        self.supp_current.start = biological_time+150
+        self.supp_current.amplitude = 1000 
+
     def set_input_spiketrain(self, input_cell, biological_time):
         """Sets a spike train to the input neuron specified by an index.
 
@@ -149,7 +163,7 @@ class PongNet(ABC):
         max_indices = np.flatnonzero(avg_rates == avg_rates.max())
         print(start, end)
         print(avg_rates)
-        
+
         # Return local index (0..N-1) randomly if there are ties
         return int(np.random.choice(max_indices))
 
@@ -193,6 +207,7 @@ class GridWorldAC(PongNet):
     # Neuron and synapse parameters:
     # Initial mean weight for synapses between input- and motor neurons
     weight_std = 8
+    weight_std_motor = 8
     n_critic = 8
 
     w_c_a = 100
@@ -252,14 +267,60 @@ class GridWorldAC(PongNet):
                 "volume_transmitter": self.vt,
                 "Wmin": self.w_c_a,
                 "Wmax": self.w_c_a_max,
-                "tau_c": 20,
+                "tau_c": 5,
                 "tau_c_delay": 200,
                 "tau_n": 10,
                 "tau_plus": 20,
                 "b": 0.1,
-                "A_plus": 0.8,
-                "A_minus": 0.8
+                "A_plus": 0.3,
+                "A_minus": 0.3
             }
+        )
+
+        """
+        # Input -> motor
+        nest.Connect(
+            self.input_neurons,
+            self.intermediate_motor1,
+            {"rule": "all_to_all"},
+            {
+                "synapse_model": "stdp_motor_synapse",
+                "weight": nest.random.normal(self.w_c_a, self.weight_std_motor),
+                "delay": 5
+            },
+        )
+
+        nest.Connect(
+            self.intermediate_motor1,
+            self.intermediate_motor2,
+            {"rule": "all_to_all"},
+            {
+                "synapse_model": "stdp_motor_synapse",
+                "weight": nest.random.normal(self.w_c_a, self.weight_std_motor),
+                "delay": 5
+            },
+        )
+
+        nest.Connect(
+            self.intermediate_motor2,
+            self.intermediate_motor,
+            {"rule": "all_to_all"},
+            {
+                "synapse_model": "stdp_motor_synapse",
+                "weight": nest.random.normal(self.w_c_a, self.weight_std_motor),
+                "delay": 5
+            },
+        )
+        """
+
+        nest.Connect(
+            self.input_neurons,
+            self.motor_neurons,
+            {"rule": "all_to_all"},
+            {
+                "synapse_model": "stdp_motor_synapse",
+                "weight": nest.random.normal(self.w_c_a, self.weight_std_motor),
+            },
         )
 
         # Input → striatum
@@ -273,15 +334,6 @@ class GridWorldAC(PongNet):
             }
         )
 
-        nest.Connect(
-            self.input_neurons,
-            self.motor_neurons,
-            {"rule": "all_to_all"},
-            {
-                "synapse_model": "stdp_motor_synapse",
-                "weight": nest.random.normal(self.w_c_a, self.weight_std),
-            },
-        )
 
         self.striatum = nest.Create("iaf_psc_alpha", self.n_critic, params=neuron_params)
         nest.Connect(
@@ -338,6 +390,21 @@ class GridWorldAC(PongNet):
         self.motor_recorder = nest.Create("spike_recorder")
         nest.Connect(self.motor_neurons, self.motor_recorder)
 
+        """
+        self.intermediate_motor_recorder = nest.Create("spike_recorder")
+        nest.Connect(self.intermediate_motor, self.intermediate_motor_recorder)
+
+        self.intermediate_motor1_recorder = nest.Create("spike_recorder")
+        nest.Connect(self.intermediate_motor1, self.intermediate_motor1_recorder)
+
+        self.intermediate_motor2_recorder = nest.Create("spike_recorder")
+        nest.Connect(self.intermediate_motor2, self.intermediate_motor2_recorder)
+        """
+
+
+
+
+
         # Poisson input to vp
         self.poisson_vp = nest.Create("poisson_generator", params={"rate": self.rate_ex_vp}) 
         nest.Connect(
@@ -387,7 +454,6 @@ class GridWorldAC(PongNet):
         )
 
         # Input noise
-        """
         nest.Connect(
             self.poisson_all_ex,
             self.input_neurons,
@@ -400,22 +466,23 @@ class GridWorldAC(PongNet):
             conn_spec={"rule": "all_to_all"},
             syn_spec={"weight": self.w_in_all}
         )
-        """
-
-        """
         # Motor noise
+        n_motor = len(self.motor_neurons)
+
+        self.poisson_motor_ex = nest.Create("poisson_generator", n_motor, params={"rate": 100})
+        self.poisson_motor_inh = nest.Create("poisson_generator", n_motor, params={"rate": 50})
+
         nest.Connect(
-            self.poisson_all_ex,
+            self.poisson_motor_ex,
             self.motor_neurons,
-            conn_spec={"rule": "all_to_all"},
-            syn_spec={"weight": self.w_ex_all+0}
+            conn_spec={"rule": "one_to_one"},
+            syn_spec={"weight": 500}
         )
-        """
         nest.Connect(
-            self.poisson_all_inh,
+            self.poisson_motor_inh,
             self.motor_neurons,
-            conn_spec={"rule": "all_to_all"},
-            syn_spec={"weight": self.w_in_all+100}
+            conn_spec={"rule": "one_to_one"},
+            syn_spec={"weight": 500}
         )
         
         # Dopa noise
@@ -437,16 +504,22 @@ class GridWorldAC(PongNet):
 
         """
         nest.Connect(
-            self.motor_neurons,
-            self.motor_neurons,
+            self.intermediate_motor1,
+            self.intermediate_motor1,
             conn_spec={"rule": "all_to_all"},
-            syn_spec={"weight": -50000, "delay": 1}
+            syn_spec={"weight": -1000}
         )
+        """
 
         self.supp_current = nest.Create("dc_generator")
-        nest.Connect(self.supp_current, self.motor_neurons)
 
-        """
+        nest.Connect(self.supp_current, self.vp, syn_spec={"weight": 1000, "delay": 1})
+#        nest.Connect(self.supp_current, self.intermediate_motor, syn_spec={"weight": 1000, "delay": 1})
+#        nest.Connect(self.supp_current, self.intermediate_motor1, syn_spec={"weight": 1000, "delay": 1})
+#        nest.Connect(self.supp_current, self.intermediate_motor2, syn_spec={"weight": 1000, "delay": 1})
+
+
+
 
 
     def set_state(self, state):
@@ -523,9 +596,9 @@ class GridWorldAC(PongNet):
             self.action = id_to_idx[first_firing_global_id]
 
             # Apply suppressive current
-            self.supp_current.start = biological_time
             self.supp_current.stop = end_time
-            self.supp_current.amplitude = -10000 
+            self.supp_current.start = biological_time
+            self.supp_current.amplitude = -100000 
 
     def apply_synaptic_plasticity(self, biological_time, start, end):
         """

@@ -292,6 +292,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::process_modulator_spikes_
   double t1,
   const STDPDelayedEligibilityCommonProperties& cp )
 {
+  // std::cout << "t0 in update_weight=" << t0 << std::endl;
   // process dopa spikes in (t0, t1]
   // propagate weight from t0 to t1
   if ( ( modulator_spikes.size() > modulator_spike_idx_ + 1 )
@@ -430,6 +431,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::send( Event& e, size_t t,
   double dendritic_delay = get_delay();
 
   double t_spike = e.get_stamp().get_ms();
+
   //std::cout << "[DEBUG] spike time: " << t_spike << ", weight: " << weight_ << std::endl;
   // first, apply all due delayed eligibility traces
 //  this->process_delayed_c_(t_spike, cp);
@@ -454,6 +456,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::send( Event& e, size_t t,
 
   while ( start != finish )
   {
+    // std::cout << "t before calling send=" << t_spike << std::endl;
     process_modulator_spikes_( modulator_spikes, t0, start->t_ + dendritic_delay, cp );
     t0 = start->t_ + dendritic_delay;
     minus_dt = t_last_update_ - t0;
@@ -467,6 +470,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::send( Event& e, size_t t,
   }
 
   // depression due to new pre-synaptic spike
+  // std::cout << "t before calling send=" << t_spike << std::endl;
   process_modulator_spikes_( modulator_spikes, t0, t_spike, cp );
   depress_( target->get_K_value( t_spike - dendritic_delay ), cp );
 
@@ -533,6 +537,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
 
   while ( start != finish )
   {
+    // std::cout << "t before calling=" << t_trig << std::endl;
     process_modulator_spikes_( modulator_spikes, t0, start->t_ + dendritic_delay, cp );
     t0 = start->t_ + dendritic_delay;
     minus_dt = t_last_update_ - t0;
@@ -543,6 +548,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
   // propagate weight, eligibility trace c, dopamine trace n and facilitation
   // trace K_plus to time t_trig but do not increment/decrement as there are no
   // spikes to be handled at t_trig
+  // std::cout << "t before calling=" << t_trig << std::endl;
   process_modulator_spikes_( modulator_spikes, t0, t_trig, cp );
   n_ = n_ * std::exp( ( modulator_spikes[ modulator_spike_idx_ ].spike_time_ - t_trig ) / cp.tau_n_ );
   Kplus_ = Kplus_ * std::exp( ( t_last_update_ - t_trig ) / cp.tau_plus_ );
@@ -551,16 +557,17 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
   modulator_spike_idx_ = 0;
 
 
+  /*
   double t_past = t_trig - cp.tau_c_delay_;
 
   // Retrieve the delayed eligibility trace
-  double c_delayed = get_c_delayed_(t_past, cp);
+  double c_delayed = get_c_delayed_(t_trig, cp);
 
   // Print it for debugging
 
   Node* post = get_target(t);
 
-  if (post && post->get_node_id() == 22) {
+  if (post && (post->get_node_id() == 19 || post->get_node_id() == 20 || post->get_node_id() == 21 || post->get_node_id() == 22)) {
   std::cout << "[DEBUG trigger_update_weight] "
             << " | post_node_id=" << (post ? post->get_node_id() : -1)
             << " | t_trig=" << t_trig
@@ -571,6 +578,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
             << " | n=" << n_
             << std::endl;
   }
+  */
 
 }
 

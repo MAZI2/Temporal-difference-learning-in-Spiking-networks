@@ -119,10 +119,10 @@ for src, avg_w in avg_weights_per_input.items():
     print(f"Input neuron {src}: average weight to all motor neurons = {avg_w:.3f}")
 
 # 3x3
-motor_map = {19: 0, 20: 1, 21: 2, 22: 3}
+motor_map = {27: 0, 28: 1, 29: 2, 30: 3}
 input_map = {
-    10: 0, 11: 1, 12: 2, 13: 3, 14: 4,
-    15: 5, 16: 6, 17: 7, 18: 8
+    18: 0, 19: 1, 20: 2, 21: 3, 22: 4,
+    23: 5, 24: 6, 25: 7, 26: 8
 }
 """
 # 4x4
