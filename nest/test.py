@@ -44,14 +44,14 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 
 
-RUNS = 10
+RUNS = 100
 class AIGridworld:
     def __init__(self):
         self.grid_size = (4, 4)
         self.start = (1, 2)
         self.goal = (3, 3)
-        self.debug = True 
-        self.loadWeights = False 
+        self.debug = True
+        self.loadWeights = True
 
         self.done = False
 
@@ -59,8 +59,8 @@ class AIGridworld:
         self.state = self.game.reset()
         self.player = GridWorldAC(False)
         if self.loadWeights:
-            if os.path.exists("connections_b.pkl"):
-                with open("connections_b.pkl", "rb") as f:
+            if os.path.exists("connections.pkl"):
+                with open("connections.pkl", "rb") as f:
                     connections_data = pickle.load(f)
                 self.player.load_saved_weights(connections_data)
 
@@ -345,7 +345,7 @@ class AIGridworld:
                     sources = np.array(conns.source)
                     weights = np.array(conns.get("weight"))
 
-                    conns_motor = nest.GetConnections(source=self.player.input_neurons, target=self.player.motor_neurons)
+                    conns_motor = nest.GetConnections(source=self.player.intermediate_motor, target=self.player.motor_neurons)
                     sources_motor = np.array(conns_motor.source)
                     weights_motor = np.array(conns_motor.get("weight"))
 
@@ -355,18 +355,19 @@ class AIGridworld:
                     # compute mean per input neuron
                     means_per_input = []
                     means_per_input_motor = []
+                    for src in self.player.intermediate_motor:
+                        mask = sources_motor == src.global_id
+                        if np.any(mask):
+                            means_per_input_motor.append(np.mean(weights_motor[mask]))
+                        else:
+                            means_per_input_motor.append(np.nan)
+
                     for src in self.player.input_neurons:
                         mask = sources == src.global_id
                         if np.any(mask):
                             means_per_input.append(np.mean(weights[mask]))
                         else:
                             means_per_input.append(np.nan)
-
-                        mask = sources_motor == src.global_id
-                        if np.any(mask):
-                            means_per_input_motor.append(np.mean(weights_motor[mask]))
-                        else:
-                            means_per_input_motor.append(np.nan)
 
                     weight_history_str.append(means_per_input)
                     time_points_str.append(self.run * POLL_TIME + t + step_size)
@@ -386,9 +387,9 @@ class AIGridworld:
                     input_neuron3= 14
 
                     for idx, target in enumerate(self.player.motor_neurons):
-                        mask5 = (sources_motor == self.player.input_neurons[input_neuron1].global_id) & (targets_motor == target.global_id)
-                        mask7 = (sources_motor == self.player.input_neurons[input_neuron2].global_id) & (targets_motor == target.global_id)
-                        mask6 = (sources_motor == self.player.input_neurons[input_neuron3].global_id) & (targets_motor == target.global_id)
+                        mask5 = (sources_motor == self.player.intermediate_motor[input_neuron1].global_id) & (targets_motor == target.global_id)
+                        mask7 = (sources_motor == self.player.intermediate_motor[input_neuron2].global_id) & (targets_motor == target.global_id)
+                        mask6 = (sources_motor == self.player.intermediate_motor[input_neuron3].global_id) & (targets_motor == target.global_id)
                         if np.any(mask5):
                             weights_input5[idx] = weights_motor[mask5][0]
                         if np.any(mask7):
@@ -450,6 +451,21 @@ class AIGridworld:
             self.player.apply_synaptic_plasticity(biological_time, start, start+POLL_TIME)
             self.player.set_state(self.state)
 
+            decay_factor = 0.9995  # for example, keep 98% of previous weight each run
+
+            conns = nest.GetConnections(source=self.player.intermediate_motor,
+                                        target=self.player.motor_neurons)
+
+            # Get all weights as a NumPy array for efficiency
+            weights = np.array(conns.get("weight"))
+            new_weights = weights * decay_factor
+
+            # Apply back to NEST
+            for conn, w_new in zip(conns, new_weights):
+                conn.set({"weight": float(w_new)})
+
+            # print(f"Applied decay factor {decay_factor} to intermediate_motor → motor weights")
+
 
             #self.state = NEXT_STATES[self.run]
             #self.done = False
@@ -487,7 +503,7 @@ class AIGridworld:
             connections_data = {}
 
             # Collect connections for key projections
-            connections_data["input_to_motor"] = nest.GetConnections(source=self.player.input_neurons,
+            connections_data["input_to_motor"] = nest.GetConnections(source=self.player.intermediate_motor,
                                                                      target=self.player.motor_neurons).get(["source", "target", "weight"])
             connections_data["input_to_striatum"] = nest.GetConnections(source=self.player.input_neurons,
                                                                         target=self.player.striatum).get(["source", "target", "weight"])

@@ -27,6 +27,18 @@ neuron_params = {
     "E_L": 0.0,      # resting potential mV
 }
 
+neuron_params_motor = {
+    "C_m": 10.0,
+    "tau_m": 10.0,
+    "V_reset": 0.0,
+    "V_th": 20.0,
+    "t_ref": 0.5,
+    "tau_syn_ex": 0.1,
+    "tau_minus": 0.5,
+    "V_m": 0.0,
+    "E_L": 0.0,
+}
+
 class PongNet(ABC):
     def __init__(self, apply_noise=True, num_neurons=25):
         self.apply_noise = apply_noise
@@ -51,14 +63,15 @@ class PongNet(ABC):
         nest.Connect(self.input_generators, self.input_neurons, {"rule": "one_to_one"})
 
         # Motor
+
+        self.intermediate_motor = nest.Create("parrot_neuron", self.num_input_neurons)
         """
-        self.intermediate_motor = nest.Create("iaf_psc_alpha", self.num_input_neurons, params=neuron_params)
         self.intermediate_motor1 = nest.Create("iaf_psc_alpha", self.num_input_neurons, params=neuron_params)
         self.intermediate_motor2 = nest.Create("iaf_psc_alpha", self.num_input_neurons, params=neuron_params)
         """
 
 
-        self.motor_neurons = nest.Create("iaf_psc_alpha", self.num_output_neurons, params=neuron_params)
+        self.motor_neurons = nest.Create("iaf_psc_alpha", self.num_output_neurons, params=neuron_params_motor)
         self.spike_recorders = nest.Create("spike_recorder", self.num_output_neurons)
         nest.Connect(self.motor_neurons, self.spike_recorders, {"rule": "one_to_one"})
 
@@ -201,7 +214,6 @@ class GridWorldAC(PongNet):
     # reserves the first part of every simulation step for the application of
     # the dopaminergic reward signal, avoiding interference between it and the
     # spikes caused by the input of the following iteration
-    # TODO: might be wrong
     input_t_offset = 1
 
     # Neuron and synapse parameters:
@@ -210,8 +222,8 @@ class GridWorldAC(PongNet):
     weight_std_motor = 8
     n_critic = 8
 
-    w_c_a = 100
-    w_c_a_max = 1000
+    w_c_a = 150
+    w_c_a_max = 500
 
     w_c_str = 150
     w_c_str_max = 1000
@@ -267,29 +279,27 @@ class GridWorldAC(PongNet):
                 "volume_transmitter": self.vt,
                 "Wmin": self.w_c_a,
                 "Wmax": self.w_c_a_max,
-                "tau_c": 5,
+                "tau_c": 30,
                 "tau_c_delay": 200,
                 "tau_n": 10,
-                "tau_plus": 20,
-                "b": 0.01,
-                "A_plus": 0.3,
-                "A_minus": 0.3
+                "tau_plus": 0.5,
+                "b": 0.0,
+                "A_plus": 0.1,
+                "A_minus": 0.1
             }
         )
 
-        """
+
         # Input -> motor
         nest.Connect(
             self.input_neurons,
-            self.intermediate_motor1,
-            {"rule": "all_to_all"},
+            self.intermediate_motor,
+            {"rule": "one_to_one"},
             {
-                "synapse_model": "stdp_motor_synapse",
-                "weight": nest.random.normal(self.w_c_a, self.weight_std_motor),
-                "delay": 5
+                "delay": 1
             },
         )
-
+        """
         nest.Connect(
             self.intermediate_motor1,
             self.intermediate_motor2,
@@ -314,12 +324,13 @@ class GridWorldAC(PongNet):
         """
 
         nest.Connect(
-            self.input_neurons,
+            self.intermediate_motor,
             self.motor_neurons,
             {"rule": "all_to_all"},
             {
                 "synapse_model": "stdp_motor_synapse",
                 "weight": nest.random.normal(self.w_c_a, self.weight_std_motor),
+                "delay": 1
             },
         )
 
@@ -390,10 +401,10 @@ class GridWorldAC(PongNet):
         self.motor_recorder = nest.Create("spike_recorder")
         nest.Connect(self.motor_neurons, self.motor_recorder)
 
-        """
+
         self.intermediate_motor_recorder = nest.Create("spike_recorder")
         nest.Connect(self.intermediate_motor, self.intermediate_motor_recorder)
-
+        """
         self.intermediate_motor1_recorder = nest.Create("spike_recorder")
         nest.Connect(self.intermediate_motor1, self.intermediate_motor1_recorder)
 
@@ -453,24 +464,30 @@ class GridWorldAC(PongNet):
             syn_spec={"weight": self.w_in_all}
         )
 
+        #self.poisson_input_ex = nest.Create("poisson_generator", self.num_input_neurons, params={"rate": 50})
+        #self.poisson_input_inh = nest.Create("poisson_generator", self.num_input_neurons, params={"rate": 25})
+        self.poisson_input_ex = nest.Create("poisson_generator", params={"rate": 15})
+        self.poisson_input_inh = nest.Create("poisson_generator", params={"rate": 10})
+
         # Input noise
         nest.Connect(
-            self.poisson_all_ex,
-            self.input_neurons,
+            self.poisson_input_ex,
+            self.intermediate_motor,
             conn_spec={"rule": "all_to_all"},
-            syn_spec={"weight": self.w_ex_all}
+            syn_spec={"weight": 500}
         )
         nest.Connect(
-            self.poisson_all_inh,
-            self.input_neurons,
+            self.poisson_input_inh,
+            self.intermediate_motor,
             conn_spec={"rule": "all_to_all"},
-            syn_spec={"weight": self.w_in_all}
+            syn_spec={"weight": 500}
         )
+
         # Motor noise
         n_motor = len(self.motor_neurons)
 
-        self.poisson_motor_ex = nest.Create("poisson_generator", n_motor, params={"rate": 100})
-        self.poisson_motor_inh = nest.Create("poisson_generator", n_motor, params={"rate": 50})
+        self.poisson_motor_ex = nest.Create("poisson_generator", n_motor, params={"rate": 15})
+        self.poisson_motor_inh = nest.Create("poisson_generator", n_motor, params={"rate": 10})
 
         nest.Connect(
             self.poisson_motor_ex,
@@ -543,7 +560,7 @@ class GridWorldAC(PongNet):
             weights = input_to_motor["weight"]
 
             # Get all connections between these populations
-            conns = nest.GetConnections(self.input_neurons, self.motor_neurons)
+            conns = nest.GetConnections(self.intermediate_motor, self.motor_neurons)
             for conn in conns:
                 src, tgt = conn.get(["source", "target"]).values()
                 # Find this (src,tgt) pair in the saved data

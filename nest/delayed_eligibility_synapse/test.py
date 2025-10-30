@@ -18,12 +18,12 @@ neuron_params = {
     "V_th": 20.0,
     "t_ref": 0.5,
     "tau_syn_ex": 0.1,
-    "tau_minus": 1.0,
+    "tau_minus": 0.5,
     "V_m": 0.0,
     "E_L": 0.0,
 }
 
-SEED = 12354
+SEED = 12356
 
 # reset kernel first (very important)
 nest.ResetKernel()
@@ -55,7 +55,7 @@ for i, n in enumerate(post_neurons):
     nest.Connect(n, sd_post[i])
 
 # Input setup
-spike_times = np.arange(0.5, 201.0, 2.0).tolist()
+spike_times = np.arange(0.5, 201.0, 1.0).tolist()
 pre = nest.Create("spike_generator", {"spike_times": spike_times})
 
 # Dopamine setup
@@ -88,10 +88,10 @@ nest.SetDefaults(
         "volume_transmitter": vt,
         "Wmin": 100,
         "Wmax": 1000,
-        "tau_c": 20,
+        "tau_c": 30,
         "tau_c_delay": 200,
         "tau_n": 10,
-        "tau_plus": 1,
+        "tau_plus": 0.5,
         "b": 0.0,
         "A_plus": 0.1,
         "A_minus": 0.1
@@ -101,8 +101,8 @@ nest.SetDefaults(
 # Motor noise
 n_motor = len(post_neurons)
 
-poisson_motor_ex = nest.Create("poisson_generator", n_motor, params={"rate": 50})
-poisson_motor_inh = nest.Create("poisson_generator", n_motor, params={"rate": 25})
+poisson_motor_ex = nest.Create("poisson_generator", n_motor, params={"rate": 15})
+poisson_motor_inh = nest.Create("poisson_generator", n_motor, params={"rate": 10})
 
 nest.Connect(
     poisson_motor_ex,
@@ -116,21 +116,21 @@ nest.Connect(
     conn_spec={"rule": "one_to_one"},
     syn_spec={"weight": 500}
 )
-# poisson_pre_ex = nest.Create("poisson_generator", 1, params={"rate": 50})
-# poisson_pre_inh = nest.Create("poisson_generator", 1, params={"rate": 25})
-#
-# nest.Connect(
-#     poisson_pre_ex,
-#     neuron,
-#     conn_spec={"rule": "one_to_one"},
-#     syn_spec={"weight": 500}
-# )
-# nest.Connect(
-#     poisson_pre_inh,
-#     neuron,
-#     conn_spec={"rule": "one_to_one"},
-#     syn_spec={"weight": 500}
-# )
+poisson_pre_ex = nest.Create("poisson_generator", 1, params={"rate": 15})
+poisson_pre_inh = nest.Create("poisson_generator", 1, params={"rate": 10})
+
+nest.Connect(
+    poisson_pre_ex,
+    neuron,
+    conn_spec={"rule": "one_to_one"},
+    syn_spec={"weight": 500}
+)
+nest.Connect(
+    poisson_pre_inh,
+    neuron,
+    conn_spec={"rule": "one_to_one"},
+    syn_spec={"weight": 500}
+)
 
 # Connect pre → parrot → posts
 nest.Connect(pre, neuron)
@@ -139,7 +139,7 @@ for i, post in enumerate(post_neurons):
         neuron,
         post,
         {"rule": "all_to_all"},
-        {"synapse_model": "delayed_synapse", "weight": 250 + 5 * i, "delay": 1.0},
+        {"synapse_model": "delayed_synapse", "weight": 150 + 20 * i, "delay": 1.0},
     )
 
 print("Connections:")
@@ -174,7 +174,7 @@ neuron_data = defaultdict(list)
 weight_data = defaultdict(list)
 time_points = set()
 full_output = []
-sim_duration = 500
+sim_duration = 1000
 
 for step in range(sim_duration):
     with capture_cpp_stdout() as r_fd:
