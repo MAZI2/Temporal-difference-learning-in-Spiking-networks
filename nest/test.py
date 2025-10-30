@@ -44,13 +44,13 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 
 
-RUNS = 3000
+RUNS = 10
 class AIGridworld:
     def __init__(self):
-        self.grid_size = (3, 3)
+        self.grid_size = (4, 4)
         self.start = (1, 2)
-        self.goal = (2, 2)
-        self.debug = False 
+        self.goal = (3, 3)
+        self.debug = True 
         self.loadWeights = False 
 
         self.done = False
@@ -150,19 +150,19 @@ class AIGridworld:
         motor_indices = np.arange(num_motor)
 
         # Add two more subplots (we’ll use axes[2] and axes[3])
-        axes[0].set_title("Weights from input neuron 5 → motor neurons")
+        axes[0].set_title("Weights from input neuron 11 → motor neurons")
         for j in range(num_motor):
             axes[0].plot(time_points_motor, weight_history_input5[:, j], label=f"Motor {j}")
         axes[0].set_ylabel("Weight (pA)")
         axes[0].legend(fontsize=7, ncol=4)
 
-        axes[1].set_title("Weights from input neuron 7 → motor neurons")
+        axes[1].set_title("Weights from input neuron 13 → motor neurons")
         for j in range(num_motor):
             axes[1].plot(time_points_motor, weight_history_input7[:, j], label=f"Motor {j}")
         axes[1].set_ylabel("Weight (pA)")
         axes[1].legend(fontsize=7, ncol=4)
 
-        axes[2].set_title("Weights from input neuron 6 → motor neurons")
+        axes[2].set_title("Weights from input neuron 14 → motor neurons")
         for j in range(num_motor):
             axes[2].plot(time_points_motor, weight_history_input6[:, j], label=f"Motor {j}")
         axes[2].set_ylabel("Weight (pA)")
@@ -176,7 +176,6 @@ class AIGridworld:
         axes[3].plot(time_points_str, weight_history_str[:, 5], label=f"N5")
         axes[3].plot(time_points_str, weight_history_str[:, 6], label=f"N6")
         axes[3].plot(time_points_str, weight_history_str[:, 7], label=f"N7")
-        """
         axes[3].plot(time_points_str, weight_history_str[:, 8], label=f"N8")
         axes[3].plot(time_points_str, weight_history_str[:, 9], label=f"N9")
         axes[3].plot(time_points_str, weight_history_str[:, 10], label=f"N10")
@@ -184,7 +183,6 @@ class AIGridworld:
         axes[3].plot(time_points_str, weight_history_str[:, 12], label=f"N12")
         axes[3].plot(time_points_str, weight_history_str[:, 13], label=f"N13")
         axes[3].plot(time_points_str, weight_history_str[:, 14], label=f"N14")
-        """
 
         axes[3].set_ylabel("Avg weight to striatum")
         axes[3].set_title("Average synaptic weights: input → striatum")
@@ -218,10 +216,10 @@ class AIGridworld:
         axes[5].scatter(spike_times, neuron_ids, marker='.', color='black')
         axes[5].set_ylabel("Input neuron index")
         axes[5].set_title("Input neuron spikes (raster)")
-#        axes[5].set_yticks(np.arange(16))
-#        axes[5].set_ylim(-0.5, 15.5)
-        axes[5].set_yticks(np.arange(9))
-        axes[5].set_ylim(-0.5, 8.5)     
+        axes[5].set_yticks(np.arange(16))
+        axes[5].set_ylim(-0.5, 15.5)
+#        axes[5].set_yticks(np.arange(9))
+#        axes[5].set_ylim(-0.5, 8.5)     
         axes[5].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
 
 
@@ -306,10 +304,8 @@ class AIGridworld:
         for local_idx, neuron in enumerate(self.player.motor_neurons):
             print(f"Local index: {local_idx}, Global ID: {neuron.global_id}")
 
-        """
-        for local_idx, neuron in enumerate(self.player.intermediate_motor):
+        for local_idx, neuron in enumerate(self.player.input_neurons):
             print(f"Local index: {local_idx}, Global ID: {neuron.global_id}")
-        """
 
 
 
@@ -385,9 +381,9 @@ class AIGridworld:
                     weights_input7 = np.full(num_motor_neurons, np.nan)
                     weights_input6 = np.full(num_motor_neurons, np.nan)
 
-                    input_neuron1 = 5#10
-                    input_neuron2 = 7#11
-                    input_neuron3= 6#14
+                    input_neuron1 = 11
+                    input_neuron2 = 13
+                    input_neuron3= 14
 
                     for idx, target in enumerate(self.player.motor_neurons):
                         mask5 = (sources_motor == self.player.input_neurons[input_neuron1].global_id) & (targets_motor == target.global_id)

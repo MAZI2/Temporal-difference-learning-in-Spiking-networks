@@ -112,7 +112,7 @@ class PongNet(ABC):
     def suppress_dopa(self, biological_time):
         self.supp_current.stop = biological_time+200
         self.supp_current.start = biological_time+150
-        self.supp_current.amplitude = 1000 
+        self.supp_current.amplitude = 1000
 
     def set_input_spiketrain(self, input_cell, biological_time):
         """Sets a spike train to the input neuron specified by an index.
@@ -158,7 +158,7 @@ class PongNet(ABC):
                 avg_rates.append(avg_rate)
 
         avg_rates = np.array(avg_rates)
-        
+
         # Get indices of neurons with max rate
         max_indices = np.flatnonzero(avg_rates == avg_rates.max())
         print(start, end)
@@ -271,7 +271,7 @@ class GridWorldAC(PongNet):
                 "tau_c_delay": 200,
                 "tau_n": 10,
                 "tau_plus": 20,
-                "b": 0.01,
+                "b": 0.1,
                 "A_plus": 0.3,
                 "A_minus": 0.3
             }
@@ -341,12 +341,12 @@ class GridWorldAC(PongNet):
             self.striatum,
             {"rule": "all_to_all"},
             {
-                "synapse_model": "stdp_striatum_synapse", 
+                "synapse_model": "stdp_striatum_synapse",
                 "weight": nest.random.normal(self.w_c_str, self.weight_std),
             },
         )
 
-        
+
         self.vp = nest.Create("iaf_psc_alpha", self.n_critic, params=neuron_params)
         nest.Connect(self.striatum, self.vp, syn_spec={"weight": self.w_str_vp})
 
@@ -372,14 +372,14 @@ class GridWorldAC(PongNet):
         nest.Connect(self.striatum, self.str_recorder)
 
         self.str_multimeter = nest.Create("multimeter", params={"record_from": ["V_m"], "interval": 0.1})
-        nest.Connect(self.str_multimeter, self.striatum) 
+        nest.Connect(self.str_multimeter, self.striatum)
 
         # VP recorder
         self.vp_recorder = nest.Create("spike_recorder")
         nest.Connect(self.vp, self.vp_recorder)
 
         self.vp_multimeter = nest.Create("multimeter", params={"record_from": ["V_m"], "interval": 0.1})
-        nest.Connect(self.vp_multimeter, self.vp) 
+        nest.Connect(self.vp_multimeter, self.vp)
 
 
         # Cortex recorder
@@ -406,14 +406,14 @@ class GridWorldAC(PongNet):
 
 
         # Poisson input to vp
-        self.poisson_vp = nest.Create("poisson_generator", params={"rate": self.rate_ex_vp}) 
+        self.poisson_vp = nest.Create("poisson_generator", params={"rate": self.rate_ex_vp})
         nest.Connect(
             self.poisson_vp,
             self.vp,
             conn_spec={"rule": "all_to_all"},
             syn_spec={"weight": self.w_ex_vp}
         )
-        self.poisson_da = nest.Create("poisson_generator", params={"rate": self.rate_ex_da}) 
+        self.poisson_da = nest.Create("poisson_generator", params={"rate": self.rate_ex_da})
         nest.Connect(
             self.poisson_da,
             self.dopa,
@@ -484,7 +484,7 @@ class GridWorldAC(PongNet):
             conn_spec={"rule": "one_to_one"},
             syn_spec={"weight": 500}
         )
-        
+
         # Dopa noise
         nest.Connect(
             self.poisson_all_ex,
@@ -492,7 +492,7 @@ class GridWorldAC(PongNet):
             conn_spec={"rule": "all_to_all"},
             syn_spec={"weight": self.w_ex_all}
         )
-                
+
         nest.Connect(
             self.poisson_all_inh,
             self.dopa,
@@ -598,7 +598,7 @@ class GridWorldAC(PongNet):
             # Apply suppressive current
             self.supp_current.stop = end_time
             self.supp_current.start = biological_time
-            self.supp_current.amplitude = -100000 
+            self.supp_current.amplitude = -100000
 
     def apply_synaptic_plasticity(self, biological_time, start, end):
         """
@@ -606,7 +606,7 @@ class GridWorldAC(PongNet):
         Injects a current into the dopaminergic neurons based on how much of
         the motor neurons' activity stems from the target output neuron.
         """
-        
+
         """
         spike_counts = self.get_spike_counts()
         target_n_spikes = spike_counts[self.target_index]
@@ -634,7 +634,7 @@ class GridWorldAC(PongNet):
             temp_state[1] -= 1
         elif action == 3:
             temp_state[1] += 1
-        
+
         if temp_state == [4, 4]:
             reward_current = 600
             print("REWARDED")

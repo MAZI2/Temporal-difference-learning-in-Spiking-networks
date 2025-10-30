@@ -557,7 +557,6 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
   modulator_spike_idx_ = 0;
 
 
-  /*
   double t_past = t_trig - cp.tau_c_delay_;
 
   // Retrieve the delayed eligibility trace
@@ -567,7 +566,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
 
   Node* post = get_target(t);
 
-  if (post && (post->get_node_id() == 19 || post->get_node_id() == 20 || post->get_node_id() == 21 || post->get_node_id() == 22)) {
+  //if (post && (post->get_node_id() == 19 || post->get_node_id() == 20 || post->get_node_id() == 21 || post->get_node_id() == 22)) {
   std::cout << "[DEBUG trigger_update_weight] "
             << " | post_node_id=" << (post ? post->get_node_id() : -1)
             << " | t_trig=" << t_trig
@@ -577,9 +576,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
             << " | c_delayed=" << c_delayed
             << " | n=" << n_
             << std::endl;
-  }
-  */
-
+  //}
 }
 
 template <typename targetidentifierT>

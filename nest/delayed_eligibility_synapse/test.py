@@ -4,89 +4,155 @@ import io
 import os
 import re
 from contextlib import contextmanager
-import sys
+from collections import defaultdict
+import numpy as np
+import random
 
 # -------------------------
 # NEST setup
 # -------------------------
 neuron_params = {
-    "C_m": 250.0,      # membrane capacitance in pF
-    "tau_m": 10.0,     # membrane time constant in ms
-    "V_reset": 0.0,  # reset potential mV
-    "V_th": 20.0,     # spike threshold mV
-    "t_ref": 0.5,      # absolute refractory period ms
-    "V_m": 0.0,      # initial membrane potential mV
-    "E_L": 0.0,      # resting potential mV
+    "C_m": 10.0,
+    "tau_m": 10.0,
+    "V_reset": 0.0,
+    "V_th": 20.0,
+    "t_ref": 0.5,
+    "tau_syn_ex": 0.1,
+    "tau_minus": 1.0,
+    "V_m": 0.0,
+    "E_L": 0.0,
 }
 
+SEED = 12354
+
+# reset kernel first (very important)
+nest.ResetKernel()
+
+# force single-threaded deterministic execution (recommended for debugging)
+# if you want multi-threaded reproducibility you must ensure the same number
+# of threads on each run and accept more complexity.
+nest.SetKernelStatus({
+    "rng_seed": SEED,
+})
+
+
+
+# also seed Python / NumPy RNGs (so any np.random or random calls are reproducible)
+np.random.seed(SEED)
+random.seed(SEED)
 nest.Install("mymodule")
+
+# Create neurons
 neuron = nest.Create("parrot_neuron")
-neuron2 = nest.Create("iaf_psc_alpha", params=neuron_params)
-sd1 = nest.Create("spike_recorder")
-sd2 = nest.Create("spike_recorder")
+post_neurons = nest.Create("iaf_psc_alpha", 3, params=neuron_params)
 
-nest.Connect(neuron, sd1)
-nest.Connect(neuron2, sd2)
-spike_times = [float(t) for t in range(1, 201, 1)]
-#pre = nest.Create("spike_generator", {"spike_times": [10.0, 50.0, 90.0]})
+# Recorders
+sd_pre = nest.Create("spike_recorder")
+sd_post = nest.Create("spike_recorder", len(post_neurons))
+
+nest.Connect(neuron, sd_pre)
+for i, n in enumerate(post_neurons):
+    nest.Connect(n, sd_post[i])
+
+# Input setup
+spike_times = np.arange(0.5, 201.0, 2.0).tolist()
 pre = nest.Create("spike_generator", {"spike_times": spike_times})
-post = nest.Create("spike_generator", {"spike_times": [12.0, 52.0, 92.0]})
 
-pg = nest.Create("poisson_generator", params={"rate": 200.0})  # pre-syn
+# Dopamine setup
 vt = nest.Create("volume_transmitter")
-
-dopa_spike_times = [float(t) for t in range(1, 401, 20)]
+dopa_spike_times = [float(t) for t in range(1, 1000, 20)]
 mod_spikes = nest.Create("spike_generator", {"spike_times": dopa_spike_times})
 dopa = nest.Create("parrot_neuron")
 nest.Connect(mod_spikes, dopa)
 nest.Connect(dopa, vt)
 
+# Synapse model
 # nest.SetDefaults(
-#             "stdp_dopamine_synapse",
-#             {
-#                 "volume_transmitter": vt,
-#                 "tau_c": 50,
-#                 "tau_n": 50,
-#                 "tau_plus": 100,
-#                 "Wmin": 1220,
-#                 "Wmax": 1550,
-#                 "b": 0.0,
-#                 "A_plus": 0.6,
-#             },
-#         )
+#     "delayed_synapse",
+#     {
+#         "volume_transmitter": vt,
+#         "tau_c": 50,
+#         "tau_c_delay": 200,
+#         "tau_n": 10,
+#         "tau_plus": 50,
+#         "Wmin": 150,
+#         "Wmax": 500,
+#         "b": 0.0,
+#         "A_plus": 0.75,
+#     },
+# )
+
 nest.SetDefaults(
-            "delayed_synapse",
-            {
-                "volume_transmitter": vt,
-                "tau_c": 50,
-                "tau_c_delay": 200,
-                "tau_n": 10,
-                "tau_plus": 50,
-                "Wmin": 150,
-                "Wmax": 500,
-                "b": 0.0,
-                "A_plus": 0.75,
-            },
-        )
+    "delayed_synapse",
+    {
+        "volume_transmitter": vt,
+        "Wmin": 100,
+        "Wmax": 1000,
+        "tau_c": 20,
+        "tau_c_delay": 200,
+        "tau_n": 10,
+        "tau_plus": 1,
+        "b": 0.0,
+        "A_plus": 0.1,
+        "A_minus": 0.1
+        },
+    )
 
-# syn_conn = nest.Connect(neuron, neuron2, {"rule": "all_to_all"},
-#                         {"synapse_model": "stdp_dopamine_synapse", "weight": 150.0})
-syn_conn = nest.Connect(neuron, neuron2, {"rule": "all_to_all"},
-                        {"synapse_model": "delayed_synapse"})
-print(nest.GetConnections(neuron, neuron2))
+# Motor noise
+n_motor = len(post_neurons)
 
+poisson_motor_ex = nest.Create("poisson_generator", n_motor, params={"rate": 50})
+poisson_motor_inh = nest.Create("poisson_generator", n_motor, params={"rate": 25})
+
+nest.Connect(
+    poisson_motor_ex,
+    post_neurons,
+    conn_spec={"rule": "one_to_one"},
+    syn_spec={"weight": 500}
+)
+nest.Connect(
+    poisson_motor_inh,
+    post_neurons,
+    conn_spec={"rule": "one_to_one"},
+    syn_spec={"weight": 500}
+)
+# poisson_pre_ex = nest.Create("poisson_generator", 1, params={"rate": 50})
+# poisson_pre_inh = nest.Create("poisson_generator", 1, params={"rate": 25})
+#
+# nest.Connect(
+#     poisson_pre_ex,
+#     neuron,
+#     conn_spec={"rule": "one_to_one"},
+#     syn_spec={"weight": 500}
+# )
+# nest.Connect(
+#     poisson_pre_inh,
+#     neuron,
+#     conn_spec={"rule": "one_to_one"},
+#     syn_spec={"weight": 500}
+# )
+
+# Connect pre → parrot → posts
 nest.Connect(pre, neuron)
+for i, post in enumerate(post_neurons):
+    nest.Connect(
+        neuron,
+        post,
+        {"rule": "all_to_all"},
+        {"synapse_model": "delayed_synapse", "weight": 250 + 5 * i, "delay": 1.0},
+    )
 
-
+print("Connections:")
+print(nest.GetConnections(neuron, post_neurons))
 
 # -------------------------
-# Helpers for capturing C++ stdout
+# Capture C++ stdout
 # -------------------------
 @contextmanager
 def capture_cpp_stdout():
     old_stdout_fd = os.dup(1)
     r_fd, w_fd = os.pipe()
-    os.dup2(w_fd, 1)  # redirect C++ stdout to pipe
+    os.dup2(w_fd, 1)
     os.close(w_fd)
     try:
         yield r_fd
@@ -95,73 +161,131 @@ def capture_cpp_stdout():
         os.close(old_stdout_fd)
 
 # -------------------------
-# Data storage
+# Pattern for delayed_synapse debug
 # -------------------------
-debug_pattern = re.compile(
-    r"\[DEBUG trigger_update_weight\]\s+"
-    r".*?t_trig=(\S+).*?"
-    r"c_delayed=(\S+).*?"
-    r"n=(\S+)"
+pattern = re.compile(
+    r"post_node_id=(\d+).*?t_trig=(\d+).*?c_current=([\-0-9.eE]+)"
 )
 
+# -------------------------
+# Run simulation and capture logs
+# -------------------------
+neuron_data = defaultdict(list)
+weight_data = defaultdict(list)
+time_points = set()
+full_output = []
+sim_duration = 500
 
-c_delayed_data = []
-n_data = []
-weight_data = []
-time_points = []
-
-for step in range(600):  # simulate 200 ms in 1 ms chunks
+for step in range(sim_duration):
     with capture_cpp_stdout() as r_fd:
         nest.Simulate(1.0)
         os.close(1)
-        output = os.read(r_fd, 10_000).decode(errors="ignore")
+        output = os.read(r_fd, 50_000).decode(errors="ignore")
+        full_output.append(output)
 
-    for m in debug_pattern.finditer(output):
-        t_trig = float(m.group(1))
-        n_val = float(m.group(2))
-        c_delayed = float(m.group(3))
-        c_delayed_data.append(c_delayed)
-        n_data.append(n_val)
-        time_points.append(t_trig)
+    # Parse c_current values
+    for m in pattern.finditer(output):
+        post_id = int(m.group(1))
+        t_trig = int(m.group(2))
+        c_val = float(m.group(3))
+        neuron_data[post_id].append((t_trig, c_val))
+        time_points.add(t_trig)
 
-    # capture weight evolution (get last weight each ms)
-    w = nest.GetConnections(neuron, neuron2)[0].weight
-    weight_data.append(w)
+    # Track weights
+    conns = nest.GetConnections(neuron, post_neurons)
+    for c in conns:
+        w = c.weight
+        tgt = c.target
+        weight_data[tgt].append(w)
+
+# print("\n===== CAPTURED NEST DEBUG OUTPUT =====\n")
+# print("".join(full_output))
 
 # ---------------------------------------
-# Spike data
+# Get spike data
 # ---------------------------------------
-spikes1 = nest.GetStatus(sd1, "events")[0]
-spikes2 = nest.GetStatus(sd2, "events")[0]
-times1 = spikes1["times"]
-times2 = spikes2["times"]
+spikes_pre = nest.GetStatus(sd_pre, "events")[0]
+times_pre = spikes_pre["times"]
+
+spikes_post = [nest.GetStatus(sd_post[i], "events")[0] for i in range(len(post_neurons))]
+times_post = [sp["times"] for sp in spikes_post]
 
 # ---------------------------------------
-# Plot results
+# Plot stacked figure with firing rates included
 # ---------------------------------------
-fig, axs = plt.subplots(4, 1, figsize=(10, 10), sharex=True)
+n_subplots = 2 + len(post_neurons) + 2  # +1 for weights, +1 for firing rates
+fig, axes = plt.subplots(n_subplots, 1, figsize=(10, 3 * n_subplots), sharex=True)
 
-# Raster for pre and post spikes
-axs[0].eventplot([times1, times2], colors=['blue', 'red'], lineoffsets=[1, 2], linelengths=0.8)
-axs[0].set_yticks([1, 2])
-axs[0].set_yticklabels(["Pre", "Post"])
-axs[0].set_title("Pre/Post Spikes")
+# --- Pre raster ---
+axes[0].eventplot([times_pre], colors=["blue"], lineoffsets=[1], linelengths=0.8)
+axes[0].set_yticks([1])
+axes[0].set_yticklabels(["Pre"])
+axes[0].set_title("Presynaptic Spikes")
+axes[0].grid(True, axis="x", linestyle="--", alpha=0.6)
 
-# c_delayed trace
-axs[1].plot(time_points, c_delayed_data, color='green')
-axs[1].set_ylabel("n")
-axs[1].set_title("n")
+# --- Post rasters ---
+axes[1].eventplot(
+    [times_post[i] for i in range(len(post_neurons))],
+    colors=["red"] * len(post_neurons),
+    lineoffsets=np.arange(1, len(post_neurons) + 1),
+    linelengths=0.8,
+)
+axes[1].set_yticks(np.arange(1, len(post_neurons) + 1))
+axes[1].set_yticklabels([f"Post {i}" for i in range(len(post_neurons))])
+axes[1].set_title("Postsynaptic Spikes")
+axes[1].grid(True, axis="x", linestyle="--", alpha=0.6)
 
-# n trace
-axs[2].plot(time_points, n_data, color='purple')
-axs[2].set_ylabel("c")
-axs[2].set_title("c")
+# --- c_current per neuron ---
+for i, (post_id, entries) in enumerate(sorted(neuron_data.items(), reverse=True)):
+    ax = axes[2 + i]
+    if not entries:
+        continue
+    x_vals = [e[0] for e in entries]
+    y_vals = [e[1] for e in entries]
+    ax.plot(x_vals, y_vals, label=f"Neuron {post_id}", color="purple")
+    ax.set_ylabel("c_current")
+    ax.set_title(f"Neuron {post_id} c_current")
+    ax.legend()
+    ax.grid(True)
 
-# Weight evolution
-axs[3].plot(range(len(weight_data)), weight_data, color='black')
-axs[3].set_xlabel("Time (ms)")
-axs[3].set_ylabel("Weight")
-axs[3].set_title("Weight evolution")
+# --- Weight evolution ---
+ax_w = axes[-2]
+for tgt, weights in sorted(weight_data.items()):
+    weights = np.array(weights)
+    norm_w = weights - weights[0]
+    times = np.arange(len(weights)) - 200
+    times = np.clip(times, 0, None)
+    ax_w.plot(times, norm_w, label=f"target={tgt}")
+ax_w.set_ylabel("ΔWeight (normalized)")
+ax_w.set_title("Weight evolution per post neuron (shifted 200 ms earlier)")
+ax_w.legend()
+ax_w.grid(True)
+
+# --- Firing rate per 50 ms bin ---
+ax_fr = axes[-1]
+bin_size = 50.0
+n_bins = int(np.ceil(sim_duration / bin_size))
+bin_edges = np.arange(0, (n_bins + 1) * bin_size, bin_size)
+
+for i, sp in enumerate(spikes_post):
+    times = np.array(sp["times"])
+    n_spikes = len(times)
+    duration_sec = sim_duration / 1000.0
+    total_freq = n_spikes / duration_sec
+
+    # Per-bin frequencies
+    hist, _ = np.histogram(times, bins=bin_edges)
+    bin_freqs = hist / (bin_size / 1000.0)
+    ax_fr.plot(bin_edges[:-1] + bin_size / 2, bin_freqs, label=f"Post {i}")
+
+    print(f"\nPost neuron {i}: {n_spikes} spikes total, avg = {total_freq:.2f} Hz")
+    print(f"  Firing rates per 50 ms bin (Hz): {np.round(bin_freqs, 2)}")
+
+ax_fr.set_xlabel("Time (ms)")
+ax_fr.set_ylabel("Firing rate (Hz / 50 ms)")
+ax_fr.set_title("Postsynaptic firing rates per 50 ms bin")
+ax_fr.legend()
+ax_fr.grid(True)
 
 plt.tight_layout()
 plt.show()

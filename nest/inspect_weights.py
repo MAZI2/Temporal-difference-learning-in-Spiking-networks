@@ -15,9 +15,9 @@ import nest
 import numpy as np
 import matplotlib.pyplot as plt
 
-grid_size = (3, 3)
+grid_size = (4, 4)
 start = (0, 0)
-goal = (2, 2)
+goal = (3, 3)
 
 
 def plot_policy(input_to_motor, input_to_striatum, input_map, motor_map, grid_size=(3,3)):
@@ -117,7 +117,7 @@ for src in unique_sources:
 # Print results
 for src, avg_w in avg_weights_per_input.items():
     print(f"Input neuron {src}: average weight to all motor neurons = {avg_w:.3f}")
-
+"""
 # 3x3
 motor_map = {27: 0, 28: 1, 29: 2, 30: 3}
 input_map = {
@@ -127,31 +127,32 @@ input_map = {
 """
 # 4x4
 motor_map = {
-    33: 0,
-    34: 1,
-    35: 2,
-    36: 3
+    41: 0,
+    42: 1,
+    43: 2,
+    44: 3
 }
 
 input_map = {
-    17: 0,
-    18: 1,
-    19: 2,
-    20: 3,
-    21: 4,
-    22: 5,
-    23: 6,
-    24: 7,
-    25: 8,
-    26: 9,
-    27: 10,
-    28: 11,
-    29: 12,
-    30: 13,
-    31: 14,
-    32: 15
+    25: 0,
+    26: 1,
+    27: 2,
+    28: 3,
+    29: 4,
+    30: 5,
+    31: 6,
+    32: 7,
+    33: 8,
+    34: 9,
+    35: 10,
+    36: 11,
+    37: 12,
+    38: 13,
+    39: 14,
+    40: 15
 }
-"""
+
+
 """
 #5x5
 motor_map = {
