@@ -22,12 +22,12 @@ neuron_params = {
     "V_th": 20.0,
     "t_ref": 0.5,
     "tau_syn_ex": 0.1,
-    "tau_minus": 1.0,
+    "tau_minus": 0.5,
     "V_m": 0.0,
     "E_L": 0.0,
 }
 
-SEED = 12351
+SEED = 12350
 
 # reset kernel first (very important)
 nest.ResetKernel()
@@ -57,16 +57,6 @@ sd_post = nest.Create("spike_recorder", len(post_neurons))
 nest.Connect(neuron, sd_pre)
 for i, n in enumerate(post_neurons):
     nest.Connect(n, sd_post[i])
-
-noise_spike_times = np.arange(30, 100, 0.5).tolist()
-noise_spikes = nest.Create("spike_generator", {"spike_times": noise_spike_times})
-
-nest.Connect(
-    noise_spikes,
-    post_neurons[0],
-    conn_spec={"rule": "one_to_one"},
-    syn_spec={"weight": 500}
-)
 
 # Input setup
 spike_times = np.arange(0.5, 201.0, 1.0).tolist()
@@ -102,13 +92,13 @@ nest.SetDefaults(
         "volume_transmitter": vt,
         "Wmin": 100,
         "Wmax": 1000,
-        "tau_c": 50,
+        "tau_c": 1000,
         "tau_c_delay": 200,
         "tau_n": 10,
-        "tau_plus": 1,
+        "tau_plus": 0.5,
         "b": 0.0,
         "A_plus": 0.1,
-        "A_minus": 0.1
+        "A_minus": 0
         },
     )
 

@@ -1,6 +1,7 @@
 import logging
 from abc import ABC, abstractmethod
 from copy import copy
+import random
 
 import nest
 import numpy as np
@@ -22,7 +23,7 @@ neuron_params = {
     "tau_m": 10.0,     # membrane time constant in ms
     "V_reset": 0.0,  # reset potential mV
     "V_th": 20.0,     # spike threshold mV
-    "t_ref": 0.5,      # absolute refractory period ms
+    "t_ref": 1.0,      # absolute refractory period ms
     "V_m": 0.0,      # initial membrane potential mV
     "E_L": 0.0,      # resting potential mV
 }
@@ -34,7 +35,7 @@ neuron_params_motor = {
     "V_th": 20.0,
     "t_ref": 0.5,
     "tau_syn_ex": 0.1,
-    "tau_minus": 0.5,
+    "tau_minus": 1.0,
     "V_m": 0.0,
     "E_L": 0.0,
 }
@@ -44,6 +45,7 @@ class PongNet(ABC):
         self.apply_noise = apply_noise
         self.num_input_neurons = 16
         self.num_output_neurons = 4
+        self.noise_counter = 0
 
         self.weight_history = []
         """
@@ -145,6 +147,21 @@ class PongNet(ABC):
 
         nest.SetStatus(self.input_generators[input_cell], {"spike_times": self.input_train})
 
+        self.noise_spike_times = [biological_time + 50 + i * ISI for i in range(50)]
+        self.noise_spike_times = [np.round(x, 1) for x in self.noise_spike_times]
+        for motor_neuron in range(self.num_output_neurons):
+            nest.SetStatus(self.motor_noise_spikes[motor_neuron], {"spike_times": []})
+
+        self.noise_counter+=1
+        if self.noise_counter == 2:
+            self.noise_counter = 0
+
+            random_cell = random.randint(0, self.num_output_neurons - 1)
+            nest.SetStatus(self.motor_noise_spikes[random_cell], {"spike_times": self.noise_spike_times})
+
+
+
+
     def get_max_activation(self, start, end):
         """
         Returns the local index of the motor neuron with the highest average firing rate
@@ -174,8 +191,8 @@ class PongNet(ABC):
         
         # Get indices of neurons with max rate
         max_indices = np.flatnonzero(avg_rates == avg_rates.max())
-        print(start, end)
-        print(avg_rates)
+        #print(start, end)
+        #print(avg_rates)
 
         # Return local index (0..N-1) randomly if there are ties
         return int(np.random.choice(max_indices))
@@ -223,7 +240,7 @@ class GridWorldAC(PongNet):
     n_critic = 8
 
     w_c_a = 150
-    w_c_a_max = 500
+    w_c_a_max = 1000
 
     w_c_str = 150
     w_c_str_max = 1000
@@ -282,10 +299,10 @@ class GridWorldAC(PongNet):
                 "tau_c": 30,
                 "tau_c_delay": 200,
                 "tau_n": 10,
-                "tau_plus": 0.5,
+                "tau_plus": 1,
                 "b": 0.0,
-                "A_plus": 0.1,
-                "A_minus": 0.1
+                "A_plus": 0.02,
+                "A_minus": 0.02
             }
         )
 
@@ -464,12 +481,21 @@ class GridWorldAC(PongNet):
             syn_spec={"weight": self.w_in_all}
         )
 
-        #self.poisson_input_ex = nest.Create("poisson_generator", self.num_input_neurons, params={"rate": 50})
-        #self.poisson_input_inh = nest.Create("poisson_generator", self.num_input_neurons, params={"rate": 25})
-        self.poisson_input_ex = nest.Create("poisson_generator", params={"rate": 15})
-        self.poisson_input_inh = nest.Create("poisson_generator", params={"rate": 10})
+        #self.poisson_input_ex = nest.Create("poisson_generator", params={"rate": 15})
+        #self.poisson_input_inh = nest.Create("poisson_generator", params={"rate": 10})
+        self.noise_spike_times = []
+        self.motor_noise_spikes = nest.Create("spike_generator", self.num_output_neurons, {"spike_times": self.noise_spike_times})
+
+        nest.Connect(
+            self.motor_noise_spikes,
+            self.motor_neurons,
+            conn_spec={"rule": "one_to_one"},
+            syn_spec={"weight": 500}
+        )
+
 
         # Input noise
+        """
         nest.Connect(
             self.poisson_input_ex,
             self.intermediate_motor,
@@ -486,8 +512,8 @@ class GridWorldAC(PongNet):
         # Motor noise
         n_motor = len(self.motor_neurons)
 
-        self.poisson_motor_ex = nest.Create("poisson_generator", n_motor, params={"rate": 15})
-        self.poisson_motor_inh = nest.Create("poisson_generator", n_motor, params={"rate": 10})
+        #self.poisson_motor_ex = nest.Create("poisson_generator", n_motor, params={"rate": 15})
+        #self.poisson_motor_inh = nest.Create("poisson_generator", n_motor, params={"rate": 10})
 
         nest.Connect(
             self.poisson_motor_ex,
@@ -501,6 +527,7 @@ class GridWorldAC(PongNet):
             conn_spec={"rule": "one_to_one"},
             syn_spec={"weight": 500}
         )
+        """
         
         # Dopa noise
         nest.Connect(
@@ -570,6 +597,7 @@ class GridWorldAC(PongNet):
                         break  # found and updated
 
             print(f"✅ Updated {len(sources)} input→motor connections.")
+            print(conns)
 
         # --- INPUT → STRIATUM ---
         input_to_striatum = connections_data.get("input_to_striatum", None)

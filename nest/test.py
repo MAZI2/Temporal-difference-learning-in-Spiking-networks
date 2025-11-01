@@ -44,14 +44,14 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 
 
-RUNS = 100
+RUNS = 300
 class AIGridworld:
     def __init__(self):
         self.grid_size = (4, 4)
         self.start = (1, 2)
         self.goal = (3, 3)
-        self.debug = True
-        self.loadWeights = True
+        self.debug = True 
+        self.loadWeights = True 
 
         self.done = False
 
@@ -451,7 +451,7 @@ class AIGridworld:
             self.player.apply_synaptic_plasticity(biological_time, start, start+POLL_TIME)
             self.player.set_state(self.state)
 
-            decay_factor = 0.9995  # for example, keep 98% of previous weight each run
+            decay_factor = 0.99998  # for example, keep 98% of previous weight each run
 
             conns = nest.GetConnections(source=self.player.intermediate_motor,
                                         target=self.player.motor_neurons)

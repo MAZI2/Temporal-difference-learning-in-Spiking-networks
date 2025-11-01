@@ -22,7 +22,7 @@ neuron_params = {
     "V_th": 20.0,
     "t_ref": 0.5,
     "tau_syn_ex": 0.1,
-    "tau_minus": 1.0,
+    "tau_minus": 0.5,
     "V_m": 0.0,
     "E_L": 0.0,
 }
@@ -57,16 +57,6 @@ sd_post = nest.Create("spike_recorder", len(post_neurons))
 nest.Connect(neuron, sd_pre)
 for i, n in enumerate(post_neurons):
     nest.Connect(n, sd_post[i])
-
-noise_spike_times = np.arange(30, 100, 0.5).tolist()
-noise_spikes = nest.Create("spike_generator", {"spike_times": noise_spike_times})
-
-nest.Connect(
-    noise_spikes,
-    post_neurons[0],
-    conn_spec={"rule": "one_to_one"},
-    syn_spec={"weight": 500}
-)
 
 # Input setup
 spike_times = np.arange(0.5, 201.0, 1.0).tolist()
@@ -108,15 +98,15 @@ nest.SetDefaults(
         "tau_plus": 1,
         "b": 0.0,
         "A_plus": 0.1,
-        "A_minus": 0.1
+        "A_minus": 0
         },
     )
 
 # Motor noise
 n_motor = len(post_neurons)
 
-poisson_motor_ex = nest.Create("poisson_generator", n_motor, params={"rate": 0})
-poisson_motor_inh = nest.Create("poisson_generator", n_motor, params={"rate": 0})
+poisson_motor_ex = nest.Create("poisson_generator", n_motor, params={"rate": 15})
+poisson_motor_inh = nest.Create("poisson_generator", n_motor, params={"rate": 10})
 
 nest.Connect(
     poisson_motor_ex,
@@ -130,8 +120,8 @@ nest.Connect(
     conn_spec={"rule": "one_to_one"},
     syn_spec={"weight": 500}
 )
-poisson_pre_ex = nest.Create("poisson_generator", 1, params={"rate": 0})
-poisson_pre_inh = nest.Create("poisson_generator", 1, params={"rate": 0})
+poisson_pre_ex = nest.Create("poisson_generator", 1, params={"rate": 15})
+poisson_pre_inh = nest.Create("poisson_generator", 1, params={"rate": 10})
 
 nest.Connect(
     poisson_pre_ex,

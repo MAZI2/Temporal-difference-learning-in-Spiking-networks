@@ -386,7 +386,8 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::facilitate_( double kplus
 
   // Schedule delayed application
   //delayed_c_.emplace_back(t_last_update_ + cp.tau_c_delay_, c_);
-  //std::cout << "[DEBUG] facilitate_: c=" << c_ << std::endl;
+  //std::cout << "[DEBUG] facilitate_: delta_c=+" << cp.A_plus_ * kplus << " at t=" << t_last_update_ << std::endl;
+
 }
 
 template < typename targetidentifierT >
@@ -402,7 +403,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::depress_( double kminus, 
 
   // Schedule delayed application
   //delayed_c_.emplace_back(t_last_update_ + cp.tau_c_delay_, c_);
-  //std::cout << "[DEBUG] depress_: c=" << c_ << std::endl;
+  //std::cout << "[DEBUG] depress_: delta_c=-" << cp.A_minus_ * kminus << " at t=" << t_last_update_ << std::endl;
 }
 
 /**
