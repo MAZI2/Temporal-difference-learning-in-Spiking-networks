@@ -16,11 +16,11 @@ stdp_tau = 64.0
 # NEST setup
 # -------------------------
 neuron_params = {
-    "C_m": 10.0,
+    "C_m": 20.0,
     "tau_m": 10.0,
     "V_reset": 0.0,
     "V_th": 20.0,
-    "t_ref": 0.5,
+    "t_ref": 0.1,
     "tau_syn_ex": 0.1,
     "tau_minus": 1.0,
     "V_m": 0.0,
@@ -59,6 +59,7 @@ for i, n in enumerate(post_neurons):
     nest.Connect(n, sd_post[i])
 
 noise_spike_times = np.arange(30, 100, 0.5).tolist()
+#noise_spike_times = []
 noise_spikes = nest.Create("spike_generator", {"spike_times": noise_spike_times})
 
 nest.Connect(
@@ -74,7 +75,7 @@ pre = nest.Create("spike_generator", {"spike_times": spike_times})
 
 # Dopamine setup
 vt = nest.Create("volume_transmitter")
-dopa_spike_times = [float(t) for t in range(1, 1000, 20)]
+dopa_spike_times = [float(t) for t in range(1, 1000, 1)]
 mod_spikes = nest.Create("spike_generator", {"spike_times": dopa_spike_times})
 dopa = nest.Create("parrot_neuron")
 nest.Connect(mod_spikes, dopa)
@@ -105,10 +106,10 @@ nest.SetDefaults(
         "tau_c": 50,
         "tau_c_delay": 200,
         "tau_n": 10,
-        "tau_plus": 1,
+        "tau_plus": 10,
         "b": 0.0,
-        "A_plus": 0.1,
-        "A_minus": 0.1
+        "A_plus": 0.01,
+        "A_minus": 0.01
         },
     )
 
@@ -148,12 +149,13 @@ nest.Connect(
 
 # Connect pre → parrot → posts
 nest.Connect(pre, neuron)
+weights = [300, 300, 750]
 for i, post in enumerate(post_neurons):
     nest.Connect(
         neuron,
         post,
         {"rule": "all_to_all"},
-        {"synapse_model": "delayed_synapse", "weight": 150 + 8 * i, "delay": 1.0},
+        {"synapse_model": "delayed_synapse", "weight": weights[i], "delay": 1.0},
     )
 
 print("Connections:")
@@ -266,7 +268,7 @@ for i, (post_id, entries) in enumerate(sorted(neuron_data.items(), reverse=True)
 ax_w = axes[-2]
 for tgt, weights in sorted(weight_data.items()):
     weights = np.array(weights)
-    norm_w = weights - weights[0]
+    norm_w = weights #- weights[0]
     times = np.arange(len(weights)) - 200
     times = np.clip(times, 0, None)
     ax_w.plot(times, norm_w, label=f"target={tgt}")
@@ -277,7 +279,7 @@ ax_w.grid(True)
 
 # --- Firing rate per 50 ms bin ---
 ax_fr = axes[-1]
-bin_size = 50.0
+bin_size = 200.0
 n_bins = int(np.ceil(sim_duration / bin_size))
 bin_edges = np.arange(0, (n_bins + 1) * bin_size, bin_size)
 

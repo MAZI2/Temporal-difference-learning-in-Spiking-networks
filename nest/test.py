@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 NEXT_STATES = [(1, 0), (0, 0), (0, 0), (0, 0), (0, 0)]
 REWARDED_STATES = [1, 0, 0, 0, 0]
 #SEED = 12301
-SEED = 12351
+SEED = 12333
 
 # reset kernel first (very important)
 nest.ResetKernel()
@@ -44,14 +44,14 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 
 
-RUNS = 300
+RUNS = 3000
 class AIGridworld:
     def __init__(self):
         self.grid_size = (4, 4)
         self.start = (1, 2)
         self.goal = (3, 3)
-        self.debug = True 
-        self.loadWeights = True 
+        self.debug = False 
+        self.loadWeights = False 
 
         self.done = False
 
@@ -280,6 +280,10 @@ class AIGridworld:
 
 
     def run_games(self, max_runs=10000):
+        best_str_sum = -np.inf
+        best_connections_data = None
+        
+
         start_time = time.time()
         self.run = 0
         biological_time = 0
@@ -304,7 +308,7 @@ class AIGridworld:
         for local_idx, neuron in enumerate(self.player.motor_neurons):
             print(f"Local index: {local_idx}, Global ID: {neuron.global_id}")
 
-        for local_idx, neuron in enumerate(self.player.input_neurons):
+        for local_idx, neuron in enumerate(self.player.intermediate_motor):
             print(f"Local index: {local_idx}, Global ID: {neuron.global_id}")
 
 
@@ -338,43 +342,63 @@ class AIGridworld:
                 if biological_time <= (self.run+1)*POLL_TIME:
                     self.player.get_action(biological_time, (self.run+1)*POLL_TIME)
                 """
-                
+
+                                    #print("supp current", self.player.supp_current.amplitude)
+                conns = nest.GetConnections(source=self.player.input_neurons, target=self.player.striatum)
+                sources = np.array(conns.source)
+                weights = np.array(conns.get("weight"))
+
+                conns_motor = nest.GetConnections(source=self.player.intermediate_motor, target=self.player.motor_neurons)
+                sources_motor = np.array(conns_motor.source)
+                weights_motor = np.array(conns_motor.get("weight"))
+
+                targets_motor = np.array(conns_motor.target)
+
+
+                # compute mean per input neuron
+                means_per_input = []
+                means_per_input_motor = []
+                for src in self.player.intermediate_motor:
+                    mask = sources_motor == src.global_id
+                    if np.any(mask):
+                        means_per_input_motor.append(np.mean(weights_motor[mask]))
+                    else:
+                        means_per_input_motor.append(np.nan)
+
+                for src in self.player.input_neurons:
+                    mask = sources == src.global_id
+                    if np.any(mask):
+                        means_per_input.append(np.mean(weights[mask]))
+                    else:
+                        means_per_input.append(np.nan)
+
+                weight_history_str.append(means_per_input)
+                time_points_str.append(self.run * POLL_TIME + t + step_size)
+
+                weight_history_motor.append(means_per_input_motor)
+                time_points_motor.append(self.run * POLL_TIME + t + step_size)
+
+                current_str_weights = np.array(weight_history_str[-1])
+                current_str_sum = np.sum(current_str_weights)
+
+                # Check if this is the best sum so far
+                if current_str_sum > best_str_sum:
+                    best_str_sum = current_str_sum
+                    # Save current connections
+                    best_connections_data = {
+                        "input_to_motor": nest.GetConnections(
+                            source=self.player.intermediate_motor,
+                            target=self.player.motor_neurons
+                        ).get(["source", "target", "weight"]),
+                        "input_to_striatum": nest.GetConnections(
+                            source=self.player.input_neurons,
+                            target=self.player.striatum
+                        ).get(["source", "target", "weight"]),
+                    }
+                    print(f"✅ New best striatum sum: {best_str_sum:.2f} at iteration {self.run}")
+
+
                 if self.debug:
-                    #print("supp current", self.player.supp_current.amplitude)
-                    conns = nest.GetConnections(source=self.player.input_neurons, target=self.player.striatum)
-                    sources = np.array(conns.source)
-                    weights = np.array(conns.get("weight"))
-
-                    conns_motor = nest.GetConnections(source=self.player.intermediate_motor, target=self.player.motor_neurons)
-                    sources_motor = np.array(conns_motor.source)
-                    weights_motor = np.array(conns_motor.get("weight"))
-
-                    targets_motor = np.array(conns_motor.target)
-
-
-                    # compute mean per input neuron
-                    means_per_input = []
-                    means_per_input_motor = []
-                    for src in self.player.intermediate_motor:
-                        mask = sources_motor == src.global_id
-                        if np.any(mask):
-                            means_per_input_motor.append(np.mean(weights_motor[mask]))
-                        else:
-                            means_per_input_motor.append(np.nan)
-
-                    for src in self.player.input_neurons:
-                        mask = sources == src.global_id
-                        if np.any(mask):
-                            means_per_input.append(np.mean(weights[mask]))
-                        else:
-                            means_per_input.append(np.nan)
-
-                    weight_history_str.append(means_per_input)
-                    time_points_str.append(self.run * POLL_TIME + t + step_size)
-
-                    weight_history_motor.append(means_per_input_motor)
-                    time_points_motor.append(self.run * POLL_TIME + t + step_size)
-
                     num_motor_neurons = len(self.player.motor_neurons)
 
                     # prepare per-target weight vectors
@@ -451,6 +475,7 @@ class AIGridworld:
             self.player.apply_synaptic_plasticity(biological_time, start, start+POLL_TIME)
             self.player.set_state(self.state)
 
+            """
             decay_factor = 0.99998  # for example, keep 98% of previous weight each run
 
             conns = nest.GetConnections(source=self.player.intermediate_motor,
@@ -458,6 +483,29 @@ class AIGridworld:
 
             # Get all weights as a NumPy array for efficiency
             weights = np.array(conns.get("weight"))
+            new_weights = weights * decay_factor
+
+            # Apply back to NEST
+            for conn, w_new in zip(conns, new_weights):
+                conn.set({"weight": float(w_new)})
+            """
+            Wmin = 200.0
+            Wmax = 1000.0
+
+            k = 0.01  # maximum decay contribution
+
+            conns = nest.GetConnections(source=self.player.intermediate_motor,
+                                        target=self.player.motor_neurons)
+
+            weights = np.array(conns.get("weight"), dtype=float)
+
+            # Normalize weight position between 0…1
+            alpha = (weights - Wmin) / (Wmax - Wmin)
+            alpha = np.clip(alpha, 0.0, 1.0)  # ensure stability
+
+            # Decay factor becomes smaller closer to Wmax
+            decay_factor = 1.0 - k * alpha
+
             new_weights = weights * decay_factor
 
             # Apply back to NEST
@@ -499,6 +547,12 @@ class AIGridworld:
                                        )
         end_time = time.time()
 
+        if best_connections_data is not None:
+            with open("best_connections.pkl", "wb") as f:
+                pickle.dump(best_connections_data, f)
+            print("✅ Saved best NEST connections to best_connections.pkl")
+        
+
         if True:#not self.debug:
             connections_data = {}
 
@@ -513,6 +567,42 @@ class AIGridworld:
                 pickle.dump(connections_data, f)
 
             print("✅ Saved NEST connections to connections.pkl")
+
+
+        # Convert lists to arrays
+
+        # Convert lists to arrays
+        weight_history_str_arr = np.array(weight_history_str)  # shape: (iterations, num_input_neurons)
+        sum_weights_over_time_str = np.sum(weight_history_str_arr, axis=1)   # sum across input neurons
+
+        weight_history_motor_arr = np.array(weight_history_motor)  # shape: (iterations, num_motor_neurons)
+        # Number of input neurons connecting to motor neurons
+        num_input_neurons_motor = weight_history_motor_arr.shape[1]
+
+        # Create two vertical subplots
+        fig, axes = plt.subplots(2, 1, figsize=(12, 8), sharex=True)
+
+        # --- Top plot: sum of input→striatum weights ---
+        axes[0].plot(sum_weights_over_time_str, color='blue', label="Sum of input→striatum weights")
+        axes[0].set_ylabel("Weight (pA)")
+        axes[0].set_title("Input→Striatum weights over training")
+        axes[0].legend()
+        axes[0].grid(True, linestyle='--', alpha=0.6)
+
+        # --- Bottom plot: average weights per input neuron → motor neurons ---
+        for neuron_idx in range(num_input_neurons_motor):
+            axes[1].plot(weight_history_motor_arr[:, neuron_idx], label=f"Input neuron {neuron_idx}")
+
+        axes[1].set_xlabel("Training iteration")
+        axes[1].set_ylabel("Weight (pA)")
+        axes[1].set_title("Input→Motor weights per input neuron")
+        axes[1].legend(ncol=4, fontsize=8)
+        axes[1].grid(True, linestyle='--', alpha=0.6)
+
+        plt.tight_layout()
+        plt.show()
+                
+                                
 
 
 if __name__ == "__main__":

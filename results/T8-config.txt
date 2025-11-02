@@ -240,7 +240,7 @@ class GridWorldAC(PongNet):
     n_critic = 8
 
     w_c_a = 200
-    w_c_a_max = 1000
+    w_c_a_max = 2000
 
     w_c_str = 150
     w_c_str_max = 1000
@@ -301,8 +301,8 @@ class GridWorldAC(PongNet):
                 "tau_n": 10,
                 "tau_plus": 10,
                 "b": 0.0,
-                "A_plus": 0.01,
-                "A_minus": 0.01
+                "A_plus": 0.02,
+                "A_minus": 0.02
             }
         )
 
