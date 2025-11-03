@@ -41,11 +41,15 @@ neuron_params_motor = {
 }
 
 class PongNet(ABC):
-    def __init__(self, apply_noise=True, num_neurons=25):
+    def __init__(self, config, apply_noise=True, num_neurons=25):
         self.apply_noise = apply_noise
         self.num_input_neurons = 16
         self.num_output_neurons = 4
+
         self.noise_counter = 0
+        self.noise_rate = config["noise_rate"]
+
+        print("noise_rate", config["noise_rate"])
 
         self.weight_history = []
         """
@@ -153,7 +157,7 @@ class PongNet(ABC):
             nest.SetStatus(self.motor_noise_spikes[motor_neuron], {"spike_times": []})
 
         self.noise_counter+=1
-        if self.noise_counter == 3:
+        if self.noise_counter == self.noise_rate:
             self.noise_counter = 0
 
             random_cell = random.randint(0, self.num_output_neurons - 1)
@@ -263,9 +267,20 @@ class GridWorldAC(PongNet):
     rate_ex_all = 20
     rate_in_all = 10
 
-    def __init__(self, apply_noise=True, num_neurons=20):
-        super().__init__(apply_noise, num_neurons)
+    def __init__(self, config, apply_noise=True, num_neurons=20):
+        super().__init__(config, apply_noise, num_neurons)
 
+        self.w_c_a_max = config["w_c_a_max"]
+        self.w_ex_all = config["w_ex_all"]
+        self.w_in_all = config["w_in_all"]
+        self.a_plus = config["a_plus_minus"]
+        self.a_minus = config["a_plus_minus"]
+        print("loaded: ", 
+        "w_c_a_max", config["w_c_a_max"],
+        "w_ex_all", config["w_ex_all"],
+        "w_in_all", config["w_in_all"],
+        "a_plus", config["a_plus_minus"],
+        "a_minus", config["a_plus_minus"])
 
 
         self.vt = nest.Create("volume_transmitter")
@@ -301,8 +316,8 @@ class GridWorldAC(PongNet):
                 "tau_n": 10,
                 "tau_plus": 10,
                 "b": 0.0,
-                "A_plus": 0.01,
-                "A_minus": 0.01
+                "A_plus": self.a_plus,
+                "A_minus": self.a_minus
             }
         )
 

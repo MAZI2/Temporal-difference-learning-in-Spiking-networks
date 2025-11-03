@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 NEXT_STATES = [(1, 0), (0, 0), (0, 0), (0, 0), (0, 0)]
 REWARDED_STATES = [1, 0, 0, 0, 0]
 #SEED = 12301
-SEED = 12333
+SEED = 123330
 
 # reset kernel first (very important)
 nest.ResetKernel()
@@ -44,9 +44,11 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 
 
-RUNS = 3000
+RUNS = 1500
 class AIGridworld:
-    def __init__(self):
+    def __init__(self, config):
+        self.config = config
+
         self.grid_size = (4, 4)
         self.start = (1, 2)
         self.goal = (3, 3)
@@ -57,7 +59,8 @@ class AIGridworld:
 
         self.game = gridworld.GridWorld(size=self.grid_size, start=self.start, goal=self.goal)
         self.state = self.game.reset()
-        self.player = GridWorldAC(False)
+        self.player = GridWorldAC(config, False)
+
         if self.loadWeights:
             if os.path.exists("connections.pkl"):
                 with open("connections.pkl", "rb") as f:
@@ -277,6 +280,7 @@ class AIGridworld:
         
         plt.tight_layout()
         plt.show()
+
 
 
     def run_games(self, max_runs=10000):
@@ -548,11 +552,12 @@ class AIGridworld:
         end_time = time.time()
 
         if best_connections_data is not None:
-            with open("best_connections.pkl", "wb") as f:
+            with open("conns/" + "_".join(str(v) for v in config.values()) + "-connections.pkl", "wb") as f:
                 pickle.dump(best_connections_data, f)
             print("✅ Saved best NEST connections to best_connections.pkl")
         
 
+        """
         if True:#not self.debug:
             connections_data = {}
 
@@ -567,6 +572,7 @@ class AIGridworld:
                 pickle.dump(connections_data, f)
 
             print("✅ Saved NEST connections to connections.pkl")
+        """
 
 
         # Convert lists to arrays
@@ -600,13 +606,52 @@ class AIGridworld:
         axes[1].grid(True, linestyle='--', alpha=0.6)
 
         plt.tight_layout()
-        plt.show()
+        #plt.show()
+        plt.savefig("learns/" + "_".join(str(v) for v in config.values()) + "-learn.png")
+
+
                 
                                 
 
+def nest_set_seed(seed):
+    nest.ResetKernel()
+
+    nest.SetKernelStatus({
+        "rng_seed": seed,
+    })
+
+    np.random.seed(seed)
+    random.seed(seed)
+    nest.set_verbosity("M_FATAL")
+
+    nest.Install("mymodule")
 
 if __name__ == "__main__":
 #    runs=len(NEXT_STATES)
     runs=RUNS
 
-    AIGridworld().run_games(max_runs=runs)
+    noise_rates = [1, 2, 3, 4]
+    w_c_a_maxs = [1000, 2000]
+    a_plus_minuss = [0.01, 0.015, 0.02, 0.03]
+    w_ex_in_alls = [(0,0), (15,-10)]
+    seed_iters = 1
+
+    config = {}
+    for noise_rate in noise_rates:
+        config["noise_rate"] = noise_rate
+        for w_c_a_max in w_c_a_maxs:
+            config["w_c_a_max"] = w_c_a_max
+            for a_plus_minus in a_plus_minuss:
+                config["a_plus_minus"] = a_plus_minus 
+                for w_ex_all, w_in_all in w_ex_in_alls:
+                    config["w_ex_all"] = w_ex_all
+                    config["w_in_all"] = w_in_all
+
+                    seed = SEED
+                    for i in range(seed_iters):
+                        config["iter"] = i
+                        nest_set_seed(seed)
+                        seed += i
+
+                        AIGridworldI = AIGridworld(config) 
+                        AIGridworldI.run_games(max_runs=runs)
