@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 grid_size = (4, 4)
 start = (0, 0)
 goal = (3, 3)
-STR_MIN = 100   # minimum weight to show (anything below = min color)
-STR_MAX = 300  # maximum weight to show (anything above = max color)
+STR_MIN = 150   # minimum weight to show (anything below = min color)
+STR_MAX = 400  # maximum weight to show (anything above = max color)
 
 
 # ============================================================
@@ -149,7 +149,7 @@ def plot_policy(input_to_motor, input_to_striatum, input_map, input_raw_map, mot
 # ============================================================
 # LOAD CONNECTION DATA
 # ============================================================
-with open("best_connections.pkl", "rb") as f:
+with open("conns/0_4000_0.3_0_0_0-connections.pkl", "rb") as f:
     connections_data = pickle.load(f)
 
 input_to_motor = connections_data["input_to_motor"]

@@ -44,7 +44,7 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 
 
-RUNS = 1500
+RUNS = 3000
 class AIGridworld:
     def __init__(self, config):
         self.config = config
@@ -53,7 +53,7 @@ class AIGridworld:
         self.start = (1, 2)
         self.goal = (3, 3)
         self.debug = False 
-        self.loadWeights = False 
+        self.loadWeights = True 
 
         self.done = False
 
@@ -62,8 +62,8 @@ class AIGridworld:
         self.player = GridWorldAC(config, False)
 
         if self.loadWeights:
-            if os.path.exists("connections.pkl"):
-                with open("connections.pkl", "rb") as f:
+            if os.path.exists("conns/0_4000_0.3_0_0_0-connections.pkl"):
+                with open("conns/0_4000_0.3_0_0_0-connections.pkl", "rb") as f:
                     connections_data = pickle.load(f)
                 self.player.load_saved_weights(connections_data)
 
@@ -453,9 +453,6 @@ class AIGridworld:
 
             # Cleanup for next iteration
             # Reset only generators' spike_times and the motor spike counters
-            for g in self.player.input_generators:
-                nest.SetStatus(g, {"spike_times": []})
-            self.player.reset()  # clears motor spike recorders
 
             start = self.run*POLL_TIME
             self.player.winning_neuron = self.player.get_max_activation(start, start+POLL_TIME)
@@ -479,6 +476,11 @@ class AIGridworld:
             self.player.apply_synaptic_plasticity(biological_time, start, start+POLL_TIME)
             self.player.set_state(self.state)
 
+            for g in self.player.input_generators:
+                nest.SetStatus(g, {"spike_times": []})
+            self.player.reset()  # clears motor spike recorders
+
+
             """
             decay_factor = 0.99998  # for example, keep 98% of previous weight each run
 
@@ -493,10 +495,10 @@ class AIGridworld:
             for conn, w_new in zip(conns, new_weights):
                 conn.set({"weight": float(w_new)})
             """
-            Wmin = 200.0
-            Wmax = 1000.0
+            Wmin = 1200.0
+            Wmax = 4000.0
 
-            k = 0.01  # maximum decay contribution
+            k = 0.0001  # maximum decay contribution
 
             conns = nest.GetConnections(source=self.player.intermediate_motor,
                                         target=self.player.motor_neurons)
@@ -630,11 +632,19 @@ if __name__ == "__main__":
 #    runs=len(NEXT_STATES)
     runs=RUNS
 
+    """
     noise_rates = [1, 2, 3, 4]
     w_c_a_maxs = [1000, 2000]
     a_plus_minuss = [0.01, 0.015, 0.02, 0.03]
     w_ex_in_alls = [(0,0), (15,-10)]
     seed_iters = 1
+    """
+    noise_rates = [0]
+    w_c_a_maxs = [4000]
+    a_plus_minuss = [0.3]
+    w_ex_in_alls = [(0,0)]
+    seed_iters = 1
+
 
     config = {}
     for noise_rate in noise_rates:

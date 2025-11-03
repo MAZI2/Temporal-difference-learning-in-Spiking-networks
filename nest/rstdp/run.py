@@ -38,7 +38,7 @@ nest.Install("mymodule")
 
 from rstdp import POLL_TIME, PongNetRSTDP 
 
-RUNS = 1000
+RUNS = 300
 class AIGridworldRSTDP:
     def __init__(self):
         self.debug = True 
@@ -102,7 +102,7 @@ class AIGridworldRSTDP:
         # 3️⃣ Plotting
         time_axis = np.arange(RUNS) * poll_time
 
-        fig, axes = plt.subplots(7, 1, figsize=(12, 20), sharex=True)
+        fig, axes = plt.subplots(8, 1, figsize=(12, 20), sharex=True)
 
 
         # Average weights plot
@@ -163,16 +163,31 @@ class AIGridworldRSTDP:
         axes[5].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
         axes[5].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
 
+        input_events = nest.GetStatus(self.player.input_recorder, "events")[0]  # dictionary with 'senders' and 'times'
+        input_senders = input_events['senders']
+        input_times = input_events['times']
+
+        input_id_to_idx = {neuron.global_id: i for i, neuron in enumerate(self.player.input_neurons)}
+        input_indices = np.array([input_id_to_idx[s] for s in input_senders])
+
+        axes[6].scatter(input_times, input_indices, marker='.', color='green')
+        axes[6].set_ylabel("Input neuron")
+        axes[6].set_title("Input neuron spikes (raster)")
+        axes[6].set_yticks(np.arange(len(self.player.input_neurons)))
+        axes[6].set_ylim(-0.5, len(self.player.input_neurons)-0.5)
+        axes[6].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+
+
         bin_size = 15.0           # ms
         bins = np.arange(0, time_axis[-1] + bin_size, bin_size)
         bin_centers = (bins[:-1] + bins[1:]) / 2.0
 
         dopa_rates = self.compute_avg_firing_rate(dopa_spikes, num_neurons=8, bins=bins, bin_size=bin_size)
 
-        axes[6].plot(bin_centers, dopa_rates, color='b')
-        axes[6].set_ylabel("Dopa firing rate (Hz)")
-        axes[6].set_xlabel("Time (ms)")
-        axes[6].set_title("Average Dopa activity")
+        axes[7].plot(bin_centers, dopa_rates, color='b')
+        axes[7].set_ylabel("Dopa firing rate (Hz)")
+        axes[7].set_xlabel("Time (ms)")
+        axes[7].set_title("Average Dopa activity")
 
 
 
@@ -289,6 +304,29 @@ class AIGridworldRSTDP:
 
             # Cleanup for next iteration
             # Reset only generators' spike_times and the motor spike counters
+            Wmin = 1200.0
+            Wmax = 2000.0
+
+            k = 0.0001  # maximum decay contribution
+
+            conns = nest.GetConnections(source=self.player.input_neurons,
+                                        target=self.player.motor_neurons)
+
+            weights = np.array(conns.get("weight"), dtype=float)
+
+            # Normalize weight position between 0…1
+            alpha = (weights - Wmin) / (Wmax - Wmin)
+            alpha = np.clip(alpha, 0.0, 1.0)  # ensure stability
+
+            # Decay factor becomes smaller closer to Wmax
+            decay_factor = 1.0 - k * alpha
+
+            new_weights = weights * decay_factor
+
+            # Apply back to NEST
+            for conn, w_new in zip(conns, new_weights):
+                conn.set({"weight": float(w_new)})
+
 
             self.player.winning_neuron = self.player.get_max_activation()
             action = self.player.winning_neuron

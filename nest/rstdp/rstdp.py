@@ -62,14 +62,14 @@ import numpy as np
 # Simulation time per iteration in milliseconds.
 POLL_TIME = 200
 # Number of spikes in an input spiketrain per iteration.
-N_INPUT_SPIKES = 20
+N_INPUT_SPIKES = 200
 # Inter-spike interval of the input spiketrain.
-ISI = 10.0
+ISI = 1.0
 # Standard deviation of Gaussian current noise in picoampere.
 BG_STD = 220.0
 # Reward to be applied depending on distance to target neuron.
 REWARDS_DICT = {0: 1.0, 1: 0.7, 2: 0.4, 3: 0.1}
-REWARDS_DICT_TEST = {0: 0, 1:1, 2:1}
+REWARDS_DICT_TEST = {0: 2, 1:2, 2:2}
 
 neuron_params = {
     "C_m": 250.0,      # membrane capacitance in pF
@@ -128,9 +128,15 @@ class PongNet(ABC):
         self.vt = nest.Create("volume_transmitter")
         nest.Connect(self.dopa, self.vt)
 
+
         self.input_generators = nest.Create("spike_generator", self.num_neurons)
-        self.input_neurons = nest.Create("parrot_neuron", self.num_neurons)
-        nest.Connect(self.input_generators, self.input_neurons, {"rule": "one_to_one"})
+        self.input_pre = nest.Create("parrot_neuron", self.num_neurons)
+        nest.Connect(self.input_generators, self.input_pre, {"rule": "one_to_one"})
+
+        self.input_neurons = nest.Create("iaf_psc_alpha", self.num_neurons)
+        nest.Connect(self.input_pre, self.input_neurons, {"rule": "one_to_one"}, {"weight": 120})
+        self.input_recorder = nest.Create("spike_recorder", self.num_neurons)
+        nest.Connect(self.input_neurons, self.input_recorder, {"rule": "one_to_one"})
 
         self.motor_neurons = nest.Create("iaf_psc_exp", self.num_neurons)
         self.spike_recorders = nest.Create("spike_recorder", self.num_neurons)
@@ -324,7 +330,7 @@ class PongNetRSTDP(PongNet):
                 "tau_n": 10,
                 "tau_plus": 20,
                 "b": 0.0,
-                "A_plus": 0.3,
+                "A_plus": 0.7,
                 "A_minus": 0.3
             },
         )
@@ -352,6 +358,7 @@ class PongNetRSTDP(PongNet):
 
             
         else:
+            print("EEEEE")
             # Because the noise_generators cause additional spikes in the motor
             # neurons, it is necessary to compensate for their absence by
             # slightly increasing the mean of the weights between input and
