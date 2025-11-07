@@ -1,0 +1,25 @@
+\babel@toc {english}{}\relax 
+\babel@toc {slovene}{}\relax 
+\contentsline {chapter}{Povzetek}{}{chapter*.2}%
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Abstract}{}{chapter*.3}%
+\babel@toc {slovene}{}\relax 
+\contentsline {chapter}{\numberline {1}Uvod}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivacija}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Cilji}{2}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Pregled področja in sorodnih del}{3}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Metodologija in uporabljena orodja}{5}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Modeliranje nevronov in sinaps}{7}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Simulacija in vizualizacija impulznih nevronskih mrež}{9}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Spodbujevano učenje na impulznih nevronskih mrežah}{11}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Sinaptična plastičnost odvisna od nagrajevanja in časovne razporeditve impulzov}{11}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Problem oddaljene nagrade}{12}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Pripisovanje odgovornosti}{12}{section.6.3}%
+\contentsline {section}{\numberline {6.4}TD (angl. \textit {Temporal Difference}) učenje}{12}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Model Actor-Critic}{12}{subsection.6.4.1}%
+\contentsline {chapter}{\numberline {7}Nevronska vezja}{15}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Igranje igre Pong}{17}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Rezultati}{19}{chapter.9}%
+\contentsline {chapter}{\numberline {10}Zaključek}{21}{chapter.10}%
+\contentsline {chapter}{Članki v revijah}{23}{chapter*.5}%
+\contentsline {chapter}{Celotna literatura}{25}{chapter*.6}%

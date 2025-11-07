@@ -69,7 +69,6 @@ ISI = 1.0
 BG_STD = 220.0
 # Reward to be applied depending on distance to target neuron.
 REWARDS_DICT = {0: 1.0, 1: 0.7, 2: 0.4, 3: 0.1}
-REWARDS_DICT_TEST = {0: 0, 1:1, 2:2}
 
 neuron_params = {
     "C_m": 250.0,      # membrane capacitance in pF
@@ -110,7 +109,7 @@ class PongNet(ABC):
             to the motor neurons of the network. Defaults to True.
         """
         self.apply_noise = apply_noise
-        self.num_neurons = 3
+        self.num_neurons = num_neurons
         self.state = 0
 
         self.weight_history = []
@@ -136,6 +135,7 @@ class PongNet(ABC):
         self.input_neurons = nest.Create("iaf_psc_alpha", self.num_neurons)
         nest.Connect(self.input_pre, self.input_neurons, {"rule": "one_to_one"}, {"weight": 120})
         self.input_recorder = nest.Create("spike_recorder", self.num_neurons)
+        self.global_input_recorder = nest.Create("spike_recorder", self.num_neurons)
         nest.Connect(self.input_neurons, self.input_recorder, {"rule": "one_to_one"})
 
         self.motor_neurons = nest.Create("iaf_psc_exp", self.num_neurons)
@@ -192,19 +192,12 @@ class PongNet(ABC):
         """
         self.spike_recorders.set({"n_events": 0})
 
-    def set_reward_current(self, biological_time):
-        self.winning_neuron = self.get_max_activation()
-        print("STATE:", self.state)
-        print("Winning:", self.winning_neuron)
-        if REWARDS_DICT_TEST[self.state] == self.winning_neuron:
-            bare_reward = 600.0
-            print("REWARDED!")
-        else:
-            bare_reward = 0
+    def set_reward_current(self, biological_time, reward):
+        reward_current = 600.0 * reward
 
         self.dopa_current.stop = biological_time + 200
         self.dopa_current.start = biological_time
-        self.dopa_current.amplitude = bare_reward 
+        self.dopa_current.amplitude = reward_current 
 
     def set_input_spiketrain(self, input_cell, biological_time):
         """Sets a spike train to the input neuron specified by an index.
@@ -251,24 +244,25 @@ class PongNet(ABC):
             float: Reward between 0 and 1.
         """
         self.winning_neuron = self.get_max_activation()
-        """
+
         distance = np.abs(self.winning_neuron - self.target_index)
 
         if distance in REWARDS_DICT:
             bare_reward = REWARDS_DICT[distance]
+            print("REWARDED: ", bare_reward)
         else:
             bare_reward = 0
+
         """
-        print("STATE:", self.state)
-        print("Winning:", self.winning_neuron)
         if REWARDS_DICT_TEST[self.state] == self.winning_neuron:
             bare_reward = 1.0
             print("REWARDED!")
         else:
             bare_reward = 0
+        """
         
 
-        reward = bare_reward #- self.mean_reward[self.target_index]
+        reward = bare_reward - self.mean_reward[self.target_index]
         if reward<0:
             reward = 0
 
@@ -276,6 +270,8 @@ class PongNet(ABC):
 
         logging.debug(f"Applying reward: {reward}")
         logging.debug(f"Average reward across all neurons: {np.mean(self.mean_reward)}")
+        print(f"Average reward across all neurons: {np.mean(self.mean_reward)}")
+
 
         self.weight_history.append(self.get_all_weights())
         self.mean_reward_history.append(copy(self.mean_reward))
@@ -329,7 +325,7 @@ class PongNetRSTDP(PongNet):
                 "tau_c_delay": 200,
                 "tau_n": 10,
                 "tau_plus": 20,
-                "b": 0.1,
+                "b": 0.0,
                 "A_plus": 0.7,
                 "A_minus": 0.3
             },
@@ -372,9 +368,10 @@ class PongNetRSTDP(PongNet):
 
     def apply_synaptic_plasticity(self, biological_time):
         """Rewards network based on how close target and winning neuron are."""
-        #reward = self.calculate_reward()
+        reward = self.calculate_reward()
+        self.set_reward_current(biological_time, reward)
+
         #self.apply_rstdp(reward)
-        self.set_reward_current(biological_time)
 
     def __repr__(self) -> str:
         return ("noisy " if self.apply_noise else "clean ") + "R-STDP"

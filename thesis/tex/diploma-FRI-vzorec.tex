@@ -1,0 +1,629 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% datoteka diploma-FRI-vzorec.tex
+%
+%POZOR: ta verzija ne producira pdf datoteke v pdf/A formatu!!!
+%namenjena je le za nalogo pri Diplomskem seminarju!
+%
+% vzorčna datoteka za pisanje diplomskega dela v formatu LaTeX
+% na UL Fakulteti za računalništvo in informatiko
+%
+% na osnovi starejših verzij vkup spravil Franc Solina, maj 2021
+% prvo verzijo je leta 2010 pripravil Gašper Fijavž
+%
+% za upravljanje z literaturo ta vezija uporablja BibLaTeX
+%
+% svetujemo uporabo Overleaf.com - na tej spletni implementaciji LaTeXa ta vzorec zagotovo pravilno deluje
+%
+
+\documentclass[a4paper,12pt,openright]{book}
+%\documentclass[a4paper, 12pt, openright, draft]{book}  Nalogo preverite tudi z opcijo draft, ki pokaže, katere vrstice so predolge! Pozor, v draft opciji, se slike ne pokažejo!
+ 
+\usepackage[utf8]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
+\usepackage[slovene,english]{babel}    % naloži, med drugim, slovenske delilne vzorce
+\usepackage[pdftex]{graphicx}  % omogoča vlaganje slik različnih formatov
+\usepackage{fancyhdr}          % poskrbi, na primer, za glave strani
+\usepackage{amssymb}           % dodatni matematični simboli
+\usepackage{amsmath}           % eqref, npr.
+\usepackage[pdftex, colorlinks=true,
+						citecolor=black, filecolor=black, 
+						linkcolor=black, urlcolor=black,
+						pdfproducer={LaTeX}, pdfcreator={LaTeX}]{hyperref}
+\usepackage{hyperxmp}
+\usepackage[hyphens]{url}
+\usepackage{csquotes}
+
+
+\usepackage{color}
+\usepackage{soul}
+
+\usepackage[
+backend=biber,
+style=numeric,
+sorting=nty,
+]{biblatex}
+
+
+\addbibresource{literatura.bib} %Imports bibliography file
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	DIPLOMA INFO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\ttitle}{Spodbujevano učenje na impulznih nevronskih mrežah}
+\newcommand{\ttitleEn}{Reinforcement learning on spiking neural networks}
+\newcommand{\tsubject}{\ttitle}
+\newcommand{\tsubjectEn}{\ttitleEn}
+\newcommand{\tauthor}{Matjaž Pogačnik}
+\newcommand{\tkeywords}{računalnik, računalnik, računalnik}
+\newcommand{\tkeywordsEn}{computer, computer, computer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	HYPERREF SETUP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hypersetup{pdftitle={\ttitle}}
+\hypersetup{pdfsubject=\ttitleEn}
+\hypersetup{pdfauthor={\tauthor}}
+\hypersetup{pdfkeywords=\tkeywordsEn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% postavitev strani
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+\addtolength{\marginparwidth}{-20pt} % robovi za tisk
+\addtolength{\oddsidemargin}{40pt}
+\addtolength{\evensidemargin}{-40pt}
+
+\renewcommand{\baselinestretch}{1.3} % ustrezen razmik med vrsticami
+\setlength{\headheight}{15pt}        % potreben prostor na vrhu
+\renewcommand{\chaptermark}[1]%
+{\markboth{\MakeUppercase{\thechapter.\ #1}}{}} \renewcommand{\sectionmark}[1]%
+{\markright{\MakeUppercase{\thesection.\ #1}}} \renewcommand{\headrulewidth}{0.5pt} \renewcommand{\footrulewidth}{0pt}
+\fancyhf{}
+\fancyhead[LE,RO]{\sl \thepage} 
+%\fancyhead[LO]{\sl \rightmark} \fancyhead[RE]{\sl \leftmark}
+\fancyhead[RE]{\sc \tauthor}              % dodal Solina
+\fancyhead[LO]{\sc Diplomska naloga}     % dodal Solina
+
+
+\newcommand{\BibLaTeX}{{\sc Bib}\LaTeX}
+\newcommand{\BibTeX}{{\sc Bib}\TeX}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% naslovi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+\newcommand{\autfont}{\Large}
+\newcommand{\titfont}{\LARGE\bf}
+\newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}\cleardoublepage}}
+\setcounter{tocdepth}{1}	      % globina kazala
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% konstrukti
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\newtheorem{izrek}{Izrek}[chapter]
+\newtheorem{trditev}{Trditev}[izrek]
+\newenvironment{dokaz}{\emph{Dokaz.}\ }{\hspace{\fill}{$\Box$}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PDF-A
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% define medatata
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\def\Title{\ttitle}
+\def\Author{\tauthor, matjaz.kralj@fri.uni-lj.si}
+\def\Subject{\ttitleEn}
+\def\Keywords{\tkeywordsEn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% \convertDate converts D:20080419103507+02'00' to 2008-04-19T10:35:07+02:00
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\def\convertDate{%
+    \getYear
+}
+
+{\catcode`\D=12
+ \gdef\getYear D:#1#2#3#4{\edef\xYear{#1#2#3#4}\getMonth}
+}
+\def\getMonth#1#2{\edef\xMonth{#1#2}\getDay}
+\def\getDay#1#2{\edef\xDay{#1#2}\getHour}
+\def\getHour#1#2{\edef\xHour{#1#2}\getMin}
+\def\getMin#1#2{\edef\xMin{#1#2}\getSec}
+\def\getSec#1#2{\edef\xSec{#1#2}\getTZh}
+\def\getTZh +#1#2{\edef\xTZh{#1#2}\getTZm}
+\def\getTZm '#1#2'{%
+    \edef\xTZm{#1#2}%
+    \edef\convDate{\xYear-\xMonth-\xDay T\xHour:\xMin:\xSec+\xTZh:\xTZm}%
+}
+
+%\expandafter\convertDate\pdfcreationdate 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% get pdftex version string
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcount\countA
+\countA=\pdftexversion
+\advance \countA by -100
+\def\pdftexVersionStr{pdfTeX-1.\the\countA.\pdftexrevision}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% XMP data
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\usepackage{xmpincl}
+%\includexmp{pdfa-1b}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% pdfInfo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\pdfinfo{%
+    /Title    (\ttitle)
+    /Author   (\tauthor, damjan@cvetan.si)
+    /Subject  (\ttitleEn)
+    /Keywords (\tkeywordsEn)
+    /ModDate  (\pdfcreationdate)
+    /Trapped  /False
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% znaki za copyright stran
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+\newcommand{\CcImageCc}[1]{%
+	\includegraphics[scale=#1]{cc_cc_30.pdf}%
+}
+\newcommand{\CcImageBy}[1]{%
+	\includegraphics[scale=#1]{cc_by_30.pdf}%
+}
+\newcommand{\CcImageSa}[1]{%
+	\includegraphics[scale=#1]{cc_sa_30.pdf}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\selectlanguage{slovene}
+\frontmatter
+\setcounter{page}{1} %
+\renewcommand{\thepage}{}       % preprečimo težave s številkami strani v kazalu
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%naslovnica
+ \thispagestyle{empty}%
+   \begin{center}
+    {\large\sc Univerza v Ljubljani\\%
+%      Fakulteta za elektrotehniko\\% za študijski program Multimedija
+%      Fakulteta za upravo\\% za študijski program Upravna informatika
+      Fakulteta za računalništvo in informatiko\\%
+%      Fakulteta za matematiko in fiziko\\% za študijski program Računalništvo in matematika
+     }
+    \vskip 10em%
+    {\autfont \tauthor\par}%
+    {\titfont \ttitle \par}%
+    {\vskip 3em \textsc{DIPLOMSKO DELO\\[5mm]         % dodal Solina za ostale študijske programe
+%    VISOKOŠOLSKI STROKOVNI ŠTUDIJSKI PROGRAM\\ PRVE STOPNJE\\ RAČUNALNIŠTVO IN INFORMATIKA}\par}%
+     UNIVERZITETNI  ŠTUDIJSKI PROGRAM\\ PRVE STOPNJE\\ RAČUNALNIŠTVO IN INFORMATIKA}\par}%
+%    INTERDISCIPLINARNI UNIVERZITETNI\\ ŠTUDIJSKI PROGRAM PRVE STOPNJE\\ MULTIMEDIJA}\par}%
+%    INTERDISCIPLINARNI UNIVERZITETNI\\ ŠTUDIJSKI PROGRAM PRVE STOPNJE\\ UPRAVNA INFORMATIKA}\par}%
+%    INTERDISCIPLINARNI UNIVERZITETNI\\ ŠTUDIJSKI PROGRAM PRVE STOPNJE\\ RAČUNALNIŠTVO IN MATEMATIKA}\par}%
+    \vfill\null%
+% izberite pravi habilitacijski naziv mentorja!
+    {\large \textsc{Mentor}: prof. dr. Zoran Bosnić\par}%
+%   {\large \textsc{Somentor}:  viš. pred./doc./izr. prof./prof. dr.  Martin Krpan \par}%
+    {\vskip 2em \large Ljubljana, \the\year \par}%
+\end{center}
+% prazna stran
+%\clearemptydoublepage      
+% izjava o licencah itd. se izpiše na hrbtni strani naslovnice
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%copyright stran
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+
+\vspace*{5cm}
+{\small \noindent
+To delo je ponujeno pod licenco \textit{Creative Commons Priznanje avtorstva-Deljenje pod enakimi pogoji 2.5 Slovenija} (ali novej\v so razli\v cico).
+To pomeni, da se tako besedilo, slike, grafi in druge sestavine dela kot tudi rezultati diplomskega dela lahko prosto distribuirajo,
+reproducirajo, uporabljajo, priobčujejo javnosti in predelujejo, pod pogojem, da se jasno in vidno navede avtorja in naslov tega
+dela in da se v primeru spremembe, preoblikovanja ali uporabe tega dela v svojem delu, lahko distribuira predelava le pod
+licenco, ki je enaka tej.
+Podrobnosti licence so dostopne na spletni strani \href{http://creativecommons.si}{creativecommons.si} ali na Inštitutu za
+intelektualno lastnino, Streliška 1, 1000 Ljubljana.
+
+\vspace*{1cm}
+\begin{center}% 0.66 / 0.89 = 0.741573033707865
+\CcImageCc{0.741573033707865}\hspace*{1ex}\CcImageBy{1}\hspace*{1ex}\CcImageSa{1}%
+\end{center}
+}
+
+\vspace*{1cm}
+{\small \noindent
+Izvorna koda diplomskega dela, njeni rezultati in v ta namen razvita programska oprema je ponujena pod licenco GNU General Public License,
+različica 3 (ali novejša). To pomeni, da se lahko prosto distribuira in/ali predeluje pod njenimi pogoji.
+Podrobnosti licence so dostopne na spletni strani \url{http://www.gnu.org/licenses/}.
+}
+
+\vfill
+\begin{center} 
+\ \\ \vfill
+{\em
+Besedilo je oblikovano z urejevalnikom besedil \LaTeX.}
+\end{center}
+
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% stran 3 med uvodnimi listi
+\thispagestyle{empty}
+\
+\vfill
+
+\bigskip
+\noindent\textbf{Kandidat:} Matjaž Pogačnik\\
+\noindent\textbf{Naslov:} Spodbujevano učenje na impulznih nevronskih mrežah\\
+% vstavite ustrezen naziv študijskega programa!
+\noindent\textbf{Vrsta naloge:} Diplomska naloga na univerzitetnem programu prve stopnje Računalništvo in informatika \\
+% izberite pravi habilitacijski naziv mentorja!
+\noindent\textbf{Mentor:} prof. dr. Zoran Bosnić\\
+% \noindent\textbf{Somentor:} isto kot za mentorja
+
+\bigskip
+\noindent\textbf{Opis:}\\
+Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega sistema, kamor ga je vnesel mentor. 
+V nekaj stavkih bo opisal, kaj pričakuje od kandidatovega diplomskega dela. 
+Kaj so cilji, kakšne metode naj uporabi, morda bo zapisal tudi ključno literaturo.
+
+\bigskip
+\noindent\textbf{Title:} Reinforcement learning on spiking neural networks
+
+\bigskip
+\noindent\textbf{Description:}\\
+opis diplome v angleščini
+
+\vfill
+
+
+
+\vspace{2cm}
+
+% prazna stran
+\clearemptydoublepage
+
+% zahvala
+\thispagestyle{empty}\mbox{}\vfill\null\it%
+\noindent
+Na tem mestu zapišite, komu se zahvaljujete za pomoč pri izdelavi diplomske naloge oziroma pri vašem študiju nasploh. Pazite, da ne boste koga pozabili. Utegnil vam bo zameriti. Temu se da izogniti tako, da celotno zahvalo izpustite.
+\rm\normalfont
+
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% posvetilo, če sama zahvala ne zadošča :-)
+%\thispagestyle{empty}\mbox{}{\vskip0.20\textheight}\mbox{}\hfill\begin{minipage}{0.55\textwidth}%
+%Svoji dragi Alenčici.
+%\normalfont\end{minipage}
+
+% prazna stran
+%\clearemptydoublepage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% kazalo
+\pagestyle{empty}
+\def\thepage{}% preprečimo težave s številkami strani v kazalu
+\tableofcontents{}
+
+
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% seznam kratic
+
+\chapter*{Seznam uporabljenih kratic}
+
+\noindent\begin{tabular}{p{0.15\textwidth}|p{.36\textwidth}|p{.39\textwidth}}    % po potrebi razširi prvo kolono tabele na račun drugih dveh!
+  {\bf kratica} & {\bf angleško}                              & {\bf slovensko} \\ \hline
+  {\bf SNN}      & Spiking neural network               & Impulzna nevronska mreža \\
+  {\bf R-STDP} & Reward modulated spike timing dependent plasticity & Sinaptična plastičnost odvisna od nagrajevanja in časovne razporeditve impulzov \\
+  {\bf TD}   & Temporal difference              & Temporalna razlika \\
+%  \dots & \dots & \dots \\
+\end{tabular}
+
+
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% povzetek
+\addcontentsline{toc}{chapter}{Povzetek}
+\chapter*{Povzetek}
+
+\noindent\textbf{Naslov:} \ttitle
+\bigskip
+
+\noindent\textbf{Avtor:} \tauthor
+\bigskip
+
+%\noindent\textbf{Povzetek:} 
+\noindent V vzorcu je predstavljen postopek priprave diplomskega dela z uporabo okolja \LaTeX. Vaš povzetek mora sicer vsebovati približno 100 besed, ta tukaj je odločno prekratek.
+Dober povzetek vključuje: (1) kratek opis obravnavanega problema, (2) kratek opis vašega pristopa za reševanje tega problema in (3) (najbolj uspešen) rezultat ali prispevek diplomske naloge.
+
+\bigskip
+
+\noindent\textbf{Ključne besede:} \tkeywords.
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% abstract
+\selectlanguage{english}
+\addcontentsline{toc}{chapter}{Abstract}
+\chapter*{Abstract}
+
+\noindent\textbf{Title:} \ttitleEn
+\bigskip
+
+\noindent\textbf{Author:} \tauthor
+\bigskip
+
+%\noindent\textbf{Abstract:} 
+\noindent This sample document presents an approach to typesetting your BSc thesis using \LaTeX. 
+A proper abstract should contain around 100 words which makes this one way too short.
+\bigskip
+
+\noindent\textbf{Keywords:} \tkeywordsEn.
+\selectlanguage{slovene}
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+\setcounter{page}{1}
+\pagestyle{fancy}
+
+\chapter{Uvod}
+\label{intro}
+%TODO: in glicko look at structure
+
+\section{Motivacija}
+\label{sec:motive}
+Impulzne nevronske mreže so v veliki večini implementacij poskus modeliranja bioloških značilnosti nevronov in sinaps v možganih. Kot izjemno močan računski stroj, so možgani navdih za mnoge moderne koncepte v umetni inteligenci. Najbolj očiten tak primer so nevronske mreže, vendar se po mehaniznih prisotnih v možganih lahko zgledujemo tudi pri metodah spodbujevanega učenja. %TODO: all subsubsections?
+
+Delovanje možganov je kljub mnogim raziskavam še vedno precej slabo razumljeno, njihovo računalniško modeliranje pa je v času pisanja še precej mlado področje.
+Odkrivanje kakršnihkoli mehanizmov in vzorcev, ki se pojavijo med delovanjem in učenjem impulznih nevronskih mrež ter uporaba teh pri modeliranju mehanizmov, za katere vemo, da so prisotni v možganih, predstavlja velik doprinos tako k področju računske nevroznanosti kot tudi psihoanalizi in drugim sorodnim področjem. V neposredni povezavi s psihoanalizo, raziskovanje impulznih nevronskih mrež predstavlja raziskovanje temeljnih vprašanj o človeškem dojemanju in delovanju možganov nasploh.
+
+\section{Cilji}
+V tej diplomski nalogi razvijemo rešitve kompleksne naloge s pomočjo impulznih nevronskih mrež in spodbujevanega učenja. V prvi fazi so predstavljeni in ovrednoteni različni modeli bioloških značilnosti nevronov in sinaps \ref{sec:neuron_sinapse_modelling}. Na podlagi izbranih modelov potem izdelamo ogrodje za simulacijo in vizualizacijo delovanja impulznih nevronskih mrež \ref{sec:simulation_visualization}. V nadaljevanju so na le-teh uporabljeni algoritmi spodbujevanega učenja na impulznih nevronskih mrežah kot so model sinaptične plastičnost odvisne od nagrajevanja in časovne razporeditvre impulzov (angl. R-STDP, primer Izhikevich EM \cite{distalReward}), s pomočjo česar je modeliran primer klasičnega pogojevanja \cite{conditioningWiki} \ref{sec:reinforcement_learning}. V nadaljevanju klasično pogojevanje in učenje na podlagi nagrade uporabimo za rešitev kompleksnejše naloge - igranja igre \href{https://en.wikipedia.org/wiki/Pong}{Pong} \ref{sec:pong}. Za ta namen modeliramo nevronska vezja in določene mehanizme iz človeškega dopaminskega sistema \ref{sec:neural_circuits}. Med rezultate vključimo primerjavo učenja na podlagi R-STDP, TD in naprednejšega modela Actor-Critic ter druga trenutno obstoječa orodja in implementacije spodbujevanega učenja na impulznih nevronskih mrežah \ref{sec:td}. 
+
+% TODO: doprinos loceno od strukture diplomske 
+
+
+\chapter{Pregled področja in sorodnih del}
+\label{sec:other_work}
+Na temo impulznih nevronskih mrež v Sloveniji v času pisanja še ni bila napisana nobena diplomska ali magistrska naloga, doktorska dizertacija ali znanstveni članek, kar je dodatna motivacija za pisanje diplomske naloge na to temo. Impulzne nevronske mreže zaradi zahtevnosti učenja (v času pisanja) niso kaj dosti uporabljene, čedalje bolj uprabna metoda v umetni inteligenci pa je spodbujevano učenje, ki je tudi prevladujoča in biološko podprta metoda za učenje impulznih nevronskih mrež.
+
+Na temo spobujevanega učenja je na voljo več slovenskih znanstvenih del. Pri spodbujevanem učenju predstavimo svoj sistem kot agenta, ki izvaja aktivnosti nad okoljem, ki mu kot odziv vrača nagrado in novo stanje okolja. Med drugim je uporabno v problemih kot so navigacija in reševanje problemov z roboti, na temo česar je bil objavljen članek pod avtorstvom prof. dr. Danijela Skočaja, rednega profesorja na FRI in dr. Mateja Dobrevskega \cite{robot} .
+Objavljenih je tudi več diplomskih in magistrskih nalog bolj simuliranih problemov, kot so uporaba spodbujevanega učenja za simulacijo psa ovčarja Štromajer T \cite{shepherdDog}, reševanje problemov sorodnih problemu vozička s palico Svete A \cite{vozicekSPalico}, igranje iger Šutar M \cite{predvidevanjeAkcij} in uporaba TD \cite{TDWiki} (angl. Temporal Difference) učenja v Monte Carlo preiskovanju dreves Deleva A \cite{TDlearning}. V vseh navedenih primerih se zgledujemo po raznolikem procesiranju podatkov iz zunanjega okolja, kjer je v robotiki in podatkih iz resničnega sveta prisoten tudi šum, ki je tako potrebna, kot tudi težavna komponenta pri učenju impulznih nevronskih mrež.
+
+Pri spodbujevanem učenju, sploh v resničnem svetu, imajo impulzne nevronske mreže lahko določene prednosti. Impulzne nevronske mreže namreč naravno upoštevajo časovno komopnento in procesirajo sekvenčne podatkovne tokove. Ker so dogodki v teh mrežah v osnovi samo propagiranje impulzov sosednjim nevronom v naslednjem časovnem intervalu, je računanje lahko učinkovito in preprosto. Zaradi tega se pojavljajo tudi trdo-ožičene implementacije impulznih nevronskih mrež. V delu Wunderlich T, et al. \cite{pilotStudy} je raziskana uporaba TD učenja na trdo-ožičeni impulzni nevronski mreži, kjer je končna naloga igranje igre Pong. Tudi v tej diplomski nalogi bo končna naloga enaka, vendar bodo za to uporabljeni računalniški in ne trdo-ožičeni modeli ter naprednejši učni algoritmi osnovani na spodbujevanem učenju.
+
+V tej diplomski nalogi je poudarek na simulacijah in snovanju algoritmov za spodbujevano učenje na impulznih nevronskih mrežah ter modeliranju različnih bioloških procesov in možganskih nevronskih vezij. Pri tem je dober zgled delo Izikhevich EM \cite{distalReward}, ki poleg modela nevronov in sinaps vpeljuje še način pripisovanja odgovornosti sinapsam za določeno aktivnst nevronske mreže. V postopku nadrgadnje algoritmov učenje poteka tudi na osnovi TD učenja in njegovi biološko bolj neposredni implementaciji Actor-Critic, Wiebke P, et al. \cite{actorCritic}. V tem postopku implementiramo dejansko nevronsko vezje odgovorno za nagrajevanje, kot je bilo to raziskano v človeških možganih.
+
+\chapter{Metodologija in uporabljena orodja}
+\label{methodology_and_tools}
+Simulacija, vizualizacija in evalvacija komponent je implementirana s pomočjo orodja Matlab. Rešitev kompleksnejšega problema, ki zahteva tudi implementacijo igre Pong je razvita v Pythonu. V sklopu te naloge uporaba impulznih nevronskih mrež zunaj simuliranega okolja, na trdo-ožičenih nevronskih čipih ali na robotih ni pokrito, zato posebna oprema za ta namen ni bila uporabljena. Predvsem za namene primerjave obstoječih sistemov s sistemom iz dimplomske naloge, so uporabljene tudi nekatere obstoječe knjižnice za simulacijo impulznih nevronskih mrež, na primer \href{https://www.nest-simulator.org/}{Nest}. Sistemi, razviti v diplomski nalogi so poleg medsebojne primerjave ovrednoteni tudi z drugimi trenutno obstoječimi orodji in implementacijami spodbujevanega učenja na impulznih nevronskih mrežah. Rešitev je ovrednotena tudi po metrikah podobnih tem uporabljenim v diplomski nalogi Svete A \cite{vozicekSPalico}.
+
+
+
+\chapter{Modeliranje nevronov in sinaps}
+\label{sec:neuron_sinapse_modelling}
+\begin{enumerate}
+    \item Predstavitev bioloških značilnosti nevronov in sinaps, ki bodo modelirane v nadaljevanju.
+    \begin{itemize}
+        \item \textbf{Trajanje: 1/2 tedna}
+        \item  Predpogoji: /
+    \end{itemize}
+
+    \item Predstavitev različnih pristopov in pravil (Hebbian rule, Izhikhevich, Hodgkin-Hyxley etc.)
+    \begin{itemize}
+        \item \textbf{Trajanje: 1 teden}
+        \item  Predpogoji: aktivnost 5.1
+    \end{itemize}
+\end{enumerate}
+
+%TODO: SNN shorthand?
+\chapter{Simulacija in vizualizacija impulznih nevronskih mrež}
+\label{sec:simulation_visualization}
+\begin{enumerate}
+    \item Vizualizacija mehanizmov znotraj impulznih nevrosnkih mrež.
+    \begin{itemize}
+        \item \textbf{Trajanje: 1 teden}
+        \item  Predpogoji: aktivnosti poglavja \ref{sec:neuron_sinapse_modelling}
+    \end{itemize}
+
+    \item Izbira diagramskih tehnik za vizualizacijo aktivnosti in interakcij med nevroni.
+    \begin{itemize}
+        \item \textbf{Trajanje: 1/2 teden}
+        \item  Predpogoji: aktivnost 6:1
+    \end{itemize}
+
+    \item Izdelava ogrodja, ki je uporaben za poljubno nalogo in bo v nadaljevanju uporabljen pri igranju igre Pong.
+    \begin{itemize}
+        \item \textbf{Trajanje: 2 tedna}
+        \item  Predpogoji: aktivnost 6:1
+    \end{itemize}
+\end{enumerate}
+
+\chapter{Spodbujevano učenje na impulznih nevronskih mrežah}
+\label{sec:reinforcement_learning}
+
+%TODO: intro
+
+\section{Sinaptična plastičnost odvisna od nagrajevanja in časovne razporeditve impulzov}
+\label{sec:rstdp}
+%TODO: cite
+
+\begin{enumerate}
+    \item Implementacija sinaptične plastičnosti odvisne od nagrajevanja in časovne razporeditve impulzov (angl. \textit{Reward Modulated Spike Timing Dependent Plasticity - R-STDP}).
+    \begin{itemize}
+        \item \textbf{Trajanje: 1 teden}
+        \item  Predpogoji: aktivnosti poglavja \ref{sec:neuron_sinapse_modelling}
+    \end{itemize}
+
+\item Rešitev preprostega problema s pomočjo spodbujevanega učenja na podlagi R-STDP.
+    %TODO: cite
+    \begin{itemize}
+        \item \textbf{Trajanje: 3 tedne}
+        \item  Predpogoji: aktivnost 7.1:1
+    \end{itemize}
+\end{enumerate}
+
+\section{Problem oddaljene nagrade}
+\label{sec:distal_reward}
+%TODO: cite Izhikhevich
+%TODO: any novelty?
+
+\begin{enumerate}
+    \item Predstavitev problema oddaljene nagrade (angl. \textit{Distal reward problem}) in predlagana rešitev ter implementacija.
+    \begin{itemize}
+        \item \textbf{Trajanje: 1 teden}
+        \item  Predpogoji: aktivnosti poglavja \ref{sec:rstdp}
+    \end{itemize}
+\end{enumerate}
+
+\section{Pripisovanje odgovornosti}
+\label{sec:credit_assignment}
+
+\begin{enumerate}
+    \item Predstavitev problema pripisovanja odgovornosti (angl. \textit{Credit assignment}) in predlagana rešitev ter implementacija.
+    \begin{itemize}
+        \item \textbf{Trajanje: 1 teden}
+        \item  Predpogoji: aktivnosti poglavja \ref{sec:neuron_sinapse_modelling}
+    \end{itemize}
+\end{enumerate}
+
+\section{TD (angl. \textit{Temporal Difference}) učenje}
+\label{sec:td}
+
+\begin{enumerate}
+    % TODO: cite
+    % TODO: recycle the solution for pong TD 1 layer
+    \item Implementacija osnovnega TD algoritma in primer klasičnega pogojevanja za preprost problem (npr. primer zvonec-hrana).
+    \begin{itemize}
+        \item \textbf{Trajanje: 1,5 tedna}
+        \item  Predpogoji: aktivnosti poglavja \ref{sec:neuron_sinapse_modelling}
+    \end{itemize}
+
+%TODO: Novelty
+    \item  Uporaba pripisovanja odgovornosti na implementiranih TD algoritmih
+    \begin{itemize}
+        \item \textbf{Trajanje: 3 tedne}
+        \item  Predpogoji: aktivnosti poglavja \ref{sec:credit_assignment}, \ref{sec:distal_reward} in aktivnost 7.4:1
+    \end{itemize}
+\end{enumerate}
+
+
+\subsection{Model Actor-Critic}
+\label{sec:actor_critic}
+%TODO: link
+
+\begin{enumerate}
+    \item Implementacija algoritma Actor-Critic.
+    \begin{itemize}
+        \item \textbf{Trajanje: 1 teden}
+        \item  Predpogoji: aktivnosti 7.4:1,2
+    \end{itemize}
+\end{enumerate}
+
+\chapter{Nevronska vezja}
+\label{sec:neural_circuits}
+\begin{enumerate}
+    \item Modeliranje človeških dopaminskih mehanizmov, dopaminskih receptorjev in odzivov na uspešno izvedene akcije.
+    \begin{itemize}
+        \item \textbf{Trajanje: 2 tedna}
+        \item  Predpogoji: aktivnosti poglavja \ref{sec:neuron_sinapse_modelling} in 7.1-7.4.
+    \end{itemize}
+
+    \item Nov pristop k implementaciji nevronskih vezij.
+    \begin{itemize}
+        \item \textbf{Trajanje: 4 tedni}
+        \item  Predpogoji: aktivnost 7.5:1.
+    \end{itemize}
+
+\end{enumerate}
+
+\chapter{Igranje igre Pong}
+\label{sec:pong}
+\begin{enumerate}
+    \item Predstavitev naloge in pretvorba problema na problem rešljiv z spodbujevanim učenjem na impulznih nevronskih mrežah. Definicije nagrad, vhodov in izhodov iz sistema ter izbira algoritma.
+    \begin{itemize}
+        \item \textbf{Trajanje: 2 tedna}
+        \item  Predpogoji: aktivnosti poglavja \ref{sec:reinforcement_learning}, \ref{sec:simulation_visualization}
+    \end{itemize}
+\end{enumerate}
+
+\chapter{Rezultati}
+\label{sec:results}
+\begin{enumerate}
+    \item Primerjava različnih metod učenja: R-STDP, TD in Actor-Critic.
+    \begin{itemize}
+        \item \textbf{Trajanje: 1/2 tedna}
+        \item  Predpogoji: aktivnosti poglavja \ref{sec:reinforcement_learning}
+    \end{itemize}
+
+    \item Analiza obstoječih orodij in implementacij spodbujevanega učenja na impulznih nevronskih mrežah ter njihova primerjava z lastno rešitvijo
+    \begin{itemize}
+        \item \textbf{Trajanje: 1 tedna}
+        \item  Predpogoji: aktivnosti poglavja \ref{sec:pong}
+    \end{itemize}
+\end{enumerate}
+
+\chapter{Zaključek}
+\label{sec:conclusion}
+\begin{enumerate}
+    \item Ovrednotenje impulznih nevronskih mrež in spodbujevanega učenja na le-teh za rešitev različnih "real world" problemov. 
+    \begin{itemize}
+        \item \textbf{Trajanje: 1/2 tedna}
+        \item  Predpogoji: aktivnosti poglavja \ref{sec:results}
+    \end{itemize}
+
+    \item Komentar in povezava rezultatov in metod z dosedanjim razumevanjem človeške zavesti in dopaminskega sistema. 
+    \begin{itemize}
+        \item \textbf{Trajanje: 1 teden}
+        \item  Predpogoji: aktivnosti poglavja \ref{sec:results}
+    \end{itemize}
+\end{enumerate}
+
+\iffalse 
+Critical path:
+5:1 -> 5:2 -> 6:1 -> 6:3 -> 7.1:1,2 -> 7.2:1 -> 7.4:2 -> 7.4.1:1 -> 7.5:1 -> 7.5:2 -> 8:1 -> 9:2 -> 10:2
+0.5 +  1 +    1 +    2     + 1 + 3    + 1      + 3      + 1          + 2      + 4     + 2    + 1   + 1   = 23.5 tednov = 5 mesecev
+
+\fi
+
+
+
+
+
+%\cleardoublepage
+%\addcontentsline{toc}{chapter}{Literatura}
+
+\printbibliography[heading=bibintoc,type=article,title={Članki v revijah}]
+%https://www.overleaf.com/project/609ce2055f917cb2f776732e
+\printbibliography[heading=bibintoc,type=inproceedings,title={Članki v zbornikih}]
+
+\printbibliography[heading=bibintoc,type=incollection,title={Poglavja v knjigah}]
+
+\printbibliography[heading=bibintoc,title={Celotna literatura}]
+
+
+\end{document}
+
