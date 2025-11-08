@@ -419,24 +419,20 @@ V tej diplomski nalogi je poudarek na simulacijah in snovanju algoritmov za spod
 
 \chapter{Metodologija in uporabljena orodja}
 \label{methodology_and_tools}
-Simulacija, vizualizacija in evalvacija komponent je implementirana s pomočjo orodja Matlab. Rešitev kompleksnejšega problema, ki zahteva tudi implementacijo igre Pong je razvita v Pythonu. V sklopu te naloge uporaba impulznih nevronskih mrež zunaj simuliranega okolja, na trdo-ožičenih nevronskih čipih ali na robotih ni pokrito, zato posebna oprema za ta namen ni bila uporabljena. Predvsem za namene primerjave obstoječih sistemov s sistemom iz dimplomske naloge, so uporabljene tudi nekatere obstoječe knjižnice za simulacijo impulznih nevronskih mrež, na primer \href{https://www.nest-simulator.org/}{Nest}. Sistemi, razviti v diplomski nalogi so poleg medsebojne primerjave ovrednoteni tudi z drugimi trenutno obstoječimi orodji in implementacijami spodbujevanega učenja na impulznih nevronskih mrežah. Rešitev je ovrednotena tudi po metrikah podobnih tem uporabljenim v diplomski nalogi Svete A \cite{vozicekSPalico}.
-
-
+Rešitve so implementirane v Pythonu, kjer za simulacijo uporabljamo simulator \href{https://www.nest-simulator.org/}{NEST}, ki ima zaledje implementirano v C++. Za simulator, ki ga uporabljamo preko Pythonovega vmesnika je v sklopu tega diplomskega dela implementiran tudi modul, ki je prav tako implementiran v C++. V sklopu te naloge uporaba impulznih nevronskih mrež zunaj simuliranega okolja, na trdo-ožičenih nevronskih čipih ali na robotih ni pokrito, zato posebna oprema za ta namen ni bila uporabljena. Sistemi, razviti v diplomski nalogi so poleg medsebojne primerjave ovrednoteni tudi z drugimi trenutno obstoječimi implementacijami spodbujevanega učenja na impulznih nevronskih mrežah. Rešitev je ovrednotena tudi po metrikah podobnih tem uporabljenim v diplomski nalogi Svete A \cite{vozicekSPalico}.
 
 \chapter{Modeliranje nevronov in sinaps}
 \label{sec:neuron_sinapse_modelling}
 \begin{enumerate}
-    \item Predstavitev bioloških značilnosti nevronov in sinaps, ki bodo modelirane v nadaljevanju.
-    \begin{itemize}
-        \item \textbf{Trajanje: 1/2 tedna}
-        \item  Predpogoji: /
-    \end{itemize}
-
     \item Predstavitev različnih pristopov in pravil (Hebbian rule, Izhikhevich, Hodgkin-Hyxley etc.)
-    \begin{itemize}
-        \item \textbf{Trajanje: 1 teden}
-        \item  Predpogoji: aktivnost 5.1
-    \end{itemize}
+    \item Predstavitev bioloških značilnosti nevronov in sinaps, ki bodo modelirane v nadaljevanju.
+
+    Impulzne nevronske mreže so definirane tako z modelom nevrona kot z modelom sinapse, ki nevrone povezujejo. Modelov je sicer veliko, v nadaljeanju pa bodo predstavljeni "integrate and fire" 
+    modeli nevronov z alpha (\textit{NEST: iaf\_psc\_alpha}) ali exponentno (\textit{NEST: iaf\_psc\_exp}) oblikovanimi postsinaptičnimi tokovi. Sinapse, ki so bile uporabljene v nalogi temeljijo v celoti na modelu odvisnem od nagrade in časovne razporeditve impulzov pre in postsinaptičnih nevronov (\textit{NEST: stdp\_dopamine\_synapse}), vendar v sistemih, ki jih razvijemo v nalogi uporabljamo prilagoditev te sinapse, ki ima sled odgovornosti (\textit{angl. eligibility trace}) zamaknjeno v času.
+
+    Modeli nevronov, ki so uporabjeni v nalogi temeljijo na 
+
+
 \end{enumerate}
 
 %TODO: SNN shorthand?

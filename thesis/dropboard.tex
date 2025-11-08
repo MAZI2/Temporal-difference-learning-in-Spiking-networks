@@ -1,0 +1,263 @@
+\documentclass[a4paper,12pt,openright]{book}
+
+\usepackage[utf8]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
+\usepackage[slovene,english]{babel}    % naloži, med drugim, slovenske delilne vzorce
+\usepackage[pdftex]{graphicx}  % omogoča vlaganje slik različnih formatov
+\graphicspath{{../results/}}
+\usepackage{fancyhdr}          % poskrbi, na primer, za glave strani
+\usepackage{amssymb}           % dodatni matematični simboli
+\usepackage{amsmath}           % eqref, npr.
+\usepackage[pdftex, colorlinks=true,
+						citecolor=black, filecolor=black, 
+						linkcolor=black, urlcolor=black,
+						pdfproducer={LaTeX}, pdfcreator={LaTeX}]{hyperref}
+\usepackage{hyperxmp}
+\usepackage[hyphens]{url}
+\usepackage{csquotes}
+
+
+\usepackage{color}
+\usepackage{soul}
+
+\begin{document}
+
+\subsection*{Parametri nevronskega modela}
+
+Nevronski modeli, uporabljeni v tej študiji, temeljijo na tokovno gnanem modelu uhajajočega integrirajočega nevrona (leaky integrate-and-fire). Dinamiko membrane določajo naslednji parametri, ki jih omogoča simulator NEST:
+
+Nevronski modeli, uporabljeni v tem delu, temeljijo na tokovno gnanih modelih uhajajočega integrirajočega nevrona, pri katerih se membranski potencial spreminja v skladu s pasivnimi električnimi lastnostmi enostavne celične membrane. Dinamika membrane izhaja iz ravnovesja med kapacitivnim nabojem in uhajanjem preko membranske prevodnosti. V simulacijah s simulatorjem NEST ta obnašanja opisujejo naslednji parametri:
+
+\begin{itemize}
+    \item \textbf{$E_L$ --- mirovalni membranski potencial} \\
+    Električni potencial, proti kateremu membrana pasivno relaksira v odsotnosti od vhodnih tokov.
+
+    \item \textbf{$C_m$ --- membranska kapacitivnost} \\
+    Kapacitivnost membrane, ki določa, kako hitro se membranski potencial odziva na vhodne tokove.
+
+    \item \textbf{$\tau_m$ --- membranska časovna konstanta} \\
+    Čas, v katerem membrana pasivno integrira tok; definiran kot razmerje med kapacitivnostjo $C_m$ in uhajalsko prevodnostjo $g_L$ (\textit{leakage conductance}), 
+    ki pa je simulator Nest ne podaja kot neodvisen parameter. $\tau_m$ lahko definiramo tudi kot produkt med kapacitivnostjo in uporom membrane $\tau_m = C_m R_m = \frac{C_m}{g_L}$
+
+    \item \textbf{$t_{ref}$ --- refraktorno obdobje} \\
+    Čas, v katerem se nevron po sprožitvi akcijskega potenciala ne more ponovno prožiti.
+
+    \item \textbf{$V_{th}$ --- prag proženja} \\
+    Membranski potencial, pri katerem nevron sproži akcijski potencial.
+
+    \item \textbf{$V_{reset}$ --- potencial ponastavitve} \\
+    Ponastavitveni membranski potencial.
+
+    \item \textbf{$\tau_{\mathrm{syn,ex}}$ --- sinaptična časovna konstanta (ekscitatorna)} \\
+    Čas, ki določa hitrost naraščanja postsinaptičnega toka po proženju. Pri modelu z alfa-jedrom (alfa oblikovan postsinaptični tok) predstavlja čas dviga alfa-funkcije; pri eksponentnem jedru pa čas padca eksponentne funkcije, pri kateri je čas dviga sicer neskončno majhen.
+
+    \item \textbf{$\tau_{\mathrm{syn,in}}$ --- sinaptična časovna konstanta (inhibitorna)} \\
+    Čas, ki določa hitrost naraščanja postsinaptičnega toka po proženju, vendar za inhibitorne sinapse.
+
+    \item \textbf{$I_e$ --- zunanji konstantni tok} \\
+    Dodani tok, ki modelira stalni zunanji šum.
+
+    \item \textbf{$V_{\min}$ --- spodnja meja membranskega potenciala} \\
+    Absolutna spodnja meja za membranski potencial.
+\end{itemize}
+Membranski potencial $V_m$ se spreminja v odvisnoti od $I_{\text{syn}}$ in ostalih parametrov po naslednji enačbi
+\begin{equation}
+    \frac{dV_m}{dt}=-\frac{V_m-E_L}{\tau_m}+\frac{I_{\text{syn}}+I_e}{C_m}
+\end{equation}.
+
+Skupni tok $I_{\text{syn}}$, ki ga nevron prejme preko vseh sinaps je sestavljen iz excitatorne in inhibitorne komponente.
+\[
+I_{\text{syn}}(t) = I_{\text{syn, ex}}(t) + I_{\text{syn, in}}(t)
+\]
+
+kjer
+
+\[
+I_{\text{syn, X}}(t) = \sum_j w_j \sum_k i_{\text{syn, X}}(t - t_j^k - d_j) ,
+\]
+
+kjer $j$ teče po ekscitatornih (X = ex) in inhibitornih (X = in) sinapsah z utežmi $w_j$ do presinaptičnih nevronov, $k$ teče po časih impulzov nevrona $j$, $d_j$ pa predstavlja zakasnitev sinapse do nevrona $j$. Postsinaptični tokovi $i_{\text{syn, X}}(t - t_j^k - d_j)$ nevrona $j$ so odvisni od jedra, ki ga uporablja model.
+
+\subsubsection{Model z alfa jedrom}
+V simulatorju NEST je postsinaptični tok modela z alfa jedrom definiran kot 
+
+\[
+i_{\text{syn, X}}(t) = \frac{e}{\tau_{\text{syn, X}}} t e^{-\frac{t}{\tau_{\text{syn, X}}}} \Theta(t)
+\]
+
+kjer je $\Theta(x)$ enotina stopnica. Postsinaptični tokovi so ob času $\tau_{\text{syn, X}}$ normalizirani v enotski maksimum.
+
+\[
+i_{\text{syn, X}}(t = \tau_{\text{syn, X}}) = 1 .
+\]
+
+Skupni naboj $q$, ki ga prenese postsinaptični tok je tako odvisen od sinaptične časovne konstante po naslednji enačbi
+\[
+q = \int_0^{\infty} i_{\text{syn, X}}(t) dt = e \tau_{\text{syn, X}} .
+\]
+
+
+\subsubsection{Model z eksponentnim jedrom}
+V simulatorju NEST je model z eksponentim jedrom (iaf\_psc\_exp) definiran po sistemu diferencialnih enačb prvega reda, ki jih navaja Tsodyks et. al \cite{expModel}. Postsinaptični tok $y(t)$ se spreminja po sistemu
+\begin{align}
+    \frac{dx}{dt}&=\frac{z}{\tau_{rec}}-ux\delta({t-t_{sp}}) \\
+    \frac{dy}{dt}&=-\frac{y}{\tau_I}+ux\delta({t-t_{sp}}) \\
+    \frac{dz}{dt}&=\frac{y}{\tau_I}-\frac{z}{\tau_{rec}}
+\end{align}
+kjer $t_{sp}$ predstavlja čas presinaptičnega impulza, $\tau_I$ čas sinaptičnega odtekanja, 
+$\tau_{rec}$ čas povrnitve sinaptičnih virov, 
+$u$ delež sinaptičnih virov porabljenih pri impulzu in  
+$\delta(t-t_{sp})$ delta porazdelitev, za instantne posodobitve ob impulzih.
+
+Če opazujemo samo speminjanje $y(t)$ skozi čas brez novih impulzov, bo $\delta(t-t_{sp})=0$ in se diferencialna enačba za $y$ poenostavi v
+\begin{equation}
+    \frac{dy}{dt}=-\frac{y}{\tau_I}
+\end{equation}
+rešitev te diferencialne enačbe je tako
+\begin{equation}
+    y(t)=y_0 e^{-t/\tau_I}
+\end{equation}
+kjer vidimo, da je jedro res exponentna funkcija z začetkom v $y_0$. Skok potenciala po impulzu je definiran z utežjo sinapse $w$, postsinaptični tok pa je sam po sebi definiran samo s hitrostjo padanja funkcije $\tau_I$, ki pa je v simulatorju NEST predstavljen s $\tau_{\text{syn, X}}$.
+
+\[
+i_{\text{syn, X}}(t) = e^{-\frac{t}{\tau_{\text{syn, X}}}} \Theta(t)
+\]
+\\
+\\
+Skupni naboj $q$, ki ga prenese postsinaptični tok je tako odvisen od sinaptične časovne konstante po naslednji enačbi
+\[
+q = \int_0^{\infty} i_{\text{syn, X}}(t) dt = \tau_{\text{syn, X}} .
+\]
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{neuron_models/PSCs}
+\end{center}
+\caption{Postsinaptični tok modela z alfa in eksponentim jedrom}
+\label{pic1}
+\end{figure}
+
+\subsubsection{Izbira modela nevrona}
+V sistemih, ki jih bomo implementirali v nadaljevanju skušamo skušamo pri modeliranju mehanizmov v človeških možganih uporabiti čimmanj poenostavitev ali posplošitev za kar je bolj primeren model 
+nevrona z alfa jedrom, ki ima biološko bolj realistično obliko postsinaptičnega toka. V nadaljevanju sta kljub temu uporabljena oba modela, saj se zaradi različnih oblik postsinaptičnega toka za spodbujevano učenje odvisno od nagrade bolje obnese model z esponentnim jedrom.
+
+Za nas sta najpomembnejši razlika v količini prenesenega naboja $q$ in, kot je opisano v poglavju spodbujevano učenje z R-STDP, razlika v varianci frekvence impulzov zaradi zunanjega šuma in razlik v utežeh sinaps. Količina prenesenega naboja $q_{\text{alfa}}$ je pri alfa jedru večja od prenesenega naboja pri eksponentnem jedru $q_{\text{exp}}$ za faktor $\frac{q_{\text{alfa}}}{q_{\text{exp}}} = e$. To razliko zlahka prilagodimo z nižjimi vrednostmi uteži sinaps. Razlika v varianci frekvenc impulzov je posledica daljšega časovnega intervala, kjer je postsinaptični tok blizu maksimalne vrednosti pri alfa jedru napram eksponentnem, kjer je tok blizu maksimalne vrednosti za zelo kratek čas. Zaradi tega bodo zaporedni postsinaptični impulzi skozi čas precej bolj prekrivni. Pri intergriranju različnih postsinaptičnih tokov sozi čas pride do učinka nizko prepustnega filtra, ki ublaži nenadne spremembe v amplitudi skupnega toka na vhodu v postsinaptični nevron. Posledica so manjše razlike v frekvenci impulzov postsinaptičnega nevrona, če imamo na vhodu sinapse različnih uteži, učinek pa je še bolj opazen pri dodanem šumu. Pri alfa jedru bo namreč šum povzročil manj variance v frekvenci impulzov postsinaptičnega nevrona, kot pri eksponentnem jedru.
+
+\begin{table}[ht]
+\centering
+\caption{Parametri simulacije uporabljeni pri primerjavi modelov nevronov.}
+\label{tab:simulation_parameters_si}
+\begin{tabular}{ll}
+\hline
+\textbf{Parameter} & \textbf{Vrednost} \\
+\hline
+Število postsinaptičnih nevronov & 5 \\
+Trajanje simulacije & 5000 ms \\
+$C_m$ & 250.0 pF \\
+$\tau_m$ & 20.0 ms \\
+$E_L$ & 0.0 mV \\
+$V_\text{th}$ & 20.0 mV \\
+$V_\text{reset}$ & 0.0 mV \\
+$t_\text{ref}$ & 2.0 ms \\
+$\tau_\text{syn,ex}$ & 5.0 ms \\
+Utež sinapse (Exp PSC) & 25.0 \\
+Utež sinapse (Alpha PSC) & 25.0 / $e \approx 9.20$ \\
+Frekvenca Poissonovega šuma & 8000 Hz na nevron \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Povzetek statistike medimpulznih intervalov nevronov z alfa in exponentnim jedrom. Povprečje in standardni odklon sta izračunana na vseh postsinaptičnih nevronih.}
+\label{tab:isi_summary}
+\begin{tabular}{lcc}
+\hline
+Jedro & Povprečje (ms) & Varianca (ms$^2$) \\
+\hline
+Exponentno & \(7.846 \pm 0.021\) & \(\mathbf{0.402 \pm 0.028} \) \\
+Alfa       & \(7.800 \pm 0.023\) & \(\mathbf{0.270 \pm 0.006} \) \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{STDP Sinaptični model}
+V sistemih, ki bodo implementirani v tej nalogi bomo uporabljali prilagojeno sinapso s plastičnostjo odvisno od nagrade in časovne razporeditve impulzov (\textit{angl. R-STDP synapse}).
+STDP prilagaja sinaptične moči glede na relativni čas impulzov pre- in postsinaptičnih nevronov. V svoji klasični obliki STDP uresničuje Hebbov %TODO: link
+princip:
+%TODO: pre- in post-
+
+\begin{quote}
+``Nevroni, ki se skupaj prožijo, se povežejo.''
+\end{quote}
+Če se presinaptični nevron sproži \textbf{pred} post-sinaptičnim (\(\Delta t > 0\)), se sinapsa \textbf{okrepi} (potencira). Če se pre-sinaptični nevron sproži \textbf{po} post-sinaptičnem (\(\Delta t \leq 0\)), se sinapsa \textbf{oslabi} (depresira).
+
+Matematično je to opisano s funkcijo okna STDP:
+
+\[
+\mathrm{STDP}(\Delta t) =
+\begin{cases}
+A_+ e^{-|\Delta t|/\tau_+}, & \text{če } \Delta t > 0 \text{ (pre-sinaptični pred post-sinaptičnim)} \\
+A_- e^{-|\Delta t|/\tau_-}, & \text{če } \Delta t \le 0 \text{ (post-sinaptični pred pre-sinaptičnim)}
+\end{cases}
+\]
+
+kjer so:
+\begin{itemize}
+    \item \(A_+\) in \(A_-\) multiplikatorja za potenciranje in depresijo,
+    \item \(\tau_+\) in \(\tau_-\) časovne konstante, ki določajo okno vpliva časovnih razlik.
+\end{itemize}
+
+\subsubsection*{Dopaminska modulacija}
+
+Pri neuromodulirani STDP dopaminska koncentracija \(n\) modulira velikost in smer sinaptične plastičnosti. Sinaptična dinamika je opisana z naslednjimi enačbami:
+
+\[
+\begin{aligned}
+\dot{w} &= c \, (n - b) \\
+\dot{c} &= -\frac{c}{\tau_c} + \mathrm{STDP}(\Delta t) \, \delta(t - s_{\text{pre/post}}) C_1 \\
+\dot{n} &= -\frac{n}{\tau_n} + \frac{\delta(t - s_n)}{\tau_n} C_2
+\end{aligned}
+\]
+
+kjer so:
+\begin{itemize}
+    \item \(w\) --- sinaptična teža,
+    \item \(c\) --- \emph{eligibility trace} (slednji spremlja nedavne pare izstreljenih signalov),
+    \item \(n\) --- dopaminska koncentracija iz \emph{volume transmitter}-ja,
+    \item \(b\) --- bazalna dopaminska koncentracija,
+    \item \(s_{\text{pre/post}}\) --- čas pre- ali post-sinaptičnega izstrelka,
+    \item \(s_n\) --- čas dopaminskih izstrelkov,
+    \item \(C_1, C_2\) --- konstante za merjenje sledov,
+    \item \(\tau_c, \tau_n\) --- časovne konstante razpada \emph{eligibility} in dopaminskih sledi.
+\end{itemize}
+
+\subsection*{Situacije pre- in post-sinaptičnih izstrelkov}
+
+\begin{itemize}
+    \item \textbf{Pre-sinaptični pred post-sinaptičnim (\(\Delta t > 0\))}:  
+    Če je dopamin visok (\(n - b > 0\)), sinapsa se potencira (\(A_+\) določa moč povečanja). Če je dopamin nizek (\(n - b < 0\)), ista situacija lahko vodi do depresije.
+    
+    \item \textbf{Post-sinaptični pred pre-sinaptičnim (\(\Delta t \le 0\))}:  
+    Pri visokem dopaminu je sinapsa depresirana (\(A_-\) določa moč zmanjšanja), pri nizkem dopaminu pa lahko pride do potenciranja.
+\end{itemize}
+
+\subsection*{Parametri, ki jih izpostavlja NEST simulator}
+
+\begin{itemize}
+    \item \texttt{volume\_transmitter} --- zbira izstrelke iz dopaminsko sproščujočih nevronov in jih prenaša do sinapse.
+    \item \texttt{A\_plus} --- multiplikator za spremembe teže pri pre-before-post parih. Skupaj z dopaminsko koncentracijo določa, ali pride do potenciacije ali depresije.
+    \item \texttt{A\_minus} --- multiplikator za spremembe teže pri post-before-pre parih.
+    \item \texttt{tau\_plus} --- časovna konstanta za STDP potenciranje.
+    \item \texttt{tau\_c} --- časovna konstanta za razpad \emph{eligibility trace}.
+    \item \texttt{tau\_n} --- časovna konstanta za razpad dopaminske sledi.
+    \item \texttt{b} --- bazalna dopaminska koncentracija.
+    \item \texttt{Wmin} --- minimalna sinaptična teža.
+    \item \texttt{Wmax} --- maksimalna sinaptična teža.
+\end{itemize}
+
+\subsection*{Povzetek}
+
+Dopaminsko modulirana STDP kombinira Hebbovo učenje (časovno odvisno povezovanje nevronov) z neuromodulacijskim nadzorom. Sledi (\(c\)) beležijo časovne pare izstrelkov, dopamin (\(n\)) pa določa, ali te sledi vodijo v potenciranje ali depresijo. Časovna razlika med izstrelki in trenutna dopaminska koncentracija skupaj določata spremembo sinaptične teže, kar omogoča biologično utemeljeno učenje nagrajevanja v mrežah izstrelkov nevronov.
+
+
+\end{document}

@@ -48,7 +48,8 @@ nest.Install("mymodule")
 
 # Create neurons
 neuron = nest.Create("parrot_neuron")
-post_neurons = nest.Create("iaf_psc_alpha", 3, params=neuron_params)
+#post_neurons = nest.Create("iaf_psc_alpha", 3)
+post_neurons = nest.Create("iaf_psc_exp", 3)
 
 # Recorders
 sd_pre = nest.Create("spike_recorder")
@@ -58,9 +59,12 @@ nest.Connect(neuron, sd_pre)
 for i, n in enumerate(post_neurons):
     nest.Connect(n, sd_post[i])
 
-noise_spike_times = np.arange(30, 100, 0.5).tolist()
-#noise_spike_times = []
+#noise_spike_times = np.arange(30, 100, 0.5).tolist()
+noise_spike_times = []
 noise_spikes = nest.Create("spike_generator", {"spike_times": noise_spike_times})
+
+#background_generator = nest.Create("noise_generator", len(post_neurons), params={"std": 520})
+#nest.Connect(background_generator, post_neurons, {"rule": "one_to_one"})
 
 nest.Connect(
     noise_spikes,
@@ -70,7 +74,7 @@ nest.Connect(
 )
 
 # Input setup
-spike_times = np.arange(0.5, 201.0, 1.0).tolist()
+spike_times = np.arange(0.5, 201.0, 2.0).tolist()
 pre = nest.Create("spike_generator", {"spike_times": spike_times})
 
 # Dopamine setup
@@ -149,7 +153,9 @@ nest.Connect(
 
 # Connect pre → parrot → posts
 nest.Connect(pre, neuron)
-weights = [300, 300, 750]
+weights = [200, 400, 800]
+#weights = [50, 100,200]
+
 for i, post in enumerate(post_neurons):
     nest.Connect(
         neuron,
@@ -190,7 +196,7 @@ neuron_data = defaultdict(list)
 weight_data = defaultdict(list)
 time_points = set()
 full_output = []
-sim_duration = 1000
+sim_duration = 200
 
 for step in range(sim_duration):
     with capture_cpp_stdout() as r_fd:
@@ -226,6 +232,26 @@ times_pre = spikes_pre["times"]
 spikes_post = [nest.GetStatus(sd_post[i], "events")[0] for i in range(len(post_neurons))]
 times_post = [sp["times"] for sp in spikes_post]
 
+# --- Inter-spike intervals (ISI) analysis ---
+print("\n===== Postsynaptic Spike Interval Analysis =====\n")
+
+for i, neuron_times in enumerate(times_post):
+    if len(neuron_times) < 2:
+        print(f"Post neuron {i}: less than 2 spikes, cannot compute ISI")
+        continue
+    
+    # Compute intervals between consecutive spikes
+    intervals = np.diff(neuron_times)  # array of ISIs in ms
+
+    # Compute mean and variance
+    mean_isi = np.mean(intervals)
+    var_isi = np.var(intervals)
+
+    print(f"Post neuron {i}:")
+    print(f"  Inter-spike intervals (ms): {np.round(intervals, 2)}")
+    print(f"  Mean ISI = {mean_isi:.2f} ms, Variance = {var_isi:.2f} ms^2\n")
+
+
 # ---------------------------------------
 # Plot stacked figure with firing rates included
 # ---------------------------------------
@@ -233,23 +259,25 @@ n_subplots = 2 + len(post_neurons) + 2  # +1 for weights, +1 for firing rates
 fig, axes = plt.subplots(n_subplots, 1, figsize=(10, 3 * n_subplots), sharex=True)
 
 # --- Pre raster ---
-axes[0].eventplot([times_pre], colors=["blue"], lineoffsets=[1], linelengths=0.8)
+axes[0].scatter(times_pre, [1]*len(times_pre), color="blue", s=10)
 axes[0].set_yticks([1])
 axes[0].set_yticklabels(["Pre"])
 axes[0].set_title("Presynaptic Spikes")
-axes[0].grid(True, axis="x", linestyle="--", alpha=0.6)
+axes[0].grid(True, axis="x", alpha=0.6)
 
 # --- Post rasters ---
-axes[1].eventplot(
-    [times_post[i] for i in range(len(post_neurons))],
-    colors=["red"] * len(post_neurons),
-    lineoffsets=np.arange(1, len(post_neurons) + 1),
-    linelengths=0.8,
-)
-axes[1].set_yticks(np.arange(1, len(post_neurons) + 1))
-axes[1].set_yticklabels([f"Post {i}" for i in range(len(post_neurons))])
+for i, neuron_times in enumerate(times_post):
+    axes[1].scatter(
+        neuron_times,
+        [i+1]*len(neuron_times),  # y-coordinate for each neuron
+        color="red",
+        s=10
+    )
+
+axes[1].set_yticks(range(1, len(times_post)+1))
+axes[1].set_yticklabels([f"Neuron {i+1}" for i in range(len(times_post))])
 axes[1].set_title("Postsynaptic Spikes")
-axes[1].grid(True, axis="x", linestyle="--", alpha=0.6)
+axes[1].grid(True, axis="x", alpha=0.6)
 
 # --- c_current per neuron ---
 for i, (post_id, entries) in enumerate(sorted(neuron_data.items(), reverse=True)):
