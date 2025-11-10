@@ -147,6 +147,10 @@ INPUT /home/matjaz/latex/texmf-dist/tex/latex/graphics-cfg/color.cfg
 INPUT /home/matjaz/latex/texmf-dist/tex/latex/graphics/mathcolor.ltx
 INPUT /home/matjaz/latex/texmf-dist/tex/latex/graphics/mathcolor.ltx
 INPUT /home/matjaz/latex/texmf-dist/tex/latex/graphics/mathcolor.ltx
+INPUT /home/matjaz/latex/texmf-dist/tex/latex/xcolor/xcolor.sty
+INPUT /home/matjaz/latex/texmf-dist/tex/latex/xcolor/xcolor.sty
+INPUT /home/matjaz/latex/texmf-dist/tex/latex/graphics-cfg/color.cfg
+INPUT /home/matjaz/latex/texmf-dist/tex/latex/graphics/mathcolor.ltx
 INPUT /home/matjaz/latex/texmf-dist/tex/generic/soul/soul.sty
 INPUT /home/matjaz/latex/texmf-dist/tex/generic/soul/soul.sty
 INPUT /home/matjaz/latex/texmf-dist/tex/generic/soul/soul-ori.sty
@@ -243,6 +247,19 @@ INPUT ../results/rstdp/rstdp-gridworld/best.png
 INPUT ../results/rstdp/rstdp-gridworld/best.png
 INPUT ../results/rstdp/rstdp-gridworld/best.png
 INPUT ../results/rstdp/rstdp-gridworld/best.png
+INPUT ../results/figures/basal_ganglia.jpg
+INPUT ../results/figures/basal_ganglia.jpg
+INPUT ../results/figures/basal_ganglia.jpg
+INPUT ../results/figures/basal_ganglia.jpg
+INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm
+INPUT ../results/actorcritic/F2 - StateTransitionTD.png
+INPUT ../results/actorcritic/F2 - StateTransitionTD.png
+INPUT ../results/actorcritic/F2 - StateTransitionTD.png
+INPUT ../results/actorcritic/F2 - StateTransitionTD.png
+INPUT ../results/actorcritic/F3 - Learning.png
+INPUT ../results/actorcritic/F3 - Learning.png
+INPUT ../results/actorcritic/F3 - Learning.png
+INPUT ../results/actorcritic/F3 - Learning.png
 INPUT /home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
 INPUT /home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
 INPUT /home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
@@ -265,4 +282,5 @@ INPUT /home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 INPUT /home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb
 INPUT /home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 INPUT /home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb
+INPUT /home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb
 INPUT /home/matjaz/latex/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb

@@ -18,7 +18,10 @@
 
 
 \usepackage{color}
+\usepackage{xcolor}
 \usepackage{soul}
+
+\definecolor{Apricot}{RGB}{251, 206, 177}
 
 \begin{document}
 
@@ -315,7 +318,9 @@ Učenje spremljamo preko povprečne nagrade prejete ob prehodih stanj, ki se bli
 \label{pic7}
 \end{figure}
 
-Kot že omenjeno je takšno učenje učinkovito samo pri nagradah, ki niso oddaljene, oziroma drugače povedano, se agent ne bo naučil potencialne poti skozi različna nenagrajena stanja, da pride do končne nagrade. To je vidno pri nalogi iskanja oddaljene nagrade v mreži, kjer se agent lahko premika levo, desno, gor in dol. Agent se nauči prehoda samo iz stanj neposredno ob cilju. Trenutno politiko agenta bomo predstavili s puščicami s smerjo, ki jo določa normaliziran vektor $\hat{x}_i$ v vsakem od stanj $i$, ki predstavljajo preferenco akcije glede na medsebojne razlike v utežeh sinaps.
+Kot že omenjeno je takšno učenje učinkovito samo pri nagradah, ki niso oddaljene, oziroma drugače povedano, se agent ne bo naučil potencialne poti skozi različna nenagrajena stanja, da pride do končne nagrade. To je vidno pri nalogi iskanja oddaljene nagrade v mreži, kjer se agent lahko premika levo, desno, gor in dol. Agent se bo namreč naučil prehoda samo iz stanj neposredno ob cilju. 
+\\
+Ob učenju bomo agenta nagradili ko preide v končno stanje in ga po tem postavili v naključno stanje. Trenutno politiko agenta bomo predstavili s puščicami s smerjo, ki jo določa normaliziran vektor $\hat{x}_i$ v vsakem od stanj $i$, ki predstavljajo preferenco akcije glede na medsebojne razlike v utežeh sinaps.
 
 \[
 \begin{aligned} 
@@ -342,13 +347,74 @@ Za prikaz "samozavesti" pri izbiri akcije v stanju $i$ kot rezultat učenja, bom
 \begin{center}
 \includegraphics[width=0.6\textwidth]{rstdp/rstdp-gridworld/best}
 \end{center}
-\caption{Prikaz politike po 500 iteracijah po 200ms}
+\caption{Prikaz politike po 500 iteracijah po 200ms. Končno stanje je obarvano z zeleno.}
 \label{pic8}
 \end{figure}
 
 Rezultat potrjuje, da se agent ni sposoben naučiti poti do nagrade iz poljubnega stanja, vendar samo iz stanj neposredno ob nagradi.
 
 \section{TD učenje in model actor-critic}
-ee
+Časovno razlikovalno učenje (angl. Temporal Difference Learning, TD) je metoda spodbujevanega učenja, ki posodablja oceno vrednosti stanj ali parov stanje–akcija sproti, med interakcijo z okoljem. 
+
+Osnovna posodobitvena enačba za vrednostno funkcijo stanja pri TD(0) je
+
+\[
+V(s_t) \leftarrow V(s_t) + \alpha\,\delta_t,
+\]
+
+kjer je \(\alpha\) hitrost učenja, TD-napaka \(\delta_t\) pa je definirana kot
+
+\[
+\delta_t = r_{t+1} + \gamma V(s_{t+1}) - V(s_t).
+\]
+
+V izrazu je \(r_{t+1}\) nagrada ob prehodu iz stanja \(s_t\) v stanje \(s_{t+1}\), faktor \(\gamma \in [0,1]\) pa določa relativno težo prihodnjih nagrad. TD-napaka predstavlja razliko med izboljšano napovedjo vrednosti in prejšnjo oceno.
+\\
+\\
+TD učenje bomo implementirali z modelom akter-kritik (\textit{angl. actor-critic}), po zgledu Wiebke P, et al. \cite{actorCritic} na nalogi z mrežo. Za razliko od sistema, ki ga predstavijo Wiebke P, et al. bomo za sinapso uporabili našo zakasnjeno RSTDP, ki omogoča pripisovanje odgovornosti povezavam poljubno v preteklost, kar je pomembno pri učenju, kjer stanja niso definirana v diskretnih intervalih. Poleg tega upoštevamo tako kavzalne kot tudi antikavzalne impulze, po pravilu RSTDP med vsemi pari v zgodovini impulzov (\textit{all\-to-all} namesto \textit{next-neighbor} \colorbox{Apricot}{\textbf{razloži}})Sistem, ki ga bomo implementirali je tudi manjši glede na število nevronov, za višjo hitrost simulacije, zato bomo stanja razdelili v intervale dolžine 200ms. Pri prehodu med stanji lahko določen del stimuliranih nevronov iz prejšnjega stanja postane asociiranih z akcijo naslednjega stanja, kar v osnovi ni napačno in je posledica uporabe RSTDP sinapse, vendar bomo za bolj učinkovito učenje med prehodi stanj prekinili stimulacijo 50ms pred stimulacijo novega stanja, saj so za našo nalogo stanja med seboj neodvisna. Za določeno stanje ni važno v katerem stanju smo se nahajali prej.
+\\
+\colorbox{Apricot}{\textbf{tu verjetno potrebna bolj podrobna razlaga...}}
+\\
+\\
+Model akter-kritik je sestavljen iz dveh delov, akterja - dopaminsko moduliranega RSTDP dela, kot smo ga že implementirali in pa kritika, ki ocenjuje vrednost trenutnega stanja. Celoten model je navdihnjen po dopaminskem sistemu prisotnem v človeških možganih oziroma bolj konkretno bazalnih ganglijih. %TODO: link
+Bazalni gangliji so skupina jedrov v možganih, ki igrajo ključno vlogo pri nadzoru gibanja, učenju akcij in odločanju, poleg tega pa realizira obliko TD učenja. Akter-kritik je poenostavitev in abstrakcija resničnih mehanizmov v možganih, vendar uporablja podobne mehanizme. V bazalnih ganglijih in modelu akter-kritik, kot ga predstavlja Wiebke P, et al. razlikujemo dve glavni poti: direktno in indirektno pot, ki vodita iz \textit{striatuma} do dopaminergičnih nevronov. Direktna pot je zakasnjena inhibitorna pot, ki poteka neposredno od striatuma do dopaminergičnih nevronov,
+indirektna pot pa je inhibitorna do \textit{ventralnega palliduma}, posebne skupine nevronov, ki inhibira aktivnost dopaminergičnih nevronov. Ob prisotnosti neke osnovne od 0 različne frekvence nevronov \textit{ventralnega palliduma} bo tako indirektna pot imela ekscitatoren učinek na dopaminergične nevrone. Indirektna in direktna povezava delujeta konkurenčno. Indirektna pot ima minimalen zamik in aktivnost striatuma v trenutnem stanju neposredno preslika na povišano aktivnost dopaminergičnih nevronov. Hkrati v času nahajanja v trenutnem stanju direktna povezava inhibira dopaminergične nevrone sorazmerno z aktivnostjo striatuma, kot je ta bila v prejšnjem stanju, zaradi zakasnitve. Indirektna in direktna povezava tako skupaj računata TD-napako $\delta_t$, ki bo v trenutnem stanju glede na izračunan estimat vrednosti trenutnega stanja okrepila sinapse prejšnjega stanja, ki so izbrale aktivnost, ki nas je pripeljala v to stanje. Povprečna teža sinaps med vhodnim nevronom $i$ in striatumom tako neposredno prestavlja vrednost stanja $i$. Ob prehodu iz stanja z visoko povprečno utežjo sinaps do striatuma v stanje z nizko, bo direktna povezava prevladala in bodo dopaminergični nevroni inhibirani in obratno. V primeru, da se premaknemo v stanje s približno isto povprečno utežjo povezave do striatuma pa se bosta direktna in indirektna povezava izničili, dopaminergični nevroni pa se bodo prožili po frekvenci, ki jo definira externi poissonski šum. 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figures/basal_ganglia}
+\end{center}
+\caption{Direktna in indirektna pot v basalnih ganglijih}
+\label{pic8}
+\end{figure}
+
+Model, kot ga predlaga Wiebke P, et al. funkcionalno združuje \textit{substantio nigro} in \textit{talamus} kot dopaminergični nevroni in signal do povezav med vhodom in striatumom in vhodom in izhodnimi motoričnimi nevroni. Ventralno \textit{globusu pallidusu} se nahaja \textit{ventral pallidum}, ki prestavlja del pallidusa povezan z pričakovanjem nagrade in odločanjem. Wiebke P, et al. tako za nevrone na indirektni poti uporablja ta izraz.
+\\
+\\
+Kot akter bomo v nadaljevanju uporabili RSTDP del kot smo ga implementirali prej.  Od implementacije Wiebke P, et al. se poleg sinapse naša implementacija razlikuje tudi v načinu izbire stanja, kjer mi za izbrano stanje vzamemo stanje z maksimalnim številom impulzov za razliko od izbire prvega izhodnega nevrona, ki se je sprožil kot rezultat stimulacije v trenutnem stanju. Ta način bolj direktno okrepi povezave odgovorne za izbrano aktivnost, saj po prvem izhodnem impulzu inhibira vse ostale izhodne nevrone, kar izniči njihovo \textit{eligibility} sled. Tako ni potrebe po tekmovanju sinaps, kot pri naši metodi, vendar moramo preveriti impulze izhodnih nevronov v vsakem koraku simulatorja. V primeru simulatorja NEST je to vsakih 0.1ms, kar pa je problematično, saj simulator teče v C++ zaledju, ki ga zapustimo takoj ko prekinemo simulacijo. Tako je bistvena razlika med tem, da 100krat poženemo ukaz \texttt{nest.Simulate(0.1)} ali enkrat \texttt{nest.Simulate(10)}. V akterju bomo zaradi razlogov navedenih v poglavju \textbf{RSTDP učenje} %TODO: link
+uporabljali model nevrona z eksponentnim jedrom, v kritiku, pa bomo poskusili uporabiti biološko bolj realistične nevrone z alfa jedrom. Ker bodo vhodni nevroni akterju in kritiku skupni, bomo med vhodnimi nevroni in izhodnimi nevroni dodali dodaten nivo nevronov, ki bo višjo frekvenco potrebno za stimulacijo nevronov kritika z alfa jedrom znižal na frekvenco ustrezno za nevrone akterja z eksponentnim jedrom. S tem smo tudi zmanjšali povezanost dveh delov, kar olajša iskanje ustreznih hiperparametrov, poleg tega pa lahko tudi šum za potrebe RSTDP učenja dovajamo ločeno od kritika. 
+\\
+\\
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{actorcritic/F2 - StateTransitionTD}
+\end{center}
+\caption{Prikaz obnašanja sistema ob prehodu iz stanja 0 v nagrajeno stanje 5 in nazaj v stanje 0. Pričakovana nagrada in tako tudi vrednost stanja 0 se ob prehodu v stanje 5 zviša preko povezav do striatuma. Ob prehodu iz nagrajenega stanja (ki pa samega sebe še ne ocenjuje z visoko vrednostjo) nazaj v stanje 0 preidemo iz stanja z osnovnimi utežmi v stanje 0 z okrepljenimi utežmi do striatuma, torej prehod v stanje z višjo vrednostjo. Posledica tega je, napram osnovni frekvenci dopaminergičnih nevronov, povišana dopaminergična aktivnost, ki povzroči aktivnosti sorazmerno povišanje uteži sinaps stanja 5 do striatuma. Ob prehodu iz stanja 0 v stanje 0 se vrnemo k osnovni dopaminergični frekvenci.}
+\label{pic8}
+\end{figure}
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{actorcritic/F3 - Learning}
+\end{center}
+\caption{Obnašanje sistema tekom učenja. Številke predstavljajo polja 3x3 mreže oštevilčena od leve proti desni od zgoraj navzdol. Cilj se nahaja na polju 8. Povezave vhoda do striatuma stanj 5 in 7 so pričakovano najvišje, sledi pa jim 4, ki neposredno vodi v 5 in 7}
+\label{pic8}
+\end{figure}
+
+
+%TODO: kaj pomeni uciti impulzno nevronsko mrezo in kako jo moramo omejiti. Narascanje in clampanje sinaps
+%TODO: mark slike
+%TODO: izbira hiperparametrov
+%TODO: final results and interpretation
+
 
 \end{document}

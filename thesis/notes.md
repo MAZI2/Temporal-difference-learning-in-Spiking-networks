@@ -24,3 +24,7 @@ RSTDP:
 
 iaf alpha -> times are more synchronized, especially on multiple layers: maybe more research. This paper proposes iaf exp, but also questions the syncrony emergence:
 	https://www.jneurosci.org/content/20/1/RC50
+
+
+Actor-critic
+	why do striatum synapses decrease in low dopamin
