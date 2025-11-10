@@ -1,4 +1,5 @@
-
+metodology:
+	how the output is captured
 
 RSTDP:
 	- delayed c 

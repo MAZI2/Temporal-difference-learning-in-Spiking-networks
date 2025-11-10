@@ -557,6 +557,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
   t_last_update_ = t_trig;
   modulator_spike_idx_ = 0;
 
+  /*
   double t_past = t_trig - cp.tau_c_delay_;
 
   // Retrieve the delayed eligibility trace
@@ -577,6 +578,7 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
             << " | n=" << n_
             << std::endl;
   //}
+  */
 }
 
 template <typename targetidentifierT>

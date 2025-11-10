@@ -11,11 +11,15 @@ import re
 from contextlib import contextmanager
 import random
 
+sys.path.append("../../pong-classes-singleplayer")
+
+import pong
+
 import nest
 import numpy as np
 import matplotlib.pyplot as plt
 
-SEED = 12335
+SEED = 12337
 
 # reset kernel first (very important)
 nest.ResetKernel()
@@ -36,15 +40,28 @@ nest.set_verbosity("M_FATAL")
 
 nest.Install("mymodule")
 
-from rstdp import POLL_TIME, PongNetRSTDP 
+from rstdp_gridworld import POLL_TIME, PongNetRSTDP 
 
-RUNS = 300
-class AIGridworldRSTDP:
+sys.path.append("../../")
+import gridworld
+
+RUNS = 500
+class AIPongRSTDP:
     def __init__(self):
-        self.debug = True 
+        self.debug = False 
         self.loadWeights = False
 
         self.state = 0
+        self.grid_size = (4, 4)
+        self.start = (1, 2)
+        self.goal = (3, 3)
+        self.debug = True
+        self.loadWeights = True
+
+        self.done = False
+
+        self.game = gridworld.GridWorld(size=self.grid_size, start=self.start, goal=self.goal)
+        self.state = self.game.reset()
         self.player = PongNetRSTDP(True)
 
     def compute_avg_firing_rate(self, spike_events, num_neurons, bins, bin_size):
@@ -102,7 +119,7 @@ class AIGridworldRSTDP:
         # 3️⃣ Plotting
         time_axis = np.arange(RUNS) * poll_time
 
-        fig, axes = plt.subplots(4, 1, figsize=(12, 10), sharex=True)
+        fig, axes = plt.subplots(3, 1, figsize=(12, 20), sharex=True)
 
 
         # Average weights plot
@@ -114,54 +131,59 @@ class AIGridworldRSTDP:
         motor_indices = np.arange(num_motor)
 
         # Add two more subplots (we’ll use axes[2] and axes[3])
-        axes[0].set_title("Weights from input neuron 0 → motor neurons")
+        axes[0].set_title("Weights from input neuron 5 → motor neurons")
         for j in range(num_motor):
             axes[0].plot(time_points_motor, weight_history_input5[:, j], label=f"Motor {j}")
         axes[0].set_ylabel("Weight (pA)")
         axes[0].legend(fontsize=7, ncol=4)
+        """
 
-        axes[1].set_title("Weights from input neuron 1 → motor neurons")
+        axes[1].set_title("Weights from input neuron 13 → motor neurons")
         for j in range(num_motor):
             axes[1].plot(time_points_motor, weight_history_input7[:, j], label=f"Motor {j}")
         axes[1].set_ylabel("Weight (pA)")
         axes[1].legend(fontsize=7, ncol=4)
 
-        axes[2].set_title("Weights from input neuron 2 → motor neurons")
+        axes[2].set_title("Weights from input neuron 14 → motor neurons")
         for j in range(num_motor):
             axes[2].plot(time_points_motor, weight_history_input6[:, j], label=f"Motor {j}")
         axes[2].set_ylabel("Weight (pA)")
         axes[2].legend(fontsize=7, ncol=4)
+        """
 
-        # Raster plot
-        # axes[3].scatter(spike_times, neuron_ids, marker='.', color='black')
-        # axes[3].set_ylabel("Input neuron index")
-        # axes[3].set_title("Input neuron spikes (raster)")
-        # axes[3].set_yticks(np.arange(3))
-        # axes[3].set_ylim(-0.5, 2.5)
-        # axes[3].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
-        #
-        # axes[4].step(np.arange(len(winning_history)) * poll_time, winning_history, where='post', color='green')
-        # axes[4].set_ylabel("Winning neuron")
-        # axes[4].set_xlabel("Time (ms)")
-        # axes[4].set_title("Winning motor neuron per iteration")
-        # axes[4].set_yticks(np.arange(len(self.player.motor_neurons)))
-        # axes[4].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
-        # axes[4].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
-        #
-        # # raster plot
-        # motor_events = nest.GetStatus(self.player.motor_recorder, "events")[0]  # dictionary with 'senders' and 'times'
-        # motor_senders = motor_events['senders']
-        # motor_times = motor_events['times']
-        #
-        # motor_id_to_idx = {neuron.global_id: i for i, neuron in enumerate(self.player.motor_neurons)}
-        # motor_indices = np.array([motor_id_to_idx[s] for s in motor_senders])
-        #
-        # axes[5].scatter(motor_times, motor_indices, marker='.', color='green')
-        # axes[5].set_ylabel("Motor neuron")
-        # axes[5].set_title("Motor neuron spikes (raster)")
-        # axes[5].set_yticks(np.arange(len(self.player.motor_neurons)))
-        # axes[5].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
-        # axes[5].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+        """
+        axes[1].step(np.arange(len(winning_history)) * poll_time, winning_history, where='post', color='green')
+        axes[1].set_ylabel("Winning neuron")
+        axes[1].set_xlabel("Time (ms)")
+        axes[1].set_title("Winning motor neuron per iteration")
+        axes[1].set_yticks(np.arange(len(self.player.motor_neurons)))
+        axes[1].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
+        axes[1].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+
+        # raster plot
+        motor_events = nest.GetStatus(self.player.motor_recorder, "events")[0]  # dictionary with 'senders' and 'times'
+        motor_senders = motor_events['senders']
+        motor_times = motor_events['times']
+
+        motor_id_to_idx = {neuron.global_id: i for i, neuron in enumerate(self.player.motor_neurons)}
+        motor_indices = np.array([motor_id_to_idx[s] for s in motor_senders])
+
+        axes[2].scatter(motor_times, motor_indices, marker='.', color='green')
+        axes[2].set_ylabel("Motor neuron")
+        axes[2].set_title("Motor neuron spikes (raster)")
+        axes[2].set_yticks(np.arange(len(self.player.motor_neurons)))
+        axes[2].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
+        axes[2].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+
+        """
+
+        axes[1].scatter(spike_times, neuron_ids, marker='.', color='black')
+        axes[1].set_ylabel("Input neuron index")
+        axes[1].set_title("Input neuron spikes (raster)")
+        axes[1].set_yticks(np.arange(16))
+        axes[1].set_ylim(-0.5, 20.5)
+        axes[1].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+
 
         bin_size = 15.0           # ms
         bins = np.arange(0, time_axis[-1] + bin_size, bin_size)
@@ -169,10 +191,10 @@ class AIGridworldRSTDP:
 
         dopa_rates = self.compute_avg_firing_rate(dopa_spikes, num_neurons=8, bins=bins, bin_size=bin_size)
 
-        axes[3].plot(bin_centers, dopa_rates, color='b')
-        axes[3].set_ylabel("Dopa firing rate (Hz)")
-        axes[3].set_xlabel("Time (ms)")
-        axes[3].set_title("Average Dopa activity")
+        axes[2].plot(bin_centers, dopa_rates, color='b')
+        axes[2].set_ylabel("Dopa firing rate (Hz)")
+        axes[2].set_xlabel("Time (ms)")
+        axes[2].set_title("Average Dopa activity")
 
 
 
@@ -215,7 +237,7 @@ class AIGridworldRSTDP:
                 self.player.reward = False
             """
 
-            self.input_index = self.state 
+            self.input_index = self.state[0] * self.grid_size[1] + self.state[1]
             self.player.set_input_spiketrain(self.input_index, biological_time)
 
             logging.debug("Running simulation...")
@@ -258,9 +280,9 @@ class AIGridworldRSTDP:
                     weights_input7 = np.full(num_motor_neurons, np.nan)
                     weights_input6 = np.full(num_motor_neurons, np.nan)
 
-                    input_neuron1 = 0
-                    input_neuron2 = 1
-                    input_neuron3 = 2
+                    input_neuron1 = 11
+                    input_neuron2 = 13
+                    input_neuron3 = 14
 
                     for idx, target in enumerate(self.player.motor_neurons):
                         mask5 = (sources_motor == self.player.input_neurons[input_neuron1].global_id) & (targets_motor == target.global_id)
@@ -289,6 +311,7 @@ class AIGridworldRSTDP:
 
             # Cleanup for next iteration
             # Reset only generators' spike_times and the motor spike counters
+            """
             Wmin = 1200.0
             Wmax = 2000.0
 
@@ -311,38 +334,58 @@ class AIGridworldRSTDP:
             # Apply back to NEST
             for conn, w_new in zip(conns, new_weights):
                 conn.set({"weight": float(w_new)})
-
+            """
 
             self.player.winning_neuron = self.player.get_max_activation()
             action = self.player.winning_neuron
             winning_history.append(action)
 
+            self.state, self.reward, self.done = self.game.step(action)
+            #print("new", self.state)
+            self.action = None
+
+            if self.reward == 1.0:
+                self.player.reward = True
+            else:
+                self.player.reward = False
+
             self.player.apply_synaptic_plasticity(biological_time)
-            self.state = random.randint(0, 2)
             self.player.set_state(self.state)
+
             for g in self.player.input_generators:
                 nest.SetStatus(g, {"spike_times": []})
             self.player.reset()  # clears motor spike recorders
 
-
-
             self.run += 1
-            
+
+        if True:#not self.debug:
+            connections_data = {}
+
+            # Collect connections for key projections
+            connections_data["input_to_motor"] = nest.GetConnections(source=self.player.input_neurons,
+                                                                     target=self.player.motor_neurons).get(["source", "target", "weight"])
+
+            # Save with pickle
+            with open("connections.pkl", "wb") as f:
+                pickle.dump(connections_data, f)
+
+            print("✅ Saved NEST connections to connections.pkl")
+
         if self.debug:
             self.plot_network_activity(spike_records,
                                        weight_history_motor,
                                        time_points_motor,
-                                       dopa_events, 
+                                       dopa_events,
                                        weight_history_input5,
                                         weight_history_input7,
                                         weight_history_input6,
                                         winning_history
                                        )
         end_time = time.time()
-        
+
 
 if __name__ == "__main__":
 #    runs=len(NEXT_STATES)
     runs=RUNS
 
-    AIGridworldRSTDP().run_games(max_runs=runs)
+    AIPongRSTDP().run_games(max_runs=runs)

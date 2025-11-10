@@ -95,15 +95,28 @@ def plot_policy(input_to_motor, input_to_striatum, input_map, input_raw_map, mot
             w_clamped = np.clip(w, STR_MIN, STR_MAX)  # clamp
             w_norm = (w_clamped - STR_MIN) / (STR_MAX - STR_MIN)  # normalize within fixed range
             
-            ax.add_patch(
-                plt.Rectangle(
-                    (j, rows - i - 1),
-                    1,
-                    1,
-                    color=plt.cm.plasma(w_norm),
-                    alpha=0.7
+            if (i, j) == goal:
+                # draw green goal cell
+                ax.add_patch(
+                    plt.Rectangle(
+                        (j, rows - i - 1), 1, 1,
+                        color="green",
+                        alpha=0.8,
+                        edgecolor="none"
+                    )
                 )
-            )
+                draw_arrow = False
+            else:
+                # normal white background
+                ax.add_patch(
+                    plt.Rectangle(
+                        (j, rows - i - 1), 1, 1,
+                        color=plt.cm.plasma(w_norm),
+                        alpha=0.85,
+                        edgecolor="none"
+                    )
+                )
+                draw_arrow = True
 
             # directional arrows
             arrow_dx = arrow_dy = 0.0
@@ -118,7 +131,7 @@ def plot_policy(input_to_motor, input_to_striatum, input_map, input_raw_map, mot
                     arrow_dy += dy * avg_w
 
             L = np.hypot(arrow_dx, arrow_dy)
-            if L > 0:
+            if draw_arrow and L > 0:
                 arrow_dx /= L
                 arrow_dy /= L
                 ax.arrow(
