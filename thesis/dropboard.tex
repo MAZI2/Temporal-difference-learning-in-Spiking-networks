@@ -14,13 +14,16 @@
 \usepackage{hyperxmp}
 \usepackage[hyphens]{url}
 \usepackage{csquotes}
-\usepackate{float}
 
 
 \usepackage{color}
-\usepackage{xcolor}
 \usepackage{soul}
 
+
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{makecell}
 \definecolor{Apricot}{RGB}{251, 206, 177}
 
 \begin{document}
@@ -276,19 +279,19 @@ Naš agent bo uporabljal model nevrona z eksponentim jedrom, saj tako poissonski
 \includegraphics[width=1.0\textwidth]{rstdp/competition}
 \end{center}
 \caption{
-Primer učenja na preprosti nalogi s tremi stanji. Prehod v vsako stanje je nakjučno, v vsakem stanju pa je samo ena izbira akcije nagrajena. V stanju 0 (input neuron 0) je pravilna akcija 0 (motor neuron 0), v stanju 1 akcija 1, v stanju 2 akcija 2. Razvidna je prevlada pravilnih sinaps in višanje divergence v sinapsah skozi čas ter višanje povprečne nagrade tekom učenja. V simulaciji uporabljamo privzete NEST parametre za nevrone tipa \textit{iaf\_psc\_exp} ter zakasnjene dopaminsko modulirane sinapse s parametri $W_{\min} = 500$, $W_{\max} = 2000$, $\tau_c = 5\,\mathrm{ms}$, $\tau_{c,\mathrm{delay}} = 200\,\mathrm{ms}$, $\tau_n = 10\,\mathrm{ms}$, $\tau_+ = \tau_- = 20\,\mathrm{ms}$, $b = 0.1$, $A_+ = 0.7$, $A_- = 0.3$ ter sinaptično zakasnitev $0.5\,\mathrm{ms}$, poissonski šum z $\lambda = 1000$ in utežjo sinaps $w_{\text{poisson}} = 1000$. Sinapse med vhodnimi in izhodnimi nevroni so inicializirane na $w_{\text{motor}} \sim \mathcal{N}(1300, 1)$.}
+Primer učenja na preprosti nalogi s tremi stanji. Prehod v vsako stanje je nakjučno, v vsakem stanju pa je samo ena izbira akcije nagrajena. V stanju 0 (input neuron 0) je pravilna akcija 0 (motor neuron 0), v stanju 1 akcija 1, v stanju 2 akcija 2. Razvidna je prevlada pravilnih sinaps in višanje divergence v sinapsah skozi čas ter višanje povprečne nagrade tekom učenja. V simulaciji uporabljamo privzete NEST parametre za nevrone tipa \textit{iaf\_psc\_exp} ter zakasnjene dopaminsko modulirane sinapse s parametri $W_{\min} = 500$, $W_{\max} = 2000$, $\tau_c = 5\,\mathrm{ms}$, $\tau_{c,\mathrm{delay}} = 200\,\mathrm{ms}$, $\tau_n = 10\,\mathrm{ms}$, $\tau_+ = \tau_- = 20\,\mathrm{ms}$, $b = 0.1$, $A_+ = 0.7$, $A_- = 0.3$ ter sinaptično zakasnitev $0.5\,\mathrm{ms}$, poissonski šum z $\lambda = 1000$ in utežjo sinaps $w_{\text{poisson}} = 100$. Sinapse med vhodnimi in izhodnimi nevroni so inicializirane na $w_{\text{motor}} \sim \mathcal{N}(1300, 1)$.}
 \label{pic2}
 \end{figure}
 \newpage
-\section{Igra Pong}
-V nadaljevanju bomo R-STDP predstavili na agentu, ki igra \href{https://en.wikipedia.org/wiki/Pong}{\textit{Pong}}. R-STDP učenje je kratkovidno, kjer se bomo naučili akcij, samo če nagrada sledi nemudoma, ne pa, če je nagrada zakasnjena. Za zakasnjene nagrade uporabljamo TD (\textit{angl. Temporal Difference}) učenje, ki ga implementiramo v poglavju \textbf{TD učenje in model actor-critic}. Igra Pong v osnovi zahteva veliko predvidevanja, vendar lahko igranje igre poenostavimo v obliko, ki se jo lahko naučimo z R-STDP učenjem. Igro bomo v nadaljevanju definirali tako, da ima žogica stalno hitrost, določeno smer in pozicijo v x, y ravnini. Na levi strani igrišča bo naš agent premikal platformo v vertikalni smeri na desni strani pa je stena od katere se prožno odbije žogica. V kolikor bi v učenje vključili predvidevanje, bi morali stanja agenta definirati z x,y pozicijo žogice, njeno smerjo in y pozicijo platforme, lahko pa problem poenostavimo v problem sledenja žogici enako kot v delu Wunderlich T, et al. \cite{pilotStudy}, kjer agent izira željeno ciljno točko platforme. Tako stanja kot akcije agenta so tako diskretizirane možne y pozicije žogice. Stanje je nagrajeno s stimulacijo dopaminskih nevronov s tokom $I_{\text{dopa}}$, ki je sorazmeren razliki med nagrado $R_b$ izračunani glede na oddaljenost željene pozicije $j$ od trenutne y pozicije žogice $j$ in povprečno nagrado $\bar{R}_i$ v iteraciji $i$. S pomočjo povprečne nagrade omejimo krepitev sinaps v kolikor te ne izboljšajo trenutne politike. 
+\subsubsection{Igra Pong}
+V nadaljevanju bomo R-STDP predstavili na agentu, ki igra \href{https://en.wikipedia.org/wiki/Pong}{\textit{Pong}}. R-STDP učenje je kratkovidno, kjer se bomo naučili akcij, samo če nagrada sledi nemudoma, ne pa, če je nagrada zakasnjena. Za zakasnjene nagrade uporabljamo TD (\textit{angl. Temporal Difference}) učenje, ki ga implementiramo v poglavju \textbf{TD učenje in model actor-critic}. Igra Pong v osnovi zahteva veliko predvidevanja, vendar lahko igranje igre poenostavimo v obliko, ki se jo lahko naučimo z R-STDP učenjem. Igro bomo v nadaljevanju definirali tako, da ima žogica stalno hitrost, določeno smer in pozicijo v x, y ravnini. Na levi strani igrišča bo naš agent premikal platformo v vertikalni smeri na desni strani pa je stena od katere se prožno odbije žogica. V kolikor bi v učenje vključili predvidevanje, bi morali stanja agenta definirati z x,y pozicijo žogice, njeno smerjo in y pozicijo platforme, lahko pa problem poenostavimo v problem sledenja žogici enako kot v delu Wunderlich T, et al. \cite{pilotStudy}, kjer agent izira željeno ciljno točko platforme. Tako stanja kot akcije agenta so tako diskretizirane možne y pozicije žogice. Stanje je nagrajeno s stimulacijo dopaminskih nevronov s tokom $I_{R}$, ki je sorazmeren razliki med nagrado $R_b$ izračunani glede na oddaljenost željene pozicije $j$ od trenutne y pozicije žogice $j$ in povprečno nagrado $\bar{R}_i$ v iteraciji $i$. S pomočjo povprečne nagrade omejimo krepitev sinaps v kolikor te ne izboljšajo trenutne politike. 
 
 \begin{align}
 R_b &= \begin{cases}
     1-|j-k| \cdot 0.3 & \text{if} \ |j-k|\leq3, \\
     0 & \text{otherwise}.
     \end{cases} \\
-I_{\text{dopa}} &= \max(R_b-\bar{R}_i, 0) \cdot 600 \text{ pA}
+I_{R} &= \max(R_b-\bar{R}_i, 0) \cdot 600 \text{ pA}
 \end{align}
 
 \begin{figure}[htbp]
@@ -397,24 +400,213 @@ uporabljali model nevrona z eksponentnim jedrom, v kritiku, pa bomo poskusili up
 \\
 \begin{figure}[htbp]
 \begin{center}
+\includegraphics[width=1.0\textwidth]{figures/dipl_TD_model}
+\end{center}
+\caption{Prikaz implementiranega aktor-kritik sistema}
+\label{pic8}
+\end{figure}
+\newpage
+\subsection{Izbira parametrov}
+Parametri so bili izbrani eksperimentalno in se ne ozirajo na biološko točnost. Ob spreminjanju velikosti posameznih skupin nevronov moramo pri izbiri parametrov paziti na ohranjanje osnovne frekvence dopaminergičnih nevronov in da sta inhibicija in ekscitacija zaradi direktne in indirektne povezave v ravnovesju. Redukcija frekvence, ki jo opravlja plast nevronov med vhodnimi in izhodnimi, mora biti dovolj velika, da bo pri osnovih utežeh sinaps med srednjo plastjo in izhodnimi nevroni šum omogočil učenje, kot je to razloženo v poglavju \textbf{R-STDP učenje}. %TODO: link
+Navedene so konstante in parametri implementiranega modela. Parametri, ki niso prikazani v tabeli imajo privzeto vrednost NEST simulatorja.
+
+\begin{table}[H]
+\caption{Parametri simulacije}
+\begin{tabular}{lll}
+\textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
+% ------- Simulation constants -------
+POLL\_TIME & Čas simulacije na iteracijo & 200 \\ \hline
+\(f(s_{\text{in}, i})\) & frekvenca stimulacije vhodnega nevrona $i$ & $100$ Hz \\ \hline
+\(n_{\text{critic}}\) & Število kritičnih nevronov & 8 \\ \hline
+\end{tabular}
+\end{table}
+\\
+%TODO: number of neurons
+\begin{table}[H]
+\begin{tabular}{lll}
+\textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
+\thead[l]{\bfseries Parametri skupin \\ 
+\bfseries nevronov kritika} \\
+tip & Tip modela nevrona & \textit{iaf\_psc\_alpha} \\ \hline
+\(C_{m,\text{in}}\) & Membranska kapacitivnost & 250.0 pF \\ \hline
+\(\tau_{m,\text{in}}\) & Časovna konstanta membrane & 10.0 ms \\ \hline
+\(V_{\text{reset,in}}\) & Potencial ponastavitve & 0.0 mV \\ \hline
+\(V_{\text{th,in}}\) & Prag proženja & 20.0 mV \\ \hline
+\(t_{\text{ref,in}}\) & Refraktorna doba & 0.5 ms \\ \hline
+\(\tau_{\text{syn,ex,in}}=\tau_{\text{syn,in,in}}\) & \makecell[l]{Ekscitatorna in inhibitorna \\ sinaptična konstanta} & 2 ms \\ \hline
+\(\tau_{\text{-,a}}\) & Negativna STDP konstanta & 20.0 ms \\ \hline
+\(V_{m,\text{in}}\) & Začetni membranski potencial & 0.0 mV \\ \hline
+\(E_{L,\text{in}}\) & Mirovalni potencial & 0.0 mV \\ \hline
+\\
+\thead[l]{\bfseries Parametri motoričnih \\ 
+\bfseries nevronov} \\
+tip & Tip modela nevrona & \textit{iaf\_psc\_exp} \\ \hline
+\(C_{m,a}\) & Membranska kapacitivnost motornih nevronov & 250.0 pF \\ \hline
+\(\tau_{m,a}\) & Časovna konstanta membrane & 10.0 ms \\ \hline
+\(V_{\text{reset,a}}\) & Potencial ponastavitve & 0.0 mV \\ \hline
+\(V_{\text{th,a}}\) & Prag proženja & 20.0 mV \\ \hline
+\(t_{\text{ref,a}}\) & Refraktorna doba & 0.1 ms \\ \hline
+\(\tau_{\text{syn,ex,a}}=\tau_{\text{syn,in,a}}\) & \makecell[l]{Ekscitatorna in inhibitorna \\ sinaptična konstanta} & 2 ms \\ \hline
+\(\tau_{\text{-,a}}\) & Negativna STDP konstanta & 20.0 ms \\ \hline
+\(V_{m,a}\) & Začetni membranski potencial & 0.0 mV \\ \hline
+\(E_{L,a}\) & Mirovalni potencial & 0.0 mV \\ \hline
+\end{tabular}
+\caption{Parametri nevronov}
+\end{table}
+\\
+\begin{table}[H]
+\begin{tabular}{lll}
+\textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
+\\
+\thead[l]{\bfseries Parametri sinaps med \\ 
+\bfseries vhodnimi in \\ 
+\bfseries vhodnimi motoričnimi \\ 
+\bfseries nevroni} \\ \hline
+tip & Tip sinapse & \makecell[l]{Privzeta konstantna \\ NEST sinapsa} \\ \hline
+\(w_{\text{in}\to\text{in, motor}}\) & \makecell[l]{Uteži sinaps med \\ vhodnimi in vhodnimi \\ motoričnimi nevroni} & 120 \\ \hline
+\\
+\thead[l]{\bfseries Parametri sinaps med \\ 
+\bfseries vhodnimi nevroni \\ 
+\bfseries in striatumom} \\ \hline
+% ------- STDP parameters (delayed_synapse) -------
+tip & Tip sinapse & \makecell[l]{Zakasnjena dopaminsko \\ modulirana STDP sinapsa} \\ \hline
+\(\tau_{c}\) & Odtekanje \textit{eligibility} sledi & 5 ms \\ \hline
+\(\tau_{c\text{, delay}}\) & Zakasnitev sledi $c$ & 200 ms \\ \hline
+\(\tau_{n}\) & Odtekanje dopaminske sledi & 10 ms \\ \hline
+\(\tau_{+}\) & Pozitivna STDP konstanta & 20 ms \\ \hline
+\(b\) & Bazalna dopaminska koncentracija & 0.1  \\ \hline
+\(A_{+}\) & Pozitivni STDP multiplikator & 1.5 \\ \hline
+\(A_{-}\) & Negativni STDP multiplikator & 1.0 \\ \hline
+\(W_{\min,str}\) & Minimalna utež & 150 \\ \hline
+\(W_{\max,str}\) & Maksimalna utež & 1000 \\ \hline
+\(w_{\text{in}\to \text{str}}\) & \makecell[l]{Začetne uteži sinaps med \\ vhodnimi in striatum nevroni} & \(\mathcal{N}(150, 8)\) \\ \hline
+\\
+\thead[l]{\bfseries Parametri sinaps med \\ 
+\bfseries vhodnimi in \\ 
+\bfseries izhodnimi motoričnimi \\ 
+\bfseries nevroni} \\ \hline
+% ------- STDP parameters (delayed_synapse) -------
+tip & Tip sinapse & \makecell[l]{Zakasnjena dopaminsko \\ modulirana STDP sinapsa} \\ \hline
+\(\tau_{c}\) & Odtekanje \textit{eligibility} sledi & 5 ms \\ \hline
+\(\tau_{c\text{, delay}}\) & Zakasnitev sledi $c$ & 200 ms \\ \hline
+\(\tau_{n}\) & Odtekanje dopaminske sledi & 10 ms \\ \hline
+\(\tau_{+}\) & Pozitivna STDP konstanta & 20 ms \\ \hline
+\(b\) & Bazalna dopaminska koncentracija & 0.1  \\ \hline
+\(A_{+}\) & Pozitivni STDP multiplikator & 1.5 \\ \hline
+\(A_{-}\) & Negativni STDP multiplikator & 1.0 \\ \hline
+\(W_{\min,a}\) & Minimalna utež & 500 \\ \hline
+\(W_{\max,a}\) & Maksimalna utež & 4000 \\ \hline
+\(w_{\text{in, motor}\to a}\) & \makecell[l]{Začetne uteži sinaps med \\ vhodnimi in izhodnimi \\ motoričnimi nevroni} & \(\mathcal{N}(1300, 1)\) \\ \hline
+\\
+% ------- Synaptic weights (key model pathways) -------
+\end{tabular}
+\caption{Parametri STDP sinaps}
+\end{table}
+\begin{table}[H]
+\begin{tabular}{lll}
+\textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
+tip & Tip sinapse & \makecell[l]{Privzeta konstantna \\ NEST sinapsa} \\ \hline
+\(w_{\text{str}\to\text{vp}}\) & \makecell[l]{Uteži sinps med striatumom in \\ ventral pallidumom} & -50 \\ \hline
+\(w_{\text{str}\to\text{dopa}}\) & \makecell[l]{Uteži sinps med striatumom in \\ dopaminergičnimi nevroni} & -55 \\ \hline
+\(w_{\text{vp}\to\text{dopa}}\) & \makecell[l]{Uteži sinps med \\ ventral pallidumom in \\ dopaminergičnimi nevroni} & -65 \\ \hline
+\(d_{\text{dir}}\) & \makecell[l]{Zakasnitev sinaps \\ direktne povezave} & 200 ms \\ \hline
+\end{tabular}
+\caption{Parametri sinaps kritika}
+\end{table}
+\\
+\begin{table}[H]
+\begin{tabular}{lll}
+\textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
+% ------- External noise and background -------
+\(\lambda_{\text{vp}}\) & \makecell[l]{Povprečna hitrost šumnih impulzov nevronov ventral palliduma} & 5200 \\ \hline
+\(\lambda_{\text{dopa}}\) & \makecell[l]{Povprečna hitrost šumnih impulzov v dopaminergičnih nevronov} & 4000 \\ \hline
+\(\lambda_{\text{in, motor}}\) & \makecell[l]{Povprečna hitrost šumnih impulzov \\ vhodnih motoričnih nevronov} & $100$ Hz \\ \hline
+\(\lambda_{\text{out, motor}}\) & \makecell[l]{Povprečna hitrost šumnih impulzov \\ izhodnih motoričnih nevronov} & $100$ Hz \\ \hline
+\end{tabular}
+\caption{Parametri generatorjev šuma}
+\end{table}
+\\
+\subsection{Rezultati}
+\begin{figure}[H]
+\begin{center}
 \includegraphics[width=1.0\textwidth]{actorcritic/F2 - StateTransitionTD}
 \end{center}
 \caption{Prikaz obnašanja sistema ob prehodu iz stanja 0 v nagrajeno stanje 5 in nazaj v stanje 0. Pričakovana nagrada in tako tudi vrednost stanja 0 se ob prehodu v stanje 5 zviša preko povezav do striatuma. Ob prehodu iz nagrajenega stanja (ki pa samega sebe še ne ocenjuje z visoko vrednostjo) nazaj v stanje 0 preidemo iz stanja z osnovnimi utežmi v stanje 0 z okrepljenimi utežmi do striatuma, torej prehod v stanje z višjo vrednostjo. Posledica tega je, napram osnovni frekvenci dopaminergičnih nevronov, povišana dopaminergična aktivnost, ki povzroči aktivnosti sorazmerno povišanje uteži sinaps stanja 5 do striatuma. Ob prehodu iz stanja 0 v stanje 0 se vrnemo k osnovni dopaminergični frekvenci.}
 \label{pic8}
 \end{figure}
-\begin{figure}[htbp]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{actorcritic/F3 - Learning}
 \end{center}
-\caption{Obnašanje sistema tekom učenja. Številke predstavljajo polja 3x3 mreže oštevilčena od leve proti desni od zgoraj navzdol. Cilj se nahaja na polju 8. Povezave vhoda do striatuma stanj 5 in 7 so pričakovano najvišje, sledi pa jim 4, ki neposredno vodi v 5 in 7}
+\caption{Obnašanje sistema tekom učenja na 3x3 mreži. Polja so oštevilčena od leve proti desni od zgoraj navzdol. Cilj se nahaja na polju 8. Povezave vhoda do striatuma stanj 5 in 7 so pričakovano najvišje, sledi pa jim 4, ki neposredno vodi v 5 in 7}
+\\
+\colorbox{Apricot}{%
+  \parbox{0.9\linewidth}{%
+    \textbf{
+      Iz zgornje kolekcije grafov izberi izseke, ki predstavljajo ključne situacije med učenjem opisane mehanizme ocenjevanja nagrade in učenja.
+    }%
+  }%
+}
+
+\label{pic8}
+\end{figure}
+\newpage
+\subsubsection{Rezultati učenja}
+Naučeno politiko bomo prikazali podobno kot v poglavju \textbf{R-STDP učenje}, %TODO: link
+vendar bomo samozavest izbire akcije v določenem stanju prikazali skupaj z povprečno utežjo povezav med vhodnimi nevroni pripadajočega stanja in striatumom.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{best}
+\end{center}
+\caption{Rezultati učenja modela tekom 3000 iteracij po 200 ms.}
+\label{pic8}
+\end{figure}
+%TODO: add actual image
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{actorcritic/progress}
+\end{center}
+\caption{Povprečna utež preko sinaps med vsemi vhodnimi nevroni in striatumom tekom 1500 iteracij po 200 ms.}
 \label{pic8}
 \end{figure}
 
-
+\subsubsection{Interpretacija rezultatov}
+Sistem se uspešno uči politike prehodov iz poljubnega stanja do oddaljene nagrade v kolikor ni nagrada preveč oddaljena. Polja 0 in 4 kažeta v napačno smer, vendar vidimo, da je tudi stanje ocenjeno z nizko vrednostjo. Daljše učenje pri trenutni konfiguraciji ne pripelje do boljših rezultatov. \\
+\\
+\colorbox{Apricot}{%
+  \parbox{0.9\linewidth}{%
+    \textbf{
+      Potrebna nadaljna analiza. Glavna omejitev učenja je kosntantna rast sinaps tekom učenja. 
+      Sinapse v trenutnem modelu skozi čas same po sebi odtekajo v povprečju počasneje kot rastejo. 
+      Tako je nastavljeno, saj se pri redkih nagradah in predvsem v zgodnjih fazah učenja razlike v sinapsah zaradi nagrade bolje ohranijo.
+    }%
+  }%
+}
+\newpage
+\section{Razširitve modela}
 %TODO: kaj pomeni uciti impulzno nevronsko mrezo in kako jo moramo omejiti. Narascanje in clampanje sinaps
-%TODO: mark slike
-%TODO: izbira hiperparametrov
-%TODO: final results and interpretation
+\colorbox{Apricot}{%
+  \parbox{0.9\linewidth}{%
+    \textbf{
+      Potencialne nadaljne raziskave in razširitve modela.
+    }%
+  }%
+}
+\subsection{Izognitveno obnašanje}
+V večini del, ki se ukvarjajo s spodbujevanim učenjem se izognitev stanj, za katere želimo, da se jih agent izogiba, doseže s pomočjo negativne nagrade. Negativna nagrada tako v enačbi sinapse RSTDP obrne predznak posodobitve in so tako sinapse, ki so odgovorne za vstop v neželeno stanje najbolj negativno posodobljene. V človeških možganih negativnega dopamina ni. Porodi se ideja, da je izogibanje negativnim stanjem prav tako posledica učenja, kjer je nivo dopamina $> 0$. Dopamin namreč predstavlja učenje, ne nujno nagrade. Negativna nagrada je predstavljena s posebnim vhodom, ki prestavlja abstraktno "bolečino", ki jo tekom učenja želimo zmanjšati. Tako lahko prav tako uporabimo načela STDP in TD učenja, kjer zmanjšanje nivoja bolečine prestavlja nagrado. Trenutnemu akter-kritik sistemu bi dodali še eno kopijo kritika, ki računa temporalno razliko nivoja bolečine in deluje na dopaminergične nevrone, ki so skupni obema kritikoma. Ob prehodu iz stanja z visokim nivojem bolečine v stanje z nizkim dopaminergične nevrone ekscitiramo, v obratnem primeru inhibiramo, v primeru enakega nivoja dovedene bolečine pa kritik negativne nagrade ne vpliva na dopaminergične nevrone. Sistem se v tem primeru obnaša kratkovidno, kljub računanju temporalne razlike. Nagrajene bodo samo povezave, ki so nas vodile stran od bolečine, ker pa je vhod bolčine eksteren, za razliko od striatuma, ki nagrado napoveduje sam, bodo nagrajene povezave samo v stanja neposredno ob negativnem stanju. Če želimo okrog negativnega stanja negativno označiti tudi stanja, ki nas potencialno vodijo vanj, pa moramo v sistem dodati skupino nevronov, ki stanja asociirajo z bolečinskim vhodom in jo tako napovedujejo. \\
+Pričakujemo, da tako oba kritika med seboj tekmujeta za nagrajevanje akcij, ki vodijo bližje nagradi in sinaps, ki vodijo stran od negativnega stanja.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{figures/aversive}
+\end{center}
+\caption{Pričakovana politika ob kritiku negativnih stanj (brez kritika nagrajenih stanj)}
+\label{pic8}
+\end{figure}
+\subsection{Rekurenčne povezave}
+Velika predpostavka trenutnega sistema je ta, da rekurenčnih povezav ni. Tako so stanja časovno med seboj skoraj popolnoma neodvisna (med prehodi stanj se sinapse še vedno lahko križno asociirajo, zaradi česar smo v našem modelu uvedli 50ms pavzo stimulacije pred prehodom v naslednje stanje. To je opisano v poglavju \textbf{TD učenje in model actor-critic}). V kolikor dodamo več vmesnih nivojev in rekurenčne povezave pa bodo stanja med seboj časovno odvisna. Pravzaprav stanja ne moremo več definirati samo z vhodno stimulacijo, saj v vsakem trenutku stanje vsebuje tudi vplive rekurenčnih povezav, ki nosijo informacijo iz stanj arbitrarno v preteklost. V primeru našega akter-kritik sistema bi tako v vsakem trenutku $t$ kritik računal temoralno razliko med dvema neskončno kratkima stanjema $s_t$ in $s_{t-d}$, kjer je $d$ zakasnitev direktne povezave. Kljub temu pričakujemo, da rezultat ne bi bil drugačen, saj je to samo miselna prilagoditev. 200ms stimulacija, ki je do zdaj predstavljala stanje, bi vseeno v tem intervalu vodila do nevronske aktivnosti, ki je v glavnem pogojena s to vhodno stimulacijo in bi tako trenutki (oziroma neskončno kratka stanja) vseeno bili v naboru trenutkov značilnih za trenutno vhodno stimulacijo. \\
+V eksperimentih izvedenih do zdaj, pravilna akcija določenega stanja ni bila odvisna od akcij, ki so nas privedle v to stanje oziroma zgodovine stanj. V primeru sprehajanja po mreži bomo končno stanje nagradili neglede na to iz katerega stanja vstopimo v nagrajeno stanje. Rekurenčne povezave bi tako predvideno predstavljale prednost pri nalogah, kjer je zgodovina stanj pomembna, oziroma kjer je nagrada stanja odvisna od prejšnjih stanj. Če bi v primeru sprehajanja po mreži premik v končno stanje iz stanja nad njim pripeljalo do nagrade, prehod iz stanja levo pa ne, bi lahko tako končno stanje obravnavali kot dva različna stanja, glede na prehod. Zanimivo bi bilo realna stanja neke naloge tako razviti v drevo abstraktnih stanj in označiti pričakovane nagrade in preferirane akcije, ki jih sistem napoveduje. Sistem je še vedno stimuliran glede na realna stanja naloge, vendar bi s pomočjo rekurenčnih povezav interno predstavljal nabor abstraktnih stanj.\\
+Rekurenčne povezave privedejo tudi do določenih situacij, kjer bi bila potrebna redefinicija trenutnega načina izbire stanj. Dva izhodna nevrona sta namreč lahko povezana med sabo in se bosta vedno prožila skupaj. V tem primeru moramo v sistemu dopuščati izbiro večih akcij hkrati in takšno situacijo na primer "kaznovati".
+\section{Diskusija}
 
 
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  11 NOV 2025 00:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  11 NOV 2025 21:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -317,54 +317,13 @@ Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
 Package csquotes Info: ... configuration file loaded successfully.
  (/home/matjaz/latex/texmf-dist/tex/latex/csquotes/csquotes.cfg
 File: csquotes.cfg 
-))
-./dropboard.tex:17: Undefined control sequence.
-<recently read> \usepackate 
-                            
-l.17 \usepackate
-                {float}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-./dropboard.tex:17: LaTeX Error: Missing \begin{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.17 \usepackate{f
-                  loat}
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-(/home/matjaz/latex/texmf-dist/tex/latex/graphics/color.sty
+)) (/home/matjaz/latex/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
  (/home/matjaz/latex/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
- (/home/matjaz/latex/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/home/matjaz/latex/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
- (/home/matjaz/latex/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package xcolor Info: Driver file: pdftex.def on input line 274.
-LaTeX Info: Redefining \color on input line 758.
- (/home/matjaz/latex/texmf-dist/tex/latex/graphics/mathcolor.ltx)
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1354.
-Package xcolor Info: Model `RGB' extended on input line 1366.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1368.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1370.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
-) (/home/matjaz/latex/texmf-dist/tex/generic/soul/soul.sty
+ (/home/matjaz/latex/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/home/matjaz/latex/texmf-dist/tex/generic/soul/soul.sty
 Package: soul 2023-06-14 v3.1 Permit use of UTF-8 characters in soul (HO)
  (/home/matjaz/latex/texmf-dist/tex/generic/soul/soul-ori.sty
 Package: soul-ori 2023-06-14 v3.1 letterspacing/underlining (mf)
@@ -390,21 +349,85 @@ Package: soul-ori 2023-06-14 v3.1 letterspacing/underlining (mf)
 \SOUL@ulht=\dimen165
 ) (/home/matjaz/latex/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
-))
+)) (/home/matjaz/latex/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count299
+\float@exts=\toks34
+\float@box=\box53
+\@float@everytoks=\toks35
+\@floatcapt=\box54
+) (/home/matjaz/latex/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen166
+\lightrulewidth=\dimen167
+\cmidrulewidth=\dimen168
+\belowrulesep=\dimen169
+\belowbottomsep=\dimen170
+\aboverulesep=\dimen171
+\abovetopsep=\dimen172
+\cmidrulesep=\dimen173
+\cmidrulekern=\dimen174
+\defaultaddspace=\dimen175
+\@cmidla=\count300
+\@cmidlb=\count301
+\@aboverulesep=\dimen176
+\@belowrulesep=\dimen177
+\@thisruleclass=\count302
+\@lastruleclass=\count303
+\@thisrulewidth=\dimen178
+) (/home/matjaz/latex/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
+ (/home/matjaz/latex/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+LaTeX Info: Redefining \color on input line 758.
+ (/home/matjaz/latex/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1354.
+Package xcolor Info: Model `RGB' extended on input line 1366.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1368.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
+) (/home/matjaz/latex/texmf-dist/tex/latex/makecell/makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+ (/home/matjaz/latex/texmf-dist/tex/latex/tools/array.sty
+Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen179
+\ar@mcellbox=\box55
+\extrarowheight=\dimen180
+\NC@list=\toks36
+\extratabsurround=\skip64
+\backup@length=\skip65
+\ar@cellbox=\box56
+)
+\rotheadsize=\dimen181
+\c@nlinenum=\count304
+\TeXr@lab=\toks37
+)
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
  (/home/matjaz/latex/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-11-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count299
-\l__pdf_internal_box=\box53
+\l__color_backend_stack_int=\count305
+\l__pdf_internal_box=\box57
 ) (./dropboard.aux
 
-LaTeX Warning: Label `pic2' multiply defined.
+LaTeX Warning: Label `pic8' multiply defined.
 
 
-LaTeX Warning: Label `pic2' multiply defined.
+LaTeX Warning: Label `pic8' multiply defined.
+
+
+LaTeX Warning: Label `pic8' multiply defined.
+
+
+LaTeX Warning: Label `pic8' multiply defined.
 
 
 LaTeX Warning: Label `pic8' multiply defined.
@@ -418,239 +441,464 @@ LaTeX Warning: Label `pic8' multiply defined.
 )
 \openout1 = `dropboard.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
  (/home/matjaz/latex/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count300
-\scratchdimen=\dimen166
-\scratchbox=\box54
-\nofMPsegments=\count301
-\nofMParguments=\count302
-\everyMPshowfont=\toks34
-\MPscratchCnt=\count303
-\MPscratchDim=\dimen167
-\MPnumerator=\count304
-\makeMPintoPDFobject=\count305
-\everyMPtoPDFconversion=\toks35
+\scratchcounter=\count306
+\scratchdimen=\dimen182
+\scratchbox=\box58
+\nofMPsegments=\count307
+\nofMParguments=\count308
+\everyMPshowfont=\toks38
+\MPscratchCnt=\count309
+\MPscratchDim=\dimen183
+\MPnumerator=\count310
+\makeMPintoPDFobject=\count311
+\everyMPtoPDFconversion=\toks39
 ) (/home/matjaz/latex/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/home/matjaz/latex/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 26.
+Package hyperref Info: Link coloring ON on input line 29.
  (./dropboard.out) (./dropboard.out)
 \@outlinefile=\write3
 \openout3 = `dropboard.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 35.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 38.
  (/home/matjaz/latex/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 35.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 38.
  (/home/matjaz/latex/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (6.52367pt too wide) in paragraph at lines 35--37
+Overfull \hbox (6.52367pt too wide) in paragraph at lines 38--40
 \OT1/cmr/m/n/12 Elektri^^Tcni po-ten-cial, proti kateremu mem-brana pa-sivno re-lak-sira v odsot-
  []
 
+[1{/home/matjaz/latex/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
-Overfull \hbox (9.96523pt too wide) in paragraph at lines 66--67
+{/home/matjaz/latex/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+Overfull \hbox (9.96523pt too wide) in paragraph at lines 69--70
 \OT1/cmr/m/n/12 Membranski po-ten-cial $\OML/cmm/m/it/12 V[]$ \OT1/cmr/m/n/12 se sprem-inja v odvis-noti od $\OML/cmm/m/it/12 I[]$ \OT1/cmr/m/n/12 in os-talih parametrov
  []
 
 
-Overfull \vbox (381.93741pt too high) has occurred while \output is active []
+LaTeX Warning: Citation `expModel' on page 2 undefined on input line 107.
 
- [1{/home/matjaz/latex/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
-
-{/home/matjaz/latex/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-
-LaTeX Warning: Citation `expModel' on page 2 undefined on input line 104.
-
-
-Overfull \hbox (4.22629pt too wide) in paragraph at lines 109--114
+[2]
+Overfull \hbox (4.22629pt too wide) in paragraph at lines 112--117
 \OT1/cmr/m/n/12 kjer $\OML/cmm/m/it/12 t[]$ \OT1/cmr/m/n/12 pred-stavlja ^^Tcas presinapti^^Tcnega im-pulza, $\OML/cmm/m/it/12 ^^\[]$ \OT1/cmr/m/n/12 ^^Tcas sinapti^^Tcnega odtekanja,
  []
 
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 127--131
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--134
 
  []
 
-<../results/neuron_models/PSCs.png, id=50, 722.7pt x 361.35pt>
+<../results/neuron_models/PSCs.png, id=64, 722.7pt x 361.35pt>
 File: ../results/neuron_models/PSCs.png Graphic file (type png)
 <use ../results/neuron_models/PSCs.png>
-Package pdftex.def Info: ../results/neuron_models/PSCs.png  used on input line 137.
+Package pdftex.def Info: ../results/neuron_models/PSCs.png  used on input line 140.
 (pdftex.def)             Requested size: 390.0pt x 194.99928pt.
-[3 <../results/neuron_models/PSCs.png>] [4]
-Overfull \hbox (13.72752pt too wide) detected at line 206
+[3]
+Underfull \vbox (badness 1281) has occurred while \output is active []
+
+ [4
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.151 
+       <../results/neuron_models/PSCs.png>]
+Overfull \hbox (13.72755pt too wide) detected at line 209
 []\OT1/cmr/m/n/12 (^^A\OML/cmm/m/it/12 t\OT1/cmr/m/n/12 ) = []
  []
 
-[5]
+[5
+pdfTeX warning (ext4): destination with the same identifier (name{table.0.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.209 \]
+        
+pdfTeX warning (ext4): destination with the same identifier (name{table.0.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.209 \]
+        ]
+Runaway argument?
+{figure}[Htb] \begin {center} \includegraphics [width=1.0\textwidth ]\ETC.
+./dropboard.tex:249: Paragraph ended before \@float@HH was complete.
+<to be read again> 
+                   \par 
+l.249 
+      
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
 
-./dropboard.tex:238: LaTeX Error: Unknown float option `H'.
+[6]
+Runaway argument?
+{figure}[Htb] \begin {center} \includegraphics [width=1.0\textwidth ]\ETC.
+./dropboard.tex:261: Paragraph ended before \@float@HH was complete.
+<to be read again> 
+                   \par 
+l.261 
+      
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.238 \begin{figure}[Htb]
-                         
-Option `H' ignored and `p' used.
-
-<../results/neuron_models/RSTDP.png, id=71, 722.7pt x 705.3552pt>
-File: ../results/neuron_models/RSTDP.png Graphic file (type png)
-<use ../results/neuron_models/RSTDP.png>
-Package pdftex.def Info: ../results/neuron_models/RSTDP.png  used on input line 240.
-(pdftex.def)             Requested size: 390.0pt x 380.63858pt.
-[6] [7 <../results/neuron_models/RSTDP.png>]
-
-./dropboard.tex:251: LaTeX Error: Unknown float option `H'.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.251 \begin{figure}[Htb]
-                         
-Option `H' ignored and `p' used.
-
-<../results/neuron_models/RSTDP_delayed.png, id=83, 722.7pt x 705.3552pt>
-File: ../results/neuron_models/RSTDP_delayed.png Graphic file (type png)
-<use ../results/neuron_models/RSTDP_delayed.png>
-Package pdftex.def Info: ../results/neuron_models/RSTDP_delayed.png  used on input line 253.
-(pdftex.def)             Requested size: 390.0pt x 380.63858pt.
-[8] [9 <../results/neuron_models/RSTDP_delayed.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 261--269
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 261--269
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 264--272
 
  []
 
 
-./dropboard.tex:274: LaTeX Error: Unknown float option `H'.
+Underfull \hbox (badness 10000) in paragraph at lines 264--272
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.274 \begin{figure}[H]
-                       
-Option `H' ignored and `p' used.
+ []
 
-<../results/rstdp/competition.png, id=94, 867.24pt x 458.1918pt>
+<../results/rstdp/competition.png, id=100, 867.24pt x 458.1918pt>
 File: ../results/rstdp/competition.png Graphic file (type png)
 <use ../results/rstdp/competition.png>
-Package pdftex.def Info: ../results/rstdp/competition.png  used on input line 276.
+Package pdftex.def Info: ../results/rstdp/competition.png  used on input line 279.
 (pdftex.def)             Requested size: 390.0pt x 206.05156pt.
-[10] [11] [12 <../results/rstdp/competition.png>]
+[8] [9
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.285 \newpage
+               <../results/rstdp/competition.png>]
 
-LaTeX Warning: Citation `pilotStudy' on page 13 undefined on input line 284.
+LaTeX Warning: Citation `pilotStudy' on page 10 undefined on input line 287.
 
-<../results/figures/pong_setup.png, id=111, 268.75406pt x 278.54062pt>
+<../results/figures/pong_setup.png, id=113, 268.75406pt x 278.54062pt>
 File: ../results/figures/pong_setup.png Graphic file (type png)
 <use ../results/figures/pong_setup.png>
-Package pdftex.def Info: ../results/figures/pong_setup.png  used on input line 296.
+Package pdftex.def Info: ../results/figures/pong_setup.png  used on input line 299.
 (pdftex.def)             Requested size: 234.00238pt x 242.52388pt.
 
-LaTeX Warning: Citation `pilotStudy' on page 13 undefined on input line 298.
+LaTeX Warning: Citation `pilotStudy' on page 10 undefined on input line 301.
+
+<../results/rstdp/rstdp-pong/learning.png, id=114, 1040.688pt x 519.6213pt>
+File: ../results/rstdp/rstdp-pong/learning.png Graphic file (type png)
+<use ../results/rstdp/rstdp-pong/learning.png>
+Package pdftex.def Info: ../results/rstdp/rstdp-pong/learning.png  used on input line 309.
+(pdftex.def)             Requested size: 390.0pt x 194.73064pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [10] [11
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.314 \newpage
+              
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.314 \newpage
+               <../results/figures/pong_setup.png> <../results/rstdp/rstdp-pong/learning.png>]
+<../results/rstdp/rstdp-pong/mean_reward.png, id=130, 722.7pt x 361.35pt>
+File: ../results/rstdp/rstdp-pong/mean_reward.png Graphic file (type png)
+<use ../results/rstdp/rstdp-pong/mean_reward.png>
+Package pdftex.def Info: ../results/rstdp/rstdp-pong/mean_reward.png  used on input line 318.
+(pdftex.def)             Requested size: 390.0pt x 194.99928pt.
+ [12
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.345 \]
+         <../results/rstdp/rstdp-pong/mean_reward.png>]
+<../results/rstdp/rstdp-gridworld/best.png, id=137, 289.08pt x 289.08pt>
+File: ../results/rstdp/rstdp-gridworld/best.png Graphic file (type png)
+<use ../results/rstdp/rstdp-gridworld/best.png>
+Package pdftex.def Info: ../results/rstdp/rstdp-gridworld/best.png  used on input line 351.
+(pdftex.def)             Requested size: 234.00238pt x 233.99911pt.
+ [13
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.372 \]
+         <../results/rstdp/rstdp-gridworld/best.png>]
+
+LaTeX Warning: Citation `actorCritic' on page 14 undefined on input line 377.
 
 
-./dropboard.tex:304: LaTeX Error: Unknown float option `H'.
+Underfull \hbox (badness 10000) in paragraph at lines 374--385
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 374--385
+
+ []
+
+[14]
+<../results/figures/basal_ganglia.jpg, id=150, 687.56876pt x 674.52pt>
+File: ../results/figures/basal_ganglia.jpg Graphic file (type jpg)
+<use ../results/figures/basal_ganglia.jpg>
+Package pdftex.def Info: ../results/figures/basal_ganglia.jpg  used on input line 388.
+(pdftex.def)             Requested size: 234.00238pt x 229.5602pt.
+<../results/figures/dipl_TD_model.png, id=151, 599.23875pt x 493.845pt>
+File: ../results/figures/dipl_TD_model.png Graphic file (type png)
+<use ../results/figures/dipl_TD_model.png>
+Package pdftex.def Info: ../results/figures/dipl_TD_model.png  used on input line 403.
+(pdftex.def)             Requested size: 390.0pt x 321.40988pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 394--408
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 394--408
+
+ []
+
+[15
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.7}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.408 \newpage
+               <../results/figures/basal_ganglia.jpg>] [16] [17
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.8}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.408 \newpage
+               <../results/figures/dipl_TD_model.png>]
+Overfull \hbox (2.05426pt too wide) in paragraph at lines 410--412
+\OT1/cmr/m/n/12 parametrov paz-iti na ohran-janje os-novne frekvence dopamin-ergi^^Tcnih nevronov
+ []
+
+
+./dropboard.tex:425: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.304 \begin{figure}[H]
-                       
-Option `H' ignored and `p' used.
-
-<../results/rstdp/rstdp-pong/learning.png, id=112, 1040.688pt x 519.6213pt>
-File: ../results/rstdp/rstdp-pong/learning.png Graphic file (type png)
-<use ../results/rstdp/rstdp-pong/learning.png>
-Package pdftex.def Info: ../results/rstdp/rstdp-pong/learning.png  used on input line 306.
-(pdftex.def)             Requested size: 390.0pt x 194.73064pt.
-[13] [14 <../results/figures/pong_setup.png> <../results/rstdp/rstdp-pong/learning.png>]
-<../results/rstdp/rstdp-pong/mean_reward.png, id=129, 722.7pt x 361.35pt>
-File: ../results/rstdp/rstdp-pong/mean_reward.png Graphic file (type png)
-<use ../results/rstdp/rstdp-pong/mean_reward.png>
-Package pdftex.def Info: ../results/rstdp/rstdp-pong/mean_reward.png  used on input line 315.
-(pdftex.def)             Requested size: 390.0pt x 194.99928pt.
- [15 <../results/rstdp/rstdp-pong/mean_reward.png>]
-<../results/rstdp/rstdp-gridworld/best.png, id=136, 289.08pt x 289.08pt>
-File: ../results/rstdp/rstdp-gridworld/best.png Graphic file (type png)
-<use ../results/rstdp/rstdp-gridworld/best.png>
-Package pdftex.def Info: ../results/rstdp/rstdp-gridworld/best.png  used on input line 348.
-(pdftex.def)             Requested size: 234.00238pt x 233.99911pt.
- [16 <../results/rstdp/rstdp-gridworld/best.png>]
-
-LaTeX Warning: Citation `actorCritic' on page 17 undefined on input line 374.
+l.425 \begin
+            {table}[H]
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 371--382
-
+Overfull \hbox (59.44313pt too wide) in paragraph at lines 426--454
+[][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 371--382
+./dropboard.tex:457: LaTeX Error: There's no line here to end.
 
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.457 \begin
+            {table}[H]
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Overfull \hbox (73.00876pt too wide) in paragraph at lines 458--503
+[][]
  []
 
-[17]
-<../results/figures/basal_ganglia.jpg, id=147, 687.56876pt x 674.52pt>
-File: ../results/figures/basal_ganglia.jpg Graphic file (type jpg)
-<use ../results/figures/basal_ganglia.jpg>
-Package pdftex.def Info: ../results/figures/basal_ganglia.jpg  used on input line 385.
-(pdftex.def)             Requested size: 234.00238pt x 229.5602pt.
-<../results/actorcritic/F2 - StateTransitionTD.png, id=148, 867.24pt x 705.3552pt>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [18
+pdfTeX warning (ext4): destination with the same identifier (name{table.0.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.504 \end{table}
+                 ]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [19
+pdfTeX warning (ext4): destination with the same identifier (name{table.0.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.515 \end{table}
+                 ]
+Overfull \vbox (133.53258pt too high) has occurred while \output is active []
+
+ [20
+pdfTeX warning (ext4): destination with the same identifier (name{table.0.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.515 \end{table}
+                 ]
+
+./dropboard.tex:517: LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.517 \begin
+            {table}[H]
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Overfull \hbox (78.32213pt too wide) in paragraph at lines 518--526
+[][]
+ []
+
+
+./dropboard.tex:529: LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.529 \subsection
+                 {Rezultati}
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+<../results/actorcritic/F2 - StateTransitionTD.png, id=186, 867.24pt x 705.3552pt>
 File: ../results/actorcritic/F2 - StateTransitionTD.png Graphic file (type png)
 <use ../results/actorcritic/F2 - StateTransitionTD.png>
-Package pdftex.def Info: ../results/actorcritic/F2 - StateTransitionTD.png  used on input line 400.
+Package pdftex.def Info: ../results/actorcritic/F2 - StateTransitionTD.png  used on input line 532.
 (pdftex.def)             Requested size: 390.0pt x 317.20241pt.
-<../results/actorcritic/F3 - Learning.png, id=149, 1387.584pt x 708.246pt>
+<../results/actorcritic/F3 - Learning.png, id=187, 1387.584pt x 708.246pt>
 File: ../results/actorcritic/F3 - Learning.png Graphic file (type png)
 <use ../results/actorcritic/F3 - Learning.png>
-Package pdftex.def Info: ../results/actorcritic/F3 - Learning.png  used on input line 407.
+Package pdftex.def Info: ../results/actorcritic/F3 - Learning.png  used on input line 539.
 (pdftex.def)             Requested size: 390.0pt x 199.06401pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 391--412
+./dropboard.tex:543: LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.543 \colorbox
+               {Apricot}{%
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [21
+pdfTeX warning (ext4): destination with the same identifier (name{table.0.6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.552 \end{figure}
+                  
+pdfTeX warning (ext4): destination with the same identifier (name{table.0.7}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.552 \end{figure}
+                  ]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [22
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.9}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.553 \newpage
+               <../results/actorcritic/F2 - StateTransitionTD.png>] [23
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.10}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.553 \newpage
+               <../results/actorcritic/F3 - Learning.png>]
+<../results/best.png, id=206, 289.08pt x 289.08pt>
+File: ../results/best.png Graphic file (type png)
+<use ../results/best.png>
+Package pdftex.def Info: ../results/best.png  used on input line 559.
+(pdftex.def)             Requested size: 234.00238pt x 233.99911pt.
+<../results/actorcritic/progress.png, id=207, 897.3525pt x 278.54062pt>
+File: ../results/actorcritic/progress.png Graphic file (type png)
+<use ../results/actorcritic/progress.png>
+Package pdftex.def Info: ../results/actorcritic/progress.png  used on input line 567.
+(pdftex.def)             Requested size: 390.0pt x 121.05368pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 574--585
 
  []
 
+[24
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.11}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.585 \newpage
+              
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.12}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.585 \newpage
+               <../results/best.png> <../results/actorcritic/progress.png>] [25]
+<../results/figures/aversive.png, id=223, 128.48pt x 129.48375pt>
+File: ../results/figures/aversive.png Graphic file (type png)
+<use ../results/figures/aversive.png>
+Package pdftex.def Info: ../results/figures/aversive.png  used on input line 600.
+(pdftex.def)             Requested size: 155.99762pt x 157.229pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 391--412
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
+ [26]
+Overfull \hbox (4.4348pt too wide) in paragraph at lines 606--609
+\OT1/cmr/m/n/12 Rekuren^^Tcne povezave privedejo tudi do dolo^^Tcenih situacij, kjer bi bila potrebna
  []
 
-[18 <../results/figures/basal_ganglia.jpg>] [19] [20 <../results/actorcritic/F2 - StateTransitionTD.png>] (/home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
+(/home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
 ) (/home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
-) [21 <../results/actorcritic/F3 - Learning.png>] (./dropboard.aux)
+) [27
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.13}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.609 \section
+              {Diskusija} <../results/figures/aversive.png>]
+
+./dropboard.tex:612: LaTeX Error: \begin{figure} on input line 254 ended by \end{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.612 \end{document}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[28]
+
+LaTeX Warning: Hook 'shipout/lastpage' executed on wrong page (27 not 28).
+               Rerun to correct this.
+
+(./dropboard.aux)
  ***********
 LaTeX2e <2023-11-01>
 L3 programming layer <2023-12-11>
@@ -663,21 +911,26 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `dropboard.out' has not changed.
-(rerunfilecheck)             Checksum: 0D41E57470D834E674146C3168E08527;593.
- ) 
+(rerunfilecheck)             Checksum: 79E95F3FD67B84B55706C481422CEB85;1315.
+ )
+(\end occurred inside a group at level 2)
+
+### semi simple group (level 2) entered at line 254 (\begingroup)
+### semi simple group (level 1) entered at line 241 (\begingroup)
+### bottom level 
 Here is how much of TeX's memory you used:
- 13239 strings out of 474175
- 210302 string characters out of 5748183
+ 13674 strings out of 474175
+ 216450 string characters out of 5748183
  1946457 words of memory out of 5000000
- 35283 multiletter control sequences out of 15000+600000
- 566371 words of font info for 66 fonts, out of 8000000 for 9000
+ 35676 multiletter control sequences out of 15000+600000
+ 568997 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,26n,79p,1601b,574s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on dropboard.pdf (21 pages, 1257186 bytes).
+ 75i,26n,79p,1771b,619s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on dropboard.pdf (28 pages, 1187146 bytes).
 PDF statistics:
- 253 PDF objects out of 1000 (max. 8388607)
- 176 compressed objects within 2 object streams
- 53 named destinations out of 1000 (max. 500000)
- 92 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 327 PDF objects out of 1000 (max. 8388607)
+ 236 compressed objects within 3 object streams
+ 75 named destinations out of 1000 (max. 500000)
+ 142 words of extra memory for PDF output out of 10000 (max. 10000000)
 
