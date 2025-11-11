@@ -3,17 +3,6 @@
 \@nameuse{bbl@beforestart}
 \catcode `"\active 
 \providecommand\hyper@newdestlabel[2]{}
-\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
-\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
-\global\let\oldnewlabel\newlabel
-\gdef\newlabel#1#2{\newlabelxx{#1}#2}
-\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
-\AtEndDocument{\ifx\hyper@anchor\@undefined
-\let\newlabel\oldnewlabel
-\fi}
-\fi}
-\global\let\hyper@last\relax 
-\gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \abx@aux@refcontext{nty/global//global/global}
@@ -25,8 +14,6 @@
 \babel@aux{slovene}{}
 \abx@aux@cite{0}{distalReward}
 \abx@aux@segm{0}{0}{distalReward}
-\abx@aux@cite{0}{conditioningWiki}
-\abx@aux@segm{0}{0}{conditioningWiki}
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}Uvod}{1}{chapter.1}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -56,8 +43,6 @@
 \abx@aux@segm{0}{0}{distalReward}
 \abx@aux@cite{0}{actorCritic}
 \abx@aux@segm{0}{0}{actorCritic}
-\abx@aux@cite{0}{vozicekSPalico}
-\abx@aux@segm{0}{0}{vozicekSPalico}
 \@writefile{toc}{\contentsline {chapter}{\numberline {3}Metodologija in uporabljena orodja}{5}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -65,44 +50,78 @@
 \@writefile{toc}{\contentsline {chapter}{\numberline {4}Modeliranje nevronov in sinaps}{7}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:neuron_sinapse_modelling}{{4}{7}{Modeliranje nevronov in sinaps}{chapter.4}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Simulacija in vizualizacija impulznih nevronskih mrež}{9}{chapter.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Nevronski model}{7}{section.4.1}\protected@file@percent }
+\abx@aux@cite{0}{expModel}
+\abx@aux@segm{0}{0}{expModel}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Model z alfa jedrom}{9}{subsection.4.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Model z eksponentnim jedrom}{10}{subsection.4.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Postsinaptični tok modela z alfa in eksponentim jedrom}}{11}{figure.4.1}\protected@file@percent }
+\newlabel{pic1}{{4.1}{11}{Postsinaptični tok modela z alfa in eksponentim jedrom}{figure.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}Izbira modela nevrona}{11}{subsection.4.1.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Parametri simulacije uporabljeni pri primerjavi modelov nevronov.}}{12}{table.4.1}\protected@file@percent }
+\newlabel{tab:simulation_parameters_si}{{4.1}{12}{Parametri simulacije uporabljeni pri primerjavi modelov nevronov}{table.4.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Povzetek statistike medimpulznih intervalov nevronov z alfa in exponentnim jedrom. Povprečje in standardni odklon sta izračunana na vseh postsinaptičnih nevronih.}}{12}{table.4.2}\protected@file@percent }
+\newlabel{tab:isi_summary}{{4.2}{12}{Povzetek statistike medimpulznih intervalov nevronov z alfa in exponentnim jedrom. Povprečje in standardni odklon sta izračunana na vseh postsinaptičnih nevronih}{table.4.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}STDP Sinaptični model}{13}{section.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Spodbujevano učenje na impulznih nevronskih mrežah}{15}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:simulation_visualization}{{5}{9}{Simulacija in vizualizacija impulznih nevronskih mrež}{chapter.5}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Spodbujevano učenje na impulznih nevronskih mrežah}{11}{chapter.6}\protected@file@percent }
+\newlabel{sec:reinforcement_learning}{{5}{15}{Spodbujevano učenje na impulznih nevronskih mrežah}{chapter.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}R-STDP učenje}{16}{section.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces  Primer učenja na preprosti nalogi s tremi stanji. Prehod v vsako stanje je nakjučno, v vsakem stanju pa je samo ena izbira akcije nagrajena. V stanju 0 (input neuron 0) je pravilna akcija 0 (motor neuron 0), v stanju 1 akcija 1, v stanju 2 akcija 2. Razvidna je prevlada pravilnih sinaps in višanje divergence v sinapsah skozi čas ter višanje povprečne nagrade tekom učenja. V simulaciji uporabljamo privzete NEST parametre za nevrone tipa \textit  {iaf\_psc\_exp} ter zakasnjene dopaminsko modulirane sinapse s parametri $W_{\min } = 500$, $W_{\max } = 2000$, $\tau _c = 5\,\mathrm  {ms}$, $\tau _{c,\mathrm  {delay}} = 200\,\mathrm  {ms}$, $\tau _n = 10\,\mathrm  {ms}$, $\tau _+ = \tau _- = 20\,\mathrm  {ms}$, $b = 0.1$, $A_+ = 0.7$, $A_- = 0.3$ ter sinaptično zakasnitev $0.5\,\mathrm  {ms}$, poissonski šum z $\lambda = 1000$ in utežjo sinaps $w_{\text  {poisson}} = 100$. Sinapse med vhodnimi in izhodnimi nevroni so inicializirane na $w_{\text  {motor}} \sim \mathcal  {N}(1300, 1)$.}}{18}{figure.5.1}\protected@file@percent }
+\newlabel{pic2}{{5.1}{18}{Primer učenja na preprosti nalogi s tremi stanji. Prehod v vsako stanje je nakjučno, v vsakem stanju pa je samo ena izbira akcije nagrajena. V stanju 0 (input neuron 0) je pravilna akcija 0 (motor neuron 0), v stanju 1 akcija 1, v stanju 2 akcija 2. Razvidna je prevlada pravilnih sinaps in višanje divergence v sinapsah skozi čas ter višanje povprečne nagrade tekom učenja. V simulaciji uporabljamo privzete NEST parametre za nevrone tipa \textit {iaf\_psc\_exp} ter zakasnjene dopaminsko modulirane sinapse s parametri $W_{\min } = 500$, $W_{\max } = 2000$, $\tau _c = 5\,\mathrm {ms}$, $\tau _{c,\mathrm {delay}} = 200\,\mathrm {ms}$, $\tau _n = 10\,\mathrm {ms}$, $\tau _+ = \tau _- = 20\,\mathrm {ms}$, $b = 0.1$, $A_+ = 0.7$, $A_- = 0.3$ ter sinaptično zakasnitev $0.5\,\mathrm {ms}$, poissonski šum z $\lambda = 1000$ in utežjo sinaps $w_{\text {poisson}} = 100$. Sinapse med vhodnimi in izhodnimi nevroni so inicializirane na $w_{\text {motor}} \sim \mathcal {N}(1300, 1)$}{figure.5.1}{}}
+\abx@aux@cite{0}{pilotStudy}
+\abx@aux@segm{0}{0}{pilotStudy}
+\abx@aux@cite{0}{pilotStudy}
+\abx@aux@segm{0}{0}{pilotStudy}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Igra Pong}{19}{subsection.5.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Grafična predstavitev agenta in okolja \blx@tocontentsinit {0}\cite {pilotStudy}}}{20}{figure.5.2}\protected@file@percent }
+\newlabel{pic5}{{5.2}{20}{Grafična predstavitev agenta in okolja \cite {pilotStudy}}{figure.5.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Graf povezav med vhodnim nevronom, ki predstavlja $y=5$ pozicijo in 20 izhodnimi nevroni, kjer tekom učenja prevladuje motorični nevron 5. Motorična nevrona 4 in 6 pa sta druga po vrsti. Za simulacijo smo uporabili enake parametre kot pri sliki 4 }}{20}{figure.5.3}\protected@file@percent }
+\newlabel{pic6}{{5.3}{20}{Graf povezav med vhodnim nevronom, ki predstavlja $y=5$ pozicijo in 20 izhodnimi nevroni, kjer tekom učenja prevladuje motorični nevron 5. Motorična nevrona 4 in 6 pa sta druga po vrsti. Za simulacijo smo uporabili enake parametre kot pri sliki 4}{figure.5.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Rezultati}{21}{section*.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces Povprečna nagrada $\bar  {R}_i$ tekom 2000 iteracij po 200ms}}{21}{figure.5.4}\protected@file@percent }
+\newlabel{pic7}{{5.4}{21}{Povprečna nagrada $\bar {R}_i$ tekom 2000 iteracij po 200ms}{figure.5.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Prikaz politike po 500 iteracijah po 200ms. Končno stanje je obarvano z zeleno.}}{22}{figure.5.5}\protected@file@percent }
+\newlabel{pic8}{{5.5}{22}{Prikaz politike po 500 iteracijah po 200ms. Končno stanje je obarvano z zeleno}{figure.5.5}{}}
+\abx@aux@cite{0}{actorCritic}
+\abx@aux@segm{0}{0}{actorCritic}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}TD učenje in model actor-critic}{23}{section.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Model actor-critic}{23}{subsection.5.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces Direktna in indirektna pot v basalnih ganglijih}}{25}{figure.5.6}\protected@file@percent }
+\newlabel{pic8}{{5.6}{25}{Direktna in indirektna pot v basalnih ganglijih}{figure.5.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces Prikaz implementiranega aktor-kritik sistema}}{27}{figure.5.7}\protected@file@percent }
+\newlabel{pic8}{{5.7}{27}{Prikaz implementiranega aktor-kritik sistema}{figure.5.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Izbira parametrov}{28}{subsection.5.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Parametri simulacije}}{28}{table.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces Parametri nevronov}}{29}{table.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces Parametri sinaps med vhodnimi in motoričnimi nevroni}}{30}{table.5.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.4}{\ignorespaces Parametri sinaps med vhodom in striatumom}}{31}{table.5.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.5}{\ignorespaces Parametri sinaps kritika}}{32}{table.5.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.6}{\ignorespaces Parametri generatorjev šuma}}{32}{table.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Učenje}{33}{subsection.5.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces Prikaz obnašanja sistema ob prehodu iz stanja 0 v nagrajeno stanje 5 in nazaj v stanje 0. Pričakovana nagrada in tako tudi vrednost stanja 0 se ob prehodu v stanje 5 zviša preko povezav do striatuma. Ob prehodu iz nagrajenega stanja (ki pa samega sebe še ne ocenjuje z visoko vrednostjo) nazaj v stanje 0 preidemo iz stanja z osnovnimi utežmi v stanje 0 z okrepljenimi utežmi do striatuma, torej prehod v stanje z višjo vrednostjo. Posledica tega je, napram osnovni frekvenci dopaminergičnih nevronov, povišana dopaminergična aktivnost, ki povzroči aktivnosti sorazmerno povišanje uteži sinaps stanja 5 do striatuma. Ob prehodu iz stanja 0 v stanje 0 se vrnemo k osnovni dopaminergični frekvenci.}}{33}{figure.5.8}\protected@file@percent }
+\newlabel{pic8}{{5.8}{33}{Prikaz obnašanja sistema ob prehodu iz stanja 0 v nagrajeno stanje 5 in nazaj v stanje 0. Pričakovana nagrada in tako tudi vrednost stanja 0 se ob prehodu v stanje 5 zviša preko povezav do striatuma. Ob prehodu iz nagrajenega stanja (ki pa samega sebe še ne ocenjuje z visoko vrednostjo) nazaj v stanje 0 preidemo iz stanja z osnovnimi utežmi v stanje 0 z okrepljenimi utežmi do striatuma, torej prehod v stanje z višjo vrednostjo. Posledica tega je, napram osnovni frekvenci dopaminergičnih nevronov, povišana dopaminergična aktivnost, ki povzroči aktivnosti sorazmerno povišanje uteži sinaps stanja 5 do striatuma. Ob prehodu iz stanja 0 v stanje 0 se vrnemo k osnovni dopaminergični frekvenci}{figure.5.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces Obnašanje sistema tekom učenja na 3x3 mreži. Polja so oštevilčena od leve proti desni od zgoraj navzdol. Cilj se nahaja na polju 8. Povezave vhoda do striatuma stanj 5 in 7 so pričakovano najvišje, sledi pa jim 4, ki neposredno vodi v 5 in 7}}{34}{figure.5.9}\protected@file@percent }
+\newlabel{pic8}{{5.9}{34}{Obnašanje sistema tekom učenja na 3x3 mreži. Polja so oštevilčena od leve proti desni od zgoraj navzdol. Cilj se nahaja na polju 8. Povezave vhoda do striatuma stanj 5 in 7 so pričakovano najvišje, sledi pa jim 4, ki neposredno vodi v 5 in 7}{figure.5.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.4}Rezultati}{35}{subsection.5.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.10}{\ignorespaces Rezultati učenja modela tekom 3000 iteracij po 200 ms.}}{35}{figure.5.10}\protected@file@percent }
+\newlabel{pic8}{{5.10}{35}{Rezultati učenja modela tekom 3000 iteracij po 200 ms}{figure.5.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.11}{\ignorespaces Povprečna utež preko sinaps med vsemi vhodnimi nevroni in striatumom tekom 1500 iteracij po 200 ms.}}{35}{figure.5.11}\protected@file@percent }
+\newlabel{pic8}{{5.11}{35}{Povprečna utež preko sinaps med vsemi vhodnimi nevroni in striatumom tekom 1500 iteracij po 200 ms}{figure.5.11}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Interpretacija rezultatov}{36}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Razširitve modela}{37}{section.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Izognitveno obnašanje}{37}{subsection.5.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.12}{\ignorespaces Pričakovana politika ob kritiku negativnih stanj (brez kritika nagrajenih stanj)}}{38}{figure.5.12}\protected@file@percent }
+\newlabel{pic8}{{5.12}{38}{Pričakovana politika ob kritiku negativnih stanj (brez kritika nagrajenih stanj)}{figure.5.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Rekurenčne povezave}{38}{subsection.5.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Diskusija in zaključek}{41}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:reinforcement_learning}{{6}{11}{Spodbujevano učenje na impulznih nevronskih mrežah}{chapter.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Sinaptična plastičnost odvisna od nagrajevanja in časovne razporeditve impulzov}{11}{section.6.1}\protected@file@percent }
-\newlabel{sec:rstdp}{{6.1}{11}{Sinaptična plastičnost odvisna od nagrajevanja in časovne razporeditve impulzov}{section.6.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Problem oddaljene nagrade}{12}{section.6.2}\protected@file@percent }
-\newlabel{sec:distal_reward}{{6.2}{12}{Problem oddaljene nagrade}{section.6.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Pripisovanje odgovornosti}{12}{section.6.3}\protected@file@percent }
-\newlabel{sec:credit_assignment}{{6.3}{12}{Pripisovanje odgovornosti}{section.6.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.4}TD (angl. \textit  {Temporal Difference}) učenje}{12}{section.6.4}\protected@file@percent }
-\newlabel{sec:td}{{6.4}{12}{TD (angl. \textit {Temporal Difference}) učenje}{section.6.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.1}Model Actor-Critic}{12}{subsection.6.4.1}\protected@file@percent }
-\newlabel{sec:actor_critic}{{6.4.1}{12}{Model Actor-Critic}{subsection.6.4.1}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Nevronska vezja}{15}{chapter.7}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:neural_circuits}{{7}{15}{Nevronska vezja}{chapter.7}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {8}Igranje igre Pong}{17}{chapter.8}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:pong}{{8}{17}{Igranje igre Pong}{chapter.8}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {9}Rezultati}{19}{chapter.9}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:results}{{9}{19}{Rezultati}{chapter.9}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {10}Zaključek}{21}{chapter.10}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:conclusion}{{10}{21}{Zaključek}{chapter.10}{}}
-\@writefile{toc}{\contentsline {chapter}{Članki v revijah}{23}{chapter*.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{Celotna literatura}{25}{chapter*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Članki v revijah}{43}{chapter*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Celotna literatura}{45}{chapter*.9}\protected@file@percent }
 \abx@aux@read@bbl@mdfivesum{1F38BDA1F6FB1653C5723C7182B3D90B}
+\abx@aux@read@bblrerun
 \abx@aux@defaultrefcontext{0}{robot}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{distalReward}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{actorCritic}{nty/global//global/global}
@@ -113,4 +132,4 @@
 \abx@aux@defaultrefcontext{0}{vozicekSPalico}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{shepherdDog}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{TDWiki}{nty/global//global/global}
-\gdef \@abspage@last{40}
+\gdef \@abspage@last{60}

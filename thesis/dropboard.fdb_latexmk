@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1762891799 "dropboard.tex" "dropboard.pdf" "dropboard" 1762891801 2
-  "../results/actorcritic/F2 - StateTransitionTD.png" 1761315488 149238 d82983eedc90c84779b254209ba6d978 ""
+["pdflatex"] 1762893346 "dropboard.tex" "dropboard.pdf" "dropboard" 1762893348 2
+  "../results/actorcritic/F2 - StateTransitionTD_annotated.png" 1762893251 253346 d56f10670f699d4bd26b5408f2c14a72 ""
   "../results/actorcritic/F3 - Learning.png" 1761566810 508370 c1666fe506d620b915645a7666a45b39 ""
   "../results/actorcritic/progress.png" 1762886329 57806 89fead3ce4af2f00a10b68d02b8f9e1a ""
   "../results/best.png" 1762804019 8367 94a141fb55f79394d3bce1b78a9f4e69 ""
@@ -147,9 +147,9 @@
   "/home/matjaz/latex/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1702502324 4714745 7e7c3585ad432969c4c3a938148c45a6 ""
   "/home/matjaz/latex/texmf-var/web2c/pdftex/pdflatex.fmt" 1702502373 8217941 47211959369e07101e9d96e51b3330d9 ""
   "/home/matjaz/latex/texmf.cnf" 1702502318 496 01ab80fa0036a81d2df86fb0ac70c709 ""
-  "dropboard.aux" 1762891801 11202 4a50e5eb6c4496f70e76a196ff5a7765 "pdflatex"
-  "dropboard.out" 1762891801 1315 79e95f3fd67b84b55706c481422ceb85 "pdflatex"
-  "dropboard.tex" 1762891797 45162 4dc2e7fd8f167bc5c1c572730995ac01 ""
+  "dropboard.aux" 1762893348 11202 4a50e5eb6c4496f70e76a196ff5a7765 "pdflatex"
+  "dropboard.out" 1762893348 1315 79e95f3fd67b84b55706c481422ceb85 "pdflatex"
+  "dropboard.tex" 1762893344 45286 af6fb8e9839bdc0bb1e47084ba8c9d7a ""
   (generated)
   "dropboard.aux"
   "dropboard.log"

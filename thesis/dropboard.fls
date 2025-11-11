@@ -267,10 +267,10 @@ INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
 INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
-INPUT ../results/actorcritic/F2 - StateTransitionTD.png
-INPUT ../results/actorcritic/F2 - StateTransitionTD.png
-INPUT ../results/actorcritic/F2 - StateTransitionTD.png
-INPUT ../results/actorcritic/F2 - StateTransitionTD.png
+INPUT ../results/actorcritic/F2 - StateTransitionTD_annotated.png
+INPUT ../results/actorcritic/F2 - StateTransitionTD_annotated.png
+INPUT ../results/actorcritic/F2 - StateTransitionTD_annotated.png
+INPUT ../results/actorcritic/F2 - StateTransitionTD_annotated.png
 INPUT ../results/actorcritic/F3 - Learning.png
 INPUT ../results/actorcritic/F3 - Learning.png
 INPUT ../results/actorcritic/F3 - Learning.png

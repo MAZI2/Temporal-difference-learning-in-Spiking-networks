@@ -1,15 +1,15 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'diploma-FRI-vzorec.blg'
-[80] biber:340> INFO - === Sun Jun 22, 2025, 12:48:33
-[94] Biber.pm:419> INFO - Reading 'diploma-FRI-vzorec.bcf'
-[162] Biber.pm:979> INFO - Found 10 citekeys in bib section 0
-[175] Biber.pm:4419> INFO - Processing section 0
-[185] Biber.pm:4610> INFO - Looking for bibtex file 'literatura.bib' for section 0
-[186] bibtex.pm:1713> INFO - LaTeX decoding ...
-[194] bibtex.pm:1519> INFO - Found BibTeX data source 'literatura.bib'
-[257] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[257] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[257] Biber.pm:4239> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[257] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
-[268] bbl.pm:660> INFO - Writing 'diploma-FRI-vzorec.bbl' with encoding 'UTF-8'
-[271] bbl.pm:763> INFO - Output to diploma-FRI-vzorec.bbl
+[68] biber:340> INFO - === Tue Nov 11, 2025, 21:45:46
+[81] Biber.pm:419> INFO - Reading 'diploma-FRI-vzorec.bcf'
+[149] Biber.pm:979> INFO - Found 10 citekeys in bib section 0
+[162] Biber.pm:4419> INFO - Processing section 0
+[172] Biber.pm:4610> INFO - Looking for bibtex file 'literatura.bib' for section 0
+[173] bibtex.pm:1713> INFO - LaTeX decoding ...
+[182] bibtex.pm:1519> INFO - Found BibTeX data source 'literatura.bib'
+[250] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[250] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[250] Biber.pm:4239> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[250] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[262] bbl.pm:660> INFO - Writing 'diploma-FRI-vzorec.bbl' with encoding 'UTF-8'
+[265] bbl.pm:763> INFO - Output to diploma-FRI-vzorec.bbl
