@@ -26,5 +26,4 @@
 \contentsline {subsubsection}{Interpretacija rezultatov}{38}{section*.7}%
 \contentsline {chapter}{\numberline {5}Implementacija in uporabljena orodja}{39}{chapter.5}%
 \contentsline {chapter}{\numberline {6}Diskusija in zaključek}{41}{chapter.6}%
-\contentsline {chapter}{Članki v revijah}{43}{chapter*.8}%
-\contentsline {chapter}{Celotna literatura}{45}{chapter*.9}%
+\contentsline {chapter}{Viri}{43}{chapter*.8}%

@@ -46,7 +46,7 @@
 
 \usepackage[
 backend=biber,
-style=numeric,
+style=authoryear,
 sorting=nty,
 ]{biblatex}
 
@@ -62,8 +62,8 @@ sorting=nty,
 \newcommand{\tsubject}{\ttitle}
 \newcommand{\tsubjectEn}{\ttitleEn}
 \newcommand{\tauthor}{Matjaž Pogačnik}
-\newcommand{\tkeywords}{računalnik, računalnik, računalnik}
-\newcommand{\tkeywordsEn}{computer, computer, computer}
+\newcommand{\tkeywords}{impulzne nevronske mreže, spodbujevano učenje, R-STDP učenje, TD učenje}
+\newcommand{\tkeywordsEn}{spiking neural networks, reinforcement learning, R-STDP learning, TD learning}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	HYPERREF SETUP
@@ -283,16 +283,24 @@ Besedilo je oblikovano z urejevalnikom besedil \LaTeX.}
 
 \bigskip
 \noindent\textbf{Opis:}\\
+\colorbox{Apricot}{%
+  \parbox{0.9\linewidth}{%
 Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega sistema, kamor ga je vnesel mentor. 
 V nekaj stavkih bo opisal, kaj pričakuje od kandidatovega diplomskega dela. 
 Kaj so cilji, kakšne metode naj uporabi, morda bo zapisal tudi ključno literaturo.
+  }%
+}
 
 \bigskip
 \noindent\textbf{Title:} Reinforcement learning on spiking neural networks
 
 \bigskip
 \noindent\textbf{Description:}\\
+\colorbox{Apricot}{%
+  \parbox{0.9\linewidth}{%
 opis diplome v angleščini
+    }
+}
 
 \vfill
 
@@ -303,7 +311,9 @@ opis diplome v angleščini
 % prazna stran
 \clearemptydoublepage
 
+% TODO: zahvala
 % zahvala
+\iffalse
 \thispagestyle{empty}\mbox{}\vfill\null\it%
 \noindent
 Na tem mestu zapišite, komu se zahvaljujete za pomoč pri izdelavi diplomske naloge oziroma pri vašem študiju nasploh. Pazite, da ne boste koga pozabili. Utegnil vam bo zameriti. Temu se da izogniti tako, da celotno zahvalo izpustite.
@@ -311,6 +321,7 @@ Na tem mestu zapišite, komu se zahvaljujete za pomoč pri izdelavi diplomske na
 
 % prazna stran
 \clearemptydoublepage
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % posvetilo, če sama zahvala ne zadošča :-)
@@ -361,9 +372,10 @@ Na tem mestu zapišite, komu se zahvaljujete za pomoč pri izdelavi diplomske na
 \bigskip
 
 %\noindent\textbf{Povzetek:} 
-\noindent V vzorcu je predstavljen postopek priprave diplomskega dela z uporabo okolja \LaTeX. Vaš povzetek mora sicer vsebovati približno 100 besed, ta tukaj je odločno prekratek.
-Dober povzetek vključuje: (1) kratek opis obravnavanega problema, (2) kratek opis vašega pristopa za reševanje tega problema in (3) (najbolj uspešen) rezultat ali prispevek diplomske naloge.
-
+\noindent 
+%V vzorcu je predstavljen postopek priprave diplomskega dela z uporabo okolja \LaTeX. Vaš povzetek mora sicer vsebovati približno 100 besed, ta tukaj je odločno prekratek.
+%Dober povzetek vključuje: (1) kratek opis obravnavanega problema, (2) kratek opis vašega pristopa za reševanje tega problema in (3) (najbolj uspešen) rezultat ali prispevek diplomske naloge.
+V tem diplomskem delu obravnavamo spodbujevalno učenje na impulznih nevronskih mrežah, tipu nevronskih mrež, ki se obnašajo podobno kot človeški možgani. Ker tu ne moremo uporabiti klasičnih algoritmov spodbujevalnega učenja, postopoma razvijemo kompleksen sistem, navdihnjen z dopaminergičnimi mehanizmi v človeških možganih, ki omogoča učenje na podlagi časovne razlike. Pri tem postopoma rešujemo izzive pri učenju impulznih nevronskih mrež in na koncu uspešno rešimo problem tako s takojšnjo kot z oddaljeno nagrado.
 \bigskip
 
 \noindent\textbf{Ključne besede:} \tkeywords.
@@ -383,8 +395,9 @@ Dober povzetek vključuje: (1) kratek opis obravnavanega problema, (2) kratek op
 \bigskip
 
 %\noindent\textbf{Abstract:} 
-\noindent This sample document presents an approach to typesetting your BSc thesis using \LaTeX. 
-A proper abstract should contain around 100 words which makes this one way too short.
+\noindent %This sample document presents an approach to typesetting your BSc thesis using \LaTeX. 
+%A proper abstract should contain around 100 words which makes this one way too short.
+In this diploma thesis, we explore reinforcement learning in spiking neural networks, a type of neural network that resembles the human brain. As classic reinforcement learning algorithms cannot be directly applied to spiking neural networks, we gradually develop a complex system inspired by dopaminergic mechanisms in the human brain, which implements a form of temporal difference learning. During the development of the final system, we propose solutions to various problems associated with reinforcement learning in spiking neural networks and ultimately solve a problem involving both immediate and delayed rewards.
 \bigskip
 
 \noindent\textbf{Keywords:} \tkeywordsEn.
@@ -401,38 +414,31 @@ A proper abstract should contain around 100 words which makes this one way too s
 \label{intro}
 \section{Motivacija}
 \label{sec:motive}
-Impulzne nevronske mreže so v veliki večini implementacij poskus modeliranja bioloških značilnosti nevronov in sinaps v možganih. Kot izjemno močan računski stroj, so možgani navdih za mnoge moderne koncepte v umetni inteligenci. Najbolj očiten tak primer so nevronske mreže, vendar se po mehaniznih prisotnih v možganih lahko zgledujemo tudi pri metodah spodbujevanega učenja. %TODO: all subsubsections?
+Impulzne nevronske mreže so v večini implementacij poskus modeliranja bioloških značilnosti nevronov in sinaps v možganih. Kot izjemno močan računski stroj, so možgani navdih za številne sodobne koncepte v umetni inteligenci. Najbolj očiten primer so nevronske mreže, vendar se po mehanizmih, prisotnih v možganih, lahko zgledujemo tudi pri metodah spodbujevanega učenja. %TODO: all subsubsections?
 
-Delovanje možganov je kljub mnogim raziskavam še vedno precej slabo razumljeno, njihovo računalniško modeliranje pa je v času pisanja še precej mlado področje.
-Odkrivanje kakršnihkoli mehanizmov in vzorcev, ki se pojavijo med delovanjem in učenjem impulznih nevronskih mrež ter uporaba teh pri modeliranju mehanizmov, za katere vemo, da so prisotni v možganih, predstavlja velik doprinos tako k področju računske nevroznanosti kot tudi psihoanalizi in drugim sorodnim področjem. V neposredni povezavi s psihoanalizo, raziskovanje impulznih nevronskih mrež predstavlja raziskovanje temeljnih vprašanj o človeškem dojemanju in delovanju možganov nasploh.
+Delovanje možganov je kljub številnim raziskavam še vedno precej slabo razumljeno, njihovo računalniško modeliranje pa je v času pisanja še razmeroma mlado področje.
+Odkrivanje mehanizmov in vzorcev, ki se pojavijo med delovanjem in učenjem impulznih nevronskih mrež, ter uporaba teh pri modeliranju mehanizmov, za katere vemo, da so prisotni v možganih, predstavlja velik doprinos tako k področju računske nevroznanosti kot tudi psihoanalizi in sorodnim področjem. V neposredni povezavi s psihoanalizo raziskovanje impulznih nevronskih mrež predstavlja raziskovanje temeljnih vprašanj o človeškem dojemanju in delovanju možganov nasploh.
 
 \section{Cilji}
-V tej diplomski nalogi razvijemo kompleksnega agenta, ki je zmožen reševanja tako instantnih kot zakasnjenih nagrad in temelji izključno na impulznih nevronskih mrežah in spodbujevanem učenju. V prvi fazi so predstavljeni in ovrednoteni različni modeli bioloških značilnosti nevronov in sinaps \ref{sec:neuron_sinapse_modelling}. V nadaljevanju se posvetimo spodbujevanem učenju. V prvi fazi razvijemo agenta, ki uporablja model sinaptične plastičnost odvisne od nagrajevanja in časovne razporeditvre impulzov (angl. R-STDP, primer Izhikevich EM \cite{distalReward}) in se je sposoben naučiti igranja igre \href{https://en.wikipedia.org/wiki/Pong}{Pong}. % \ref{sec:pong}.
+V tej diplomski nalogi razvijemo kompleksnega agenta, ki je zmožen reševati probleme tako s takojšnjimi kot zakasnjenimi nagradami in temelji izključno na impulznih nevronskih mrežah in spodbujevanem učenju. V poglavju \ref{neuron_synapse_modelling} so predstavljeni in ovrednoteni različni modeli bioloških značilnosti nevronov in sinaps. Nato se posvetimo spodbujevanemu učenju, kjer v poglavju 
+\ref{sec:rstdp} razvijemo agenta, ki uporablja model sinaptične plastičnosti, odvisne od nagrajevanja in časovne razporeditve impulzov (angl. R-STDP, primer \cite{distalReward}), in se je sposoben naučiti igranja igre \href{https://en.wikipedia.org/wiki/Pong}{Pong}.
 %TODO: \cite{conditioningWiki} \ref{sec:reinforcement_learning}. 
-Tak agent ni sposoben učenja nalog, ki imajo zakasnjene nagrade zato v nadaljevanju uporabimo TD učenje. Za ta namen modeliramo nevronska vezja in določene mehanizme iz človeškega dopaminskega sistema \ref{sec:neural_circuits}. S pomočjo TD modela akter-kritik se naučimo poti do zakasnjene nagrade pri nalogi, kjer se premikamo po mreži. 
+Tak agent ni sposoben učenja nalog z zakasnjenimi nagradami, zato v poglavju \ref{sec:td_learning} uporabimo TD učenje. Za ta namen modeliramo nevronska vezja in določene mehanizme iz človeškega dopaminskega sistema. S pomočjo TD modela akter-kritik se naučimo poti do zakasnjene nagrade pri nalogi, kjer se premikamo po mreži. 
 
 \chapter{Pregled področja in sorodnih del}
-Na temo impulznih nevronskih mrež v Sloveniji v času pisanja še ni bila napisana nobena diplomska ali magistrska naloga, doktorska dizertacija ali znanstveni članek, kar je dodatna motivacija za pisanje diplomske naloge na to temo. Impulzne nevronske mreže zaradi zahtevnosti učenja (v času pisanja) niso kaj dosti uporabljene, čedalje bolj uprabna metoda v umetni inteligenci pa je spodbujevano učenje, ki je tudi prevladujoča in biološko podprta metoda za učenje impulznih nevronskih mrež.
+Na temo impulznih nevronskih mrež v Sloveniji do časa pisanja še ni bila napisana nobena diplomska ali magistrska naloga, doktorska disertacija ali znanstveni članek, kar dodatno motivira pisanje diplomske naloge na to temo. Impulzne nevronske mreže zaradi zahtevnosti učenja (v času pisanja) niso pogosto uporabljene, vse bolj uporabna metoda v umetni inteligenci pa je spodbujevano učenje, ki je tudi prevladujoča in biološko podprta metoda za učenje impulznih nevronskih mrež.
 
-Na temo spobujevanega učenja je na voljo več slovenskih znanstvenih del. Pri spodbujevanem učenju predstavimo svoj sistem kot agenta, ki izvaja aktivnosti nad okoljem, ki mu kot odziv vrača nagrado in novo stanje okolja. Med drugim je uporabno v problemih kot so navigacija in reševanje problemov z roboti, na temo česar je bil objavljen članek pod avtorstvom prof. dr. Danijela Skočaja, rednega profesorja na FRI in dr. Mateja Dobrevskega \cite{robot} .
-Objavljenih je tudi več diplomskih in magistrskih nalog bolj simuliranih problemov, kot so uporaba spodbujevanega učenja za simulacijo psa ovčarja Štromajer T \cite{shepherdDog}, reševanje problemov sorodnih problemu vozička s palico Svete A \cite{vozicekSPalico}, igranje iger Šutar M \cite{predvidevanjeAkcij} in uporaba TD \cite{TDWiki} (angl. Temporal Difference) učenja v Monte Carlo preiskovanju dreves Deleva A \cite{TDlearning}. V vseh navedenih primerih se zgledujemo po raznolikem procesiranju podatkov iz zunanjega okolja, kjer je v robotiki in podatkih iz resničnega sveta prisoten tudi šum, ki je tako potrebna, kot tudi težavna komponenta pri učenju impulznih nevronskih mrež.
+Na temo spobujevanega učenja je na voljo več slovenskih znanstvenih del. Pri spodbujevanem učenju predstavimo svoj sistem kot agenta, ki izvaja aktivnosti nad okoljem, to pa mu kot odziv vrača nagrado in novo stanje okolja. Med drugim je uporabno pri problemih, kot so navigacija in reševanje problemov z roboti, na kar se nanaša članek pod avtorstvom prof. dr. Danijela Skočaja, rednega profesorja na FRI, in dr. Mateja Dobrevskega (\cite{robot}).
+Objavljenih je tudi več diplomskih in magistrskih nalog o simuliranih problemih, kot so uporaba spodbujevanega učenja za simulacijo psa ovčarja \cite{shepherdDog}, reševanje problemov sorodnih problemu vozička s palico (\cite{vozicekSPalico}), igranje iger (\cite{predvidevanjeAkcij}) in uporaba TD (angl. \href{https://en.wikipedia.org/wiki/Temporal_difference_learning}{Temporal Difference}) učenja v Monte Carlo preiskovanju dreves (\cite{TDlearning}). V vseh navedenih primerih se zgledujemo po raznolikem procesiranju podatkov iz zunanjega okolja, kjer je v robotiki in podatkih iz resničnega sveta prisoten tudi šum, ki je tako potrebna kot tudi težavna komponenta pri učenju impulznih nevronskih mrež.
 
-Pri spodbujevanem učenju, sploh v resničnem svetu, imajo impulzne nevronske mreže lahko določene prednosti. Impulzne nevronske mreže namreč naravno upoštevajo časovno komopnento in procesirajo sekvenčne podatkovne tokove. Ker so dogodki v teh mrežah v osnovi samo propagiranje impulzov sosednjim nevronom v naslednjem časovnem intervalu, je računanje lahko učinkovito in preprosto. Zaradi tega se pojavljajo tudi trdo-ožičene implementacije impulznih nevronskih mrež. V delu Wunderlich T, et al. \cite{pilotStudy} je raziskana uporaba TD učenja na trdo-ožičeni impulzni nevronski mreži, kjer je končna naloga igranje igre Pong. Tudi v tej diplomski nalogi bo končna naloga enaka, vendar bodo za to uporabljeni računalniški in ne trdo-ožičeni modeli ter naprednejši učni algoritmi osnovani na spodbujevanem učenju.
+Pri spodbujevanem učenju, zlasti v resničnem svetu, imajo impulzne nevronske mreže lahko določene prednosti. Impulzne nevronske mreže namreč naravno upoštevajo časovno komponento in procesirajo sekvenčne podatkovne tokove. Ker so dogodki v teh mrežah v osnovi le propagiranje impulzov sosednjim nevronom v naslednjem časovnem intervalu, je računanje lahko učinkovito in preprosto. Zaradi tega se pojavljajo tudi trdo-ožičene implementacije impulznih nevronskih mrež. V delu \cite{pilotStudy} je raziskana uporaba TD učenja na trdo-ožičeni impulzni nevronski mreži, kjer je končna naloga igranje igre Pong. Tudi v tej diplomski nalogi bo končna naloga enaka, vendar bodo uporabljeni računalniški in ne trdo-ožičeni modeli ter naprednejši učni algoritmi osnovani na spodbujevanem učenju.
 
-V tej diplomski nalogi je poudarek na simulacijah in snovanju algoritmov za spodbujevano učenje na impulznih nevronskih mrežah ter modeliranju različnih bioloških procesov in možganskih nevronskih vezij. Pri tem je dober zgled delo Izikhevich EM \cite{distalReward}, ki poleg modela nevronov in sinaps vpeljuje še način pripisovanja odgovornosti sinapsam za določeno aktivnst nevronske mreže. V postopku nadrgadnje algoritmov učenje poteka tudi na osnovi TD učenja in njegovi biološko bolj neposredni implementaciji Actor-Critic, Wiebke P, et al. \cite{actorCritic}. V tem postopku implementiramo dejansko nevronsko vezje odgovorno za nagrajevanje, kot je bilo to raziskano v človeških možganih.
+V tej diplomski nalogi je poudarek na simulacijah in snovanju algoritmov za spodbujevano učenje na impulznih nevronskih mrežah ter modeliranju različnih bioloških procesov in možganskih nevronskih vezij. Pri tem je dober zgled delo \cite{distalReward}, ki poleg modela nevronov in sinaps vpeljuje še način pripisovanja odgovornosti sinapsam za določeno aktivnost nevronske mreže. V postopku nadgradnje algoritmov učenje poteka tudi na osnovi TD učenja in njegove biološko bolj neposredne implementacije akter-kritik (\cite{actorCritic}). V tem postopku implementiramo dejansko nevronsko vezje odgovorno za nagrajevanje, kot je bilo to raziskano v človeških možganih.
 
 
 \chapter{Modeliranje nevronov in sinaps}
-\iffalse TODO: poglej ce bos se kaj dodal
-\label{sec:neuron_sinapse_modelling}
-\begin{enumerate}
-    \item Predstavitev različnih pristopov in pravil (Hebbian rule, Izhikhevich, Hodgkin-Hyxley etc.)
-    \item Predstavitev bioloških značilnosti nevronov in sinaps, ki bodo modelirane v nadaljevanju.
-    \fi
-
-    Impulzne nevronske mreže so definirane tako z modelom nevrona kot z modelom sinapse, ki nevrone povezujejo. Modelov je sicer veliko, v nadaljevanju pa bodo predstavljeni "integrate and fire" 
-    modeli nevronov z alpha (\textit{NEST: iaf\_psc\_alpha}) ali exponentno (\textit{NEST: iaf\_psc\_exp}) oblikovanimi postsinaptičnimi tokovi. Sinapse, ki so bile uporabljene v nalogi temeljijo v celoti na modelu odvisnem od nagrade in časovne razporeditve impulzov pre in postsinaptičnih nevronov (\textit{NEST: stdp\_dopamine\_synapse}), vendar v sistemih, ki jih razvijemo v nalogi uporabljamo prilagoditev te sinapse, ki ima sled odgovornosti (\textit{angl. eligibility trace}) zamaknjeno v času.
-
+\label{neuron_synapse_modelling}
+Impulzne nevronske mreže so definirane tako z modelom nevrona kot z modelom sinapse, ki nevrone povezujejo. Modelov je sicer veliko, v nadaljevanju pa bosta predstavljena in primerjana dva tipa "integrate and fire" modelov nevronov, glede na njuno uporabnost pri spodbujevanem učenju na impulznih nevronskih mrežah. Prav tako bo predstavljen model sinapse primeren za spodbujevano učenje in prilagojen model, ki bo uporabljen v sistemih razvitih v nadaljevanju. 
 \section{Nevronski model}
 
 Nevronski modeli, uporabljeni v tem delu, temeljijo na tokovno gnanih modelih uhajajočega integrirajočega nevrona, pri katerih se membranski potencial spreminja v skladu s pasivnimi električnimi lastnostmi enostavne celične membrane. Dinamika membrane izhaja iz ravnovesja med kapacitivnim nabojem in uhajanjem preko membranske prevodnosti. V simulacijah s simulatorjem NEST ta obnašanja opisujejo naslednji parametri:
@@ -487,6 +493,7 @@ I_{\text{syn, X}}(t) = \sum_j w_j \sum_k i_{\text{syn, X}}(t - t_j^k - d_j) ,
 
 kjer $j$ teče po ekscitatornih (X = ex) in inhibitornih (X = in) sinapsah z utežmi $w_j$ do presinaptičnih nevronov, $k$ teče po časih impulzov nevrona $j$, $d_j$ pa predstavlja zakasnitev sinapse do nevrona $j$. Postsinaptični tokovi $i_{\text{syn, X}}(t - t_j^k - d_j)$ nevrona $j$ so odvisni od jedra, ki ga uporablja model.
 
+%TODO: “z alpha (\textit{NEST: iaf\_psc\_alpha}) ali exponentno (\textit{NEST: iaf\_psc\_exp}) oblikovanimi postsinaptičnimi tokovi
 \subsection{Model z alfa jedrom}
 V simulatorju NEST je postsinaptični tok modela z alfa jedrom definiran kot
 
@@ -507,7 +514,7 @@ q = \int_0^{\infty} i_{\text{syn, X}}(t) dt = e \tau_{\text{syn, X}} .
 
 
 \subsection{Model z eksponentnim jedrom}
-V simulatorju NEST je model z eksponentim jedrom (iaf\_psc\_exp) definiran po sistemu diferencialnih enačb prvega reda, ki jih navaja Tsodyks et. al \cite{expModel}. Postsinaptični tok $y(t)$ se spreminja po sistemu
+V simulatorju NEST je model z eksponentim jedrom (iaf\_psc\_exp) definiran po sistemu diferencialnih enačb prvega reda, ki jih navaja \cite{expModel}. Postsinaptični tok $y(t)$ se spreminja po sistemu
 \begin{align}
     \frac{dx}{dt}&=\frac{z}{\tau_{rec}}-ux\delta({t-t_{sp}}) \\
     \frac{dy}{dt}&=-\frac{y}{\tau_I}+ux\delta({t-t_{sp}}) \\
@@ -594,6 +601,8 @@ Alfa       & \(7.800 \pm 0.023\) & \(\mathbf{0.270 \pm 0.006} \) \\
 \end{table}
 
 \section{STDP Sinaptični model}
+Sinapse, ki so bile uporabljene v nalogi temeljijo v celoti na modelu odvisnem od nagrade in časovne razporeditve impulzov pre in postsinaptičnih nevronov (\textit{NEST: stdp\_dopamine\_synapse}), vendar v sistemih, ki jih razvijemo v nalogi uporabljamo prilagoditev te sinapse, ki ima sled odgovornosti (\textit{angl. eligibility trace}) zamaknjeno v času.
+
 V sistemih, ki bodo implementirani v tej nalogi bomo uporabljali prilagojeno sinapso s plastičnostjo odvisno od nagrade in časovne razporeditve impulzov (\textit{angl. R-STDP synapse}).
 STDP prilagaja sinaptične uteži glede na relativni čas impulzov pre- in postsinaptičnih nevronov. V svoji klasični obliki STDP uresničuje Hebbov %TODO: link
 princip:
@@ -666,8 +675,6 @@ Celotno \textit{eligibility} sled bomo tako premaknili za $\tau_{c, \text{delay}
 \end{figure}
 
 
-\end{enumerate}
-
 \chapter{Spodbujevano učenje na impulznih nevronskih mrežah}
 \label{sec:reinforcement_learning}
 \colorbox{Apricot}{%
@@ -681,6 +688,7 @@ Celotno \textit{eligibility} sled bomo tako premaknili za $\tau_{c, \text{delay}
 
 \newpage
 \section{R-STDP učenje}
+\label{sec:rstdp}
 Imamo klasičnega agenta spodbujevanega učenja, ki dobi informacijo o zunanjem okolju preko stimulacije vhodnih nevronov, nato pa kot odziv na trenutno stanje izbere akcijo, ki zunanje okolje spremeni. V kolikor smo se znašli v nagrajenem stanju bomo agenta nagradili z nagrado. Preko nagrajevanja in interagiranja z okoljem se bo agent naučil akcij, ki privedejo do nagrade v določenem stanju.
 \\
 \\
@@ -706,7 +714,7 @@ Primer učenja na preprosti nalogi s tremi stanji. Prehod v vsako stanje je nakj
 \end{figure}
 \newpage
 \subsection{Igra Pong}
-V nadaljevanju bomo R-STDP predstavili na agentu, ki igra \href{https://en.wikipedia.org/wiki/Pong}{\textit{Pong}}. R-STDP učenje je kratkovidno, kjer se bomo naučili akcij, samo če nagrada sledi nemudoma, ne pa, če je nagrada zakasnjena. Za zakasnjene nagrade uporabljamo TD (\textit{angl. Temporal Difference}) učenje, ki ga implementiramo v poglavju \textbf{TD učenje in model actor-critic}. Igra Pong v osnovi zahteva veliko predvidevanja, vendar lahko igranje igre poenostavimo v obliko, ki se jo lahko naučimo z R-STDP učenjem. Igro bomo v nadaljevanju definirali tako, da ima žogica stalno hitrost, določeno smer in pozicijo v x, y ravnini. Na levi strani igrišča bo naš agent premikal platformo v vertikalni smeri na desni strani pa je stena od katere se prožno odbije žogica. V kolikor bi v učenje vključili predvidevanje, bi morali stanja agenta definirati kot kartezični produkt x,y pozicije žogice, njene smerji in y pozicije platforme, lahko pa problem poenostavimo v problem sledenja žogici enako kot v delu Wunderlich T, et al. \cite{pilotStudy}, kjer agent izira željeno ciljno točko platforme. Tako stanja kot akcije agenta so tako diskretizirane možne y pozicije žogice. Stanje je nagrajeno s stimulacijo dopaminskih nevronov s tokom $I_{R}$, ki je sorazmeren razliki med nagrado $R_b$ izračunani glede na oddaljenost željene pozicije $j$ od trenutne y pozicije žogice $j$ in povprečno nagrado $\bar{R}_i$ v iteraciji $i$. S pomočjo povprečne nagrade omejimo krepitev sinaps v kolikor te ne izboljšajo trenutne politike.
+V nadaljevanju bomo R-STDP predstavili na agentu, ki igra \href{https://en.wikipedia.org/wiki/Pong}{\textit{Pong}}. R-STDP učenje je kratkovidno, kjer se bomo naučili akcij, samo če nagrada sledi nemudoma, ne pa, če je nagrada zakasnjena. Za zakasnjene nagrade uporabljamo TD (\textit{angl. Temporal Difference}) učenje, ki ga implementiramo v poglavju \textbf{TD učenje in model actor-critic}. Igra Pong v osnovi zahteva veliko predvidevanja, vendar lahko igranje igre poenostavimo v obliko, ki se jo lahko naučimo z R-STDP učenjem. Igro bomo v nadaljevanju definirali tako, da ima žogica stalno hitrost, določeno smer in pozicijo v x, y ravnini. Na levi strani igrišča bo naš agent premikal platformo v vertikalni smeri na desni strani pa je stena od katere se prožno odbije žogica. V kolikor bi v učenje vključili predvidevanje, bi morali stanja agenta definirati kot kartezični produkt x,y pozicije žogice, njene smerji in y pozicije platforme, lahko pa problem poenostavimo v problem sledenja žogici enako kot v delu \cite{pilotStudy}, kjer agent izira željeno ciljno točko platforme. Tako stanja kot akcije agenta so tako diskretizirane možne y pozicije žogice. Stanje je nagrajeno s stimulacijo dopaminskih nevronov s tokom $I_{R}$, ki je sorazmeren razliki med nagrado $R_b$ izračunani glede na oddaljenost željene pozicije $j$ od trenutne y pozicije žogice $j$ in povprečno nagrado $\bar{R}_i$ v iteraciji $i$. S pomočjo povprečne nagrade omejimo krepitev sinaps v kolikor te ne izboljšajo trenutne politike.
 
 \begin{align}
 R_b &= \begin{cases}
@@ -720,7 +728,7 @@ I_{R} &= \max(R_b-\bar{R}_i, 0) \cdot 600 \text{ pA}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{figures/pong_setup}
 \end{center}
-\caption{Grafična predstavitev agenta in okolja \cite{pilotStudy}}
+\caption{Grafična predstavitev agenta in okolja (\cite{pilotStudy})}
 \label{pic5}
 \end{figure}
 
@@ -790,6 +798,7 @@ Za prikaz ''samozavesti" pri izbiri akcije v stanju $i$ kot rezultat učenja, bo
 Rezultat potrjuje, da se agent ni sposoben naučiti poti do nagrade iz poljubnega stanja, vendar samo iz stanj neposredno ob nagradi.
 
 \section{TD učenje in model actor-critic}
+\label{sec:td_learning}
 Časovno razlikovalno učenje (angl. Temporal Difference Learning, TD) je metoda spodbujevanega učenja, ki posodablja oceno vrednosti stanj ali parov stanje–akcija sproti, med interakcijo z okoljem.
 
 Osnovna posodobitvena enačba za vrednostno funkcijo stanja pri TD(0) je
@@ -815,7 +824,7 @@ V izrazu je \(r_{t+1}\) nagrada ob prehodu iz stanja \(s_t\) v stanje \(s_{t+1}\
   }%
 }
 \subsection{Model actor-critic}
-TD učenje bomo implementirali z modelom akter-kritik (\textit{angl. actor-critic}), po zgledu Wiebke P, et al. \cite{actorCritic} na nalogi z mrežo. Za razliko od sistema, ki ga predstavijo Wiebke P, et al. bomo za sinapso uporabili našo zakasnjeno RSTDP, ki omogoča pripisovanje odgovornosti povezavam poljubno v preteklost, kar je pomembno pri učenju, kjer stanja niso definirana v diskretnih intervalih. Poleg tega upoštevamo tako kavzalne kot tudi antikavzalne impulze, po pravilu RSTDP med vsemi pari v zgodovini impulzov (\textit{all-to-all} namesto \textit{next-neighbor} \colorbox{Apricot}{\textbf{razloži}}). Sistem, ki ga bomo implementirali je tudi manjši glede na število nevronov, za višjo hitrost simulacije. Stanja bomo razdelili v intervale dolžine 200ms ob prehodu stranj pa bomo vhodne nevrone stimulirali enako kot pri RSTDP. %TODO: link 
+TD učenje bomo implementirali z modelom akter-kritik (\textit{angl. actor-critic}), po zgledu \cite{actorCritic} na nalogi z mrežo. Za razliko od sistema, ki ga predstavijo Wiebke P, et al. bomo za sinapso uporabili našo zakasnjeno RSTDP, ki omogoča pripisovanje odgovornosti povezavam poljubno v preteklost, kar je pomembno pri učenju, kjer stanja niso definirana v diskretnih intervalih. Poleg tega upoštevamo tako kavzalne kot tudi antikavzalne impulze, po pravilu RSTDP med vsemi pari v zgodovini impulzov (\textit{all-to-all} namesto \textit{next-neighbor} \colorbox{Apricot}{\textbf{razloži}}). Sistem, ki ga bomo implementirali je tudi manjši glede na število nevronov, za višjo hitrost simulacije. Stanja bomo razdelili v intervale dolžine 200ms ob prehodu stranj pa bomo vhodne nevrone stimulirali enako kot pri RSTDP. %TODO: link 
 Pri prehodu med stanji lahko določen del stimuliranih nevronov iz prejšnjega stanja postane asociiranih (\colorbox{Apricot}{\textbf{pokaži}}) z akcijo naslednjega stanja, kar v osnovi ni napačno in je posledica uporabe RSTDP sinapse, vendar bomo za bolj učinkovito učenje med prehodi stanj prekinili stimulacijo 50ms pred stimulacijo novega stanja, saj so za našo nalogo stanja med seboj neodvisna. Za določeno stanje ni važno v katerem stanju smo se nahajali prej.
 \\
 \colorbox{Apricot}{\textbf{tu verjetno potrebna bolj podrobna razlaga...}}
@@ -1080,15 +1089,11 @@ Rešitve so implementirane v jeziku Pythonu, kjer za simulacijo uporabljamo simu
 %\cleardoublepage
 %\addcontentsline{toc}{chapter}{Literatura}
 
-\printbibliography[heading=bibintoc,type=article,title={Članki v revijah}]
+%\printbibliography[heading=bibintoc,type=article,title={Članki v revijah}]
 %https://www.overleaf.com/project/609ce2055f917cb2f776732e
-\printbibliography[heading=bibintoc,type=inproceedings,title={Članki v zbornikih}]
-
-\printbibliography[heading=bibintoc,type=incollection,title={Poglavja v knjigah}]
-
-\printbibliography[heading=bibintoc,title={Celotna literatura}]
+%\printbibliography[heading=bibintoc,type=inproceedings,title={Članki v zbornikih}]
+%\printbibliography[heading=bibintoc,type=incollection,title={Poglavja v knjigah}]
+\printbibliography[heading=bibintoc,title={Viri}]
 
 
 \end{document}
-
-

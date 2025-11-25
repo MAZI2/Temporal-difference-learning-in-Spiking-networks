@@ -21,7 +21,7 @@
   \datalist[entry]{nty/global//global/global}
     \entry{TDlearning}{thesis}{}
       \name{author}{1}{}{%
-        {{hash=698381a36d0f8f6e8124898ebb3056a6}{%
+        {{un=0,uniquepart=base,hash=698381a36d0f8f6e8124898ebb3056a6}{%
            family={{Deleva A}},
            familyi={D\bibinitperiod}}}%
       }
@@ -36,6 +36,8 @@
       \strng{authorfullhash}{698381a36d0f8f6e8124898ebb3056a6}
       \field{sortinit}{D}
       \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{TD learning in Monte Carlo tree search : masters thesis}
@@ -44,7 +46,7 @@
     \endentry
     \entry{robot}{article}{}
       \name{author}{1}{}{%
-        {{hash=9a7772ac07b7f71d84929cd4ec142935}{%
+        {{un=0,uniquepart=base,hash=9a7772ac07b7f71d84929cd4ec142935}{%
            family={{Dobrevski M, Skočaj D}},
            familyi={D\bibinitperiod}}}%
       }
@@ -56,6 +58,8 @@
       \strng{authorfullhash}{9a7772ac07b7f71d84929cd4ec142935}
       \field{sortinit}{D}
       \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{International Journal of Advanced Robotic Systems. 2021}
@@ -69,7 +73,7 @@
     \endentry
     \entry{distalReward}{article}{}
       \name{author}{1}{}{%
-        {{hash=fac307fe3e0d74d4e36172f2c2559ee5}{%
+        {{un=0,uniquepart=base,hash=fac307fe3e0d74d4e36172f2c2559ee5}{%
            family={{Izhikevich, E. M.}},
            familyi={I\bibinitperiod}}}%
       }
@@ -81,6 +85,8 @@
       \strng{authorfullhash}{fac307fe3e0d74d4e36172f2c2559ee5}
       \field{sortinit}{I}
       \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Cerebral cortex (New York, N.Y. : 1991)}
@@ -94,7 +100,7 @@
     \endentry
     \entry{predvidevanjeAkcij}{thesis}{}
       \name{author}{1}{}{%
-        {{hash=7ceeae6dea70cc26f456b6d7c4223ea6}{%
+        {{un=0,uniquepart=base,hash=7ceeae6dea70cc26f456b6d7c4223ea6}{%
            family={{Šutar M}},
            familyi={Š\bibinitperiod}}}%
       }
@@ -109,6 +115,8 @@
       \strng{authorfullhash}{7ceeae6dea70cc26f456b6d7c4223ea6}
       \field{sortinit}{Š}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Uporaba predvidevanja akcij nasprotnika pri učenju inteligentnega agenta}
@@ -117,7 +125,7 @@
     \endentry
     \entry{vozicekSPalico}{thesis}{}
       \name{author}{1}{}{%
-        {{hash=ed78bd7fc95abc5ce041939705a36199}{%
+        {{un=0,uniquepart=base,hash=ed78bd7fc95abc5ce041939705a36199}{%
            family={{Svete A}},
            familyi={S\bibinitperiod}}}%
       }
@@ -132,6 +140,8 @@
       \strng{authorfullhash}{ed78bd7fc95abc5ce041939705a36199}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Posplošitev problema vozička s palico na zahtevnejše domene}
@@ -140,11 +150,12 @@
     \endentry
     \entry{shepherdDog}{thesis}{}
       \name{author}{1}{}{%
-        {{hash=f7cbbfa6943108a57ab7c687caafd0ff}{%
+        {{un=0,uniquepart=base,hash=f7cbbfa6943108a57ab7c687caafd0ff}{%
            family={T},
            familyi={T\bibinitperiod},
            given={Štromajer},
-           giveni={Š\bibinitperiod}}}%
+           giveni={Š\bibinitperiod},
+           givenun=0}}%
       }
       \list{institution}{1}{%
         {Fakulteta za računalništvo in informatiko, Univerza v Ljubljani}%
@@ -157,45 +168,34 @@
       \strng{authorfullhash}{f7cbbfa6943108a57ab7c687caafd0ff}
       \field{sortinit}{T}
       \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{{Using machine learning to train a shepherd dog}}
       \field{type}{Magistrska naloga}
       \field{year}{2022}
     \endentry
-    \entry{TDWiki}{online}{}
-      \field{sortinit}{T}
-      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
-      \field{labeltitlesource}{title}
-      \field{title}{{Temporal difference learning}}
-      \field{urlday}{20}
-      \field{urlmonth}{3}
-      \field{urlyear}{2025}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://en.wikipedia.org/wiki/Temporal_difference_learning
-      \endverb
-      \verb{url}
-      \verb https://en.wikipedia.org/wiki/Temporal_difference_learning
-      \endverb
-    \endentry
     \entry{expModel}{article}{}
       \name{author}{3}{}{%
-        {{hash=7aa0eee2b62640a89fecb354a4240db0}{%
+        {{un=0,uniquepart=base,hash=7aa0eee2b62640a89fecb354a4240db0}{%
            family={Tsodyks},
            familyi={T\bibinitperiod},
            given={tMisha},
-           giveni={t\bibinitperiod}}}%
-        {{hash=4cc45620b085c9e7cba33e064a996af2}{%
+           giveni={t\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4cc45620b085c9e7cba33e064a996af2}{%
            family={Uziel},
            familyi={U\bibinitperiod},
            given={Asher},
-           giveni={A\bibinitperiod}}}%
-        {{hash=96734e7ca80390b8caf8dcebb3d0a5ac}{%
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=96734e7ca80390b8caf8dcebb3d0a5ac}{%
            family={Markram},
            familyi={M\bibinitperiod},
            given={Henry},
-           giveni={H\bibinitperiod}}}%
+           giveni={H\bibinitperiod},
+           givenun=0}}%
       }
       \list{publisher}{1}{%
         {Society for Neuroscience}%
@@ -208,6 +208,8 @@
       \strng{authorfullhash}{0ea5c45b26691d63013aa1572b9d8607}
       \field{sortinit}{T}
       \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{issn}{0270-6474}
@@ -233,7 +235,7 @@
     \endentry
     \entry{actorCritic}{article}{}
       \name{author}{1}{}{%
-        {{hash=b33c2d538d702c8fdfad4a7d4f2934b4}{%
+        {{un=0,uniquepart=base,hash=b33c2d538d702c8fdfad4a7d4f2934b4}{%
            family={{Wiebke P, et al.}},
            familyi={W\bibinitperiod}}}%
       }
@@ -245,6 +247,8 @@
       \strng{authorfullhash}{b33c2d538d702c8fdfad4a7d4f2934b4}
       \field{sortinit}{W}
       \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{PLoS computational biology}
@@ -258,7 +262,7 @@
     \endentry
     \entry{pilotStudy}{article}{}
       \name{author}{1}{}{%
-        {{hash=b528e28e3fee5ef3525021fd9ce1099d}{%
+        {{un=0,uniquepart=base,hash=b528e28e3fee5ef3525021fd9ce1099d}{%
            family={{Wunderlich T, et al.}},
            familyi={W\bibinitperiod}}}%
       }
@@ -270,6 +274,8 @@
       \strng{authorfullhash}{b528e28e3fee5ef3525021fd9ce1099d}
       \field{sortinit}{W}
       \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Frontiers in neuroscience}
