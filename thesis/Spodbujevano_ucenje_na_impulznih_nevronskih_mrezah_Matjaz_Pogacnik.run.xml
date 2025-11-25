@@ -41,13 +41,13 @@
   >
 ]>
 <requests version="1.0">
-  <internal package="biblatex" priority="9" active="0">
+  <internal package="biblatex" priority="9" active="1">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>diploma-FRI-vzorec.bcf</file>
+      <file>Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bcf</file>
     </provides>
     <requires type="dynamic">
-      <file>diploma-FRI-vzorec.bbl</file>
+      <file>Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
@@ -65,19 +65,19 @@
     <generic>biber</generic>
     <cmdline>
       <binary>biber</binary>
-      <infile>diploma-FRI-vzorec</infile>
+      <infile>Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik</infile>
     </cmdline>
     <input>
-      <file>diploma-FRI-vzorec.bcf</file>
+      <file>Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bcf</file>
     </input>
     <output>
-      <file>diploma-FRI-vzorec.bbl</file>
+      <file>Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl</file>
     </output>
     <provides type="dynamic">
-      <file>diploma-FRI-vzorec.bbl</file>
+      <file>Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>diploma-FRI-vzorec.bcf</file>
+      <file>Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bcf</file>
     </requires>
     <requires type="editable">
       <file>literatura.bib</file>
