@@ -341,7 +341,7 @@ Na tem mestu zapišite, komu se zahvaljujete za pomoč pri izdelavi diplomske na
   {\bf kratica} & {\bf angleško}                              & {\bf slovensko} \\ \hline
   {\bf SNN}      & Spiking neural network               & Impulzna nevronska mreža \\
   {\bf R-STDP} & Reward modulated spike timing dependent plasticity & Sinaptična plastičnost odvisna od nagrajevanja in časovne razporeditve impulzov \\
-  {\bf TD}   & Temporal difference              & Temporalna razlika \\
+  {\bf TD}   & Temporal difference              & Časovna razlika \\
 %  \dots & \dots & \dots \\
 \end{tabular}
 
@@ -399,8 +399,6 @@ A proper abstract should contain around 100 words which makes this one way too s
 
 \chapter{Uvod}
 \label{intro}
-%TODO: in glicko look at structure
-
 \section{Motivacija}
 \label{sec:motive}
 Impulzne nevronske mreže so v veliki večini implementacij poskus modeliranja bioloških značilnosti nevronov in sinaps v možganih. Kot izjemno močan računski stroj, so možgani navdih za mnoge moderne koncepte v umetni inteligenci. Najbolj očiten tak primer so nevronske mreže, vendar se po mehaniznih prisotnih v možganih lahko zgledujemo tudi pri metodah spodbujevanega učenja. %TODO: all subsubsections?
@@ -414,14 +412,6 @@ V tej diplomski nalogi razvijemo kompleksnega agenta, ki je zmožen reševanja t
 Tak agent ni sposoben učenja nalog, ki imajo zakasnjene nagrade zato v nadaljevanju uporabimo TD učenje. Za ta namen modeliramo nevronska vezja in določene mehanizme iz človeškega dopaminskega sistema \ref{sec:neural_circuits}. S pomočjo TD modela akter-kritik se naučimo poti do zakasnjene nagrade pri nalogi, kjer se premikamo po mreži. 
 
 \chapter{Pregled področja in sorodnih del}
-\label{sec:other_work}
-\colorbox{Apricot}{%
-  \parbox{0.9\linewidth}{%
-    \textbf{
-      Iz diplomskega seminarja...
-    }%
-  }%
-}
 Na temo impulznih nevronskih mrež v Sloveniji v času pisanja še ni bila napisana nobena diplomska ali magistrska naloga, doktorska dizertacija ali znanstveni članek, kar je dodatna motivacija za pisanje diplomske naloge na to temo. Impulzne nevronske mreže zaradi zahtevnosti učenja (v času pisanja) niso kaj dosti uporabljene, čedalje bolj uprabna metoda v umetni inteligenci pa je spodbujevano učenje, ki je tudi prevladujoča in biološko podprta metoda za učenje impulznih nevronskih mrež.
 
 Na temo spobujevanega učenja je na voljo več slovenskih znanstvenih del. Pri spodbujevanem učenju predstavimo svoj sistem kot agenta, ki izvaja aktivnosti nad okoljem, ki mu kot odziv vrača nagrado in novo stanje okolja. Med drugim je uporabno v problemih kot so navigacija in reševanje problemov z roboti, na temo česar je bil objavljen članek pod avtorstvom prof. dr. Danijela Skočaja, rednega profesorja na FRI in dr. Mateja Dobrevskega \cite{robot} .
@@ -431,29 +421,6 @@ Pri spodbujevanem učenju, sploh v resničnem svetu, imajo impulzne nevronske mr
 
 V tej diplomski nalogi je poudarek na simulacijah in snovanju algoritmov za spodbujevano učenje na impulznih nevronskih mrežah ter modeliranju različnih bioloških procesov in možganskih nevronskih vezij. Pri tem je dober zgled delo Izikhevich EM \cite{distalReward}, ki poleg modela nevronov in sinaps vpeljuje še način pripisovanja odgovornosti sinapsam za določeno aktivnst nevronske mreže. V postopku nadrgadnje algoritmov učenje poteka tudi na osnovi TD učenja in njegovi biološko bolj neposredni implementaciji Actor-Critic, Wiebke P, et al. \cite{actorCritic}. V tem postopku implementiramo dejansko nevronsko vezje odgovorno za nagrajevanje, kot je bilo to raziskano v človeških možganih.
 
-\chapter{Metodologija in uporabljena orodja}
-\label{methodology_and_tools}
-Rešitve so implementirane v jeziku Pythonu, kjer za simulacijo uporabljamo simulator \href{https://www.nest-simulator.org/}{NEST}, ki ima zaledje implementirano v C++. Za simulator, ki ga uporabljamo preko Pythonovega vmesnika je v sklopu tega diplomskega dela implementiran tudi modul, ki je prav tako implementiran v C++. V sklopu te naloge uporaba impulznih nevronskih mrež zunaj simuliranega okolja, na trdo-ožičenih nevronskih čipih ali na robotih ni pokrito, zato posebna oprema za ta namen ni bila uporabljena. Sistemi, razviti v diplomski nalogi so poleg medsebojne primerjave ovrednoteni tudi z drugimi trenutno obstoječimi implementacijami spodbujevanega učenja na impulznih nevronskih mrežah. 
-\\
-\\
-\\
-\colorbox{Apricot}{%
-  \parbox{0.9\linewidth}{%
-    \textbf{ 
-        Napiši več o pisanju modula za NEST simulator, s katerim smo v nadaljevanju implementirali zakasnjeno RSTDP sinapso.
-    }%
-  }%
-}
-\\
-\\
-\colorbox{Apricot}{%
-  \parbox{0.9\linewidth}{%
-    \textbf{
-        Napiši par stavkov o komunikaciji z zaledjem NEST, ki nam je omogočala spremljanje internih parametrov sinaps.
-    }%
-  }%
-}
-%TODO: Rešitev je ovrednotena tudi po metrikah podobnih tem uporabljenim v diplomski nalogi Svete A \cite{vozicekSPalico}.
 
 \chapter{Modeliranje nevronov in sinaps}
 \iffalse TODO: poglej ce bos se kaj dodal
@@ -1078,31 +1045,30 @@ Sistem se uspešno uči politike prehodov iz poljubnega stanja do oddaljene nagr
     }%
   }%
 }
-\newpage
-\section{Razširitve modela}
-%TODO: kaj pomeni uciti impulzno nevronsko mrezo in kako jo moramo omejiti. Narascanje in clampanje sinaps
+%TODO: Rešitev je ovrednotena tudi po metrikah podobnih tem uporabljenim v diplomski nalogi Svete A \cite{vozicekSPalico}.
+
+\chapter{Implementacija in uporabljena orodja}
+\label{methodology_and_tools}
+Rešitve so implementirane v jeziku Pythonu, kjer za simulacijo uporabljamo simulator \href{https://www.nest-simulator.org/}{NEST}, ki ima zaledje implementirano v C++. Za simulator, ki ga uporabljamo preko Pythonovega vmesnika je v sklopu tega diplomskega dela implementiran tudi modul, ki je prav tako implementiran v C++. V sklopu te naloge uporaba impulznih nevronskih mrež zunaj simuliranega okolja, na trdo-ožičenih nevronskih čipih ali na robotih ni pokrito, zato posebna oprema za ta namen ni bila uporabljena. Sistemi, razviti v diplomski nalogi so poleg medsebojne primerjave ovrednoteni tudi z drugimi trenutno obstoječimi implementacijami spodbujevanega učenja na impulznih nevronskih mrežah. 
+\\
+\\
+\\
 \colorbox{Apricot}{%
   \parbox{0.9\linewidth}{%
-    \textbf{
-      Potencialne nadaljne raziskave in razširitve modela:
+    \textbf{ 
+        Napiši več o pisanju modula za NEST simulator, s katerim smo v nadaljevanju implementirali zakasnjeno RSTDP sinapso.
     }%
   }%
 }
-\subsection{Izognitveno obnašanje (\textit{angl. aversive behaviour})}
-V večini del, ki se ukvarjajo s spodbujevanim učenjem se izognitev stanj, za katere želimo, da se jih agent izogiba, doseže s pomočjo negativne nagrade. Negativna nagrada tako v enačbi sinapse RSTDP obrne predznak posodobitve in so tako sinapse, ki so odgovorne za vstop v neželeno stanje najbolj negativno posodobljene. V človeških možganih negativnega dopamina ni. Porodi se ideja, da je izogibanje negativnim stanjem prav tako posledica učenja, kjer je nivo dopamina $> 0$. Dopamin namreč predstavlja učenje, ne nujno nagrade. Negativna nagrada je predstavljena s posebnim vhodom, ki prestavlja abstraktno "bolečino", ki jo tekom učenja želimo zmanjšati. Tako lahko prav tako uporabimo načela STDP in TD učenja, kjer zmanjšanje nivoja bolečine prestavlja nagrado. Trenutnemu akter-kritik sistemu bi dodali še eno kopijo kritika, ki računa temporalno razliko nivoja bolečine in deluje na dopaminergične nevrone, ki so skupni obema kritikoma. Ob prehodu iz stanja z visokim nivojem bolečine v stanje z nizkim dopaminergične nevrone ekscitiramo, v obratnem primeru inhibiramo, v primeru enakega nivoja dovedene bolečine pa kritik negativne nagrade ne vpliva na dopaminergične nevrone. Sistem se v tem primeru obnaša kratkovidno, kljub računanju temporalne razlike. Nagrajene bodo samo povezave, ki so nas vodile stran od bolečine, ker pa je vhod bolčine vedno odvisen samo od zunanje stimulacije, za razliko od striatuma, ki nagrado napoveduje sam, bodo nagrajene povezave samo v stanja neposredno ob negativnem stanju. Če želimo okrog negativnega stanja negativno označiti tudi stanja, ki nas potencialno vodijo vanj, pa moramo v sistem dodati skupino nevronov, ki stanja asociirajo z bolečinskim vhodom in jo tako napovedujejo. \\
-Pričakujemo, da tako oba kritika med seboj tekmujeta za nagrajevanje akcij, ki vodijo bližje nagradi in sinaps, ki vodijo stran od negativnega stanja.
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.4\textwidth]{figures/aversive}
-\end{center}
-\caption{Pričakovana politika ob kritiku negativnih stanj (brez kritika nagrajenih stanj)}
-\label{pic8}
-\end{figure}
-\subsection{Rekurenčne povezave}
-Velika predpostavka trenutnega sistema je ta, da rekurenčnih povezav ni. Tako so stanja časovno med seboj skoraj popolnoma neodvisna (med prehodi stanj se sinapse še vedno lahko križno asociirajo, zaradi česar smo v našem modelu uvedli 50ms pavzo stimulacije pred prehodom v naslednje stanje. To je opisano v poglavju \textbf{TD učenje in model actor-critic}). V kolikor dodamo več vmesnih nivojev in rekurenčne povezave pa bodo stanja med seboj časovno odvisna. Pravzaprav stanja ne moremo več definirati samo z aktivnostjo vhodnih nevronov, saj v vsakem trenutku stanje vsebuje tudi vplive rekurenčnih povezav, ki nosijo informacijo iz stanj arbitrarno v preteklost. V primeru našega akter-kritik sistema bi tako v vsakem trenutku $t$ kritik računal temoralno razliko med dvema neskončno kratkima stanjema $s_t$ in $s_{t-d}$, kjer je $d$ zakasnitev direktne povezave. Kljub temu pričakujemo, da rezultat ne bi bil drugačen, saj je to samo miselna prilagoditev. 200ms stimulacija, ki je do zdaj predstavljala stanje, bi vseeno v tem intervalu vodila do nevronske aktivnosti, ki je v glavnem pogojena s to vhodno stimulacijo in bi tako trenutki (oziroma neskončno kratka stanja) vseeno bili v naboru trenutkov značilnih za trenutno vhodno stimulacijo. \\
-V eksperimentih izvedenih do zdaj, pravilna akcija določenega stanja ni bila odvisna od akcij, ki so nas privedle v to stanje oziroma zgodovine stanj. V primeru sprehajanja po mreži bomo končno stanje nagradili neglede na to iz katerega stanja vstopimo v nagrajeno stanje. Rekurenčne povezave bi tako predvideno predstavljale prednost pri nalogah, kjer je zgodovina stanj pomembna, oziroma kjer je nagrada stanja odvisna od prejšnjih stanj. Če bi v primeru sprehajanja po mreži premik v končno stanje iz stanja nad njim pripeljalo do nagrade, prehod iz stanja levo pa ne, bi lahko tako končno stanje obravnavali kot dva različna stanja, glede na prehod. Zanimivo bi bilo realna stanja neke naloge tako razviti v drevo abstraktnih stanj in označiti pričakovane nagrade in preferirane akcije, ki jih sistem napoveduje. Sistem je še vedno stimuliran glede na realna stanja naloge, vendar bi s pomočjo rekurenčnih povezav interno predstavljal nabor abstraktnih stanj.\\
-Rekurenčne povezave privedejo tudi do določenih situacij, kjer bi bila potrebna redefinicija trenutnega načina izbire stanj. Dva izhodna nevrona sta namreč lahko povezana med sabo in se bosta vedno prožila skupaj. V tem primeru moramo v sistemu dopuščati izbiro večih akcij hkrati in takšno situacijo na primer "kaznovati".
-
+\\
+\\
+\colorbox{Apricot}{%
+  \parbox{0.9\linewidth}{%
+    \textbf{
+        Napiši par stavkov o komunikaciji z zaledjem NEST, ki nam je omogočala spremljanje internih parametrov sinaps.
+    }%
+  }%
+}
 \chapter{Diskusija in zaključek}
 \colorbox{Apricot}{%
   \parbox{0.9\linewidth}{%
@@ -1111,27 +1077,6 @@ Rekurenčne povezave privedejo tudi do določenih situacij, kjer bi bila potrebn
     }%
   }%
 }
-
-\iffalse
-\chapter{Nevronska vezja}
-\label{sec:neural_circuits}
-\begin{enumerate}
-    \item Modeliranje človeških dopaminskih mehanizmov, dopaminskih receptorjev in odzivov na uspešno izvedene akcije.
-    \begin{itemize}
-        \item \textbf{Trajanje: 2 tedna}
-        \item  Predpogoji: aktivnosti poglavja \ref{sec:neuron_sinapse_modelling} in 7.1-7.4.
-    \end{itemize}
-
-    \item Nov pristop k implementaciji nevronskih vezij.
-    \begin{itemize}
-        \item \textbf{Trajanje: 4 tedni}
-        \item  Predpogoji: aktivnost 7.5:1.
-    \end{itemize}
-
-\end{enumerate}
-\fi
-
-
 %\cleardoublepage
 %\addcontentsline{toc}{chapter}{Literatura}
 
