@@ -68,6 +68,7 @@
 \newlabel{tab:isi_summary}{{3.1.3}{12}{Izbira modela nevrona}{table.3.1}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces Povzetek statistike medimpulznih intervalov nevronov z alfa in exponentnim jedrom. Povprečje in standardni odklon sta izračunana na vseh postsinaptičnih nevronih.}}{12}{table.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3.2}STDP Sinaptični model}{12}{section.3.2}\protected@file@percent }
+\newlabel{sec:synapse_model}{{3.2}{12}{STDP Sinaptični model}{section.3.2}{}}
 \abx@aux@cite{0}{distalReward}
 \abx@aux@segm{0}{0}{distalReward}
 \abx@aux@cite{0}{dopamineSynapse}
@@ -108,51 +109,54 @@
 \newlabel{pic8}{{4.6}{27}{Prikaz politike po 500 iteracijah po 200 ms. Končno stanje je obarvano z zeleno}{figure.4.6}{}}
 \abx@aux@cite{0}{actorCritic}
 \abx@aux@segm{0}{0}{actorCritic}
+\abx@aux@cite{0}{acterCritic}
+\abx@aux@segm{0}{0}{acterCritic}
 \@writefile{toc}{\contentsline {section}{\numberline {4.2}TD učenje in model actor-critic}{28}{section.4.2}\protected@file@percent }
 \newlabel{sec:td_learning}{{4.2}{28}{TD učenje in model actor-critic}{section.4.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Model actor-critic}{28}{subsection.4.2.1}\protected@file@percent }
 \abx@aux@page{16}{28}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Direktna in indirektna pot v basalnih ganglijih}}{30}{figure.4.7}\protected@file@percent }
 \newlabel{pic8}{{4.7}{30}{Direktna in indirektna pot v basalnih ganglijih}{figure.4.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Prikaz implementiranega aktor-kritik sistema}}{32}{figure.4.8}\protected@file@percent }
-\newlabel{pic8}{{4.8}{32}{Prikaz implementiranega aktor-kritik sistema}{figure.4.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{33}{subsection.4.2.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Parametri simulacije}}{33}{table.4.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Parametri nevronov}}{34}{table.4.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Parametri sinaps med vhodnimi in motoričnimi nevroni}}{35}{table.4.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Parametri sinaps med vhodom in striatumom}}{36}{table.4.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.6}{\ignorespaces Parametri sinaps kritika}}{37}{table.4.6}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.7}{\ignorespaces Parametri generatorjev šuma}}{37}{table.4.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Učenje}{38}{subsection.4.2.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Prikaz obnašanja sistema ob prehodu iz stanja 0 v nagrajeno stanje 5 in nazaj v stanje 0. Pričakovana nagrada in tako tudi vrednost stanja 0 se ob prehodu v stanje 5 zviša preko povezav do striatuma. Ob prehodu iz nagrajenega stanja (ki pa samega sebe še ne ocenjuje z visoko vrednostjo) nazaj v stanje 0 preidemo iz stanja z osnovnimi utežmi v stanje 0 z okrepljenimi utežmi do striatuma, torej prehod v stanje z višjo vrednostjo. Posledica tega je, napram osnovni frekvenci dopaminergičnih nevronov, povišana dopaminergična aktivnost, ki povzroči aktivnosti sorazmerno povišanje uteži sinaps stanja 5 do striatuma. Ob prehodu iz stanja 0 v stanje 0 se vrnemo k osnovni dopaminergični frekvenci.}}{38}{figure.4.9}\protected@file@percent }
-\newlabel{pic8}{{4.9}{38}{Prikaz obnašanja sistema ob prehodu iz stanja 0 v nagrajeno stanje 5 in nazaj v stanje 0. Pričakovana nagrada in tako tudi vrednost stanja 0 se ob prehodu v stanje 5 zviša preko povezav do striatuma. Ob prehodu iz nagrajenega stanja (ki pa samega sebe še ne ocenjuje z visoko vrednostjo) nazaj v stanje 0 preidemo iz stanja z osnovnimi utežmi v stanje 0 z okrepljenimi utežmi do striatuma, torej prehod v stanje z višjo vrednostjo. Posledica tega je, napram osnovni frekvenci dopaminergičnih nevronov, povišana dopaminergična aktivnost, ki povzroči aktivnosti sorazmerno povišanje uteži sinaps stanja 5 do striatuma. Ob prehodu iz stanja 0 v stanje 0 se vrnemo k osnovni dopaminergični frekvenci}{figure.4.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces Obnašanje sistema tekom učenja na 3x3 mreži. Polja so oštevilčena od leve proti desni od zgoraj navzdol. Cilj se nahaja na polju 8. Povezave vhoda do striatuma stanj 5 in 7 so pričakovano najvišje, sledi pa jim 4, ki neposredno vodi v 5 in 7}}{39}{figure.4.10}\protected@file@percent }
-\newlabel{pic8}{{4.10}{39}{Obnašanje sistema tekom učenja na 3x3 mreži. Polja so oštevilčena od leve proti desni od zgoraj navzdol. Cilj se nahaja na polju 8. Povezave vhoda do striatuma stanj 5 in 7 so pričakovano najvišje, sledi pa jim 4, ki neposredno vodi v 5 in 7}{figure.4.10}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Rezultati}{40}{subsection.4.2.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces Rezultat učenja modela na 4x4 mreži tekom 3000 iteracij po 200 ms.}}{40}{figure.4.11}\protected@file@percent }
-\newlabel{pic8}{{4.11}{40}{Rezultat učenja modela na 4x4 mreži tekom 3000 iteracij po 200 ms}{figure.4.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.12}{\ignorespaces Povprečna utež preko sinaps med vsemi vhodnimi nevroni in striatumom tekom 1500 iteracij po 200 ms.}}{41}{figure.4.12}\protected@file@percent }
-\newlabel{pic8}{{4.12}{41}{Povprečna utež preko sinaps med vsemi vhodnimi nevroni in striatumom tekom 1500 iteracij po 200 ms}{figure.4.12}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Interpretacija rezultatov}{41}{section*.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Implementacija in uporabljena orodja}{43}{chapter.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Prikaz implementiranega aktor-kritik sistema}}{33}{figure.4.8}\protected@file@percent }
+\newlabel{pic8}{{4.8}{33}{Prikaz implementiranega aktor-kritik sistema}{figure.4.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{34}{subsection.4.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Parametri simulacije}}{34}{table.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Parametri nevronov}}{35}{table.4.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Parametri sinaps med vhodnimi in motoričnimi nevroni}}{36}{table.4.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Parametri sinaps med vhodom in striatumom}}{37}{table.4.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.6}{\ignorespaces Parametri sinaps kritika}}{38}{table.4.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.7}{\ignorespaces Parametri generatorjev šuma}}{39}{table.4.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Učenje}{40}{subsection.4.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Prikaz obnašanja sistema ob prehodu iz stanja 0 v nagrajeno stanje 5 in nazaj v stanje 0. Pričakovana nagrada in tako tudi vrednost stanja 0 se ob prehodu v stanje 5 zviša preko povezav do striatuma. Ob prehodu iz nagrajenega stanja (ki pa samega sebe še ne ocenjuje z visoko vrednostjo) nazaj v stanje 0 preidemo iz stanja z osnovnimi utežmi v stanje 0 z okrepljenimi utežmi do striatuma, torej prehod v stanje z višjo vrednostjo. Posledica tega je, napram osnovni frekvenci dopaminergičnih nevronov, povišana dopaminergična aktivnost, ki povzroči aktivnosti sorazmerno povišanje uteži sinaps stanja 5 do striatuma. Ob prehodu iz stanja 0 v stanje 0 se vrnemo k osnovni dopaminergični frekvenci.}}{40}{figure.4.9}\protected@file@percent }
+\newlabel{pic8}{{4.9}{40}{Prikaz obnašanja sistema ob prehodu iz stanja 0 v nagrajeno stanje 5 in nazaj v stanje 0. Pričakovana nagrada in tako tudi vrednost stanja 0 se ob prehodu v stanje 5 zviša preko povezav do striatuma. Ob prehodu iz nagrajenega stanja (ki pa samega sebe še ne ocenjuje z visoko vrednostjo) nazaj v stanje 0 preidemo iz stanja z osnovnimi utežmi v stanje 0 z okrepljenimi utežmi do striatuma, torej prehod v stanje z višjo vrednostjo. Posledica tega je, napram osnovni frekvenci dopaminergičnih nevronov, povišana dopaminergična aktivnost, ki povzroči aktivnosti sorazmerno povišanje uteži sinaps stanja 5 do striatuma. Ob prehodu iz stanja 0 v stanje 0 se vrnemo k osnovni dopaminergični frekvenci}{figure.4.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces Obnašanje sistema tekom učenja na 3x3 mreži. Polja so oštevilčena od leve proti desni od zgoraj navzdol. Cilj se nahaja na polju 8. Povezave vhoda do striatuma stanj 5 in 7 so pričakovano najvišje, sledi pa jim 4, ki neposredno vodi v 5 in 7}}{41}{figure.4.10}\protected@file@percent }
+\newlabel{pic8}{{4.10}{41}{Obnašanje sistema tekom učenja na 3x3 mreži. Polja so oštevilčena od leve proti desni od zgoraj navzdol. Cilj se nahaja na polju 8. Povezave vhoda do striatuma stanj 5 in 7 so pričakovano najvišje, sledi pa jim 4, ki neposredno vodi v 5 in 7}{figure.4.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Rezultati}{42}{subsection.4.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces Rezultat učenja modela na 4x4 mreži tekom 3000 iteracij po 200 ms.}}{42}{figure.4.11}\protected@file@percent }
+\newlabel{pic8}{{4.11}{42}{Rezultat učenja modela na 4x4 mreži tekom 3000 iteracij po 200 ms}{figure.4.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.12}{\ignorespaces Povprečna utež preko sinaps med vsemi vhodnimi nevroni in striatumom tekom 1500 iteracij po 200 ms.}}{43}{figure.4.12}\protected@file@percent }
+\newlabel{pic8}{{4.12}{43}{Povprečna utež preko sinaps med vsemi vhodnimi nevroni in striatumom tekom 1500 iteracij po 200 ms}{figure.4.12}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Interpretacija rezultatov}{43}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Implementacija in uporabljena orodja}{45}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{methodology_and_tools}{{5}{43}{Implementacija in uporabljena orodja}{chapter.5}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Diskusija in zaključek}{45}{chapter.6}\protected@file@percent }
+\newlabel{methodology_and_tools}{{5}{45}{Implementacija in uporabljena orodja}{chapter.5}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Diskusija in zaključek}{47}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{Viri}{47}{chapter*.8}\protected@file@percent }
-\abx@aux@page{17}{47}
-\abx@aux@page{18}{47}
-\abx@aux@page{19}{47}
-\abx@aux@page{20}{47}
-\abx@aux@page{21}{47}
-\abx@aux@page{22}{47}
-\abx@aux@page{23}{48}
-\abx@aux@page{24}{48}
-\abx@aux@page{25}{48}
-\abx@aux@page{26}{48}
+\@writefile{toc}{\contentsline {chapter}{Viri}{49}{chapter*.8}\protected@file@percent }
+\abx@aux@page{17}{49}
+\abx@aux@page{18}{49}
+\abx@aux@page{19}{49}
+\abx@aux@page{20}{49}
+\abx@aux@page{21}{49}
+\abx@aux@page{22}{49}
+\abx@aux@page{23}{50}
+\abx@aux@page{24}{50}
+\abx@aux@page{25}{50}
+\abx@aux@page{26}{50}
 \abx@aux@read@bbl@mdfivesum{FB8516012ED4826D4E0C40F116939A98}
+\abx@aux@read@bblrerun
 \abx@aux@defaultrefcontext{0}{TDlearning}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{robot}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{distalReward}{nty/global//global/global}
@@ -163,4 +167,4 @@
 \abx@aux@defaultrefcontext{0}{expModel}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{actorCritic}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{pilotStudy}{nty/global//global/global}
-\gdef \@abspage@last{60}
+\gdef \@abspage@last{62}
