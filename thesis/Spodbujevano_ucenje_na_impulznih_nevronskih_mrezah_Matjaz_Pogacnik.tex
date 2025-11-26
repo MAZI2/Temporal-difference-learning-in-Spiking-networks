@@ -414,7 +414,7 @@ In this diploma thesis, we explore reinforcement learning in spiking neural netw
 \label{intro}
 \section{Motivacija}
 \label{sec:motive}
-Impulzne nevronske mreže so v večini implementacij poskus modeliranja bioloških značilnosti nevronov in sinaps v možganih. Kot izjemno močan računski stroj, so možgani navdih za številne sodobne koncepte v umetni inteligenci. Najbolj očiten primer so nevronske mreže, vendar se po mehanizmih, prisotnih v možganih, lahko zgledujemo tudi pri metodah spodbujevanega učenja. %TODO: all subsubsections?
+Impulzne nevronske mreže so v večini implementacij poskus modeliranja bioloških značilnosti nevronov in sinaps v možganih. Kot izjemno močan računski stroj, so možgani navdih za številne sodobne koncepte v umetni inteligenci. Najbolj očiten primer so nevronske mreže, vendar se po mehanizmih, prisotnih v možganih, lahko zgledujemo tudi pri metodah spodbujevanega učenja.
 
 Delovanje možganov je kljub številnim raziskavam še vedno precej slabo razumljeno, njihovo računalniško modeliranje pa je v času pisanja še razmeroma mlado področje.
 Odkrivanje mehanizmov in vzorcev, ki se pojavijo med delovanjem in učenjem impulznih nevronskih mrež, ter uporaba teh pri modeliranju mehanizmov, za katere vemo, da so prisotni v možganih, predstavlja velik doprinos tako k področju računske nevroznanosti kot tudi psihoanalizi in sorodnim področjem. V neposredni povezavi s psihoanalizo raziskovanje impulznih nevronskih mrež predstavlja raziskovanje temeljnih vprašanj o človeškem dojemanju in delovanju možganov nasploh.
@@ -422,7 +422,6 @@ Odkrivanje mehanizmov in vzorcev, ki se pojavijo med delovanjem in učenjem impu
 \section{Cilji}
 V tej diplomski nalogi razvijemo kompleksnega agenta, ki je zmožen reševati probleme tako s takojšnjimi kot zakasnjenimi nagradami in temelji izključno na impulznih nevronskih mrežah in spodbujevanem učenju. V poglavju \ref{neuron_synapse_modelling} so predstavljeni in ovrednoteni različni modeli bioloških značilnosti nevronov in sinaps. Nato se posvetimo spodbujevanemu učenju, kjer v poglavju 
 \ref{sec:rstdp} razvijemo agenta, ki uporablja model sinaptične plastičnosti, odvisne od nagrajevanja in časovne razporeditve impulzov (angl. R-STDP, primer \cite{distalReward}), in se je sposoben naučiti igranja igre \href{https://en.wikipedia.org/wiki/Pong}{Pong}.
-%TODO: \cite{conditioningWiki} \ref{sec:reinforcement_learning}. 
 Tak agent ni sposoben učenja nalog z zakasnjenimi nagradami, zato v poglavju \ref{sec:td_learning} uporabimo TD učenje. Za ta namen modeliramo nevronska vezja in določene mehanizme iz človeškega dopaminskega sistema. S pomočjo TD modela akter-kritik se naučimo poti do zakasnjene nagrade pri nalogi, kjer se premikamo po mreži. 
 
 \chapter{Pregled področja in sorodnih del}
@@ -823,12 +822,8 @@ V izrazu je \(r_{t+1}\) nagrada ob prehodu iz stanja \(s_t\) v stanje \(s_{t+1}\
 \\
 
 \subsection{Model actor-critic}
-TD učenje bomo implementirali z modelom akter-kritik (\textit{angl. actor-critic}), po zgledu \cite{actorCritic} na nalogi z mrežo. \\
-\colorbox{Apricot}{\textbf{tu verjetno potrebna bolj podrobna razlaga...}}
-\\
-\\
-Model akter-kritik je sestavljen iz dveh delov, akterja - dopaminsko moduliranega RSTDP dela, kot smo ga že implementirali in pa kritika, ki ocenjuje vrednost trenutnega stanja. Celoten model je navdihnjen po dopaminskem sistemu prisotnem v človeških možganih oziroma bolj konkretno \href{https://en.wikipedia.org/wiki/Basal_ganglia}{bazalnih ganglijih}.
-Bazalni gangliji so skupina jedrov v možganih, ki igrajo ključno vlogo pri nadzoru gibanja, učenju akcij in odločanju, poleg tega pa realizira obliko TD učenja. Model akter-kritik je poenostavitev in abstrakcija resničnih mehanizmov v možganih, ki nam to omogočajo. V bazalnih ganglijih, kot so prikazani na sliki \ref{basal_ganglia} pri tem sodeluje več skupin nevronov in povezav, ki so v modelu akter-kritik, kot ga predstavlja \cite{acterCritic} logično združeni v \textit{korteks}, ki predstavlja vhodne nevrone, \textit{motorične nevrone}, ki predstavljajo izhodne nevrone in možne akcije ter skupine nevronov kritika; \textit{striatum}, \textit{ventralni pallidum} in dopaminergične nevrone. \textit{substantia nigra} in \textit{talamus} bazalnih ganglijev sta funkcionalno združena v dopaminergične nevrone, ki projecirajo dopamin do povezav med vhodom in striatumom in vhodom in izhodnimi motoričnimi nevroni. 
+TD učenje bomo implementirali z modelom akter-kritik (\textit{angl. actor-critic}), po zgledu \cite{actorCritic} na nalogi z mrežo. Model akter-kritik je sestavljen iz dveh delov, akterja - dopaminsko moduliranega RSTDP dela, kot smo ga že implementirali in pa kritika, ki ocenjuje vrednost trenutnega stanja. Celoten model je navdihnjen po dopaminskem sistemu prisotnem v človeških možganih oziroma bolj konkretno \href{https://en.wikipedia.org/wiki/Basal_ganglia}{bazalnih ganglijih}.
+Bazalni gangliji so skupina jedrov v možganih, ki igrajo ključno vlogo pri nadzoru gibanja, učenju akcij in odločanju, poleg tega pa realizira obliko TD učenja. Model akter-kritik je poenostavitev in abstrakcija resničnih mehanizmov v možganih, ki nam to omogočajo. V bazalnih ganglijih, kot so prikazani na sliki \ref{basal_ganglia} pri tem sodeluje več skupin nevronov in povezav, ki so v modelu akter-kritik, kot ga predstavlja \cite{actorCritic} logično združeni v \textit{korteks}, ki predstavlja vhodne nevrone, \textit{motorične nevrone}, ki predstavljajo izhodne nevrone in možne akcije ter skupine nevronov kritika; \textit{striatum}, \textit{ventralni pallidum} in dopaminergične nevrone. \textit{substantia nigra} in \textit{talamus} bazalnih ganglijev sta funkcionalno združena v dopaminergične nevrone, ki projecirajo dopamin do povezav med vhodom in striatumom in vhodom in izhodnimi motoričnimi nevroni. 
 Tako v bazalnih ganglijih kot v modelu akter-kritik, kot ga predstavlja Wiebke P, et al. razlikujemo dve glavni poti: direktno in indirektno pot, ki vodita iz skupine nevronov imenovane \textit{striatum} do dopaminergičnih nevronov. Direktna pot je zakasnjena inhibitorna pot, ki poteka neposredno iz striatuma do dopaminergičnih nevronov,
 indirektna pot pa je inhibitorna do skupine nevronov imenovane \textit{ventralni pallidum}, posebne skupine nevronov, ki inhibira aktivnost dopaminergičnih nevronov. \textit{ventralni pallidum} se nahaja ventralno od \textit{globusa pallidusa} prikazanega na klasičnem prikazu bazalnih ganglijev in je povezan s pričakovanjem nagrade in odločanjem, zato Wiebke P, et al. za skupino nevronov na indirektni poti izbere to poimenovanje.
 \\
@@ -842,35 +837,27 @@ Ob prisotnosti neke osnovne, od 0 različne frekvence nevronov \textit{ventralne
 \end{figure}
 \\
 \\
-%TODO: finish
 Skupino vhodnih nevronov, oziroma korteks bo predstavljalo $N_{\text{in}}$ nevronov, ki bodo povezani z $N_a$ motoričnimi oziroma izhodnimi nevroni. V akterju bomo zaradi razlogov navedenih v poglavju \ref{sec:rstdp} uporabljali model nevrona z eksponentnim jedrom, v kritiku, pa bomo uporabiti biološko bolj realistične nevrone z alfa jedrom. Ker bodo vhodni nevroni akterju in kritiku skupni, bomo med vhodnimi nevroni in izhodnimi nevroni dodali dodaten nivo $N_{\text{in}}$ vhodnih motoričnih nevronov, ki so z vhodnimi nevroni preko statičnih povezav z utežmi $w_{\text{in}\to\text{in, motor}}$ povezani po režimu \textit{one-to-one}, oziroma en vhodni nevron z enim nevronom vmesnega nivoja. Ta nam bo omogočil prlagajanje frekvence in šuma potrebnega za R-STDP učenje v akterju ločeno od kritika, kar nam bo olajšalo iskanje ustreznih hiperparametrov. Vmesni nevroni so po režimu \textit{all-to-all} (vsak vhodni nevron je povezan z vsakim izhodnim) povezani z izhodnimi nevroni preko zakasnjene R-STDP sinapse z normalno porazdeljenimi utežmi. Prav tako so vhodni nevroni po režimu \textit{all-to-all} povezani z $N_{\text{kritik}}$ nevroni striatuma preko zakasnjenih R-STDP sinaps z normalno porazdeljenimi utežmi. Striatum je preko statičnih inhibitornimih povezav z utežmi $w_{\text{str}\to\text{vp}}$ povezan z $N_{\text{kritik}}$ nevroni ventralnega palliduma in preko statičnih inhibitornih povezav z utežmi $w_{\text{str}\to\text{dopa}}$ in zakasnitvijo $d_{\text{dir}}$ do $N_{\text{dopa}}$ dopaminergičnih nevronov. 
 Ventralni pallidum je z dopaminergičnimi nevroni prav tako povezan preko statičnih inhibitornih povezav, ki pa niso zakasnjene in imajo uteži $w_{\text{vp}\to\text{dopa}}$. Vse povezave kritika so povezane po režimu \textit{all-to-all}. V nevrone vmesnega nivoja med vhodnimi in izhodnimi nevroni injeciramo Poissonski šum s povprečno hitrostjo $\lambda_{\text{in, motor}}$, v izhodne nevrone pa Poissonski šum s hitrostjo $\lambda_{\text{out, motor}}$. Prav tako Poissonski šum injeciramo v nevrone ventralnega palliduma s povprečno hitrostjo $\lambda_{\text{vp}}$ in v dopaminergične nevrone s povprečno hitrostjo $\lambda_{\text{dopa}}$. 
-Generatorji Poissonskega šuma so do posameznih skupin nevronov povezani preko statičnih povezav z utežmi $w_{\text{ext, in}}$, $w_{\text{ext, out}}$, $w_{\text{ext, vp}}$ in $w_{\text{ext, dopa}}$. Vse povezave kritika so statične, 
-Hiperparametri R-STDP sinaps in modelov nevronov so skupaj z ostalimi hiperparametri navedeni v poglavju \ref{sec:izbira_parametrov}.
+Generatorji Poissonskega šuma so do posameznih skupin nevronov povezani preko statičnih povezav z utežmi $w_{\text{ext, in}}$, $w_{\text{ext, out}}$, $w_{\text{ext, vp}}$ in $w_{\text{ext, dopa}}$. Hiperparametri R-STDP sinaps in modelov nevronov so skupaj z ostalimi hiperparametri navedeni v poglavju \ref{sec:izbira_parametrov}. Opisani model je predstaljven na sliki \ref{actor_critic_diagram}.
 %TODO: oznaci weights na diagramu
-\\
-\\
-%TODO: preveri ce res ne uposteva postsinapticne
-Za razliko od izvornega sistema, ki ga predstavijo \ref{actorCritic} bomo za model sinapse uporabili našo zakasnjeno R-STDP sinapso kot smo jo razvili v poglavjih \ref{sec:synapse_model} in \ref{sec:rstdp}, ki poleg presinaptičnih impulzov upošteva tudi postsinaptične, po pravilu STDP. Tako bomo lahko kot akter uporabili R-STDP sistem, kot smo ga razvili v poglavju \ref{sec:rstdp}. Sistem, ki ga bomo implementirali bo po številu nevronov manjši od izvornega, za višjo hitrost simulacije. Poleg tega se bo naša implementacija razlikovala tudi v načinu izbire stanja, kjer za izbrano akcijo vzamemo tisto, katere pripadajoč izhodni nevron ima  najvišje število impulzov v trenutnem stanju. V izvornem sistemu je akcija izbrana glede na prvi impulz pripadajočega izhodnega nevrona, ki se je sprožil kot rezultat stimulacije v trenutnem stanju. Za ta načim moramo po prvem impulzu v karseda majhnem časovnem intervalu inhibirati vse ostale izhodne nevrone. Tako bomo sicer bolj direktno okrepili povezave odgovorne za izbrano aktivnost, saj smo z inhibicijo izničili \textit{eligibility} sled sinaps do ostalih izhodnih nevronov, poleg tega pa tudi ne bo potrebe po tekmovanju sinaps, kot pri naši metodi, vendar moramo za to preveriti impulze izhodnih nevronov v vsakem koraku simulatorja. V primeru simulatorja NEST je to vsakih 0.1 ms, kar pa je problematično, saj simulator teče v C++ zaledju, ki ga zapustimo takoj ko prekinemo simulacijo. 
-Tako je bistvena razlika med tem, da 100krat poženemo ukaz \texttt{nest.Simulate(0.1)} ali enkrat \texttt{nest.Simulate(10)}. 
-
-Stanja bomo razdelili v intervale dolžine 200 ms ob prehodu stranj pa bomo vhodne nevrone stimulirali enako kot pri RSTDP. %TODO: link 
-Pri prehodu med stanji lahko določen del stimuliranih nevronov iz prejšnjega stanja postane asociiranih (\colorbox{Apricot}{\textbf{pokaži}}) z akcijo naslednjega stanja, kar v osnovi ni napačno in je posledica uporabe RSTDP sinapse, vendar bomo za bolj učinkovito učenje med prehodi stanj prekinili stimulacijo 50 ms pred stimulacijo novega stanja, saj so za našo nalogo stanja med seboj neodvisna. Za določeno stanje ni važno v katerem stanju smo se nahajali prej.
-
-\\
-\\
-\begin{figure}[htbp]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{figures/dipl_TD_model}
 \end{center}
 \caption{Prikaz implementiranega aktor-kritik sistema}
-\label{pic8}
+\label{actor_critic_diagram}
 \end{figure}
+%TODO: preveri ce res ne uposteva postsinapticne
+Za razliko od izvornega sistema, ki ga predstavijo \ref{actorCritic}, bomo za model sinapse uporabili našo zakasnjeno R-STDP sinapso kot smo jo razvili v poglavjih \ref{sec:synapse_model} in \ref{sec:rstdp}, ki poleg presinaptičnih impulzov upošteva tudi postsinaptične, po pravilu STDP. Tako bomo lahko kot akter uporabili R-STDP sistem, kot smo ga razvili v poglavju \ref{sec:rstdp}.  Poleg tega se bo naša implementacija razlikovala tudi v načinu izbire stanja, kjer za izbrano akcijo vzamemo tisto, katere pripadajoč izhodni nevron ima  najvišje število impulzov v trenutnem stanju. V izvornem sistemu je akcija izbrana glede na prvi impulz pripadajočega izhodnega nevrona, ki se je sprožil kot rezultat stimulacije v trenutnem stanju. Za ta načim moramo po prvem impulzu v karseda majhnem časovnem intervalu inhibirati vse ostale izhodne nevrone. Tako bomo sicer bolj direktno okrepili povezave odgovorne za izbrano aktivnost, saj smo z inhibicijo izničili \textit{eligibility} sled sinaps do ostalih izhodnih nevronov, poleg tega pa tudi ne bo potrebe po tekmovanju sinaps, kot pri naši metodi, vendar moramo za to preveriti impulze izhodnih nevronov v vsakem koraku simulatorja. V primeru simulatorja NEST je to vsakih 0.1 ms, kar pa je problematično, saj simulator teče v C++ zaledju, ki ga zapustimo takoj ko prekinemo simulacijo. Tako je bistvena razlika med tem, ali 100krat poženemo ukaz \texttt{nest.Simulate(0.1)} ali enkrat \texttt{nest.Simulate(10)}. Naš sistem bo za voljo hitrosti simulacije po številu nevronov manjši od izvornega sistema.
 \newpage
 \subsection{Izbira parametrov}
-Parametri so bili izbrani eksperimentalno in se ne ozirajo na biološko točnost. Ob spreminjanju velikosti posameznih skupin nevronov moramo pri izbiri parametrov paziti na ohranjanje osnovne frekvence dopaminergičnih nevronov in da sta inhibicija in ekscitacija zaradi direktne in indirektne povezave v ravnovesju. Redukcija frekvence, ki jo opravlja plast nevronov med vhodnimi in izhodnimi, mora biti dovolj velika, da bo pri osnovih utežeh sinaps med srednjo plastjo in izhodnimi nevroni šum omogočil učenje, kot je to razloženo v poglavju \textbf{R-STDP učenje}. %TODO: link
-Navedene so konstante in parametri implementiranega modela. Parametri, ki niso prikazani v tabeli imajo privzeto vrednost NEST simulatorja.
+Parametri so bili izbrani eksperimentalno brez oziranja na biološko točnost. Ob spreminjanju velikosti posameznih skupin nevronov moramo pri izbiri parametrov paziti na ohranjanje osnovne frekvence dopaminergičnih nevronov in da sta inhibicija in ekscitacija zaradi direktne in indirektne povezave v ravnovesju. Zmanjšanje frekvence, ki jo opravlja plast nevronov med vhodnimi in izhodnimi, mora biti dovolj velika, da bo pri osnovnih utežeh sinaps med srednjo plastjo in izhodnimi nevroni šum omogočil učenje, kot je to razloženo v poglavju \ref{sec:rstdp}.
+V tabelah \ref{tab:params1}, \ref{tab:params2}, \ref{tab:params3}, \ref{tab:params4}, \ref{tab:params5} in \ref{tab:params6} so navedene konstante in parametri implementiranega modela. Parametri, ki niso prikazani v tabeli imajo privzete vrednosti NEST simulatorja.
+
+%TODO: correct formatting
 \begin{table}[htbp]
+    \label{tab:params1}
 \caption{Parametri simulacije}
 \begin{tabular}{lll}
 \textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
@@ -881,9 +868,9 @@ POLL\_TIME & Čas simulacije na iteracijo & 200 \\ \hline
 \end{tabular}
 \end{table}
 \\
-%TODO: correct formatting
 %TODO: number of neurons
 \begin{table}[H]
+    \label{tab:params2}
 \begin{tabular}{lll}
 \textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
 \thead[l]{\bfseries Parametri skupin \\
@@ -914,8 +901,10 @@ tip & Tip modela nevrona & \textit{iaf\_psc\_exp} \\ \hline
 \end{tabular}
 \caption{Parametri nevronov}
 \end{table}
+
 \\
 \begin{table}[H]
+    \label{tab:params3}
 \begin{tabular}{lll}
 \textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
 \\
@@ -947,6 +936,7 @@ tip & Tip sinapse & \makecell[l]{Zakasnjena dopaminsko \\ modulirana STDP sinaps
 \end{table}
 \\
 \begin{table}[H]
+    \label{tab:params4}
 \begin{tabular}{lll}
 \textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
 \thead[l]{\bfseries Parametri sinaps med \\
@@ -970,6 +960,7 @@ tip & Tip sinapse & \makecell[l]{Zakasnjena dopaminsko \\ modulirana STDP sinaps
 \caption{Parametri sinaps med vhodom in striatumom}
 \end{table}
 \begin{table}[H]
+    \label{tab:params5}
 \begin{tabular}{lll}
 \textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
 tip & Tip sinapse & \makecell[l]{Privzeta konstantna \\ NEST sinapsa} \\ \hline
@@ -982,6 +973,7 @@ tip & Tip sinapse & \makecell[l]{Privzeta konstantna \\ NEST sinapsa} \\ \hline
 \end{table}
 \\
 \begin{table}[H]
+    \label{tab:params6}
 \begin{tabular}{lll}
 \textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
 % ------- External noise and background -------
@@ -998,20 +990,19 @@ tip & Tip sinapse & \makecell[l]{Privzeta konstantna \\ NEST sinapsa} \\ \hline
 \end{table}
 \\
 \subsection{Učenje}
+Stanja bomo razdelili v intervale dolžine 200 ms, ob prehodu stranj pa bomo vhodne nevrone stimulirali enako kot smo to počeli v poglavju \ref{sec:rstdp}.
+Pri prehodu med stanji se ob dovolj visoki koncentraciji dopamina lahko okrepijo tudi sinapse do izhodnih nevronov, ki so povezane z vhodnimi nevroni prejšnjega stanja, saj \textit{eligibility} sledi lahko ostanejo večje od 0 tudi preko več prehodov stanj. To v osnovi ni napačno in je posledica uporabe RSTDP sinapse, vendar bomo za bolj učinkovito učenje med prehodi stanj prekinili stimulacijo 50 ms pred stimulacijo novega stanja, saj so za našo nalogo stanja med seboj neodvisna. Za določeno stanje ni važno v katerem stanju smo se nahajali prej. Mehanizme, ki smo jih opisali v prejšnjem poglavju za začetek preverimo na sekvenci prehodov iz stanja 0, v neko nagrajeno stanje 5 in nazaj v stanje 0, kot je prikazano na sliki \ref{actor_critic_learning}. Ob prehodu v nagrajeno stanje se bodo uteži povezav med vhodnimi nevroni, ki predstavljajo stanje 0 in striatumom okrepile. To neposredno predstavlja višjo vrednost stanja 0 kot posledica višje pričakovane nagrade. Zunanja nagrada, ki smo jo dovedli ob prehodu v nagrajeno stanje 5 ne pomeni tudi, da v stanju 5 prčakujemo visoko nagrado. Pričakovana nagrada se namreč zviša samo ob prehodu v stanje z višjo vrednostjo ali ob prisotnosti zunanje nagrade in je odvisna od akcije, ki jo izvedemo v tem stanju. Ob prehodu iz stanja 5 nazaj v stanje 0 tako preidemo iz stanja z osnovnimi utežmi do striatuma v stanje 0, ki pa ima sedaj okrepljene utežm do striatuma. To predstavlja prehod v stanje z višjo vrednostjo. Posledica tega je, napram osnovni frekvenci dopaminergičnih nevronov, povišana dopaminergična aktivnost, ki povzroči sorazmerno povišanje uteži sinaps do striatuma v stanju 5. V nadaljevanju ostajamo v stanju 0, kjer se ob prehodu iz stanja 0 v stanje 0 vrnemo k osnovni dopaminergični frekvenci.
+%TODO: kaj narest s to sliko 
+%TODO: na sliki pobarvaj 50ms prekinitev
+
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{actorcritic/F2 - StateTransitionTD_annotated}
 \end{center}
-\caption{Prikaz obnašanja sistema ob prehodu iz stanja 0 v nagrajeno stanje 5 in nazaj v stanje 0. Pričakovana nagrada in tako tudi vrednost stanja 0 se ob prehodu v stanje 5 zviša preko povezav do striatuma. Ob prehodu iz nagrajenega stanja (ki pa samega sebe še ne ocenjuje z visoko vrednostjo) nazaj v stanje 0 preidemo iz stanja z osnovnimi utežmi v stanje 0 z okrepljenimi utežmi do striatuma, torej prehod v stanje z višjo vrednostjo. Posledica tega je, napram osnovni frekvenci dopaminergičnih nevronov, povišana dopaminergična aktivnost, ki povzroči aktivnosti sorazmerno povišanje uteži sinaps stanja 5 do striatuma. Ob prehodu iz stanja 0 v stanje 0 se vrnemo k osnovni dopaminergični frekvenci.}
-\label{pic8}
+\caption{Prikaz sinaptičnih uteži med vhodnimi nevroni stanj 0 in 5 do izhodnih nevronov ter nevronov striatuma, povprečne aktivnosti nevronov striatuma, povprečne aktivnosti nevronov ventralnega palliduma ter povprečne dopaminergične aktivnosti tekom sekvence prehov med stanji 0 in 5.}
+\label{actor_critic_learning}
 \end{figure}
-\colorbox{Apricot}{%
-  \parbox{0.9\linewidth}{%
-    \textbf{
-      Potrebna podrobnejša razlaga...
-    }%
-  }%
-}
+
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{actorcritic/F3 - Learning}
@@ -1025,13 +1016,13 @@ tip & Tip sinapse & \makecell[l]{Privzeta konstantna \\ NEST sinapsa} \\ \hline
     }%
   }%
 }
+%TODO: zakaj dipnejo uteži
 
 \label{pic8}
 \end{figure}
 \newpage
 \subsection{Rezultati}
-Naučeno politiko bomo prikazali podobno kot v poglavju \textbf{R-STDP učenje}, %TODO: link
-vendar bomo samozavest izbire akcije v določenem stanju prikazali skupaj z povprečno utežjo povezav med vhodnimi nevroni pripadajočega stanja in striatumom.
+Naučeno politiko bomo prikazali podobno kot v poglavju \ref{sec:rstdp}, vendar bomo ``samozavest'' izbire akcije v določenem stanju prikazali skupaj s povprečno utežjo povezav med vhodnimi nevroni pripadajočega stanja in striatumom.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{actorcritic/best}
@@ -1043,12 +1034,13 @@ vendar bomo samozavest izbire akcije v določenem stanju prikazali skupaj z povp
 \colorbox{Apricot}{%
   \parbox{0.9\linewidth}{%
     \textbf{
-        Dodaj skalo in razloži preslikavo povprečne uteži v barve polj.
+        Dodaj skalo.
     }%
   }%
 }
 \\
-%TODO: add actual image
+%TODO: rerun simulation and inspect the weights after 3000iters best. Look if you can answer why some policies are wrong and save the progress image.
+%TODO: on the progress add mean steps/manhattan to get to goal. The graphs should correlate
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{actorcritic/progress}
@@ -1056,6 +1048,7 @@ vendar bomo samozavest izbire akcije v določenem stanju prikazali skupaj z povp
 \caption{Povprečna utež preko sinaps med vsemi vhodnimi nevroni in striatumom tekom 1500 iteracij po 200 ms.}
 \label{pic8}
 \end{figure}
+%TODO: preveri ce so vsi figures linked
 
 \subsubsection{Interpretacija rezultatov}
 Sistem se uspešno uči politike prehodov iz poljubnega stanja do oddaljene nagrade v kolikor ni nagrada preveč oddaljena. Polja 0 in 4 kažeta v napačno smer, vendar vidimo, da je tudi stanje ocenjeno z nizko vrednostjo. Daljše učenje pri trenutni konfiguraciji ne pripelje do boljših rezultatov. \\
