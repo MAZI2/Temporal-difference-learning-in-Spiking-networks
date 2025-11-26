@@ -98,6 +98,54 @@
       \verb 10.1093/cercor/bhl152
       \endverb
     \endentry
+    \entry{dopamineSynapse}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=df63efccddbe556db31d09f066e7935c}{%
+           family={Potjans},
+           familyi={P\bibinitperiod},
+           given={Wiebke},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ea4ec7db46c8894525a4b0c34b8c3cd2}{%
+           family={Morrison},
+           familyi={M\bibinitperiod},
+           given={Abigail},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a6e9c8b3b1dc422f6d4f5f42ab3051bc}{%
+           family={Diesmann},
+           familyi={D\bibinitperiod},
+           given={Markus},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a95e1195f2aa57f5f3634da5a90f602e}
+      \strng{fullhash}{a95e1195f2aa57f5f3634da5a90f602e}
+      \strng{bibnamehash}{a95e1195f2aa57f5f3634da5a90f602e}
+      \strng{authorbibnamehash}{a95e1195f2aa57f5f3634da5a90f602e}
+      \strng{authornamehash}{a95e1195f2aa57f5f3634da5a90f602e}
+      \strng{authorfullhash}{a95e1195f2aa57f5f3634da5a90f602e}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1662-5188}
+      \field{journaltitle}{Frontiers in Computational Neuroscience}
+      \field{title}{Enabling Functional Neural Circuit Simulations with Distributed Computing of Neuromodulated Plasticity}
+      \field{volume}{Volume 4 - 2010}
+      \field{year}{2010}
+      \verb{doi}
+      \verb 10.3389/fncom.2010.00141
+      \endverb
+      \verb{urlraw}
+      \verb https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2010.00141
+      \endverb
+      \verb{url}
+      \verb https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2010.00141
+      \endverb
+    \endentry
     \entry{predvidevanjeAkcij}{thesis}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=7ceeae6dea70cc26f456b6d7c4223ea6}{%

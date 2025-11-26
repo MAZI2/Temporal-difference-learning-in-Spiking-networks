@@ -2372,10 +2372,12 @@
     <bcf:citekey order="8" intorder="1">distalReward</bcf:citekey>
     <bcf:citekey order="9" intorder="1">actorCritic</bcf:citekey>
     <bcf:citekey order="10" intorder="1">expModel</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">pilotStudy</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">pilotStudy</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">distalReward</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">dopamineSynapse</bcf:citekey>
     <bcf:citekey order="13" intorder="1">pilotStudy</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">actorCritic</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">pilotStudy</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">pilotStudy</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">actorCritic</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
