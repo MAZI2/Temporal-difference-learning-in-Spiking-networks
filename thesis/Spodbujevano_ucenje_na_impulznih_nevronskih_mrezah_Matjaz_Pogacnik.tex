@@ -683,54 +683,52 @@ Za začetek bo naš agent sestavljen iz $N_{in}$ vhodnih nevronov, ki predstavlj
 Ob pravilni akciji agenta želimo povezave, ki so bile najbolj odgovorne za izbiro akcije okrepiti. To bomo dosegli tako, da bodo pri enaki koncentraciji dopamina preko vseh povezav najmočnejše povezave, ki bodo povzročile največ kavzalnih parov pre- in postsinaptičnih impulzov imele najvišjo vrednost \textit{eligibility} sledi $c$ in bodo tako najbolj okrepljene. Agent bo ob prihodu v določeno stanje izbral naslednjo akcijo, kjer bo morebitna nagrada na voljo šele ob prihodu v naslednje stanje, zato hočemo posodobiti povezave, ki so bile odgovorne za akcijo, ki nas je do tega stanja pripeljala. 
 \\
 \\
-Pri zvišani koncentraciji dopamina, ob prihodu v nagrajeno stanje, bi lahko posodabljali že povezave, ki so aktivne v novem stanju, da se temu izognemo pa bomo onemogočili posodaljanje povezav za katere je nagrada prišla prehitro. R-STDP sinpaso bomo zato prilagodilo tako, da bomo celotno \textit{eligibility} sled premaknili za vrednost $\tau_{c, \text{delay}}$ in s tem onemogočili posodabljanje zaradi nagrad, ki so prispele v času krajšem od $\tau_{c, \text{delay}}$ po aktivnosti sinapse. 
+Pri zvišani koncentraciji dopamina, ob prihodu v nagrajeno stanje, bi lahko posodabljali že povezave, ki so aktivne v novem stanju, da se temu izognemo pa bomo onemogočili posodaljanje povezav za katere je nagrada prišla prehitro. R-STDP sinpaso bomo zato prilagodilo tako, da bomo celotno \textit{eligibility} sled premaknili za vrednost $\tau_{c, \text{delay}}$ in s tem onemogočili posodabljanje zaradi nagrad, ki so prispele v času krajšem od $\tau_{c, \text{delay}}$ po aktivnosti sinapse. Dinamika prilagojene sinapse je prikazana na sliki \ref{delayed_eligibility}. 
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{neuron_models/RSTDP_delayed}
 \end{center}
 \caption{\textit{eligibility}  sled $c$, dopaminska sled $n$ in evolucija sinaptične uteži pri presinaptičnih impulzih pri $[10.0, 30.0]$ ms in postsinaptičnih inpulzih pri $[12.0, 32.0]$ ms, simulirane preko $150$ ms pri R-STDP sinapsi z  $\tau_c = 50.0$ ms, $\tau_{c,\mathrm{delay}} = 50.0$ ms, $\tau_n = 10.0$ ms, $\tau_\mathrm{plus} = 10.0$ ms, $b = 0.0$, $A_\mathrm{plus} = 0.2$, $A_\mathrm{minus} = 0.2$, in sinaptično zakasnitvijo $0.5$ ms.}
-\label{pic2}
+\label{delayed_eligibility}
 \end{figure}
 
 Nagrada, ki jo predstavlja aktivnost dopaminskih nevronov bo vedno velčja ali enaka $0$, kar pomeni, da se bodo skozi čas sinapse samo krepile. Povezave, ki predstavljajo izbiro določene akcije v določenem stanju morajo zato med seboj tekmovati za prevlado. Pri tem moramo omogočiti dovolj veliko varianco med impulzi izhodnih nevronov predvsem v začetni fazi, ko so vse povezave približno enako velike. V nasprotnem primeru bodo vse povezave posodobljene za približno enako vrednost glede na R-STDP. 
-Varianco med impulzi pri enakih povezavah dosežemo z zunanjim Poissonskim šumom. Naš agent bo uporabljal model nevrona z eksponentim jedrom, saj tako Poissonski šum povzroči večjo varianco izhodnih nevronov kot model z alfa jedrom, kar smo demonstrirali v poglavju \ref{sec:izbira_modela}. V začetni fazi bodo tako akcije v večini izbrane naključno, ob majhnem številu izhodnih impulzov pa bo razlika variance relativno večja kot pri višji aktivnosti izhodnih nevronov. Tako bo v kasnejših fazah učenja izbira akcije čedalje manj odvisna od šuma. Za začetek R-STDP učenje in obnašanje razvitega sistema preverimo na preprosti nalogi s tremi stanji. Prehod v vsako stanje je nakjučno, v vsakem stanju pa je samo ena izbira akcije nagrajena. V stanju 0, ki ga predstavlja vhodni nevron 0 je nagrajena akcija 0 (izhodni nevron 0), v stanju 1 akcija 1, v stanju 2 pa akcija 2. Razvidna je prevlada pravilnih sinaps in višanje divergence v sinapsah skozi čas ter višanje povprečne nagrade tekom učenja.
+Varianco med impulzi pri enakih povezavah dosežemo z zunanjim Poissonskim šumom. Naš agent bo uporabljal model nevrona z eksponentim jedrom, saj tako Poissonski šum povzroči večjo varianco izhodnih nevronov kot model z alfa jedrom, kar smo demonstrirali v poglavju \ref{sec:izbira_modela}. V začetni fazi bodo tako akcije v večini izbrane naključno, ob majhnem številu izhodnih impulzov pa bo razlika variance relativno večja kot pri višji aktivnosti izhodnih nevronov. Tako bo v kasnejših fazah učenja izbira akcije čedalje manj odvisna od šuma. Za začetek R-STDP učenje in obnašanje razvitega sistema preverimo na preprosti nalogi s tremi stanji. Prehod v vsako stanje je nakjučno, v vsakem stanju pa je samo ena izbira akcije nagrajena. V stanju 0, ki ga predstavlja vhodni nevron 0 je nagrajena akcija 0 (izhodni nevron 0), v stanju 1 akcija 1, v stanju 2 pa akcija 2. Na sliki \ref{rstdp_simple} je razvidna prevlada pravilnih sinaps in višanje divergence v sinapsah skozi čas ter višanje povprečne nagrade tekom učenja. V simulaciji uporabljamo privzete NEST parametre za nevrone tipa \textit{iaf\_psc\_exp} ter zakasnjene dopaminsko modulirane sinapse. Ostali parametri sistema so navedeni v tabeli \ref{tab:rstdp_simple}.
+ 
 \begin{table}[H]
-\centering
-\label{tab:variance_simulation_parameters}
-\begin{tabular}{ll}
-\hline
-\textbf{Parameter} & \textbf{Vrednost} \\
-\hline
-Število postsinaptičnih nevronov & 5 \\
-Trajanje simulacije & 5000 ms \\
-$C_m$ & 250.0 pF \\
-$\tau_m$ & 20.0 ms \\
-$E_L$ & 0.0 mV \\
-$V_\text{th}$ & 20.0 mV \\
-$V_\text{reset}$ & 0.0 mV \\
-$t_\text{ref}$ & 2.0 ms \\
-$\tau_\text{syn,ex}$ & 5.0 ms \\
-$w_{\text{eksp}}$ & 25.0 \\
-$w_{\text{alfa}}$ & 25.0 / $e \approx 9.20$ \\
-Frekvenca Poissonskega šuma & 8000 Hz na nevron \\
-\hline
+\label{tab:rstdp_simple}
+\begin{tabular}{lll}
+\textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
+$t_{\text{SIM}}$ & Trajanje simulacije & 60000 ms \\ \hline
+$w_{\text{motor, min}}$ & \makecell[l]{Minimalna utež sinaps \\ med vhodnimi in \\ izhodnimi nevroni} & 500 \\ \hline
+$w_{\text{motor, max}}$ & \makecell[l]{Maksimalna utež sinaps \\ med vhodnimi in \\ izhodnimi nevroni} & 2000 \\ \hline
+$\tau_c$ & & 5 ms \\ \hline
+$\tau_{c,\mathrm{delay}}$ & & 200 ms \\ \hline
+$\tau_n$ & Odtekanje dopaminske sledi & 10 ms \\ \hline
+$\tau_+ = \tau_-$ & Pozitivna STDP konstanta & 20 ms \\ \hline
+$b$ & \makecell[l]{Bazalna dopaminska \\ koncentracija} & 0.1 \\ \hline
+$A_+$ & Pozitivni STDP multiplikator & 0.7 \\ \hline
+$A_-$ & Negativni STDP multiplikator & 0.3 \\ \hline
+$d$ & Zakasnitev sinaps & 0.5 ms \\ \hline
+$\lambda_{\text{motor}}$ & \makecell[l]{Povprečna hitrost \\ Poissonskega šuma} & 1000 Hz \\ \hline
+$w_{\text{Poisson}}$ & Uteži sinaps Poissonskega šuma & 100 \\  \hline
+$w_{\text{init, motor}}$ & \makecell[l]{Začetne uteži sinaps \\ med vhodnimi in izhodnimi \\ nevroni} & $w_{\text{init, motor}} \sim \mathcal{N}(1300, 1)$ \\ \hline
 \end{tabular}
-\caption{Parametri simulacije uporabljeni pri primerjavi modelov nevronov.}
+\caption{Parametri simulacije R-STDP učenja na preprostem problemu.}
 \end{table}
 
-
 \begin{figure}[H]
+\label{rstdp_simple}
 \begin{center}
 \includegraphics[width=1.0\textwidth]{rstdp/competition}
 \end{center}
-\caption{
- V simulaciji uporabljamo privzete NEST parametre za nevrone tipa \textit{iaf\_psc\_exp} ter zakasnjene dopaminsko modulirane sinapse s parametri $W_{\min} = 500$, $W_{\max} = 2000$, $\tau_c = 5\,\mathrm{ms}$, $\tau_{c,\mathrm{delay}} = 200\,\mathrm{ms}$, $\tau_n = 10\,\mathrm{ms}$, $\tau_+ = \tau_- = 20\,\mathrm{ms}$, $b = 0.1$, $A_+ = 0.7$, $A_- = 0.3$ ter sinaptično zakasnitev $0.5\,\mathrm{ms}$, Poissonski šum z $\lambda = 1000$ in utežjo sinaps $w_{\text{Poisson}} = 100$. Sinapse med vhodnimi in izhodnimi nevroni so inicializirane na $w_{\text{motor}} \sim \mathcal{N}(1300, 1)$.}
+\caption{Prikaz uteži sinaps med vhodnimi in izhodnimi nevroni ter povprečne aktivnosti dopaminergičnih nevronov tekom simulacije R-STDP učenja na preprostem problemu.} 
 \label{competition}
 \end{figure}
 \newpage
 \subsection{Igra Pong}
-V nadaljevanju bomo R-STDP predstavili na agentu, ki igra \href{https://en.wikipedia.org/wiki/Pong}{\textit{Pong}}. R-STDP učenje je kratkovidno, kjer se bomo naučili akcij, samo če nagrada sledi nemudoma, ne pa, če je nagrada zakasnjena. Za zakasnjene nagrade uporabljamo TD (\textit{angl. Temporal Difference}) učenje, ki ga implementiramo v poglavju \textbf{TD učenje in model actor-critic}. Igra Pong v osnovi zahteva veliko predvidevanja, vendar lahko igranje igre poenostavimo v obliko, ki se jo lahko naučimo z R-STDP učenjem. Igro bomo v nadaljevanju definirali tako, da ima žogica stalno hitrost, določeno smer in pozicijo v x, y ravnini. Na levi strani igrišča bo naš agent premikal platformo v vertikalni smeri na desni strani pa je stena od katere se prožno odbije žogica. V kolikor bi v učenje vključili predvidevanje, bi morali stanja agenta definirati kot kartezični produkt x,y pozicije žogice, njene smerji in y pozicije platforme, lahko pa problem poenostavimo v problem sledenja žogici enako kot v delu \cite{pilotStudy}, kjer agent izira željeno ciljno točko platforme. Tako stanja kot akcije agenta so tako diskretizirane možne y pozicije žogice. Stanje je nagrajeno s stimulacijo dopaminskih nevronov s tokom $I_{R}$, ki je sorazmeren razliki med nagrado $R_b$ izračunani glede na oddaljenost željene pozicije $j$ od trenutne y pozicije žogice $j$ in povprečno nagrado $\bar{R}_i$ v iteraciji $i$. S pomočjo povprečne nagrade omejimo krepitev sinaps v kolikor te ne izboljšajo trenutne politike.
+V nadaljevanju bomo R-STDP učenje predstavili na agentu, ki igra \href{https://en.wikipedia.org/wiki/Pong}{\textit{Pong}}. R-STDP učenje je kratkovidno, ker se bomo naučili akcij, samo če nagrada sledi nemudoma, ne pa, če je nagrada zakasnjena. Za zakasnjene nagrade uporabljamo TD (\textit{angl. Temporal Difference}) učenje, ki ga implementiramo v poglavju \ref{td_learning}. Igra Pong v osnovi zahteva veliko predvidevanja, vendar lahko igranje igre poenostavimo v obliko, ki se je lahko naučimo z R-STDP učenjem. Igro bomo v nadaljevanju definirali tako, da ima žogica stalno hitrost, določeno smer in pozicijo v x, y ravnini. Na levi strani igrišča bo naš agent premikal platformo v vertikalni smeri, na desni strani pa je stena od katere se prožno odbije žogica. V kolikor bi od agenta zahtevali predvidevanje, bi morali stanja definirati kot kartezični produkt x,y pozicije žogice, njene smerji in y pozicije platforme. Problem bomo poenostavimo v problem sledenja žogici kot v delu \cite{pilotStudy}, kjer agent izira željeno ciljno točko platforme in predvidevanje ni potrebno. Tako stanja kot akcije agenta so diskretizirane možne y pozicije žogice. Stanje je nagrajeno s stimulacijo dopaminskih nevronov s tokom $I_{R}$, ki je sorazmeren razliki med nagrado $R_b$ izračunani glede na oddaljenost željene pozicije $j$ od trenutne y pozicije žogice $j$ in povprečno nagrado $\bar{R}_i$ v iteraciji $i$. Takšna konfiguracija je prikazana na sliki \ref{pong_setup}. S pomočjo povprečne nagrade omejimo krepitev sinaps v kolikor te ne izboljšajo trenutne politike.
 
 \begin{align}
 R_b &= \begin{cases}
@@ -741,47 +739,37 @@ I_{R} &= \max(R_b-\bar{R}_i, 0) \cdot 600 \text{ pA}
 \end{align}
 
 \begin{figure}[htbp]
+\label{pong_setup}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{figures/pong_setup}
 \end{center}
 \caption{Grafična predstavitev agenta in okolja (\cite{pilotStudy})}
-\label{pic5}
 \end{figure}
-
-Pričakujemo, da bodo sorazmerno oddaljenosti v posameznih stanjih prevladale sinapse, ki iz vhodnega nevrona vodijo do akcij okrog istoležnega izhodnega nevrona. Polje bomo po y osi diskretizirali na 20 stanj.
-
-\begin{figure}[H]
+\newpage
+Pričakujemo, da bodo sorazmerno oddaljenosti v posameznih stanjih prevladale sinapse, ki iz vhodnega nevrona vodijo do akcij okrog istoležnega izhodnega nevrona. Polje smo po y osi diskretizirali na 20 stanj. Po simulaciji tekom 6000 ms na sliki \ref{rstdp_pong_learning} vidimo graf povezav med vhodnim nevronom, ki predstavlja $y=5$ pozicijo in 20 izhodnimi nevroni, kjer tekom učenja prevladuje izhodni nevron 5. Izhodna nevrona 4 in 6 pa sta druga po vrsti. Za simulacijo smo uporabili enake parametre kot pri primeru R-STDP učenja na preprostem problemu.
+%TODO: bin size for avg dopamine
+\begin{figure}[htbp]
+\label{rstdp_pong_learning}
 \begin{center}
 \includegraphics[width=1.0\textwidth]{rstdp/rstdp-pong/learning}
 \end{center}
-\caption{Graf povezav med vhodnim nevronom, ki predstavlja $y=5$ pozicijo in 20 izhodnimi nevroni, kjer tekom učenja prevladuje motorični nevron 5. Motorična nevrona 4 in 6 pa sta druga po vrsti. Za simulacijo smo uporabili enake parametre kot pri sliki \ref{competition} }
-\label{pic6}
+\caption{Graf uteži povezav med vhodnim nevronom 5 in izhodnimi nevroni ter povprečna aktivnost dopaminergičnih nevronov med 6000 ms simulacijo igranja igre Pong.}
 \end{figure}
-\newpage
+inewpage
 \subsubsection{Rezultati}
-Učenje spremljamo preko povprečne nagrade prejete ob prehodih stanj, ki se bliža maksimalni nagradi $R_{\text{max}}=1.0$.
+Učenje spremljamo preko povprečnega časa preživetja, ki pomeni čas, ki je minil od zadnje zgrešitve žogice oziroma od začetka igre. Pričakujemo, da oblika krivulje skupne povprečne nagrade sledi povprečnemu času preživetja, saj povprečna nagrada raste v kolikor se je agent uspešno naučil slediti žogici. Iz slike \ref{mean_reward} lahko to potrdimo. Tako bi lahko za poljuben problem kvaliteto učenja spremljali le preko skupne povprečne nagrade.
 \begin{figure}[htbp]
+\label{mean_reward}
 \begin{center}
 \includegraphics[width=1.0\textwidth]{rstdp/rstdp-pong/mean_reward}
 \end{center}
-\caption{Povprečna nagrada $\bar{R}_i$ tekom 2000 iteracij po 200ms}
-\label{pic7}
+\caption{Skupna povprečna nagrada $\bar{R}_i$ in povprečen čas preživetja tekom 6000 iteracij po 200 ms}
 \end{figure}
 \\
 \\
-\colorbox{Apricot}{%
-  \parbox{0.9\linewidth}{%
-    \textbf{
-      Vključi še graf dolžine neprekinjene igre (do zgrešitve) kot posledica učenja.
-    }%
-  }%
-}
-\\
-\\
-Kot že omenjeno je takšno učenje učinkovito samo pri nagradah, ki niso oddaljene, oziroma drugače povedano, se agent ne bo naučil potencialne poti skozi različna nenagrajena stanja, da pride do končne nagrade. To je vidno pri nalogi iskanja oddaljene nagrade v mreži, kjer se agent lahko premika levo, desno, gor in dol. Agent se bo namreč naučil prehoda samo iz stanj neposredno ob cilju.
+R-STDP učenje je v takšni obliki učinkovito samo pri nagradah, ki niso oddaljene, oziroma drugače povedano, se agent ne bo naučil potencialne poti skozi različna nenagrajena stanja, da pride do končne nagrade. Primer problema z oddaljeno nagrado je iskanje poti do nagrade v mreži, kjer se lahko agent premika v sosednja polja levo, desno, gor in dol. Agent se bo pri trenutni implementaciji naučil prehoda samo iz stanj neposredno ob nagrajenem stanju.
 \\
 Ob učenju bomo agenta nagradili ko preide v končno stanje in ga po tem postavili v naključno stanje. Trenutno politiko agenta bomo predstavili s puščicami s smerjo, ki jo določa normaliziran vektor $\hat{x}_i$ v vsakem od stanj $i$, ki predstavljajo preferenco akcije glede na medsebojne razlike v utežeh sinaps.
-
 \[
 \begin{aligned}
     \overrightarrow{x_i} &= \sum_{j=0}^{3} w_{ij} \cdot \overrightarrow{d}_j, \\
@@ -801,13 +789,13 @@ kjer je \(w_{ij}\) utež sinapse iz vhodnega nevrona \(i\) do izhodnega nevrona 
 \overrightarrow{d}_3 = (1,0).
 \]
 
-Za prikaz ''samozavesti" pri izbiri akcije v stanju $i$ kot rezultat učenja, bomo polja ustrezno obarvali glede na maksimalno razliko med utežmi med vhodnim nevronom $i$ in vsakim od izhodnih nevronov.
+Za prikaz ``samozavesti'' pri izbiri akcije v stanju $i$ kot rezultat učenja, bomo polja ustrezno obarvali glede na maksimalno razliko med utežmi med vhodnim nevronom $i$ in vsakim od izhodnih nevronov.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{rstdp/rstdp-gridworld/best}
 \end{center}
-\caption{Prikaz politike po 500 iteracijah po 200ms. Končno stanje je obarvano z zeleno.}
+\caption{Prikaz politike po 500 iteracijah po 200 ms. Končno stanje je obarvano z zeleno.}
 \label{pic8}
 \end{figure}
 
@@ -817,8 +805,7 @@ Rezultat potrjuje, da se agent ni sposoben naučiti poti do nagrade iz poljubneg
 \label{sec:td_learning}
 Časovno razlikovalno učenje (angl. Temporal Difference Learning, TD) je metoda spodbujevanega učenja, ki posodablja oceno vrednosti stanj ali parov stanje–akcija sproti, med interakcijo z okoljem.
 
-Osnovna posodobitvena enačba za vrednostno funkcijo stanja pri TD(0) je
-
+Osnovna posodobitvena enačba za vrednostno funkcijo stanja 
 \[
 V(s_t) \leftarrow V(s_t) + \alpha\,\delta_t,
 \]
@@ -832,16 +819,10 @@ kjer je \(\alpha\) hitrost učenja, TD-napaka \(\delta_t\) pa je definirana kot
 V izrazu je \(r_{t+1}\) nagrada ob prehodu iz stanja \(s_t\) v stanje \(s_{t+1}\), faktor \(\gamma \in [0,1]\) pa določa relativno težo prihodnjih nagrad. TD-napaka predstavlja razliko med izboljšano napovedjo vrednosti in prejšnjo oceno.
 \\
 \\
-\colorbox{Apricot}{%
-  \parbox{0.9\linewidth}{%
-    \textbf{
-      Verjetno daljši uvod v TD učenje?
-    }%
-  }%
-}
+
 \subsection{Model actor-critic}
-TD učenje bomo implementirali z modelom akter-kritik (\textit{angl. actor-critic}), po zgledu \cite{actorCritic} na nalogi z mrežo. Za razliko od sistema, ki ga predstavijo Wiebke P, et al. bomo za sinapso uporabili našo zakasnjeno RSTDP, ki omogoča pripisovanje odgovornosti povezavam poljubno v preteklost, kar je pomembno pri učenju, kjer stanja niso definirana v diskretnih intervalih. Poleg tega upoštevamo tako kavzalne kot tudi antikavzalne impulze, po pravilu RSTDP med vsemi pari v zgodovini impulzov (\textit{all-to-all} namesto \textit{next-neighbor} \colorbox{Apricot}{\textbf{razloži}}). Sistem, ki ga bomo implementirali je tudi manjši glede na število nevronov, za višjo hitrost simulacije. Stanja bomo razdelili v intervale dolžine 200ms ob prehodu stranj pa bomo vhodne nevrone stimulirali enako kot pri RSTDP. %TODO: link 
-Pri prehodu med stanji lahko določen del stimuliranih nevronov iz prejšnjega stanja postane asociiranih (\colorbox{Apricot}{\textbf{pokaži}}) z akcijo naslednjega stanja, kar v osnovi ni napačno in je posledica uporabe RSTDP sinapse, vendar bomo za bolj učinkovito učenje med prehodi stanj prekinili stimulacijo 50ms pred stimulacijo novega stanja, saj so za našo nalogo stanja med seboj neodvisna. Za določeno stanje ni važno v katerem stanju smo se nahajali prej.
+TD učenje bomo implementirali z modelom akter-kritik (\textit{angl. actor-critic}), po zgledu \cite{actorCritic} na nalogi z mrežo. Za razliko od sistema, ki ga predstavijo Wiebke P, et al. bomo za sinapso uporabili našo zakasnjeno RSTDP, ki omogoča pripisovanje odgovornosti povezavam poljubno v preteklost, kar je pomembno pri učenju, kjer stanja niso definirana v diskretnih intervalih. Poleg tega upoštevamo tako kavzalne kot tudi antikavzalne impulze, po pravilu RSTDP med vsemi pari v zgodovini impulzov (\textit{all-to-all} namesto \textit{next-neighbor} \colorbox{Apricot}{\textbf{razloži}}). Sistem, ki ga bomo implementirali je tudi manjši glede na število nevronov, za višjo hitrost simulacije. Stanja bomo razdelili v intervale dolžine 200 ms ob prehodu stranj pa bomo vhodne nevrone stimulirali enako kot pri RSTDP. %TODO: link 
+Pri prehodu med stanji lahko določen del stimuliranih nevronov iz prejšnjega stanja postane asociiranih (\colorbox{Apricot}{\textbf{pokaži}}) z akcijo naslednjega stanja, kar v osnovi ni napačno in je posledica uporabe RSTDP sinapse, vendar bomo za bolj učinkovito učenje med prehodi stanj prekinili stimulacijo 50 ms pred stimulacijo novega stanja, saj so za našo nalogo stanja med seboj neodvisna. Za določeno stanje ni važno v katerem stanju smo se nahajali prej.
 \\
 \colorbox{Apricot}{\textbf{tu verjetno potrebna bolj podrobna razlaga...}}
 \\
@@ -861,7 +842,7 @@ indirektna pot pa je inhibitorna do \textit{ventralnega palliduma}, posebne skup
 Model, kot ga predlaga Wiebke P, et al. funkcionalno združuje \textit{substantio nigro} in \textit{talamus} kot dopaminergični nevroni in signal do povezav med vhodom in striatumom in vhodom in izhodnimi motoričnimi nevroni. Ventralno \textit{globusu pallidusu} se nahaja \textit{ventral pallidum}, ki prestavlja del pallidusa povezan z pričakovanjem nagrade in odločanjem. Wiebke P, et al. tako za nevrone na indirektni poti uporablja ta izraz.
 \\
 \\
-Kot akter bomo v nadaljevanju uporabili RSTDP del kot smo ga implementirali prej.  Od implementacije Wiebke P, et al. se poleg sinapse naša implementacija razlikuje tudi v načinu izbire stanja, kjer mi za izbrano stanje vzamemo stanje z maksimalnim številom impulzov za razliko od izbire prvega izhodnega nevrona, ki se je sprožil kot rezultat stimulacije v trenutnem stanju. Ta način bolj direktno okrepi povezave odgovorne za izbrano aktivnost, saj po prvem izhodnem impulzu inhibira vse ostale izhodne nevrone, kar izniči njihovo \textit{eligibility} sled. Tako ni potrebe po tekmovanju sinaps, kot pri naši metodi, vendar moramo preveriti impulze izhodnih nevronov v vsakem koraku simulatorja. V primeru simulatorja NEST je to vsakih 0.1ms, kar pa je problematično, saj simulator teče v C++ zaledju, ki ga zapustimo takoj ko prekinemo simulacijo. Tako je bistvena razlika med tem, da 100krat poženemo ukaz \texttt{nest.Simulate(0.1)} ali enkrat \texttt{nest.Simulate(10)}. V akterju bomo zaradi razlogov navedenih v poglavju \textbf{RSTDP učenje} %TODO: link
+Kot akter bomo v nadaljevanju uporabili RSTDP del kot smo ga implementirali prej.  Od implementacije Wiebke P, et al. se poleg sinapse naša implementacija razlikuje tudi v načinu izbire stanja, kjer mi za izbrano stanje vzamemo stanje z maksimalnim številom impulzov za razliko od izbire prvega izhodnega nevrona, ki se je sprožil kot rezultat stimulacije v trenutnem stanju. Ta način bolj direktno okrepi povezave odgovorne za izbrano aktivnost, saj po prvem izhodnem impulzu inhibira vse ostale izhodne nevrone, kar izniči njihovo \textit{eligibility} sled. Tako ni potrebe po tekmovanju sinaps, kot pri naši metodi, vendar moramo preveriti impulze izhodnih nevronov v vsakem koraku simulatorja. V primeru simulatorja NEST je to vsakih 0.1 ms, kar pa je problematično, saj simulator teče v C++ zaledju, ki ga zapustimo takoj ko prekinemo simulacijo. Tako je bistvena razlika med tem, da 100krat poženemo ukaz \texttt{nest.Simulate(0.1)} ali enkrat \texttt{nest.Simulate(10)}. V akterju bomo zaradi razlogov navedenih v poglavju \textbf{RSTDP učenje} %TODO: link
 uporabljali model nevrona z eksponentnim jedrom, v kritiku, pa bomo poskusili uporabiti biološko bolj realistične nevrone z alfa jedrom. Ker bodo vhodni nevroni akterju in kritiku skupni, bomo med vhodnimi nevroni in izhodnimi nevroni dodali dodaten nivo nevronov, ki bo višjo frekvenco potrebno za stimulacijo nevronov kritika z alfa jedrom znižal na frekvenco ustrezno za nevrone akterja z eksponentnim jedrom. S tem smo tudi zmanjšali povezanost dveh delov, kar olajša iskanje ustreznih hiperparametrov, poleg tega pa lahko tudi šum za potrebe RSTDP učenja dovajamo ločeno od kritika.
 \\
 \\

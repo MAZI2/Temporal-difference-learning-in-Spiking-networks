@@ -16,14 +16,14 @@
 \contentsline {section}{\numberline {3.2}STDP Sinaptični model}{12}{section.3.2}%
 \contentsline {chapter}{\numberline {4}Spodbujevano učenje na impulznih nevronskih mrežah}{17}{chapter.4}%
 \contentsline {section}{\numberline {4.1}R-STDP učenje}{17}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Igra Pong}{22}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.1}Igra Pong}{23}{subsection.4.1.1}%
 \contentsline {subsubsection}{Rezultati}{24}{section*.6}%
-\contentsline {section}{\numberline {4.2}TD učenje in model actor-critic}{26}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Model actor-critic}{26}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{31}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Učenje}{36}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Rezultati}{38}{subsection.4.2.4}%
-\contentsline {subsubsection}{Interpretacija rezultatov}{39}{section*.7}%
-\contentsline {chapter}{\numberline {5}Implementacija in uporabljena orodja}{41}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Diskusija in zaključek}{43}{chapter.6}%
-\contentsline {chapter}{Viri}{45}{chapter*.8}%
+\contentsline {section}{\numberline {4.2}TD učenje in model actor-critic}{28}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Model actor-critic}{28}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{33}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Učenje}{38}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Rezultati}{40}{subsection.4.2.4}%
+\contentsline {subsubsection}{Interpretacija rezultatov}{41}{section*.7}%
+\contentsline {chapter}{\numberline {5}Implementacija in uporabljena orodja}{43}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Diskusija in zaključek}{45}{chapter.6}%
+\contentsline {chapter}{Viri}{47}{chapter*.8}%

@@ -41,7 +41,7 @@ nest.Install("mymodule")
 
 from rstdp_pong import POLL_TIME, PongNetRSTDP 
 
-RUNS = 2000
+RUNS = 6000
 class AIPongRSTDP:
     def __init__(self):
         self.debug = True 
@@ -118,10 +118,10 @@ class AIPongRSTDP:
         motor_indices = np.arange(num_motor)
 
         # Add two more subplots (we’ll use axes[2] and axes[3])
-        axes[0].set_title("Weights from input neuron 5 → motor neurons")
+        axes[0].set_title("Uteži sinaps med vhodnim nevronom 5 in izhodnimi nevroni")
         for j in range(num_motor):
-            axes[0].plot(time_points_motor, weight_history_input5[:, j], label=f"Motor {j}")
-        axes[0].set_ylabel("Weight (pA)")
+            axes[0].plot(time_points_motor, weight_history_input5[:, j], label=f"Izhodni nevron {j}")
+        axes[0].set_ylabel(r"$w_{\text{motor}}$")
         axes[0].legend(fontsize=7, ncol=4)
         """
 
@@ -165,8 +165,8 @@ class AIPongRSTDP:
         """
 
         axes[1].scatter(spike_times, neuron_ids, marker='.', color='black')
-        axes[1].set_ylabel("Input neuron index")
-        axes[1].set_title("Input neuron spikes (raster)")
+        axes[1].set_ylabel("Indeks stanja (vhodni nevron)")
+        axes[1].set_title("Stanje")
         axes[1].set_yticks(np.arange(16))
         axes[1].set_ylim(-0.5, 20.5)
         axes[1].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
@@ -178,14 +178,15 @@ class AIPongRSTDP:
 
         dopa_rates = self.compute_avg_firing_rate(dopa_spikes, num_neurons=8, bins=bins, bin_size=bin_size)
 
-        axes[2].plot(bin_centers, dopa_rates, color='b')
-        axes[2].set_ylabel("Dopa firing rate (Hz)")
-        axes[2].set_xlabel("Time (ms)")
-        axes[2].set_title("Average Dopa activity")
+        axes[2].plot(bin_centers, dopa_rates, color='black')
+        axes[2].set_ylabel("Aktivnost (Hz)")
+        axes[2].set_xlabel("Čas (ms)")
+        axes[2].set_title("Povprečna aktivnost dopaminergičnih nevronov")
 
 
 
         plt.tight_layout()
+        fig.subplots_adjust(top=0.92, bottom=0.08, hspace=0.2)
         plt.show()
 
 
@@ -219,6 +220,9 @@ class AIPongRSTDP:
 
         for local_idx, neuron in enumerate(self.player.motor_neurons):
             print(f"Local index: {local_idx}, Global ID: {neuron.global_id}")
+
+        time_since_last_miss = 0
+        survival_times = []
 
         while self.run < max_runs:
             """
@@ -352,9 +356,14 @@ class AIPongRSTDP:
                 self.game.l_paddle.move_down()
 
             result = self.game.step()
+            time_since_last_miss += POLL_TIME
+
+            survival_times.append(time_since_last_miss)
 
             # Use pong reward
             if result == pong.RIGHT_SCORE:
+                  # store survival time
+                time_since_last_miss = 0  # reset
                 # player missed
                 self.player.reward = False
                 self.game.reset_ball(towards_left=False)
@@ -414,8 +423,9 @@ class AIPongRSTDP:
         save_obj["network"] = {
             "network_type": repr(self.player),
             "with_noise": self.player.apply_noise,
-            "rewards": np.array(self.reward_history),
-            "weights": np.array(self.weight_snapshots, dtype=object)
+            "mean_rewards": np.array(self.player.mean_reward_history),
+            "weights": np.array(self.weight_snapshots, dtype=object),
+            "survival_times": np.array(survival_times)
         }
 
         # Write .pkl
@@ -466,16 +476,38 @@ class AIPongRSTDP:
         # Compute mean across neurons for each iteration
         mean_reward_over_time = reward_history_array.mean(axis=1)
 
+        survival_times = np.array(survival_times)
+        print(survival_times)
+
+        # Optional: rolling average with window=3 (or full cumulative average)
+        cumulative_avg_survival = np.cumsum(survival_times) / np.arange(1, len(survival_times)+1)
+
+        print(cumulative_avg_survival)
         # Plot
-        plt.figure(figsize=(10, 5))
-        plt.plot(mean_reward_over_time, color='blue', lw=2)
-        plt.xlabel("Iteration (POLL_TIME steps)")
-        plt.ylabel("Average reward across neurons")
-        plt.title("Global mean reward over training")
-        plt.grid(True, linestyle='--', alpha=0.6)
+        plt.figure(figsize=(12, 6))
+        ax1 = plt.gca()
+
+        # Global mean reward
+        ax1.plot(mean_reward_over_time, color='blue', lw=2, label='Skupna povprečna nagrada')
+        ax1.set_xlabel("Iteracija")
+        ax1.set_ylabel("Povprečna nagrada", color='blue')
+        ax1.tick_params(axis='y', labelcolor='blue')
+        ax1.grid(True, linestyle='--', alpha=0.6)
+
+        # Create second y-axis
+        ax2 = ax1.twinx()
+        ax2.plot(cumulative_avg_survival, color='red', lw=2, label='Povprečen čas preživetja')
+        ax2.set_ylabel("Povprečen čas preživetja (ms)", color='red')
+        ax2.tick_params(axis='y', labelcolor='red')
+
+        # Combine legends
+        lines1, labels1 = ax1.get_legend_handles_labels()
+        lines2, labels2 = ax2.get_legend_handles_labels()
+        ax1.legend(lines1 + lines2, labels1 + labels2, loc='upper left')
+
+        plt.title("Skupna povprečna nagrada in povprečen čas preživetja")
         plt.tight_layout()
         plt.show()
-        
 
 if __name__ == "__main__":
 #    runs=len(NEXT_STATES)

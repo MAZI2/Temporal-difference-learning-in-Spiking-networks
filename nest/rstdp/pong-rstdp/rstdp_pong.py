@@ -249,7 +249,6 @@ class PongNet(ABC):
 
         if distance in REWARDS_DICT:
             bare_reward = REWARDS_DICT[distance]
-            print("REWARDED: ", bare_reward)
         else:
             bare_reward = 0
 
@@ -263,10 +262,17 @@ class PongNet(ABC):
         
 
         reward = bare_reward - self.mean_reward[self.target_index]
+
         if reward<0:
             reward = 0
 
-        self.mean_reward[self.target_index] = float(self.mean_reward[self.target_index] + reward / 2.0)
+        print("bare REWARD:", bare_reward)
+        print("REWARD:", reward)
+
+        print("Mean reward before for ", self.target_index, self.mean_reward[self.target_index])
+        self.mean_reward[self.target_index] = float((self.mean_reward[self.target_index] + reward) / 2.0)
+        print("Mean reward after for ", self.target_index, self.mean_reward[self.target_index])
+
 
         logging.debug(f"Applying reward: {reward}")
         logging.debug(f"Average reward across all neurons: {np.mean(self.mean_reward)}")
