@@ -14,12 +14,13 @@
 \contentsline {subsection}{\numberline {3.1.2}Model z alfa jedrom}{10}{subsection.3.1.2}%
 \contentsline {subsection}{\numberline {3.1.3}Izbira modela nevrona}{10}{subsection.3.1.3}%
 \contentsline {section}{\numberline {3.2}STDP Sinaptični model}{12}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Dopaminska modulacija}{13}{subsection.3.2.1}%
 \contentsline {chapter}{\numberline {4}Spodbujevano učenje na impulznih nevronskih mrežah}{17}{chapter.4}%
 \contentsline {section}{\numberline {4.1}R-STDP učenje}{17}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Igra Pong}{23}{subsection.4.1.1}%
-\contentsline {subsubsection}{Rezultati}{24}{section*.6}%
-\contentsline {section}{\numberline {4.2}TD učenje in model actor-critic}{27}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Model actor-critic}{28}{subsection.4.2.1}%
+\contentsline {subsubsection}{Rezultati}{26}{section*.5}%
+\contentsline {section}{\numberline {4.2}TD učenje in model akter-kritik}{28}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Model akter-kritik}{29}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{34}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}Učenje}{39}{subsection.4.2.3}%
 \contentsline {subsection}{\numberline {4.2.4}Rezultati}{42}{subsection.4.2.4}%
@@ -29,4 +30,4 @@
 \contentsline {section}{\numberline {6.2}Rekurenčne povezave}{48}{section.6.2}%
 \contentsline {chapter}{\numberline {7}Zaključek}{51}{chapter.7}%
 \contentsline {chapter}{\numberline {8}Ekstra}{53}{chapter.8}%
-\contentsline {chapter}{Viri}{55}{chapter*.7}%
+\contentsline {chapter}{Viri}{55}{chapter*.6}%
