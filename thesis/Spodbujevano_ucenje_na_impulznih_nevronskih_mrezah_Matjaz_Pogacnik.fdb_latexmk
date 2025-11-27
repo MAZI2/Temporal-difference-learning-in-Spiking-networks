@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik"] 1764169557 "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bcf" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik" 1764256646 0
+["biber Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik"] 1764169557 "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bcf" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik" 1764259946 0
   "./literatura.bib" 1764247615 3517 32276e70b0233e5d9fef41b30ea0561b ""
-  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bcf" 1764256645 108888 8f22dcbad78a409861ccbc94cd36f19f "pdflatex"
+  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bcf" 1764259946 108888 8f22dcbad78a409861ccbc94cd36f19f "pdflatex"
   (generated)
   "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl"
   "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.blg"
   (rewritten before read)
-["pdflatex"] 1764256642 "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.pdf" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik" 1764256646 2
+["pdflatex"] 1764259943 "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.pdf" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik" 1764259946 2
   "../results//actorcritic/F2 - StateTransitionTD_annotated.png" 1762941759 253346 d56f10670f699d4bd26b5408f2c14a72 ""
   "../results//actorcritic/F3 - Learning.png" 1762941759 508370 c1666fe506d620b915645a7666a45b39 ""
   "../results//actorcritic/best.png" 1764247615 37075 628680ede66f6b84dad03713eca75154 ""
@@ -187,12 +187,12 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1702568507 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1702568431 7883460 c2fc0d4984b24559c66d7be3c7f4e21f ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux" 1764256645 17338 a009c1f6cde18a16a3b0222fffbeb6b2 "pdflatex"
+  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux" 1764259946 17416 a2d33669b26be6a294cd2e87d8d29c5c "pdflatex"
   "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl" 1764247615 13695 fb8516012ed4826d4e0c40f116939a98 "biber Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik"
-  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out" 1764256645 2869 1033d3663f940562ee30ce6d38bcd195 "pdflatex"
-  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.run.xml" 1764256645 2776 42a8c52d0efe13e3d3efeffa15e02d29 "pdflatex"
-  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex" 1764256642 79380 4f873fe305132ee56f2f7ccf8627faf0 ""
-  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.toc" 1764256645 2413 981bf885fb60b205dfb7c12261b1c591 "pdflatex"
+  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out" 1764259946 2869 1033d3663f940562ee30ce6d38bcd195 "pdflatex"
+  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.run.xml" 1764259946 2776 42a8c52d0efe13e3d3efeffa15e02d29 "pdflatex"
+  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex" 1764259942 79268 26ee741b14d43a8436c33d3452c485df ""
+  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.toc" 1764259946 2413 981bf885fb60b205dfb7c12261b1c591 "pdflatex"
   "cc_by_30.pdf" 1750603532 3001 ffdebc11bc7a9ee788326c421a0a4fbe ""
   "cc_cc_30.pdf" 1750603532 3857 af3e03fc3070164b6d88bc77db09445a ""
   "cc_sa_30.pdf" 1750603532 3257 00f150f1d5142b4fa4100d1712e63a36 ""
