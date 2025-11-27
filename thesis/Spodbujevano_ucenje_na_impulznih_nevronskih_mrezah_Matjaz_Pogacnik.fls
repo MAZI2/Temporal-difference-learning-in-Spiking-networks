@@ -363,10 +363,6 @@ INPUT ../results/actorcritic/F2 - StateTransitionTD_annotated.png
 INPUT ../results/actorcritic/F2 - StateTransitionTD_annotated.png
 INPUT ../results/actorcritic/F2 - StateTransitionTD_annotated.png
 INPUT ../results/actorcritic/F2 - StateTransitionTD_annotated.png
-INPUT ../results/actorcritic/F3 - Learning.png
-INPUT ../results/actorcritic/F3 - Learning.png
-INPUT ../results/actorcritic/F3 - Learning.png
-INPUT ../results/actorcritic/F3 - Learning.png
 INPUT ../results/actorcritic/best.png
 INPUT ../results/actorcritic/best.png
 INPUT ../results/actorcritic/best.png
@@ -375,6 +371,15 @@ INPUT ../results/actorcritic/progress.png
 INPUT ../results/actorcritic/progress.png
 INPUT ../results/actorcritic/progress.png
 INPUT ../results/actorcritic/progress.png
+INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/cm/cmbxti10.tfm
+INPUT ../results/figures/aversive.png
+INPUT ../results/figures/aversive.png
+INPUT ../results/figures/aversive.png
+INPUT ../results/figures/aversive.png
+INPUT ../results/actorcritic/F3 - Learning.png
+INPUT ../results/actorcritic/F3 - Learning.png
+INPUT ../results/actorcritic/F3 - Learning.png
+INPUT ../results/actorcritic/F3 - Learning.png
 INPUT /home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
 INPUT /home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
 INPUT /home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
@@ -388,6 +393,7 @@ INPUT Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.run.xml
 OUTPUT Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.run.xml
 INPUT /home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+INPUT /home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
 INPUT /home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 INPUT /home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb

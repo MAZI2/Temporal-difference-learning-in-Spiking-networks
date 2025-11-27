@@ -556,7 +556,6 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
 
   t_last_update_ = t_trig;
   modulator_spike_idx_ = 0;
-
   /*
   double t_past = t_trig - cp.tau_c_delay_;
 
@@ -567,18 +566,18 @@ stdp_delayed_eligibility_synapse< targetidentifierT >::trigger_update_weight( si
 
   Node* post = get_target(t);
 
-  //if (post && (post->get_node_id() == 19 || post->get_node_id() == 20 || post->get_node_id() == 21 || post->get_node_id() == 22)) {
-  std::cout << "[DEBUG trigger_update_weight] "
-            << " | post_node_id=" << (post ? post->get_node_id() : -1)
-            << " | t_trig=" << t_trig
-            << " | tau_c_delay_=" << cp.tau_c_delay_
-            << " | t_past=" << t_past
-            << " | c_current=" << c_
-            << " | c_delayed=" << c_delayed
-            << " | n=" << n_
-            << std::endl;
+  //if (post && (post->get_node_id() == 66 || post->get_node_id() == 67 || post->get_node_id() == 68 || post->get_node_id() == 69 || post->get_node_id() == 70 || post->get_node_id() == 71 || post->get_node_id() == 71 || post->get_node_id() == 72 || post->get_node_id() == 73)) {
+    std::cout << "[DEBUG trigger_update_weight] "
+              << " | post_node_id=" << (post ? post->get_node_id() : -1)
+              << " | t_trig=" << t_trig
+              << " | tau_c_delay_=" << cp.tau_c_delay_
+              << " | t_past=" << t_past
+              << " | c_current=" << c_
+              << " | c_delayed=" << c_delayed
+              << " | n=" << n_
+              << std::endl;
   //}
-  */
+              */
 }
 
 template <typename targetidentifierT>

@@ -18,12 +18,15 @@
 \contentsline {section}{\numberline {4.1}R-STDP učenje}{17}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Igra Pong}{23}{subsection.4.1.1}%
 \contentsline {subsubsection}{Rezultati}{24}{section*.6}%
-\contentsline {section}{\numberline {4.2}TD učenje in model actor-critic}{28}{section.4.2}%
+\contentsline {section}{\numberline {4.2}TD učenje in model actor-critic}{27}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Model actor-critic}{28}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{34}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}Učenje}{39}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Rezultati}{43}{subsection.4.2.4}%
-\contentsline {subsubsection}{Interpretacija rezultatov}{44}{section*.7}%
+\contentsline {subsection}{\numberline {4.2.4}Rezultati}{42}{subsection.4.2.4}%
 \contentsline {chapter}{\numberline {5}Implementacija in uporabljena orodja}{45}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Diskusija in zaključek}{47}{chapter.6}%
-\contentsline {chapter}{Viri}{49}{chapter*.8}%
+\contentsline {chapter}{\numberline {6}Možne razširitve}{47}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Izognitveno obnašanje (\textit {angl. aversive behaviour})}{47}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Rekurenčne povezave}{48}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Zaključek}{51}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Ekstra}{53}{chapter.8}%
+\contentsline {chapter}{Viri}{55}{chapter*.7}%

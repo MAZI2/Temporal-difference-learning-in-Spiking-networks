@@ -44,7 +44,7 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 
 
-RUNS = 100
+RUNS = 3000
 class AIGridworld:
     def __init__(self, config):
         self.config = config
@@ -52,8 +52,10 @@ class AIGridworld:
         self.grid_size = (4, 4)
         self.start = (1, 2)
         self.goal = (3, 3)
-        self.debug = True 
-        self.loadWeights = True 
+        self.debug = False
+        self.loadWeights = False
+        self.current_reset = (0, 0)
+        self.step_count = 1
 
         self.done = False
 
@@ -68,6 +70,10 @@ class AIGridworld:
                 self.player.load_saved_weights(connections_data)
 
         logging.info(f"setup complete for gridworld")
+
+    def manhattan(self):
+        return np.abs(self.current_reset[0]-self.goal[0])+np.abs(self.current_reset[1]-self.goal[1])
+
 
 
     def compute_avg_firing_rate(self, spike_events, num_neurons, bins, bin_size):
@@ -309,12 +315,13 @@ class AIGridworld:
 
         dopamine_history = []
         winning_history = []
-        for local_idx, neuron in enumerate(self.player.motor_neurons):
+        # for local_idx, neuron in enumerate(self.player.motor_neurons):
+        #     print(f"Local index: {local_idx}, Global ID: {neuron.global_id}")
+
+        for local_idx, neuron in enumerate(self.player.striatum):
             print(f"Local index: {local_idx}, Global ID: {neuron.global_id}")
 
-        for local_idx, neuron in enumerate(self.player.intermediate_motor):
-            print(f"Local index: {local_idx}, Global ID: {neuron.global_id}")
-
+        step_count_history = []
 
 
         while self.run < max_runs:
@@ -495,28 +502,28 @@ class AIGridworld:
             for conn, w_new in zip(conns, new_weights):
                 conn.set({"weight": float(w_new)})
             """
-            Wmin = 1200.0
-            Wmax = 4000.0
-
-            k = 0.0001  # maximum decay contribution
-
-            conns = nest.GetConnections(source=self.player.intermediate_motor,
-                                        target=self.player.motor_neurons)
-
-            weights = np.array(conns.get("weight"), dtype=float)
-
-            # Normalize weight position between 0…1
-            alpha = (weights - Wmin) / (Wmax - Wmin)
-            alpha = np.clip(alpha, 0.0, 1.0)  # ensure stability
-
-            # Decay factor becomes smaller closer to Wmax
-            decay_factor = 1.0 - k * alpha
-
-            new_weights = weights * decay_factor
-
-            # Apply back to NEST
-            for conn, w_new in zip(conns, new_weights):
-                conn.set({"weight": float(w_new)})
+            # Wmin = 1200.0
+            # Wmax = 4000.0
+            #
+            # k = 0.0001  # maximum decay contribution
+            #
+            # conns = nest.GetConnections(source=self.player.intermediate_motor,
+            #                             target=self.player.motor_neurons)
+            #
+            # weights = np.array(conns.get("weight"), dtype=float)
+            #
+            # # Normalize weight position between 0…1
+            # alpha = (weights - Wmin) / (Wmax - Wmin)
+            # alpha = np.clip(alpha, 0.0, 1.0)  # ensure stability
+            #
+            # # Decay factor becomes smaller closer to Wmax
+            # decay_factor = 1.0 - k * alpha
+            #
+            # new_weights = weights * decay_factor
+            #
+            # # Apply back to NEST
+            # for conn, w_new in zip(conns, new_weights):
+            #     conn.set({"weight": float(w_new)})
 
             # print(f"Applied decay factor {decay_factor} to intermediate_motor → motor weights")
 
@@ -525,6 +532,7 @@ class AIGridworld:
             #self.done = False
 
             self.player.action = None
+            self.step_count += 1
 
 
             self.run += 1
@@ -532,10 +540,17 @@ class AIGridworld:
                 print("REACHED GOAL")
                 self.done = False
                 self.state = self.game.reset(random_start=True)
+
                 self.player.set_state(self.state)
+                step_count_history.append((self.step_count/self.manhattan() ,biological_time/POLL_TIME))
+
+                self.current_reset = self.state
+                self.step_count = 0
 
         #print(spike_records)
         #print(weight_history)
+
+        print(step_count_history)
 
         if self.debug:
             self.plot_network_activity(spike_records, 
@@ -580,32 +595,60 @@ class AIGridworld:
         # Convert lists to arrays
 
         # Convert lists to arrays
-        weight_history_str_arr = np.array(weight_history_str)  # shape: (iterations, num_input_neurons)
-        sum_weights_over_time_str = np.sum(weight_history_str_arr, axis=1)   # sum across input neurons
+        # Convert weight histories
+        # Convert weight histories
+        weight_history_str_arr = np.array(weight_history_str)
+        sum_weights_over_time_str = np.sum(weight_history_str_arr, axis=1)
 
-        weight_history_motor_arr = np.array(weight_history_motor)  # shape: (iterations, num_motor_neurons)
-        # Number of input neurons connecting to motor neurons
+        weight_history_motor_arr = np.array(weight_history_motor)
         num_input_neurons_motor = weight_history_motor_arr.shape[1]
 
-        # Create two vertical subplots
-        fig, axes = plt.subplots(2, 1, figsize=(12, 8), sharex=True)
+        # Convert step_count_history → arrays
+        relative_steps_arr = np.array([float(x[0]) for x in step_count_history])
+        bio_time_arr      = np.array([float(x[1]) for x in step_count_history])
 
-        # --- Top plot: sum of input→striatum weights ---
-        axes[0].plot(sum_weights_over_time_str, color='blue', label="Sum of input→striatum weights")
-        axes[0].set_ylabel("Weight (pA)")
-        axes[0].set_title("Input→Striatum weights over training")
-        axes[0].legend()
-        axes[0].grid(True, linestyle='--', alpha=0.6)
+        # Compute cumulative average relative step time (like survival time)
+        cumulative_avg_steps = np.cumsum(relative_steps_arr) / np.arange(1, len(relative_steps_arr)+1)
 
-        # --- Bottom plot: average weights per input neuron → motor neurons ---
-        for neuron_idx in range(num_input_neurons_motor):
-            axes[1].plot(weight_history_motor_arr[:, neuron_idx], label=f"Input neuron {neuron_idx}")
+        # Create plots
+        fig, ax1 = plt.subplots(1, 1, figsize=(12, 6))
 
-        axes[1].set_xlabel("Training iteration")
-        axes[1].set_ylabel("Weight (pA)")
-        axes[1].set_title("Input→Motor weights per input neuron")
-        axes[1].legend(ncol=4, fontsize=8)
-        axes[1].grid(True, linestyle='--', alpha=0.6)
+        # ==========================================================
+        # --- TOP PLOT: weights + cumulative step time (two y-axes) ---
+        # ==========================================================
+
+
+        ax1.plot(sum_weights_over_time_str, color='blue', lw=2, label="Povprečna utež vseh povezav med vhodnimi nevroni in striatumom")
+        ax1.set_ylabel(r"$\mu_{w_{\text{in}\to\text{str}}}$", color='blue')
+        ax1.tick_params(axis='y', labelcolor='blue')
+        ax1.grid(True, linestyle='--', alpha=0.6)
+        ax1.set_title("Povprečna utež vseh povezav med vhodnimi nevroni in striatumom vs povprečno relativno število korakov")
+
+        # Right axis for cumulative average relative step time
+        ax2 = ax1.twinx()
+        ax2.plot(bio_time_arr, cumulative_avg_steps, color='red', lw=2,
+                label="Povprečno relativno število korakov")
+        ax2.set_ylabel("Povprečno relativno število korakov", color='red')
+        ax2.tick_params(axis='y', labelcolor='red')
+
+        # Combine legends
+        lines1, labels1 = ax1.get_legend_handles_labels()
+        lines2, labels2 = ax2.get_legend_handles_labels()
+        ax1.legend(lines1 + lines2, labels1 + labels2, loc="upper left")
+        ax1.set_xlabel("Iteracija")
+
+        # ==========================================================
+        # --- BOTTOM PLOT: Motor weights ---
+        # ==========================================================
+
+        # for neuron_idx in range(num_input_neurons_motor):
+        #     axes[1].plot(weight_history_motor_arr[:, neuron_idx], label=f"Input neuron {neuron_idx}")
+        #
+        # axes[1].set_xlabel("Training iteration")
+        # axes[1].set_ylabel("Weight (pA)")
+        # axes[1].set_title("Input→Motor weights per input neuron")
+        # axes[1].legend(ncol=4, fontsize=8)
+        # axes[1].grid(True, linestyle='--', alpha=0.6)
 
         plt.tight_layout()
         #plt.show()

@@ -308,7 +308,7 @@ class GridWorldAC(PongNet):
                 "tau_c_delay": 200,
                 "tau_n": 10,
                 "tau_plus": 20,
-                "b": 0.1,
+                "b": 0.07,
                 "A_plus": 0.3,
                 "A_minus": 0.3
             },
@@ -331,7 +331,7 @@ class GridWorldAC(PongNet):
                 "tau_c_delay": 200,
                 "tau_n": 10,
                 "tau_plus": 20,
-                "b": 0.0,
+                "b": 0.01,
                 "A_plus": 1.5,
                 "A_minus": 1.0
             }

@@ -6,11 +6,11 @@ from collections import defaultdict
 # Config
 # ----------------------------------
 LOG_FILE = "out.txt"   # or "c_delayed_out.txt"
-start =0                     # time filter
-end = 200
-plot_ix = 5                      # index within each t_trig block
+start =1500                     # time filter
+end = 2000
+plot_ix = 0                      # index within each t_trig block
 pattern = re.compile(
-    r"post_node_id=(\d+).*?t_trig=(\d+).*?c_current=([\-0-9.eE]+)"
+    r"post_node_id=(\d+).*?t_trig=(\d+).*?c_delayed=([\-0-9.eE]+)"
 )
 # (use c_delayed=... instead of c_current=... if plotting c_delayed)
 

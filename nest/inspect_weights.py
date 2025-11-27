@@ -1,12 +1,13 @@
 import pickle
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 
 grid_size = (4, 4)
 start = (0, 0)
 goal = (3, 3)
 STR_MIN = 150   # minimum weight to show (anything below = min color)
-STR_MAX = 400  # maximum weight to show (anything above = max color)
+STR_MAX = 450  # maximum weight to show (anything above = max color)
 
 
 # ============================================================
@@ -156,6 +157,17 @@ def plot_policy(input_to_motor, input_to_striatum, input_map, input_raw_map, mot
     ax.set_ylim(0, rows)
     ax.set_aspect("equal")
     ax.axis("off")
+
+    # --------------------------------------------------------
+    # Colorbar for striatum weights
+    # --------------------------------------------------------
+    import matplotlib as mpl
+    norm = mpl.colors.Normalize(vmin=STR_MIN, vmax=STR_MAX)
+    sm = mpl.cm.ScalarMappable(cmap=plt.cm.plasma, norm=norm)
+    sm.set_array([])
+
+    cbar = fig.colorbar(sm, ax=ax, fraction=0.046, pad=0.04)
+    cbar.set_label("Input → Striatum Weight (pA)")
     plt.show()
 
 
