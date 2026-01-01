@@ -283,24 +283,7 @@ Besedilo je oblikovano z urejevalnikom besedil \LaTeX.}
 
 \bigskip
 \noindent\textbf{Opis:}\\
-\colorbox{Apricot}{%
-  \parbox{0.9\linewidth}{%
-Besedilo teme diplomskega dela študent prepiše iz študijskega informacijskega sistema, kamor ga je vnesel mentor. 
-V nekaj stavkih bo opisal, kaj pričakuje od kandidatovega diplomskega dela. 
-Kaj so cilji, kakšne metode naj uporabi, morda bo zapisal tudi ključno literaturo.
-  }%
-}
-
-\bigskip
-\noindent\textbf{Title:} Reinforcement learning on spiking neural networks
-
-\bigskip
-\noindent\textbf{Description:}\\
-\colorbox{Apricot}{%
-  \parbox{0.9\linewidth}{%
-opis diplome v angleščini
-    }
-}
+Kandidat naj preuči principe impulznih nevronskih mrež in pristope spodbujevanega učenja, primernih za takšne modele. Razvije in implementira izbran algoritem učenja ter ga eksperimentalno ovrednoti na izbranem problemskem okolju. Rezultate naj analizira in primerja z obstoječimi pristopi.
 
 \vfill
 
@@ -375,7 +358,10 @@ Na tem mestu zapišite, komu se zahvaljujete za pomoč pri izdelavi diplomske na
 \noindent 
 %V vzorcu je predstavljen postopek priprave diplomskega dela z uporabo okolja \LaTeX. Vaš povzetek mora sicer vsebovati približno 100 besed, ta tukaj je odločno prekratek.
 %Dober povzetek vključuje: (1) kratek opis obravnavanega problema, (2) kratek opis vašega pristopa za reševanje tega problema in (3) (najbolj uspešen) rezultat ali prispevek diplomske naloge.
-V tem diplomskem delu obravnavamo spodbujevalno učenje na impulznih nevronskih mrežah, tipu nevronskih mrež, ki se obnašajo podobno kot človeški možgani. Ker tu ne moremo uporabiti klasičnih algoritmov spodbujevalnega učenja, postopoma razvijemo kompleksen sistem, navdihnjen z dopaminergičnimi mehanizmi v človeških možganih, ki omogoča učenje na podlagi časovne razlike. Pri tem postopoma rešujemo izzive pri učenju impulznih nevronskih mrež in na koncu uspešno rešimo problem tako s takojšnjo kot z oddaljeno nagrado.
+V tem diplomskem delu obravnavamo spodbujevano učenje na impulznih nevronskih mrežah, tipu nevronskih mrež, ki se obnašajo podobno kot človeški možgani. Predstavimo in rešimo nekatere izzive pri učenju impulznih mrež ter razvijemo inovativne rešitve, ki upoštevajo tako zahtevnost simulacije kot biološko smiselnost. Razvijemo sistem, v katerem s prilagoditvijo klasične R-STDP sinapse omogočimo učinkovito učenje in dodeljevanje zaslug preteklim odločitvam, pri tem pa ohranjamo osnovni princip R-STDP, kjer sinapse kodirajo vpliv pretekle aktivnosti nevronov na izbrane akcije, brez uvedbe negativnih nagrad ali nerealističnih mehanizmov.
+
+Razviti sistem nato razširimo v impulzno nevronski akter–kritik sistem, ki lahko rešuje tudi probleme z zakasnjenimi nagradami, pri čemer se pričakovana nagrada prenaša iz cilja nazaj v prejšnja stanja. Sistem najprej ovrednotimo na poenostavljenih, nato na bolj kompleksnih problemih, kot sta igra Pong in problem mrežnega sveta (gridworld), kjer se mreža uči optimalnih strategij in propagacije nagrade v diskretnih okoljih. V igri Pong rezultati razvitega sistema kažejo na postopno daljše sekvence igranja brez zgrešitve žogice, medtem ko se v nalogi mrežnega sveta postopno izboljšuje strategija in krajša pot do cilja.
+
 \bigskip
 
 \noindent\textbf{Ključne besede:} \tkeywords.
