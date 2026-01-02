@@ -44,7 +44,7 @@ import gridworld
 from gridworld_ac import POLL_TIME, GridWorldAC
 
 
-RUNS = 3000
+RUNS = 10
 class AIGridworld:
     def __init__(self, config):
         self.config = config
@@ -52,7 +52,7 @@ class AIGridworld:
         self.grid_size = (4, 4)
         self.start = (1, 2)
         self.goal = (3, 3)
-        self.debug = False
+        self.debug = True
         self.loadWeights = False
         self.current_reset = (0, 0)
         self.step_count = 1

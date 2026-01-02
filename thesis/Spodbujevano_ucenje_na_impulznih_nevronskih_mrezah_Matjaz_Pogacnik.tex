@@ -734,7 +734,8 @@ Za model nevrona, ki ga bomo uporabili v nadaljevanju, bomo izbrali model nevron
 
 Za uspešno učenje je glavni izziv izbira pravilnih hiperparametrov sistema, ki omogoča, da se sinapse diferecirajo dovolj hitro. Ker ne dopuščamo negativnih nagrad bodo vse povezave s časom rasle, kar postopoma zmanjšuje verjetnost izbire naključne akcije. Tako se ob neustrezni izbiri parametrov lahko zgodi, da se vse povezave približno enakomerno krepijo, dokler raziskovanja praktično ni več in bo izbira akcije odvisna od naključno prevladujoče poti od vhodnih nevronov do izhodnih. Pravilne hiperparametre smo v nadaljevanju iskali eksperimentalno, kjer so najbolj vplivni hiperparameteri frekvenca in utež povezave iz generatorja Poissonovega šuma do izhodnih nevronov, parametra $A_+$ in $A_-$ ter parameter $\tau_c$.
 \\
-Za začetek preverimo R-STDP učenje in obnašanje razvitega sistema na preprosti nalogi s tremi stanji. Prehod v vsako stanje je nakjučen, v vsakem stanju pa je nagrajena le ena izbira akcije. V stanju 0, ki ga predstavlja vhodni nevron 0, je nagrajena akcija 0 (izhodni nevron 0), v stanju 1 akcija 1, v stanju 2 pa akcija 2. Na sliki \ref{rstdp_simple} je razvidna prevlada pravilnih sinaps, višanje divergence v sinapsah skozi čas ter rast povprečne nagrade tekom učenja. V simulaciji uporabljamo privzete NEST parametre za nevrone tipa \textit{iaf\_psc\_exp} ter zakasnjene dopaminsko modulirane sinapse. Ostali parametri sistema so navedeni v tabeli \ref{tab:rstdp_simple}.
+\\
+Za začetek bomo R-STDP učenje implementirali na preprosti nalogi s tremi stanji, oštevilčenimi z 0, 1 in 2. V vsakem stanju lahko podobno agent izbere akcijo 0, 1 ali 2. Prehod v stanje po izbiri akcije je nakjučno (neodvisen od izbire akcije), v vsakem stanju pa je nagrajena le ena izbira akcije. V stanju 0, ki ga predstavlja stimulacija vhodnega nevrona 0, bomo kot nagrajeno akcijo izbrali akcijo 0, ki jo predstavlja izhodni nevron 0, v stanju 1 akcijo 1, v stanju 2 pa akcijo 2. Na sliki \ref{rstdp_simple} je razvidna prevlada pravilnih sinaps, višanje divergence v sinapsah skozi čas ter rast povprečne nagrade tekom učenja. V simulaciji uporabljamo privzete parametre NEST za nevrone z eksponentnim jedrom (\textit{iaf\_psc\_exp}) ter zakasnjene dopaminsko modulirane sinapse. Ostali parametri sistema so navedeni v tabeli \ref{tab:rstdp_simple}.
  
 \begin{table}[H]
 \label{tab:rstdp_simple}
@@ -1039,7 +1040,7 @@ Pri prehodu med stanji se ob dovolj visoki koncentraciji dopamina lahko okrepijo
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=1.0\textwidth]{actorcritic/F2 - StateTransitionTD_annotated}
+\includegraphics[width=1.0\textwidth]{actorcritic/F2 - StateTransitionTD}
 \end{center}
 \caption{Prikaz sinaptičnih uteži med vhodnimi nevroni stanj 0 in 5 do izhodnih nevronov ter nevronov striatuma, povprečne aktivnosti nevronov striatuma, povprečne aktivnosti nevronov ventralnega palliduma ter povprečne dopaminergične aktivnosti tekom sekvence prehodov med stanji 0 in 5.}
 \label{actor_critic_learning}
