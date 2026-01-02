@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  1 JAN 2026 23:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  2 JAN 2026 12:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -718,17 +718,17 @@ Package biblatex Info: Reference segment=0 on input line 195.
 
 
 {/home/matjaz/latex/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<cc_cc_30.pdf, id=90, 25.27844pt x 25.27844pt>
+<cc_cc_30.pdf, id=86, 25.27844pt x 25.27844pt>
 File: cc_cc_30.pdf Graphic file (type pdf)
 <use cc_cc_30.pdf>
 Package pdftex.def Info: cc_cc_30.pdf  used on input line 248.
 (pdftex.def)             Requested size: 18.74585pt x 18.74585pt.
-<cc_by_30.pdf, id=91, 18.74034pt x 18.73953pt>
+<cc_by_30.pdf, id=87, 18.74034pt x 18.73953pt>
 File: cc_by_30.pdf Graphic file (type pdf)
 <use cc_by_30.pdf>
 Package pdftex.def Info: cc_by_30.pdf  used on input line 248.
 (pdftex.def)             Requested size: 18.74028pt x 18.73947pt.
-<cc_sa_30.pdf, id=92, 18.73955pt x 18.73994pt>
+<cc_sa_30.pdf, id=88, 18.73955pt x 18.73994pt>
 File: cc_sa_30.pdf Graphic file (type pdf)
 <use cc_sa_30.pdf>
 Package pdftex.def Info: cc_sa_30.pdf  used on input line 248.
@@ -774,7 +774,7 @@ l.295 \clearemptydoublepage
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.32 ...ter}{\numberline {8}Ekstra}{53}{chapter.8}
+l.32 \contentsline {chapter}{Viri}{63}{chapter*.6}
                                                   % [5
 
 ])
@@ -834,329 +834,302 @@ l.369 \clearemptydoublepage
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.392 \clearemptydoublepage
+l.394 \clearemptydoublepage
                             [11
 
 ]
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.392 \clearemptydoublepage
+l.394 \clearemptydoublepage
                             [12
 
 ]
 Poglavje 1.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Overfull \hbox (8.61253pt too wide) in paragraph at lines 407--408
+[]\OT1/cmr/m/n/12 Posebej po-mem-ben okvir za tak^^Tsno u^^Tcenje pred-sta-vlja spod-bu-je-vano u^^Tcenje,
+ []
+
+
+Underfull \vbox (badness 2689) has occurred while \output is active []
 
  [1
 
 
-] [2]
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2] [3] [4
+
+]
 Poglavje 2.
 
-Underfull \vbox (badness 4013) has occurred while \output is active []
+Overfull \hbox (10.10976pt too wide) in paragraph at lines 421--422
+\OT1/cmr/m/n/12 napti^^Tcnih ne-vro-nov (angl. spike-timing-dependent pla-sti-city, STDP). Raz^^Tsiritve
+ []
 
- [3
 
-] [4]
+Underfull \vbox (badness 2050) has occurred while \output is active []
+
+ [5]
+Underfull \vbox (badness 4752) has occurred while \output is active []
+
+ [6] [7] [8
+
+]
 Poglavje 3.
-[5
-
-] [6{/home/matjaz/latex/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [7]
-<../results/neuron_models/PSCs.png, id=225, 722.7pt x 361.35pt>
+[9] [10{/home/matjaz/latex/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [11]
+<../results/neuron_models/PSCs.png, id=231, 722.7pt x 361.35pt>
 File: ../results/neuron_models/PSCs.png Graphic file (type png)
 <use ../results/neuron_models/PSCs.png>
-Package pdftex.def Info: ../results/neuron_models/PSCs.png  used on input line 491.
+Package pdftex.def Info: ../results/neuron_models/PSCs.png  used on input line 501.
 (pdftex.def)             Requested size: 390.0pt x 194.99928pt.
- [8
+ [12
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.496 \newpage
+l.506 \newpage
                <../results/neuron_models/PSCs.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 503--511
+Underfull \hbox (badness 10000) in paragraph at lines 513--521
 
  []
 
-[9]
-Underfull \hbox (badness 10000) in paragraph at lines 551--555
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 561--565
 
  []
 
-[10]
+[14]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [11] [12
+ [15] [16
 pdfTeX warning (ext4): destination with the same identifier (name{table.3.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.602 \begin{quote}
+l.612 \begin{quote}
                    
 pdfTeX warning (ext4): destination with the same identifier (name{table.3.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.602 \begin{quote}
+l.612 \begin{quote}
                    ]
-Overfull \hbox (6.89427pt too wide) detected at line 615
+Overfull \hbox (6.89427pt too wide) detected at line 625
 []\OT1/cmr/m/n/12 (^^A\OML/cmm/m/it/12 t\OT1/cmr/m/n/12 ) = []
  []
 
 
-LaTeX Warning: Reference `aversive' on page 13 undefined on input line 624.
+LaTeX Warning: Reference `aversive' on page 17 undefined on input line 634.
 
-[13]
-Overfull \hbox (17.068pt too wide) in paragraph at lines 637--638
+[17]
+Overfull \hbox (17.068pt too wide) in paragraph at lines 647--648
 \OT1/cmr/m/n/12 ne-vro-nov ter apro-ksi-mira od-go-vor-nost si-napse za pro^^Tzenje po-st-si-napti^^Tcnega
  []
 
-<../results/neuron_models/RSTDP.png, id=281, 722.7pt x 705.3552pt>
+<../results/neuron_models/RSTDP.png, id=293, 722.7pt x 705.3552pt>
 File: ../results/neuron_models/RSTDP.png Graphic file (type png)
 <use ../results/neuron_models/RSTDP.png>
-Package pdftex.def Info: ../results/neuron_models/RSTDP.png  used on input line 650.
+Package pdftex.def Info: ../results/neuron_models/RSTDP.png  used on input line 660.
 (pdftex.def)             Requested size: 390.0pt x 380.63858pt.
 
 Underfull \vbox (badness 2368) has occurred while \output is active []
 
- [14] [15
+ [18] [19
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.655 \newpage
-               <../results/neuron_models/RSTDP.png>] [16
+l.665 \newpage
+               <../results/neuron_models/RSTDP.png>] [20
 
 ]
 Poglavje 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 663--670
+Underfull \hbox (badness 10000) in paragraph at lines 673--680
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 663--670
+Underfull \hbox (badness 10000) in paragraph at lines 673--680
 
  []
 
-[17]
-<../results/neuron_models/RSTDP_delayed.png, id=301, 722.7pt x 705.3552pt>
+[21]
+<../results/neuron_models/RSTDP_delayed.png, id=316, 722.7pt x 705.3552pt>
 File: ../results/neuron_models/RSTDP_delayed.png Graphic file (type png)
 <use ../results/neuron_models/RSTDP_delayed.png>
-Package pdftex.def Info: ../results/neuron_models/RSTDP_delayed.png  used on input line 673.
+Package pdftex.def Info: ../results/neuron_models/RSTDP_delayed.png  used on input line 683.
 (pdftex.def)             Requested size: 390.0pt x 380.63858pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [18]
-Underfull \hbox (badness 10000) in paragraph at lines 679--684
+ [22]
+Underfull \hbox (badness 10000) in paragraph at lines 689--694
 
  []
 
-[19
+[23
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.684 
+l.694 
        <../results/neuron_models/RSTDP_delayed.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [20]
-<../results/rstdp/competition.png, id=322, 867.24pt x 705.3552pt>
+ [24]
+<../results/rstdp/competition.png, id=335, 867.24pt x 705.3552pt>
 File: ../results/rstdp/competition.png Graphic file (type png)
 <use ../results/rstdp/competition.png>
-Package pdftex.def Info: ../results/rstdp/competition.png  used on input line 710.
+Package pdftex.def Info: ../results/rstdp/competition.png  used on input line 720.
 (pdftex.def)             Requested size: 390.0pt x 317.20241pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [21
+ [25
 pdfTeX warning (ext4): destination with the same identifier (name{table.4.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.715 \newpage
-              ] [22
+l.725 \newpage
+              ] [26
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.715 \newpage
+l.725 \newpage
                <../results/rstdp/competition.png>]
 
-LaTeX Warning: Reference `td_learning' on page 23 undefined on input line 717.
+LaTeX Warning: Reference `td_learning' on page 27 undefined on input line 727.
 
-<../results/figures/pong_setup.png, id=336, 358.33875pt x 371.3875pt>
+<../results/figures/pong_setup.png, id=349, 358.33875pt x 371.3875pt>
 File: ../results/figures/pong_setup.png Graphic file (type png)
 <use ../results/figures/pong_setup.png>
-Package pdftex.def Info: ../results/figures/pong_setup.png  used on input line 730.
+Package pdftex.def Info: ../results/figures/pong_setup.png  used on input line 740.
 (pdftex.def)             Requested size: 234.00238pt x 242.52672pt.
-[23]
-<../results/rstdp/rstdp-pong/learning.png, id=347, 867.24pt x 705.3552pt>
+[27]
+<../results/rstdp/rstdp-pong/learning.png, id=361, 867.24pt x 705.3552pt>
 File: ../results/rstdp/rstdp-pong/learning.png Graphic file (type png)
 <use ../results/rstdp/rstdp-pong/learning.png>
-Package pdftex.def Info: ../results/rstdp/rstdp-pong/learning.png  used on input line 741.
+Package pdftex.def Info: ../results/rstdp/rstdp-pong/learning.png  used on input line 751.
 (pdftex.def)             Requested size: 390.0pt x 317.20241pt.
- [24
+ [28
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.745 \newpage
-               <../results/figures/pong_setup.png>] [25
+l.755 \newpage
+               <../results/figures/pong_setup.png>] [29
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.745 \newpage
+l.755 \newpage
                <../results/rstdp/rstdp-pong/learning.png>]
-<../results/rstdp/rstdp-pong/mean_reward.png, id=362, 867.24pt x 433.62pt>
+<../results/rstdp/rstdp-pong/mean_reward.png, id=376, 867.24pt x 433.62pt>
 File: ../results/rstdp/rstdp-pong/mean_reward.png Graphic file (type png)
 <use ../results/rstdp/rstdp-pong/mean_reward.png>
-Package pdftex.def Info: ../results/rstdp/rstdp-pong/mean_reward.png  used on input line 751.
+Package pdftex.def Info: ../results/rstdp/rstdp-pong/mean_reward.png  used on input line 761.
 (pdftex.def)             Requested size: 390.0pt x 195.00148pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 747--760
+Underfull \hbox (badness 10000) in paragraph at lines 757--770
 
  []
 
-[26
+[30
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.760 \[
+l.770 \[
          <../results/rstdp/rstdp-pong/mean_reward.png>]
-<../results/rstdp/rstdp-gridworld/best.png, id=371, 289.08pt x 289.08pt>
+<../results/rstdp/rstdp-gridworld/best.png, id=385, 289.08pt x 289.08pt>
 File: ../results/rstdp/rstdp-gridworld/best.png Graphic file (type png)
 <use ../results/rstdp/rstdp-gridworld/best.png>
-Package pdftex.def Info: ../results/rstdp/rstdp-gridworld/best.png  used on input line 784.
+Package pdftex.def Info: ../results/rstdp/rstdp-gridworld/best.png  used on input line 794.
 (pdftex.def)             Requested size: 234.00238pt x 233.99911pt.
- [27]
-Underfull \hbox (badness 10000) in paragraph at lines 806--809
+ [31]
+Underfull \hbox (badness 10000) in paragraph at lines 816--819
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 806--809
+Underfull \hbox (badness 10000) in paragraph at lines 816--819
 
  []
 
-[28
+[32
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.810 \subsection
+l.820 \subsection
                  {Model akter-kritik} <../results/rstdp/rstdp-gridworld/best.png>]
-<../results/figures/basal_ganglia.jpg, id=387, 687.56876pt x 674.52pt>
+<../results/figures/basal_ganglia.jpg, id=403, 687.56876pt x 674.52pt>
 File: ../results/figures/basal_ganglia.jpg Graphic file (type jpg)
 <use ../results/figures/basal_ganglia.jpg>
-Package pdftex.def Info: ../results/figures/basal_ganglia.jpg  used on input line 821.
+Package pdftex.def Info: ../results/figures/basal_ganglia.jpg  used on input line 831.
 (pdftex.def)             Requested size: 234.00238pt x 229.5602pt.
-<../results/figures/dipl_TD_model.png, id=391, 599.23875pt x 493.845pt>
+<../results/figures/dipl_TD_model.png, id=407, 599.23875pt x 493.845pt>
 File: ../results/figures/dipl_TD_model.png Graphic file (type png)
 <use ../results/figures/dipl_TD_model.png>
-Package pdftex.def Info: ../results/figures/dipl_TD_model.png  used on input line 834.
+Package pdftex.def Info: ../results/figures/dipl_TD_model.png  used on input line 844.
 (pdftex.def)             Requested size: 390.0pt x 321.40988pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 813--838
+Underfull \hbox (badness 10000) in paragraph at lines 823--848
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 813--838
+Underfull \hbox (badness 10000) in paragraph at lines 823--848
 
  []
 
-[29]
+[33]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [30] [31
+ [34] [35
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.838 \end{figure}
+l.848 \end{figure}
                    <../results/figures/basal_ganglia.jpg>]
 
-LaTeX Warning: Reference `actorCritic' on page 32 undefined on input line 840.
+LaTeX Warning: Reference `actorCritic' on page 36 undefined on input line 850.
 
-[32
+[36
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.841 \newpage
-               <../results/figures/dipl_TD_model.png>] [33]
+l.851 \newpage
+               <../results/figures/dipl_TD_model.png>] [37]
 
-./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:860: LaTeX Error: There's no line here to end.
+./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:870: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.860 \begin
+l.870 \begin
             {table}[htbp]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:894: LaTeX Error: There's no line here to end.
+./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:904: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.894 \begin
+l.904 \begin
             {table}[H]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:926: LaTeX Error: There's no line here to end.
+./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:936: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.926 \begin
+l.936 \begin
             {table}[H]
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [34
-pdfTeX warning (ext4): destination with the same identifier (name{table.4.2}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.949 \end{table}
-                 ] [35
-pdfTeX warning (ext4): destination with the same identifier (name{table.4.3}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.949 \end{table}
-                 ]
-Overfull \vbox (62.96725pt too high) has occurred while \output is active []
-
- [36
-pdfTeX warning (ext4): destination with the same identifier (name{table.4.4}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.949 \end{table}
-                 ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [37
-pdfTeX warning (ext4): destination with the same identifier (name{table.4.5}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.977 \end{table}
-                 ]
-
-./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:979: LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.979 \subsection
-                 {Učenje}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -1165,123 +1138,166 @@ or  <return>  to continue without it.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [38
+pdfTeX warning (ext4): destination with the same identifier (name{table.4.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.959 \end{table}
+                 ] [39
+pdfTeX warning (ext4): destination with the same identifier (name{table.4.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.959 \end{table}
+                 ]
+Overfull \vbox (62.96725pt too high) has occurred while \output is active []
+
+ [40
+pdfTeX warning (ext4): destination with the same identifier (name{table.4.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.959 \end{table}
+                 ]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [41
+pdfTeX warning (ext4): destination with the same identifier (name{table.4.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.987 \end{table}
+                 ]
+
+./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:989: LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.989 \subsection
+                 {Učenje}
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [42
 pdfTeX warning (ext4): destination with the same identifier (name{table.4.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.979 \subsection
-                 {Učenje}] [39
+l.989 \subsection
+                 {Učenje}] [43
 pdfTeX warning (ext4): destination with the same identifier (name{table.4.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.985 
+l.995 
       ]
-<../results/actorcritic/F2 - StateTransitionTD_annotated.png, id=466, 1204.5pt x 979.66pt>
+<../results/actorcritic/F2 - StateTransitionTD_annotated.png, id=490, 1204.5pt x 979.66pt>
 File: ../results/actorcritic/F2 - StateTransitionTD_annotated.png Graphic file (type png)
 <use ../results/actorcritic/F2 - StateTransitionTD_annotated.png>
-Package pdftex.def Info: ../results/actorcritic/F2 - StateTransitionTD_annotated.png  used on input line 988.
+Package pdftex.def Info: ../results/actorcritic/F2 - StateTransitionTD_annotated.png  used on input line 998.
 (pdftex.def)             Requested size: 390.0pt x 317.2048pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [40] [41
+ [44] [45
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.994 \newpage
-               <../results/actorcritic/F2 - StateTransitionTD_annotated.png>]
+l.1004 \newpage
+                <../results/actorcritic/F2 - StateTransitionTD_annotated.png>]
 
-LaTeX Warning: Reference `results4x4' on page 42 undefined on input line 996.
+LaTeX Warning: Reference `results4x4' on page 46 undefined on input line 1006.
 
-<../results/actorcritic/best.png, id=478, 401.5pt x 401.5pt>
+<../results/actorcritic/best.png, id=503, 401.5pt x 401.5pt>
 File: ../results/actorcritic/best.png Graphic file (type png)
 <use ../results/actorcritic/best.png>
-Package pdftex.def Info: ../results/actorcritic/best.png  used on input line 999.
+Package pdftex.def Info: ../results/actorcritic/best.png  used on input line 1009.
 (pdftex.def)             Requested size: 234.00238pt x 234.00966pt.
-<../results/actorcritic/progress.png, id=480, 867.24pt x 433.62pt>
+<../results/actorcritic/progress.png, id=505, 867.24pt x 433.62pt>
 File: ../results/actorcritic/progress.png Graphic file (type png)
 <use ../results/actorcritic/progress.png>
-Package pdftex.def Info: ../results/actorcritic/progress.png  used on input line 1007.
+Package pdftex.def Info: ../results/actorcritic/progress.png  used on input line 1017.
 (pdftex.def)             Requested size: 390.0pt x 195.00148pt.
 
-Overfull \hbox (5.6445pt too wide) in paragraph at lines 996--1012
+Overfull \hbox (5.6445pt too wide) in paragraph at lines 1006--1022
 \OT1/cmr/m/n/12 pri^^Tcakovano vre-dnost, dlje kot se od-da-ljimo od tega sta-nja, ni^^Tzja je pri^^Tcakovana
  []
 
-[42] [43
+[46] [47
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1012 \newpage
-                <../results/actorcritic/best.png>] [44
+l.1022 \newpage
+                <../results/actorcritic/best.png>] [48
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.11}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1016 \chapter
+l.1026 \chapter
                {Implementacija in uporabljena orodja} <../results/actorcritic/progress.png>]
 Poglavje 5.
-[45
+[49
 
-] [46
+] [50
 
 ]
 Poglavje 6.
 
-Overfull \hbox (2.49112pt too wide) in paragraph at lines 1043--1043
+Overfull \hbox (2.49112pt too wide) in paragraph at lines 1053--1053
 []\OT1/cmr/bx/n/17.28 Izognitveno obna^^Tsanje (\OT1/cmr/bx/it/17.28 angl. aver-sive be-
  []
 
-[47]
-<../results/figures/aversive.png, id=513, 128.48pt x 129.48375pt>
+[51]
+<../results/figures/aversive.png, id=540, 128.48pt x 129.48375pt>
 File: ../results/figures/aversive.png Graphic file (type png)
 <use ../results/figures/aversive.png>
-Package pdftex.def Info: ../results/figures/aversive.png  used on input line 1051.
+Package pdftex.def Info: ../results/figures/aversive.png  used on input line 1061.
 (pdftex.def)             Requested size: 155.99762pt x 157.229pt.
- [48
+ [52
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1060 \chapter
-               {Zaključek} <../results/figures/aversive.png>] [49] [50
+l.1070 \chapter
+               {Zaključek} <../results/figures/aversive.png>] [53] [54
 
 ]
 Poglavje 7.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [51] [52]
+ [55] [56]
 Poglavje 8.
-<../results/actorcritic/F3 - Learning.png, id=537, 1387.584pt x 708.246pt>
+<../results/actorcritic/F3 - Learning.png, id=565, 1387.584pt x 708.246pt>
 File: ../results/actorcritic/F3 - Learning.png Graphic file (type png)
 <use ../results/actorcritic/F3 - Learning.png>
-Package pdftex.def Info: ../results/actorcritic/F3 - Learning.png  used on input line 1067.
+Package pdftex.def Info: ../results/actorcritic/F3 - Learning.png  used on input line 1077.
 (pdftex.def)             Requested size: 390.0pt x 199.06401pt.
 
-./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:1071: LaTeX Error: There's no line here to end.
+./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:1081: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1071 \colorbox
+l.1081 \colorbox
                 {Apricot}{%
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-[53
+[57
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1089 ...liography[heading=bibintoc,title={Viri}]
-                                                   <../results/actorcritic/F3 - Learning.png>] [54
+l.1099 ...liography[heading=bibintoc,title={Viri}]
+                                                   <../results/actorcritic/F3 - Learning.png>] [58
 
-] [55] (/home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
+] [59] [60] (/home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
 ) (/home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
-) [56] (./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux)
+) [61] (./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux)
  ***********
 LaTeX2e <2023-11-01>
 L3 programming layer <2023-12-11>
@@ -1293,25 +1309,105 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package rerunfilecheck Info: File `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out' has not changed.
-(rerunfilecheck)             Checksum: 1033D3663F940562EE30CE6D38BCD195;2869.
+
+LaTeX Warning: Temporary extra page added at the end. Rerun to get it removed.
+
+
+Package rerunfilecheck Warning: File `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out':
+(rerunfilecheck)             Before: 0C420A09CD979C6BAD742DBE9E43B4BF;2903
+(rerunfilecheck)             After:  5E7C50CDA89C1B7693FBCF59CE9C15B1;2684.
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik
+(biblatex)                and rerun LaTeX afterwards.
+
 Package logreq Info: Writing requests to 'Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.run.xml'.
 \openout1 = `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21197 strings out of 474175
- 370377 string characters out of 5748183
+ 21222 strings out of 474175
+ 370627 string characters out of 5748183
  1946457 words of memory out of 5000000
- 43073 multiletter control sequences out of 15000+600000
+ 43074 multiletter control sequences out of 15000+600000
  573584 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,26n,81p,1867b,2296s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{figure.5.11} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.5.6} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.5.5} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.5.4} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.5.3} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.5.2} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{figure.5.8} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{subsection.5.2.2} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{figure.5.9} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{figure.5.7} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{figure.5.6} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{figure.5.3} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{equation.5.1.2} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.5.1} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{figure.5.1} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{equation.4.1.9} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{subsection.4.1.3} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{chapter.9} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{section.7.2} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{section.7.1} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{section.5.2} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{section.5.1} has been referenced but does not exist, replaced by a fixed one
+
 </home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.pdf (68 pages, 1726474 bytes).
+Output written on Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.pdf (73 pages, 1733121 bytes).
 PDF statistics:
- 701 PDF objects out of 1000 (max. 8388607)
- 545 compressed objects within 6 object streams
- 134 named destinations out of 1000 (max. 500000)
- 247 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 740 PDF objects out of 1000 (max. 8388607)
+ 579 compressed objects within 6 object streams
+ 158 named destinations out of 1000 (max. 500000)
+ 239 words of extra memory for PDF output out of 10000 (max. 10000000)
 
