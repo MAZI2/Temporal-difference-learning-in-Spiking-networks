@@ -10,21 +10,21 @@
 \contentsline {subsection}{\numberline {3.0.1}Model z eksponentnim jedrom}{15}{subsection.3.0.1}%
 \contentsline {subsection}{\numberline {3.0.2}Model z alfa jedrom}{16}{subsection.3.0.2}%
 \contentsline {subsection}{\numberline {3.0.3}Izbira modela nevrona}{17}{subsection.3.0.3}%
-\contentsline {section}{\numberline {3.1}STDP Sinaptični model}{19}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Dopaminska modulacija}{19}{subsection.3.1.1}%
-\contentsline {chapter}{\numberline {4}Spodbujevano učenje na impulznih nevronskih mrežah}{23}{chapter.4}%
-\contentsline {section}{\numberline {4.1}R-STDP učenje}{23}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Igra Pong}{29}{subsection.4.1.1}%
-\contentsline {subsubsection}{Rezultati}{32}{section*.5}%
-\contentsline {section}{\numberline {4.2}TD učenje in model akter-kritik}{34}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Model akter-kritik}{35}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{40}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Učenje}{45}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Rezultati}{48}{subsection.4.2.4}%
-\contentsline {chapter}{\numberline {5}Implementacija in uporabljena orodja}{51}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Možne razširitve}{53}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Izognitveno obnašanje (\textit {angl. aversive behaviour})}{53}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Rekurenčne povezave}{54}{section.6.2}%
-\contentsline {chapter}{\numberline {7}Zaključek}{57}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Ekstra}{59}{chapter.8}%
-\contentsline {chapter}{Viri}{61}{chapter*.6}%
+\contentsline {section}{\numberline {3.1}R-STDP Sinaptični model}{19}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Dopaminska modulacija}{20}{subsection.3.1.1}%
+\contentsline {chapter}{\numberline {4}Spodbujevano učenje na impulznih nevronskih mrežah}{25}{chapter.4}%
+\contentsline {section}{\numberline {4.1}R-STDP učenje}{25}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Igra Pong}{31}{subsection.4.1.1}%
+\contentsline {subsubsection}{Rezultati}{34}{section*.16}%
+\contentsline {section}{\numberline {4.2}TD učenje in model akter-kritik}{36}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Model akter-kritik}{37}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{42}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Učenje}{47}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Rezultati}{50}{subsection.4.2.4}%
+\contentsline {chapter}{\numberline {5}Implementacija in uporabljena orodja}{53}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Možne razširitve}{55}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Izognitveno obnašanje (\textit {angl. aversive behaviour})}{55}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Rekurenčne povezave}{56}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Zaključek}{59}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Ekstra}{61}{chapter.8}%
+\contentsline {chapter}{Viri}{63}{chapter*.32}%

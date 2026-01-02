@@ -35,6 +35,18 @@
 
 \usepackage{color}
 \usepackage{soul}
+\usepackage{caption}
+\captionsetup{font=small}
+\let\oldtable\table
+\let\endoldtable\endtable
+\renewenvironment{table}[1][htbp] % redefine table environment
+{
+    \oldtable[#1]
+    \small                     % sets all content in table smaller
+}
+{
+    \endoldtable
+}
 
 \graphicspath{{../results/}}
 
@@ -647,17 +659,14 @@ Alfa       & \(7.800 \pm 0.023\) & \(\mathbf{0.270 \pm 0.006} \) \\
 \caption{Povzetek statistike medimpulznih intervalov nevronov z alfa in exponentnim jedrom. Povprečje in standardni odklon sta izračunana na vseh postsinaptičnih nevronih.}
 \end{table}
 
-\section{STDP Sinaptični model}
+\section{R-STDP Sinaptični model}
 \label{sec:synapse_model}
-V sistemih, ki bodo implementirani v tej nalogi bomo uporabljali sinapso s plastičnostjo, odvisno od nagrade in časovne razporeditve impulzov (\textit{angl. reward-modulated-spike-timing-dependent plasticity} ali \textit{R-STDP}).
+V sistemih, ki bodo implementirani v tej nalogi, bomo uporabljali sinapso s plastičnostjo, odvisno od nagrade in časovne razporeditve impulzov (\textit{angl. reward-modulated-spike-timing-dependent plasticity} ali \textit{R-STDP}).
 Časovna razporeditev impulzov (\textit{STDP}) prilagaja sinaptične uteži glede na relativni čas impulzov pre- in postsinaptičnih nevronov. V svoji klasični obliki STDP uresničuje \href{https://en.wikipedia.org/wiki/Hebbian_theory}{Hebbov princip}:
 \begin{quote}
 ``Nevroni, ki se skupaj prožijo, se povežejo.''
 \end{quote}
-Če se presinaptični nevron sproži \textbf{pred} postsinaptičnim (\(\Delta t > 0\)), se sinapsa \textbf{okrepi} (potencira). Če se presinaptični nevron sproži \textbf{po} postsinaptičnem (\(\Delta t \leq 0\)), se sinapsa \textbf{oslabi} (depresira).
-
-Matematično je to opisano s funkcijo okna STDP:
-
+Za spremljanje ``skupnega proženja'' parov nevronov bomo definirali vrednost STDP, ki predstavlja velikost potencialne posodobitve uteži sinapse med parom nevronov glede na čas impulza pre- in postsinaptičnega nevrona. V impulznih nevronskih mrežah to omogoča označevanje ali krepitev sinaps parov nevronov, ki so bili odgovorni za proženje izhodnih nevronov ob stimulaciji določenih vhodnih nevronov. Temu pravimo tudi dodeljevanje zaslug (\textit{credit assignment}), ki je eden temeljnih izzivov pri učenju impulznih nevronskih mrež. Pri klasičnih nevronskih mrežah bi v ta namen uporabili gradient, pri impulznih nevronskih mrežah pa to spremlja vrednost STDP, ki je pozitivna, če se presinaptični nevron sproži pred postsinaptičnim (\(\Delta t > 0\)) in negativna, če se presinaptični nevron sproži po postsinaptičnem (\(\Delta t \leq 0\)). Tako STDP služi kot groba aproksimacija gradienta. Matematično je to opisano s funkcijo okna STDP: 
 \[
 \mathrm{STDP}(\Delta t) =
 \begin{cases}
@@ -665,71 +674,58 @@ A_+ e^{-|\Delta t|/\tau_+}, & \text{če } \Delta t > 0 \text{ (presinaptični pr
 A_- e^{-|\Delta t|/\tau_-}, & \text{če } \Delta t \le 0 \text{ (postsinaptični pred presinaptičnim)}
 \end{cases}
 \]
+\noident kjer sta \(A_+\) in \(A_-\) multiplikatorja za potenciranje in depresijo, \(\tau_+\) in \(\tau_-\) pa časovne konstante, ki določajo okno vpliva časovnih razlik.
 
-kjer so:
-\begin{itemize}
-    \item \(A_+\) in \(A_-\) multiplikatorja za potenciranje in depresijo,
-    \item \(\tau_+\) in \(\tau_-\) časovne konstante, ki določajo okno vpliva časovnih razlik.
-\end{itemize}
+Pare nevronov lahko posodabljamo izključno na podlagi vrednosti $\mathrm{STDP}$, s katero krepimo ali slabimo posamezne sinapse, običajno pa to vrednost uporabljamo v kombinaciji z nagrado. Količina nagrade oziroma koncentracija nevromodulatorja bo za celotno impulzno nevronsko mrežo ali skupino nevronov modulirala amplitudo učenja oziroma posodabljanja povezav. Povezavo med parom nevronov, bomo tako posodobili glede na vrednost STDP in prisotno količino nagrade v danem trenutku. 
 
 \subsection{Dopaminska modulacija}
-V vseh sistemih, razvitih v tej diplomski nalogi, kot osnovo uporabljamo model R-STDP sinapse, kot ga definira \cite{distalReward}. V tem modelu odvisnost od nagrade vpeljemo z nevromodulatorjem dopaminom. Pogosto se koncentracija dopamina obravnava kot neposreden odraz količine nagrade oziroma vrednosti stanja, v katerem se nahaja agent, vendar dopamin modulira le plastičnost sinaps oziroma učenje. Dopamin je potreben tudi pri učenju izogibanja neželenim stanjem, kot je opisano v poglavju \ref{aversive}. Pri nevromodulirani STDP dopaminsko koncentracijo predstavlja vrednost \(n\), ki neposredno modulira velikost in smer sinaptične plastičnosti, tj. velikost in predznak posodobitve uteži povezave. Sinaptična dinamika je opisana z enačbami po \cite{dopamineSynapse}:
+V vseh sistemih, razvitih v tej diplomski nalogi, kot osnovo za sinapso, ki poleg vrednosti STDP upošteva tudi nagrado, uporabljamo R-STDP model sinapse (\cite{distalReward}), kjer odvisnost od nagrade vpeljemo prek nevromodulatorja dopamina. Pogosto se koncentracija dopamina obravnava kot neposreden odraz količine nagrade oziroma vrednosti stanja, v katerem se agent nahaja, vendar ta modulira le plastičnost sinaps oziroma učenje. Namesto realizacije negativne nagrade z negativno koncentracijo dopamina, kar je pogost pristop, je biološko smiselneje izogibanje neželenim stanjem doseči z učenjem akcij, ki nas vodijo stran od teh stanj, ob pozitivni koncentraciji dopamina. Tak sistem je opisan v poglavju \ref{aversive}. 
 
+Pri R-STDP sinapsi vrednost STDP spremljamo preko sledi upravičenosti \emph{eligibility trace} \(c\), ki se za posamezen par nevronov ob proženju zviša glede na vrednost STDP, nato pa skozi čas odteka glede na parameter $\tau_c$. To nam omogoča pripisovanje odgovornosti tudi ob zakasnjenih nagradah, glede na razliko med časom aktivnosti para navronov in časom dovedene nagrade. Tako bodo sinapse, ki so bile aktivne ravno pred zvišanjem koncentracije dopamina obravnavane (glede na vrednost STDP), kot odgovorne za aktivnost izhodnih nevronov, ki je potencialno povzročila zvišanje koncentracije dopamina oziroma nagrado. Sinapse, aktivne dlje v preteklost, bodo ustrezno posodobljene manj. Takemu učenju pravimo učenje s tremi dejavniki (\textit{three-factor learning}), ki označi sinapse za potencialno spremembo in ohranja informacijo o pretekli aktivnosti pre- (prvi faktor) in postsinaptičnega nevrona (drugi faktor), dokler ne prispe tretji faktor, v tem primeru dopaminski signal \(n\), ki predstavlja koncentracijo dopamina. Ta mehanizem olajša časovno dodelitev zaslug (\textit{temporal credit assignment}), saj omogoča povezovanje hitre aktivnosti nevronov s počasnejšimi vedenjskimi odzivi, s čimer sinapse prejmejo ustrezno posodobitev, tudi če je nagrada ali signal zakasnjen.
+
+V primerjavi s klasičnimi TD (\textit{temporal difference - časovo razlikovalnimi}) algoritmi v ne-spiking nevronskih mrežah, kjer se sledi upravičenosti uporabljajo za posodobitev stanj ali akcij v diskretnih časovnih korakih, je v spiking neural networks sled \(c\) neposredno vezana na dejanske sprožitve impulzov in se lahko sproži ob vsaki interakciji med pre- in postsinaptičnim nevronom. Tako sled uprabičenosti predstavlja lokalno, biološko interpretabilno komponento učenja, ki je skladna z eksperimentalnimi dokazi o treh faktorjih učenja v možganih.
+
+Dopaminsko koncentracijo predstavlja dopaminska sled \(n\), ki jo lahko definiramo kot vrednost, ki spremlja aktivnost posebnih dopaminergičnih nevronov. Ob zvišani aktivnosti dopaminergičnih nevronov se bo dopaminska sled zvišala, ob odsotnosti aktivnosti, pa bo odtekala glede na parameter $\tau_n$. Dopaminska sled je uporabljena za neposredno modulacijo velikost in smeri sinaptične plastičnosti, tj. velikosti in predznaka posodobitve uteži povezave. Sinaptična dinamika R-STDP sinapse je opisana z enačbami po \cite{dopamineSynapse}:
 \[
 \begin{aligned}
-\dot{w} &= c \, (n - b) \\
-\dot{c} &= -\frac{c}{\tau_c} + \mathrm{STDP}(\Delta t) \, \delta(t - s_{\text{pre/post}}) C_1 \\
-\dot{n} &= -\frac{n}{\tau_n} + \frac{\delta(t - s_n)}{\tau_n} C_2 ,
+\dot{w} &= c \, (n - b), \\
+\dot{c} &= -\frac{c}{\tau_c} + \mathrm{STDP}(\Delta t) \, \delta(t - s_{\text{pre/post}}) C_1, \\
+\dot{n} &= -\frac{n}{\tau_n} + \frac{\delta(t - s_n)}{\tau_n} C_2.
 \end{aligned}
 \]
-
-kjer so:
-\begin{itemize}
-    \item \(w\) --- sinaptična utež,
-    \item \(c\) --- \emph{eligibility} sled, ki spremlja pare sproženih pre- in postsinaptičnih nevronov ter aproksimira odgovornost sinapse za proženje postsinaptičnega nevrona kot posledico proženja presinaptičnega nevrona.
-    \item \(n\) --- dopaminska koncentracija/sled,
-    \item \(b\) --- bazalna dopaminska koncentracija,
-    \item \(s_{\text{pre/post}}\) --- čas pre- ali post-sinaptičnega impulza,
-    \item \(s_n\) --- čas impulzov dopaminskih nevronov,
-    \item \(C_1, C_2\) --- konstante,
-    \item \(\tau_c, \tau_n\) --- časovne konstante odtekanja \emph{eligibility} in dopaminskih sledi.
-\end{itemize}
-
-Slika \ref{c_no_delay} prikazuje spreminjanje \textit{eligibility} sledi $c$ in uteži sinapse $w$ v odvisnosti od proženja pre- in postsinaptičnega nevrona ter dopaminske sledi $n$. Dopaminski nevroni, ki določajo dopaminsko sled, se prožijo na 40ms.
-
-\begin{figure}[H]
+Enačbe opisujejo dinamiko treh ključnih količin: sinaptične uteži \(w\), sledi upravičenosti \(c\) in dopaminske sledi \(n\). Sinaptična utež \(w\) se neposredno posodablja kot produkt trenutne sledi upravičenosti \(c\) in odstopanja dopaminske koncentracije \(n\) od bazalne vrednosti \(b\). Sled \(c\) spremlja pare sproženih pre- in postsinaptičnih nevronov ter aproksimira odgovornost posamezne sinapse za proženje postsinaptičnega nevrona kot posledico aktivnosti presinaptičnega nevrona. Njena dinamika vključuje eksponentno odtekanje s časovno konstanto \(\tau_c\) ter impulzne spremembe ob vsakem sproženju nevronov, modulirane s konstanto \(C_1\). Dopaminska sled \(n\) pa se eksponentno zmanjša z lastno časovno konstanto \(\tau_n\) in se poveča ob sprožitvah dopaminskih nevronov, ki se pojavijo ob časih \(s_n\) in so skalirani s konstanto \(C_2\). Slika \ref{c_no_delay} prikazuje spreminjanje \textit{eligibility} sledi $c$ in uteži sinapse $w$ v odvisnosti od proženja pre- in postsinaptičnega nevrona ter dopaminske sledi $n$. Dopaminski nevroni, ki določajo dopaminsko sled, se prožijo na 40ms.
+\begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=1.0\textwidth]{neuron_models/RSTDP}
+\includegraphics[width=0.9\textwidth]{neuron_models/RSTDP}
 \end{center}
-\caption{\textit{Eligibility} sled $c$, dopaminska sled $n$ in spreminjanje sinaptične uteži pri presinaptičnih impulzih pri $[10.0, 30.0]$ ms in postsinaptičnih impulzih pri $[12.0, 32.0]$ ms, simulirane v času $150$ ms pri R-STDP sinapsi s $\tau_c = 50.0$ ms, $\tau_{c,\mathrm{delay}} = 50.0$ ms, $\tau_n = 10.0$ ms, $\tau_\mathrm{plus} = 10.0$ ms, $b = 0.0$, $A_\mathrm{plus} = 0.2$, $A_\mathrm{minus} = 0.2$ in sinaptično zakasnitvijo $0.5$ ms.}
+\caption{Sled upravičenosti $c$, dopaminska sled $n$ in spreminjanje sinaptične uteži pri presinaptičnih impulzih pri $[10.0, 30.0]$ ms in postsinaptičnih impulzih pri $[12.0, 32.0]$ ms, simulirane v času $150$ ms pri R-STDP sinapsi s $\tau_c = 50.0$ ms, $\tau_n = 10.0$ ms, $\tau_\mathrm{plus} = 10.0$ ms, $b = 0.0$, $A_\mathrm{plus} = 0.2$, $A_\mathrm{minus} = 0.2$ in sinaptično zakasnitvijo $0.5$ ms. S slik lahko vidimo pozitivno sled upravičenosti zaradi proženja presinaptičnega nevrona pred postsinaptičnim. Ob prisotnosti neničelne dopaminske sledi $n$ ob proženju dopaminergičnega nevrona vsakih 40 ms, se sinaptična utež $w$ okrepi.}
 \label{c_no_delay}
 \end{figure}
-\newpage
-
 
 \chapter{Spodbujevano učenje na impulznih nevronskih mrežah}
 \label{sec:reinforcement_learning}
-Imamo klasičnega agenta spodbujevanega učenja, ki prejema informacije o zunanjem okolju prek stimulacije vhodnih nevronov, nato pa kot odziv na trenutno stanje izbere akcijo, ki vpliva na okolje. Če se znajde v nagrajenem stanju, agenta nagradimo. S pomočjo nagrajevanja in interakcije z okoljem se agent nauči akcij, ki v določenem stanju privedejo do nagrade.
+V delu uporabljamo klasičnega agenta spodbujevanega učenja, ki prejema informacije o zunanjem okolju prek stimulacije vhodnih nevronov, nato pa kot odziv na trenutno stanje izbere akcijo, ki vpliva na okolje. Če se znajde v nagrajenem stanju, agenta nagradimo. S pomočjo nagrajevanja in interakcije z okoljem se agent nauči akcij, ki v določenem stanju privedejo do nagrade preko posodabljanja povezav, ki so bile aktivne v prejšnjem stanju in so bile odgovorne za akcijo, ki nas je pripeljala v naslednje stanje. 
+
 \section{R-STDP učenje}
 \label{sec:rstdp}
-R-STDP učenje temelji na krepitvi povezav, ki so bile odgovorne za pravilno akcijo agenta v določenem stanju. To dosežemo tako, da prek vseh povezav zvišamo koncentracijo dopamina, pri čimer se najbolj okrepijo tiste povezave, ki so povzročile največ kavzalnih parov pre- in postsinaptičnih impulzov. Te povezave so namreč imele najvišjo vrednost \textit{eligibility} sledi $c$. Agent v trenutnem stanju izbere akcijo, morebitna nagrada pa je voljo šele ob prihodu v naslednje stanje. Zato želimo posodobiti povezave, ki so bile aktivne v prejšnjem stanju in so bile odgovorne za akcijo, ki nas je pripeljala v naslednje stanje. 
-\\
-\\
+R-STDP (\textit{Reward modulated spike timing dependent plasticity}) učenje temelji na krepitvi povezav, ki so bile odgovorne za pravilno akcijo agenta v določenem stanju. To dosežemo tako, da prek vseh povezav zvišamo koncentracijo dopamina, pri čimer se najbolj okrepijo tiste povezave, ki so povzročile največ impulzov postsinaptičnih nevronov kot direktna posledica proženja presinaptičnih nevronov. Take povezave imajo ob času prihoda nagrade najvišjo vrednost sledi upravičenosti. 
+
 Naš agent je za začetek sestavljen iz $N_{in}$ vhodnih nevronov, ki predstavljajo možna stanja in so povezani z $N_a$ nevroni na izhodu. Vhod in izhod sta povezana po režimu \textit{all-to-all}, kjer so vsi vhodni nevroni povezani z izhodnimi nevroni. Ob prihodu v določeno stanje ustrezni vhodni nevron stimuliramo tako, da ta se ta za čas $200$ ms proži s frekvenco $100$ Hz. Akcijo izberemo na koncu intervala glede na aktivnost izhodnih nevronov, ki predstavljajo možne akcije. Med njimi izberemo nevron, ki se je v trenutnem stanju največkrat prožil. Če vstopimo v nagrajeno stanje, bomo $N_{\text{dopa}}$ dopaminskih nevronov stimulirali s tokom $600$ pA. Dopaminski nevroni ob impulzu enakomerno projicirajo dopamin med vse povezave med vhodnimi in izhodnimi nevroni.
-\\
-\\
+
 Pri zvišani koncentraciji dopamina ob prihodu v nagrajeno stanje bi lahko poleg želenih povezav posodabljali že povezave, ki so aktivne v novem stanju. Da se temu izognemo, bomo onemogočili posodabljanje povezav, za katere je nagrada prišla prehitro. R-STDP sinapso bomo zato prilagodili tako, da bomo celotno \textit{eligibility} sled v času premaknili za vrednost $\tau_{c, \text{delay}}$ in s tem onemogočili posodabljanje zaradi nagrad, ki so prispele v času krajšem od $\tau_{c, \text{delay}}$ po aktivnosti sinapse. Dinamika prilagojene sinapse je prikazana na sliki \ref{delayed_eligibility}. 
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{neuron_models/RSTDP_delayed}
 \end{center}
-\caption{\textit{Eligibility} sled $c$, dopaminska sled $n$ in posodabljanje sinaptične uteži pri presinaptičnih impulzih pri $[10.0, 30.0]$ ms in postsinaptičnih inpulzih pri $[12.0, 32.0]$ ms, simulirane v času $150$ ms pri R-STDP sinapsi s $\tau_c = 50.0$ ms, $\tau_{c,\mathrm{delay}} = 50.0$ ms, $\tau_n = 10.0$ ms, $\tau_\mathrm{plus} = 10.0$ ms, $b = 0.0$, $A_\mathrm{plus} = 0.2$, $A_\mathrm{minus} = 0.2$ in sinaptično zakasnitvijo $0.5$ ms.}
+\caption{Sled upravičenosti $c$, dopaminska sled $n$ in posodabljanje sinaptične uteži pri presinaptičnih impulzih pri $[10.0, 30.0]$ ms in postsinaptičnih inpulzih pri $[12.0, 32.0]$ ms, simulirane v času $150$ ms pri R-STDP sinapsi s $\tau_c = 50.0$ ms, $\tau_{c,\mathrm{delay}} = 50.0$ ms, $\tau_n = 10.0$ ms, $\tau_\mathrm{plus} = 10.0$ ms, $b = 0.0$, $A_\mathrm{plus} = 0.2$, $A_\mathrm{minus} = 0.2$ in sinaptično zakasnitvijo $0.5$ ms. S slik lahko vidimo pozitivno sled upravičenosti zaradi proženja presinaptičnega nevrona pred postsinaptičnim, vendar zamaknjeno za $tau_{c, \mathrm{delay}}=50$ ms. Ob prisotnosti neničelne dopaminske sledi $n$ ob proženju dopaminergičnega nevrona vsakih 40 ms, se sinaptična utež $w$ okrepi, vendar šele po zakasnitvi glede na impulze pre- in postsinaptičnega nevrona. Tako nagrada, ki je prispela prehitro ne povzroči okrepitve sinapse.}
 \label{delayed_eligibility}
 \end{figure}
 
-Nagrada, ki jo predstavlja aktivnost dopaminskih nevronov, bo vedno večja ali enaka $0$, kar pomeni, da se bodo sinapse skozi čas le krepile. Povezave, odgovorne za izbiro določene akcije v določenem stanju, morajo zato med seboj tekmovati za prevlado. Pri tem moramo omogočiti dovolj veliko varianco frekvence impulzov izhodnih nevronov, predvsem v začetni fazi, ko imajo vse povezave približno enake uteži. V nasprotnem primeru bodo vse povezave posodobljene za približno enako vrednost glede na R-STDP. 
-Varianco med impulzi pri enakih povezavah dosežemo z zunanjim Poissonovim šumom. Naš agent bo uporabljal model nevrona z eksponentnim jedrom, saj Poissonov šum v tem primeru povzroči večjo varianco izhodnih nevronov kot model z alfa jedrom, kar smo pokazali v poglavju \ref{sec:izbira_modela}. V začetni fazi bodo tako akcije večinoma izbrane naključno, ob majhnem številu izhodnih impulzov pa bo razlika variance relativno večja kot pri višji aktivnosti izhodnih nevronov. Tako bo v kasnejših fazah učenja izbira akcije vse manj odvisna od šuma. 
+Nagrada, ki jo predstavlja aktivnost dopaminskih nevronov, bo vedno večja ali enaka $0$, kar pomeni, da se bodo sinapse skozi čas le krepile. Povezave, odgovorne za izbiro določene akcije v določenem stanju, morajo zato med seboj tekmovati za prevlado. To nam omogoča sled upravičenosti, ki mora biti za sinapse, ki vodijo do pravilne akcije dovolj različna, da bodo te napram ostalim povezavam dovolj okrepljene za prevlado. To pomeni, da morajo biti povezave, ki vodijo do prave akcije dovolj okrepljene, da bodo v prihodnje povzročile večjo verjetnost izbire pravilne akcije. Sled upravičenosti je višja za povezave z višjimi utežmi, saj take povezave povzročajo več impulzov postsinaptičnega nevrona kot posledica proženja presinaptičneag. Pri nižjih vrednostih uteži, dokler imajo vse povezave približno enako utež, dovolj veliko razliko v sledi upravičenosti dosežemo z varianco v frekvenci impulzov, ki povzroči, da nekatere sinapse po naključju prispevajo k akciji nekoliko bolj ali manj. 
+To pomeni, da se vrednosti eligibility trace razlikujejo med sinapsami. Posledično lahko dopaminska modulacija (trening signal) posodobi sinapse različno in vzpostavi razlikovanje med njimi, tudi če imajo vse povezave enake začetne uteži. Pri nižjih vrednostih uteži, kjer deterministični prispevek sinaps še ni dominanten, naključna varianca impulzov služi kot mehanizem, da “razbije simetrijo” in omogoči, da se sledi upravičenosti razlikujejo, dokler uteži niso dovolj velike, da prevladujejo deterministični prispevki. Pogosto se razlikovanje med sinapsami doseže z dopuščanjem negativih nagrad, ki sinapse, ki so bile odgovorne za napačno izbrano akcijo negativno posodobijo. V našem sistemu se bomo negativnim nagradam, ki zahtevajo negativno koncentracijo dopamina izognili, saj v naravi negativna koncentracija dopamina ni mogoča.
+Varianco v frekvenci impulzov dosežemo s Poissonovim šumom. V diferencialni enačbi, ki določa spreminjanje $V_m$ pri nižjih vrednostih uteži nad $I_{\text{syn}}$ prevladuje $I_e$ oziroma $I_{\text{Poisson}}$ v našem primeru. Tako ima, dokler ne prevladuje deterministični prispevek okrepljenih povezav, Poissonov šum večji vpliv na $V_m$ in je tako varianca v frekvenci impulzov večja. To služi tudi kot mehanizem za raziskovanje (\textit{exploration}), ki bo pri nižjih utežeh, ko imajo vse povezave približno enake uteži omogočil naključno izbiranje akcije. Tekom učenja, ko se sinapse okrepijo, bo agent akcije izbiral v glavnem glede na prevladujoče sinapse, kar je mehanizem za izkoriščanje (\textit{exploitation}). Naš sistem bo tako tekom učenja postopoma višal razmerje med izkoriščanje in raziskovanjem.
+Za model nevrona bomo uporabili model nevrona z eksponentnim jedrom, saj Poissonov šum v tem primeru povzroči večjo varianco izhodnih nevronov kot model z alfa jedrom, kar smo pokazali v poglavju \ref{sec:izbira_modela}.
 \\
 \\
 Za začetek preverimo R-STDP učenje in obnašanje razvitega sistema na preprosti nalogi s tremi stanji. Prehod v vsako stanje je nakjučen, v vsakem stanju pa je nagrajena le ena izbira akcije. V stanju 0, ki ga predstavlja vhodni nevron 0, je nagrajena akcija 0 (izhodni nevron 0), v stanju 1 akcija 1, v stanju 2 pa akcija 2. Na sliki \ref{rstdp_simple} je razvidna prevlada pravilnih sinaps, višanje divergence v sinapsah skozi čas ter rast povprečne nagrade tekom učenja. V simulaciji uporabljamo privzete NEST parametre za nevrone tipa \textit{iaf\_psc\_exp} ter zakasnjene dopaminsko modulirane sinapse. Ostali parametri sistema so navedeni v tabeli \ref{tab:rstdp_simple}.
@@ -1093,6 +1089,7 @@ Rešitve so implementirane v jeziku Python, kjer za simulacijo uporabljamo simul
 \fi
 \chapter{Možne razširitve}
 \section{Izognitveno obnašanje (\textit{angl. aversive behaviour})}
+\label{aversive}
 V večini del, ki se ukvarjajo s spodbujevanim učenjem, se izogibanje stanjem, za katere želimo, da se jih agent izogiba, doseže s pomočjo negativne nagrade. Negativna nagrada v enačbi sinapse R-STDP obrne predznak posodobitve. Tako so sinapse, odgovorne za vstop v neželeno stanje, negativno posodobljene. V človeških možganih negativnega dopamina ni. Pojavi se ideja, da je izogibanje negativnim stanjem prav tako posledica učenja, kjer je nivo dopamina $n > 0$. Dopamin namreč predstavlja učenje, ne nujno nagrade. Negativno nagrado bi tako lahko predstavili s posebnim vhodom, ki predstavlja nek negativen stimulus ali ``bolečino'', ki jo tekom učenja želimo zmanjšati. Zopet lahko uporabimo načela R-STDP in TD učenja, kjer zmanjšanje nivoja bolečine predstavlja nagrado. Trenutnemu akter-kritik sistemu bi dodali še eno kopijo kritika, ki računa časovno razliko nivoja bolečine in deluje na dopaminergične nevrone, ki so skupni obema kritikoma. Oba kritika tako delujeta konkurenčno. Ob prehodu iz stanja z visokim nivojem negativnega stimulusa v stanje z nizkim, dopaminergične nevrone vzbudimo, v obratnem primeru pa inhibiramo. V primeru enakega nivoja dovedenega negativnega stimulusa kritik negativne nagrade ne vpliva na dopaminergične nevrone. Sistem se do negativnega stimulusa v tem primeru, kljub uporabi časovne razlike, obnaša kratkovidno. 
 
 Nagrajene bodo samo povezave, ki so nas vodile stran od bolečine, ker pa je negativen stimulus vedno doveden samo iz zunanjosti sistema, bodo nagrajene povezave le v stanja neposredno ob negativnem stanju. Striatum za razliko od tega nivo dovedene nagrade napoveduje sam. Če želimo okrog negativnega stanja negativno označiti tudi stanja, ki nas potencialno vodijo vanj, bi morali v sistem dodati še skupino nevronov, ki stanja asociirajo z negativnim stimulusom in ga tako napovedujejo.

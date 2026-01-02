@@ -139,11 +139,11 @@ else:
     print("\nNot enough post spikes for ISI calculation (0 or 1 spike).")
 
 # ---------- Plotting with mapping for titles & y-labels ----------
-trace_keys_to_plot = ["c_current", "n"]
+trace_keys_to_plot = ["c_delayed", "n"]
 
 # Define mapping: key -> (y-label, subplot title)
 subplot_labels = {
-    "c_current": ("c", "Eligibility sled"),
+    "c_delayed": ("c", "Zakasnjena sled upravičenosti"),
     "n": ("n", "Dopaminska sled")
 }
 
