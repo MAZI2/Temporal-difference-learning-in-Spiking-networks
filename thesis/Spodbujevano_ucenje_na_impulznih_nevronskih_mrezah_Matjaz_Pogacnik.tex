@@ -415,7 +415,6 @@ Ker opisani pristop še vedno ne omogoča učinkovitega reševanja nalog z dalj�
 V ta namen v poglavju \ref{neuron_synapse_modelling} najprej predstavimo in ovrednotimo različne modele nevronov in sinaps ter njihove lastnosti. Nato v poglavju \ref{sec:rstdp} razvijemo sistem, ki temelji na prilagojeni R-STDP sinapsi in omogoča učinkovitejše dodeljevanje zaslug preteklim odločitvam v nalogah s takojšnjimi nagradami, kar prikažemo na nalogi igranja igre \href{https://en.wikipedia.org/wiki/Pong}{Pong}. Ker takšen pristop še ne omogoča učenja v okoljih z daljšo časovno odvisnostjo nagrad, v poglavju \ref{sec:td_learning} sistem razširimo z učenjem na podlagi časovne razlike (TD) v impulzno nevronsko arhitekturo akter–kritik, navdihnjeno z dopaminskimi vezji bazalnih ganglijev. Razširjeni sistem omogoča propagacijo pričakovane nagrade v prejšnja stanja in je ovrednoten na problemu mrežnega sveta, kjer se agent postopno uči učinkovitejše strategije in krajše poti do cilja.
 
 \chapter{Pregled področja in sorodnih del}
-
 Raziskave impulznih nevronskih mrež so se v zadnjih desetletjih razvijale predvsem na presečišču umetne inteligence, nevroznanosti in nevromorfnega inženirstva. Osrednji izziv na tem področju predstavlja učenje, saj klasični gradientni pristopi, ki se uporabljajo pri umetnih nevronskih mrežah, niso neposredno uporabni zaradi diskretne narave impulzov in nelinearne časovne dinamike.
 
 Eden temeljnih pristopov k učenju v impulznih nevronskih mrežah je sinaptična plastičnost, odvisna od časovne razlike med impulzi pre- in postsinaptičnih nevronov (angl.\ spike-timing-dependent plasticity, STDP). Razširitve tega mehanizma z globalnim nagradnim signalom, kot je R-STDP, omogočajo uporabo impulznih nevronskih mrež v okviru spodbujevanega učenja. Takšni pristopi so uspešni pri nalogah s takojšnjimi nagradami, vendar se soočajo z omejitvami pri reševanju problemov z zakasnjenimi nagradami, kjer je potrebna časovna propagacija učnega signala.
@@ -430,82 +429,102 @@ Biološko bolj neposredna implementacija TD učenja je arhitektura akter--kritik
 
 V primerjavi z obstoječimi deli se ta diplomska naloga osredotoča na enotno impulzno nevronsko arhitekturo, ki združuje lokalna pravila učenja, globalne nagradne signale in biološko smiselno implementacijo brez uporabe eksplicitnih negativnih nagrad. Poudarek je na časovni dodelitvi zaslug in postopni razširitvi osnovnega R-STDP pristopa v arhitekturo akter--kritik, ki omogoča učenje v okoljih z zakasnjenimi nagradami.
 
-
 \chapter{Modeliranje nevronov in sinaps}
 \label{neuron_synapse_modelling}
 Impulzne nevronske mreže so določene z modelom nevrona in modelom sinapse, ki povezuje nevrone. Obstaja veliko modelov, v nadaljevanju pa bosta predstavljena in primerjana dva modela nevronov glede na njuno uporabnost pri spodbujevanem učenju na impulznih nevronskih mrežah. Predstavljen bo tudi model sinapse, primeren za spodbujevano učenje, ki bo uporabljen v sistemih razvitih v nadaljevanju. 
-\section{Nevronski model}
-Nevronski modeli opisujejo električne lastnosti celične membrane nevrona v možganih. Nevroni bodo prek sinaps sprejemali izhodne (postsinaptične) tokove nevronov, s katerimi so povezani, in skozi čas glede na utež sinapse posodabljali svoj membranski potencial. Tok, ki prek sinapse s pozitivno utežjo od nevrona na začetku sinapse (presinaptičnega nevrona) prihaja do nevrona na koncu (postsinaptičnega nevrona), povzroči zvišanje membranskega potenciala. Ko membranski potencial nevrona preseže vrednost $V_{th}$, se sproži impulz, pri čemer ta nevron sprosti svoj postsinaptični tok na sinapso. Vrednost membranskega potenciala se ne glede na vhodne tokove skozi čas zmanjšuje glede na uhajalsko prevodnost $g_L$. Takim nevronskim modelom pravimo tokovno gnani modeli uhajajočega integrirajočega nevrona (\textit{angl. leaky integrate-and-fire model} ali \textit{leaky IAF}). Po impulzu velikost postsinaptičnega toka sledi krivulji, ki jo določa izbrano jedro modela. Primerjali bomo leaky IAF model z eksponentnim in alfa jedrom. Njuna postsinaptična tokova sta prikazana na sliki \ref{neuron_psc}. Obe krivulji določajo isti parametri, ki so predstavljeni v nadaljevanju.
 
-Membranski potencial se spreminja glede na ravnovesje med kapacitivnostjo in uhajanjem prek membranske prevodnosti, vhodne tokove $I_{\text{syn}}$ ter zunanji šum $I_e$. Model membrane, ki določa, kako se spreminja membranski potencial, je definiran z naslednjimi parametri.
+Nevronski modeli opisujejo električne lastnosti celične membrane nevrona v možganih. Nevroni bodo prek sinaps sprejemali izhodne (postsinaptične) tokove nevronov, s katerimi so povezani, in skozi čas glede na utež sinapse posodabljali svoj membranski potencial. Tok, ki prek sinapse s pozitivno utežjo od nevrona na začetku sinapse (presinaptičnega nevrona) prihaja do nevrona na koncu (postsinaptičnega nevrona), povzroči zvišanje membranskega potenciala. Ko membranski potencial nevrona preseže vrednost $V_{th}$, se sproži impulz, pri čemer ta nevron sprosti svoj postsinaptični tok na sinapso. Ta sistem je prikazan na sliki \ref{pre-sin-post}, kjer so predstavljeni postsinaptični tokovi presinaptičnih nevronov $i_{\text{syn}}(t - t_j - d_j)$. Indeks $j$ označuje posamezne presinaptične nevrone, $t$ predstavlja trenutni čas, $t_j$ čas sprožitve akcijskega potenciala presinaptičnega nevrona, $d_j$ pa zakasnitev signala zaradi njegovega prenosa prek sinapse do postsinaptičnega nevrona.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{neuron_models/pre-sin-post.png}
+\end{center}
+\caption{Prikaz pre- in postsinaptičnih razmerij ter posameznih postsinaptičnih tokov.}
+\label{pre-sin-post}
+\end{figure}
+
+\noindent Vrednost membranskega potenciala se ne glede na vhodne tokove skozi čas zmanjšuje glede na uhajalsko prevodnost $g_L$. Takim nevronskim modelom pravimo tokovno gnani modeli uhajajočega integrirajočega nevrona (\textit{angl. leaky integrate-and-fire model} ali \textit{leaky IAF}). Po sprožitvi impulza se velikost postsinaptičnega toka spreminja po krivulji, ki jo določa izbrano jedro modela in predstavlja obliko toka po impulzu. V nadaljevanju bomo predstavili dva pristopa: enostavnejši model z eksponentno oblikovanim postsinaptičnim tokom in kompleksnejši model z alfa oblikovanimi postsinaptičnimi tokovi. Obe obliki sta pri enakih parametrih prikazani na sliki \ref{neuron_psc} in podrobneje, skupaj s parametri, opisani v nadaljevanju. Označenih je tudi $36,8 \%$ maksimalne vrednosti, ki jo, po izračunih v poglavju \ref{eksponentno_jedro}, eksponentno jedro doseže ravno pri $t=\tau_{\text{syn, ex}}$, času, ko alpha jedro doseže ravno maksimalno vrednost.
+\newpage
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{neuron_models/PSCs}
+\end{center}
+\caption{Postsinaptični tok modela z eksponentnim in alfa jedrom pri sinaptični uteži $w=50$ in
+$\tau_{\text{syn, ex}}=5~\mathrm{ms}$. Eksponentno jedro povzroči takojšen skok postsinaptičnega
+toka ob sprožitvi impulza in eksponentno odtekanje, medtem ko alfa jedro modelira
+postopen dvig toka do maksimuma in nato počasnejši upad, kar bolje odraža časovno dinamiko
+bioloških sinaps.}
+
+\label{neuron_psc}
+\end{figure}
+\noindent Membranski potencial leaky IAF nevrona (\textit{LIF nevron}) se spreminja glede na ravnovesje med kapacitivnostjo in uhajanjem prek membranske prevodnosti, vhodne tokove $I_{\text{syn}}$ ter zunanji šum $I_e$. Model membrane, ki določa, kako se spreminja membranski potencial, je definiran z naslednjimi parametri.
 
 \begin{itemize}
-    \item \textbf{$E_L$ --- mirovalni membranski potencial} \\
-    Električni potencial, na katerega se membranski potencial relaksira skozi v odsotnosti vhodnih tokov.
+    \item \textbf{$E_L$ --- mirujoči membranski potencial} \\
+    Električni potencial, na katerega se membranski potencial relaksira v odsotnosti vhodnih tokov;
 
     \item \textbf{$C_m$ --- membranska kapacitivnost} \\
-    Kapacitivnost membrane, ki določa, kako hitro se membranski potencial odziva na vhodne tokove.
+    Kapacitivnost membrane, ki določa, kako hitro se membranski potencial odziva na vhodne tokove;
 
     \item \textbf{$\tau_m$ --- membranska časovna konstanta} \\
-    Čas, v katerem membrana pasivno integrira tok; definiran kot razmerje med kapacitivnostjo $C_m$ in uhajalsko prevodnostjo $g_L$ (\textit{leakage conductance}). 
-    $\tau_m$ lahko definiramo tudi kot produkt med kapacitivnostjo in uporom membrane $\tau_m = C_m R_m = \frac{C_m}{g_L}$
+    Čas, v katerem membrana pasivno integrira tok; definiran kot razmerje med kapacitivnostjo $C_m$ in uhajalsko prevodnostjo $g_L$ (\textit{leakage conductance}). Konstanto $\tau_m$ lahko definiramo tudi kot produkt med kapacitivnostjo in uporom membrane $\tau_m = C_m R_m = \frac{C_m}{g_L}$;
 
-    \item \textbf{$t_{ref}$ --- refraktorno obdobje} \\
-    Čas, v katerem se nevron po sprožitvi akcijskega potenciala ne more ponovno prožiti.
+    \item \textbf{$t_{ref}$ --- refrakcijskio obdobje} \\
+    Čas, v katerem se nevron po sprožitvi akcijskega potenciala ne more ponovno prožiti;
 
     \item \textbf{$V_{th}$ --- prag proženja} \\
-    Membranski potencial, pri katerem nevron sproži akcijski potencial.
+    Membranski potencial, pri katerem nevron sproži akcijski potencial;
 
     \item \textbf{$V_{\min}$ --- spodnja meja membranskega potenciala} \\
-    Absolutna spodnja meja za membranski potencial.
+    Absolutna spodnja meja za membranski potencial;
 
     \item \textbf{$I_e$ --- zunanji konstantni tok} \\
     Dodani tok, ki modelira stalni zunanji šum.
 \end{itemize}
-Formalno je membranski potencial $V_m$ pri tokovno gnanih modelih uhajajočega integrirajočega nevrona opisan z enačbo
-
+Membranski potencial $V_m$ pri tokovno gnanem modelu uhajajočega integrirajočega nevrona je v odvisnosti od prej navedenih parametrov opisan z diferencialno enačbo
 \begin{equation}
-    \frac{dV_m}{dt}=-\frac{V_m-E_L}{\tau_m}+\frac{I_{\text{syn}}+I_e}{C_m}
-\end{equation}.
+    \frac{dV_m}{dt}=-\frac{V_m-E_L}{\tau_m}+\frac{I_{\text{syn}}+I_e}{C_m}.
+\end{equation}
+Prvi člen na desni strani enačbe opisuje pasivno uhajanje membranskega potenciala proti mirujoči vrednosti $E_L$ s časovno konstanto $\tau_m$, ki določa hitrost relaksacije membrane. Drugi člen predstavlja vpliv vhodnih tokov, kjer enako kot doslej $I_{\text{syn}}$ označuje skupni sinaptični tok, ki ga ustvarjajo vsi presinaptični nevroni, $I_e$ pa zunanji konstantni tok oziroma šum. Membranska kapacitivnost $C_m$ določa, kako močno posamezni tokovi vplivajo na spremembo membranskega potenciala. Skupni tok $I_{\text{syn}}$, ki ga postsinaptični nevron prejme prek vseh sinaps, lahko razdelimo na dve komponenti glede na vrednosti uteži sinaps. Če je utež sinapse pozitivna, bo membranski potencial glede na postsinaptični tok naraščal proti pragu proženja. Pravimo, da je takšna povezava vzbujajoča. Obratno, če je utež sinapse negativna, bo membranski potencial padal. Takšni povezavi pravimo inhibitorna povezava. Notacijo $I_{\text{syn}}$ in $i_{\text{syn}}$ bomo v nadaljevanju razdelili na $i_{\text{syn, ex}}$ in $i_{\text{syn, in}}$, skupno zapisano z $i_{\text{syn, X}}$, kjer je $X \in \{\text{ex, in}\}$, $I_{\text{syn}}$ pa bomo zapisali kot vsoto $I_{\text{syn, ex}}$ in $I_{\text{syn, in}}$. Tak splošnejši zapis omogoča uporabo različnih sinaptičnih časovnih konstant, definiranih v nadaljevanju, za vzbujajoče in inhibitorne povezave. $I_{\text{syn}}$ tako zapišemo kot
 
-Če je utež sinapse pozitivna, bo membranski potencial glede na postsinaptični tok naraščal proti pragu proženja. Pravimo, da je takšna povezava vzbujajoča. Obratno, če je utež sinapse negativna, bo membranski potencial padal. Takšni povezavi pravimo inhibitorna povezava. Skupni tok $I_{\text{syn}}$, ki ga postsinaptični nevron prejme prek vseh sinaps, je zato sestavljen iz vzbujajoče in inhibitorne komponente.
 \[
 I_{\text{syn}}(t) = I_{\text{syn, ex}}(t) + I_{\text{syn, in}}(t) ,
 \]
 
-kjer
+\noindent kjer
 
 \[
 I_{\text{syn, X}}(t) = \sum_j w_j \sum_k i_{\text{syn, X}}(t - t_j^k - d_j) ,
 \]
 
-kjer $j$ teče po vzbujajočih (X = ex) in inhibitornih (X = in) sinapsah z utežmi $w_j$ do presinaptičnih nevronov, $k$ pa po časih impulzov nevrona $j$. $d_j$ predstavlja zakasnitev zaradi potovanja signala po sinapsi do nevrona $j$. $i_{\text{syn, X}}(t - t_j^k - d_j)$ predstavlja postsinaptični tok nevrona $j$. \\ 
+\noindent kjer $j$ teče po vzbujajočih (X = ex) in inhibitornih (X = in) sinapsah z utežmi $w_j$ do presinaptičnih nevronov, $k$ pa po časih impulzov nevrona $j$. $d_j$ predstavlja zakasnitev zaradi potovanja signala po sinapsi do nevrona $j$. $i_{\text{syn, X}}(t - t_j^k - d_j)$ predstavlja postsinaptični tok nevrona $j$. \\ 
+\\
 Postsinaptični tokovi so ne glede na jedro določeni z naslednjima parametroma.
 
 \begin{itemize}
     \item \textbf{$\tau_{\mathrm{syn,ex}}$ --- sinaptična časovna konstanta (vzbujajoča)} \\
-    Čas, ki določa hitrost naraščanja postsinaptičnega toka po proženju. Pri modelu z alfa-jedrom predstavlja čas dviga alfa-funkcije; pri eksponentnem jedru pa čas padca eksponentne funkcije, pri kateri je čas dviga neskončno majhen.
+    Čas, ki določa hitrost naraščanja postsinaptičnega toka po proženju. Pri modelu z alfa-jedrom predstavlja čas dviga alfa-funkcije; pri eksponentnem jedru pa čas padca eksponentne funkcije, pri kateri je čas dviga neskončno majhen;
 
     \item \textbf{$\tau_{\mathrm{syn,in}}$ --- sinaptična časovna konstanta (inhibitorna)} \\
     Čas, ki določa hitrost naraščanja postsinaptičnega toka po proženju, vendar za inhibitorne sinapse.
 \end{itemize}
 
-Na sliki \ref{neuron_psc} je poleg $\tau_{\text{syn, ex}}$ označenih tudi $36,8\%$ maksimalnega postsinaptičnega toka. Če eksponentno jedro predstavlja preprosto eksponentno funkcijo, bo postsinaptični tok to vrednost dosegel natanko pri $\tau_{\text{syn, ex}}$, kar smo izračunali po naslednji enačbi.
-\begin{align}
-    i_{\text{syn, ex}}(t) &= we^{-\frac{t}{\tau_{\text{syn, ex}}}} \\
-    i_{\text{syn, ex}}(\tau_{\text{syn, ex}}) &= we^{-1} \approx 0.3679w
-\end{align}
+Opisana dinamika je prikazana na sliki \ref{mem_pot}, kjer je membranski potencial leaky IAF nevrona (\textit{LIF nevrona}) prikazan kot odziv na skupni presinaptični tok dveh nevronov: nevrona z vzbujajočo in nevrona z inhibitorno povezavo, oba z eksponentno oblikovanim postsinaptičnim tokom. Na grafu je ravidno, kako $\tau_m$ vpliva na hitrost spremembe membranskega potenciala ter na odtekanje potenciala proti mirujočem $E_L$ po impulzu in med refrakcijskim obdobjem.
 
-\begin{figure}[htb]
+\begin{figure}[H]
 \begin{center}
-\includegraphics[width=1.0\textwidth]{neuron_models/PSCs}
+\includegraphics[width=1.0\textwidth]{neuron_models/mem_pot.png}
 \end{center}
-\caption{Postsinaptični tok modela z alfa in eksponentim jedrom, pri sinaptični uteži $w=50$ in $\tau_{\text{syn, ex}}=5$ ms.}
-\label{neuron_psc}
+\caption{Sprememba membranskega potenciala $V_m$ LIF nevrona (\textit{leaky IAF}) kot funkcija presinaptičnega toka $I_{\text{syn}}$, ki ga tvorita dva presinaptična nevrona z eksponentnim postsinaptičnim tokom: vzbujajoči nevron z utežjo $w_{\text{ex}}=6$ in inhibitorni nevron z utežjo $w_{\text{in}}=-6$. Ostali parametri so $\tau_{\text{syn, ex}} = \tau_{\text{syn, in}} = 5~\mathrm{ms}$, zakasnitev $d_j = 0~\mathrm{ms}$, $V_{\text{th}}=-50~\mathrm{mV}$, $E_L=-65~\mathrm{mV}$, $V_{\min}=-80~\mathrm{mV}$, $t_{\text{ref}}=5~\mathrm{ms}$, $I_e=0~\mathrm{nA}$ in $C_m=1~\mathrm{nF}$. Prikazana je krivulja za $\tau_m=10~\mathrm{ms}$ in $\tau_m=5~\mathrm{ms}$ za primerjavo vpliva časovne konstante membrane na dinamiko. Vzbujajoči nevron se proži ob $t=5~\mathrm{ms}$, inhibitorni pa ob $t=35~\mathrm{ms}$.} 
+\label{mem_pot}
 \end{figure}
+
+
+
 \newpage
 \subsection{Model z eksponentnim jedrom}
-V simulatorju NEST je model z eksponentnim jedrom (\textit{iaf\_psc\_exp}) definiran s sistemom diferencialnih enačb prvega reda, kot jih navaja \cite{expModel}. Postsinaptični tok $i(t)$ se spreminja po sistemu
+\label{eksponentno_jedro}
+V simulatorju NEST je model z eksponentnim jedrom (\textit{iaf\_psc\_exp}) definiran s sistemom diferencialnih enačb prvega reda \cite{expModel}. Postsinaptični tok $i(t)$ se spreminja po sistemu
 \begin{align}
     \frac{dx}{dt}&=\frac{z}{\tau_{rec}}-ux\delta({t-t_{sp}}) \\
     \frac{di}{dt}&=-\frac{i}{\tau_{\text{syn, X}}}+ux\delta({t-t_{sp}}) \\
@@ -517,7 +536,7 @@ $u$ delež sinaptičnih virov, porabljenih pri impulzu, in
 $\delta(t-t_{sp})$ delta porazdelitev za instantne posodobitve ob impulzih.
 \\
 \\
-Preverimo, ali postsinaptični tok po impulzu res sledi preprosti eksponentni funkciji. Če opazujemo samo spreminjanje $i(t)$ skozi čas brez novih impulzov, je $\delta(t-t_{sp})=0$ in se diferencialna enačba za $i$ poenostavi v
+Preverimo, ali postsinaptični tok po impulzu res sledi preprosti eksponentni funkciji. Če opazujemo samo spreminjanje $i(t)$ skozi čas brez novih impulzov, velja $\delta(t-t_{sp})=0$ in se diferencialna enačba za $i$ poenostavi v
 \begin{equation}
     \frac{di}{dt}=-\frac{i}{\tau_{\text{syn, X}}} .
 \end{equation}
@@ -526,11 +545,20 @@ Rešitev te diferencialne enačbe je tako
     i(t)=i_0 e^{-t/\tau_{\text{syn, X}}} ,
 \end{equation}
 kjer vidimo, da je jedro res eksponentna funkcija z začetkom v $i_0$. Skok potenciala po impulzu je določen z utežjo sinapse $w$, zato je $i_0=w$, postsinaptični tok pa je določen z vrednostjo $\tau_{\text{syn, X}}$.
-\\
-Zdaj lahko izračunamo količino naboja, ki ga po impulzu prenesemo po sinapsi. Ta nam bo koristila pri primerjavi in izbiri ustreznega modela za sisteme, razvite v nadaljevanju (poglavje \ref{sec:izbira_modela}). Skupni naboj $q$ izračunamo kot
+
+Zdaj lahko izračunamo količino naboja, ki ga po impulzu prenesemo po sinapsi. Ta nam bo koristila pri primerjavi in izbiri ustreznega modela za sisteme, razvite v nadaljevanju (poglavje \ref{sec:izbira_modela}). Količina naboja $q$, ki se po sprožitvi impulza prenese prek sinapse, je definirana
+kot ploščina pod krivuljo postsinaptičnega toka
 \[
 q = \int_0^{\infty} i_{\text{syn, X}}(t) dt = \tau_{\text{syn, X}} .
 \]
+
+Na sliki \ref{neuron_psc} je poleg parametra $\tau_{\text{syn, ex}}$ označenih tudi $36,8\%$ maksimalnega postsinaptičnega toka. Pri eksponentnem jedru bo namreč postsinaptični tok to vrednost dosegel natanko pri $\tau_{\text{syn, ex}}$, kar smo izračunali po naslednji enačbi.
+\begin{align*}
+    i_{\text{syn, ex}}(t) &= w e^{-\frac{t}{\tau_{\text{syn, ex}}}} \\
+    i_{\text{syn, ex}}(\tau_{\text{syn, ex}}) &= w e^{-1} \approx 0.3679 w.
+\end{align*}
+
+
 
 \subsection{Model z alfa jedrom}
 Model z alfa jedrom je kompleksnejši in biološko bolj realističen model postsinaptičnih tokov. V simulatorju NEST je postsinaptični tok modela z 
@@ -539,13 +567,27 @@ alfa jedrom (\textit{iaf\_psc\_alpha}) definiran kot
 i_{\text{syn, X}}(t) = \frac{e}{\tau_{\text{syn, X}}} t e^{-\frac{t}{\tau_{\text{syn, X}}}} \Theta(t) ,
 \]
 
-kjer je $\Theta(x)$ enotina stopnica. Postsinaptični tokovi so ob času $\tau_{\text{syn, X}}$ normalizirani na enotski maksimum.
+kjer je $\Theta(t)$ enotina stopnica, ki zagotavlja, da je postsinaptični tok
+ničeln za čase pred sprožitvijo impulza.
+Postsinaptični tok je normaliziran tako, da doseže enotski maksimum ob času
+$t = \tau_{\text{syn, X}}$.
 
 \[
 i_{\text{syn, X}}(t = \tau_{\text{syn, X}}) = 1 .
 \]
+Enačba opisuje časovni potek postsinaptičnega toka po sprožitvi
+akcijskega potenciala presinaptičnega nevrona. Faktor $t$ povzroči postopen
+dvig toka po impulzu, medtem ko eksponentni člen določa njegovo kasnejše
+zmanjševanje. Posledično postsinaptični tok ne doseže maksimuma takoj ob
+sprožitvi impulza, temveč šele ob času $\tau_{\text{syn, X}}$, kar modelira hitrost
+odpiranja in zapiranja ionskih kanalov v bioloških sinapsah.
 
-Skupni naboj $q$, ki ga prenese postsinaptični tok pri alfa jedru, izračunamo po naslednji enačbi.
+Parameter $\tau_{\text{syn, X}}$ določa časovno skalo dinamike sinapse: večja
+vrednost povzroči počasnejši dvig in daljše trajanje postsinaptičnega toka,
+manjša pa hitrejši in krajši odziv. Takšna oblika postsinaptičnega toka vodi v
+bolj zglajeno časovno integracijo vhodnih impulzov.
+
+Enako kot pri eksponentnem jedru skupni naboj $q$, ki ga prenese postsinaptični tok pri alfa jedru, definiramo kot ploščino pod krivuljo postsinaptičnega toka.
 \[
 q = \int_0^{\infty} i_{\text{syn, X}}(t) dt = e \tau_{\text{syn, X}} .
 \]
@@ -556,16 +598,16 @@ q = \int_0^{\infty} i_{\text{syn, X}}(t) dt = e \tau_{\text{syn, X}} .
 \subsection{Izbira modela nevrona}
 \label{sec:izbira_modela}
 V sistemih, ki jih bomo implementirali v nadaljevanju, skušamo pri modeliranju mehanizmov v človeških možganih uporabiti čim manj poenostavitev ali posplošitev. Za to je bolj primeren model
-nevrona z alfa jedrom, ki ima biološko bolj realistično obliko postsinaptičnega toka. V nadaljevanju sta kljub temu uporabljena oba modela, saj se zaradi različnih oblik postsinaptičnega toka za spodbujevano učenje bolje obnese model z eksponentnim jedrom, kot bomo videli v nadaljevanju.
+nevrona z alfa jedrom, ki ima biološko bolj realistično obliko postsinaptičnega toka. V nadaljevanju sta kljub temu uporabljena oba modela, saj se zaradi različnih oblik postsinaptičnega toka za spodbujevano učenje bolje obnese model z eksponentnim jedrom.
 
 Za nas je najpomembnejša razlika v količini prenesenega naboja $q$. Kot bo opisano v poglavju \ref{sec:rstdp}, to namreč vpliva na to, koliko lahko zunanji šum vpliva na frekvenco impulzov. Količina prenesenega naboja $q_{\text{alfa}}$ je pri alfa jedru večja od prenesenega naboja pri eksponentnem jedru $q_{\text{exp}}$ za faktor $\frac{q_{\text{alfa}}}{q_{\text{exp}}} = e$. To razliko lahko prilagodimo z nižjimi vrednostmi uteži sinaps, razlika v vplivu na frekvenco impulzov pa je posledica različno dolgega časovnega intervala, v katerem je postsinaptični tok blizu maksimalne vrednosti. Pri alfa jedru je ta interval večji kot pri eksponentnem jedru, zaradi česar bodo zaporedni postsinaptični impulzi skozi čas precej bolj prekrivni. Pri integriranju različnih postsinaptičnih tokov skozi čas tako pride do učinka nizkoprepustnega filtra, ki ublaži nenadne spremembe v amplitudi skupnega toka na vhodu v postsinaptični nevron. Če se nevron proži z določeno stalno frekvenco, bo ob dodanem šumu varianca v frekvenci impulzov pri alfa jedru manjša kot pri eksponentnem.
 \\
 \\
-Primerjamo varianco frekvence pri obeh jedrih v času 5000 ms preko petih postsinaptičnih nevronov, v katere neodvisno injiciramo šum. Biološko najbolj realističen je Poissonov šum, saj neposredno predstavlja impulze nevronov.
+Primerjamo varianco frekvence pri obeh jedrih v času 5000 ms preko petih postsinaptičnih nevronov, v katere neodvisno injiciramo Poissonov šum, saj je ta biološko najbolj realističen. Ta namreč neposredno predstavlja impulze nevronov.
 \begin{equation}
     P(k \text{ impulzov v }\Delta t) = \frac{(\lambda \Delta t)^ke^{-\lambda\Delta t}}{k!},\ \ \ k=0,1,2...
 \end{equation}
-Da dosežemo čim bolj enako osnovno frekvenco impulzov postsinaptičnih nevronov pri obeh jedrih, je utež sinapse med nevroni z alfa jedrom $w_{\text{alfa}}$ za faktor $e$ manjša od uteži sinaps do nevronov z eksponentnim jedrom $w_{\text{eksp}}$. Vsi parametri simulacije so navedeni v tabeli \ref{tab:variance_simulation_parameters}. Iz rezultatov simulacije, prikazanih v tabeli \ref{tab:isi_summary}, pričakovano opazimo večjo varianco pri eksponentnem jedru.
+Da dosežemo čim bolj enako osnovno frekvenco impulzov postsinaptičnih nevronov pri obeh jedrih, je utež sinapse med nevroni z alfa jedrom $w_{\text{alfa}}$ za faktor $e$ manjša od uteži sinaps do nevronov z eksponentnim jedrom $w_{\text{eksp}}$. Vsi parametri simulacije so navedeni v tabeli \ref{tab:variance_simulation_parameters}. Iz rezultatov simulacije, prikazanih v tabeli \ref{tab:isi_summary}, pričakovano opazimo večjo varianco pri ek\-sponent\-nem jedru.
 
 \begin{table}[H]
 \centering

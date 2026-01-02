@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik"] 1764169557 "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bcf" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik" 1767354771 0
+["biber Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik"] 1764169557 "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bcf" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik" 1767374102 0
   "./literatura.bib" 1764169553 3517 32276e70b0233e5d9fef41b30ea0561b ""
-  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bcf" 1767354770 108619 e185341c2e1df5085cbcec049eee2f55 "pdflatex"
+  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bcf" 1767374102 108619 e185341c2e1df5085cbcec049eee2f55 "pdflatex"
   (generated)
   "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl"
   "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.blg"
   (rewritten before read)
-["pdflatex"] 1767354767 "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.pdf" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik" 1767354771 2
+["pdflatex"] 1767374099 "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.pdf" "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik" 1767374102 2
   "../results/actorcritic/F2 - StateTransitionTD_annotated.png" 1762893251 253346 d56f10670f699d4bd26b5408f2c14a72 ""
   "../results/actorcritic/F3 - Learning.png" 1761566810 508370 c1666fe506d620b915645a7666a45b39 ""
   "../results/actorcritic/best.png" 1764241974 37075 628680ede66f6b84dad03713eca75154 ""
@@ -18,6 +18,8 @@
   "../results/neuron_models/PSCs.png" 1764164091 53009 3a459cda9301d834879f18e791d16fdf ""
   "../results/neuron_models/RSTDP.png" 1764170605 85205 a97c85ed21c09288c6f1a599e37e4d37 ""
   "../results/neuron_models/RSTDP_delayed.png" 1764170541 84688 5b02cb42fe206dfd3e12edcd3358b05d ""
+  "../results/neuron_models/mem_pot.png" 1767364109 64460 2aabebe2bcb460ab749ae7fc505c7e44 ""
+  "../results/neuron_models/pre-sin-post.png" 1767369482 39699 3f3096008cdbc7f4263bf81112d01e56 ""
   "../results/rstdp/competition.png" 1764173500 156897 c29defb2c9420fecfafcc61827cb6300 ""
   "../results/rstdp/rstdp-gridworld/best.png" 1762803928 15088 645e6dedd5e7dc700b177ce94db5c7fe ""
   "../results/rstdp/rstdp-pong/learning.png" 1764185677 129669 bd74959fc030d2fd5b95a8c7e1038004 ""
@@ -187,12 +189,12 @@
   "/home/matjaz/latex/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1702502324 4714745 7e7c3585ad432969c4c3a938148c45a6 ""
   "/home/matjaz/latex/texmf-var/web2c/pdftex/pdflatex.fmt" 1702502373 8217941 47211959369e07101e9d96e51b3330d9 ""
   "/home/matjaz/latex/texmf.cnf" 1702502318 496 01ab80fa0036a81d2df86fb0ac70c709 ""
-  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux" 1767354770 16437 6368bde3c5aab75024e9654e8bfbb6ae "pdflatex"
+  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux" 1767374102 19099 cdf279448b9d56cc3258d4e591001513 "pdflatex"
   "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl" 1764169558 13695 fb8516012ed4826d4e0c40f116939a98 "biber Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik"
-  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out" 1767354770 2684 5e7c50cda89c1b7693fbcf59ce9c15b1 "pdflatex"
-  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.run.xml" 1767354770 2776 594e0ab9560c7d5b03c5a0e3c9089597 "pdflatex"
-  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex" 1767354766 83908 fd267fa5cb0517ba84d0e8d71e53c3d5 ""
-  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.toc" 1767354770 2279 8fcfec3c466744fa49f2acd8be3d71b3 "pdflatex"
+  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out" 1767374102 2551 e353770cb7933ba761d877d756375519 "pdflatex"
+  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.run.xml" 1767374102 2776 42a8c52d0efe13e3d3efeffa15e02d29 "pdflatex"
+  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex" 1767374098 88761 93c3d9a4f0ed477fd4144b73b4723d88 ""
+  "Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.toc" 1767374102 2204 d558d05bf1a21d53e9e32a79e0a82d1d "pdflatex"
   "cc_by_30.pdf" 1764157072 3001 ffdebc11bc7a9ee788326c421a0a4fbe ""
   "cc_cc_30.pdf" 1764157072 3857 af3e03fc3070164b6d88bc77db09445a ""
   "cc_sa_30.pdf" 1764157072 3257 00f150f1d5142b4fa4100d1712e63a36 ""
