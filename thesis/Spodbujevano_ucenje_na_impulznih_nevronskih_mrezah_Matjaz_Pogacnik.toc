@@ -14,17 +14,17 @@
 \contentsline {subsection}{\numberline {3.1.1}Dopaminska modulacija}{20}{subsection.3.1.1}%
 \contentsline {chapter}{\numberline {4}Spodbujevano učenje na impulznih nevronskih mrežah}{25}{chapter.4}%
 \contentsline {section}{\numberline {4.1}R-STDP učenje}{25}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Igra Pong}{31}{subsection.4.1.1}%
-\contentsline {subsubsection}{Rezultati}{34}{section*.16}%
-\contentsline {section}{\numberline {4.2}TD učenje in model akter-kritik}{36}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Model akter-kritik}{37}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{42}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Učenje}{47}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Rezultati}{50}{subsection.4.2.4}%
-\contentsline {chapter}{\numberline {5}Implementacija in uporabljena orodja}{53}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Možne razširitve}{55}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Izognitveno obnašanje (\textit {angl. aversive behaviour})}{55}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Rekurenčne povezave}{56}{section.6.2}%
-\contentsline {chapter}{\numberline {7}Zaključek}{59}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Ekstra}{61}{chapter.8}%
-\contentsline {chapter}{Viri}{63}{chapter*.32}%
+\contentsline {subsection}{\numberline {4.1.1}Igra Pong}{32}{subsection.4.1.1}%
+\contentsline {subsubsection}{Rezultati}{35}{section*.16}%
+\contentsline {section}{\numberline {4.2}TD učenje in model akter-kritik}{37}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Model akter-kritik}{38}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{43}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Učenje}{48}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Rezultati}{51}{subsection.4.2.4}%
+\contentsline {chapter}{\numberline {5}Implementacija in uporabljena orodja}{55}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Možne razširitve}{57}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Izognitveno obnašanje (\textit {angl. aversive behaviour})}{57}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Rekurenčne povezave}{58}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Zaključek}{61}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Ekstra}{63}{chapter.8}%
+\contentsline {chapter}{Viri}{65}{chapter*.32}%
