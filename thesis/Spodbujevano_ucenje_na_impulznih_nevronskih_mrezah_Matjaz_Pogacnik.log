@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  3 JAN 2026 17:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  3 JAN 2026 18:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -662,11 +662,7 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
- (./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux
-
-LaTeX Warning: Label `pic8' multiply defined.
-
-)
+ (./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux)
 \openout1 = `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 207.
@@ -738,17 +734,17 @@ Package biblatex Info: Reference segment=0 on input line 207.
 
 
 {/home/matjaz/latex/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<cc_cc_30.pdf, id=78, 25.27844pt x 25.27844pt>
+<cc_cc_30.pdf, id=82, 25.27844pt x 25.27844pt>
 File: cc_cc_30.pdf Graphic file (type pdf)
 <use cc_cc_30.pdf>
 Package pdftex.def Info: cc_cc_30.pdf  used on input line 260.
 (pdftex.def)             Requested size: 18.74585pt x 18.74585pt.
-<cc_by_30.pdf, id=79, 18.74034pt x 18.73953pt>
+<cc_by_30.pdf, id=83, 18.74034pt x 18.73953pt>
 File: cc_by_30.pdf Graphic file (type pdf)
 <use cc_by_30.pdf>
 Package pdftex.def Info: cc_by_30.pdf  used on input line 260.
 (pdftex.def)             Requested size: 18.74028pt x 18.73947pt.
-<cc_sa_30.pdf, id=80, 18.73955pt x 18.73994pt>
+<cc_sa_30.pdf, id=84, 18.73955pt x 18.73994pt>
 File: cc_sa_30.pdf Graphic file (type pdf)
 <use cc_sa_30.pdf>
 Package pdftex.def Info: cc_sa_30.pdf  used on input line 260.
@@ -900,7 +896,7 @@ Underfull \vbox (badness 4752) has occurred while \output is active []
 
 ]
 Poglavje 3.
-<../results/neuron_models/pre-sin-post.png, id=198, 725.71124pt x 220.57407pt>
+<../results/neuron_models/pre-sin-post.png, id=203, 725.71124pt x 220.57407pt>
 File: ../results/neuron_models/pre-sin-post.png Graphic file (type png)
 <use ../results/neuron_models/pre-sin-post.png>
 Package pdftex.def Info: ../results/neuron_models/pre-sin-post.png  used on input line 452.
@@ -909,7 +905,7 @@ Package pdftex.def Info: ../results/neuron_models/pre-sin-post.png  used on inpu
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [9] [10 <../results/neuron_models/pre-sin-post.png>]
-<../results/neuron_models/PSCs.png, id=218, 722.7pt x 361.35pt>
+<../results/neuron_models/PSCs.png, id=222, 722.7pt x 361.35pt>
 File: ../results/neuron_models/PSCs.png Graphic file (type png)
 <use ../results/neuron_models/PSCs.png>
 Package pdftex.def Info: ../results/neuron_models/PSCs.png  used on input line 462.
@@ -920,7 +916,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 512--515
  []
 
 [13]
-<../results/neuron_models/mem_pot.png, id=240, 721.2546pt x 432.8973pt>
+<../results/neuron_models/mem_pot.png, id=244, 721.2546pt x 432.8973pt>
 File: ../results/neuron_models/mem_pot.png Graphic file (type png)
 <use ../results/neuron_models/mem_pot.png>
 Package pdftex.def Info: ../results/neuron_models/mem_pot.png  used on input line 528.
@@ -931,31 +927,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 544--552
  []
 
 [15] [16]
-Underfull \hbox (badness 10000) in paragraph at lines 615--619
+Underfull \hbox (badness 10000) in paragraph at lines 612--616
 
  []
 
+[17]
 
-Package caption Warning: \label without proper reference on input line 626.
+Package caption Warning: \label without proper reference on input line 623.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `tab:variance_simulation_parameters' on page 17 undefined on input line 622.
+LaTeX Warning: Reference `tab:variance_simulation_parameters' on page 18 undefined on input line 619.
 
 
-Package caption Warning: \label without proper reference on input line 650.
+Package caption Warning: \label without proper reference on input line 647.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `tab:isi_summary' on page 17 undefined on input line 622.
+LaTeX Warning: Reference `tab:isi_summary' on page 18 undefined on input line 619.
 
-[17] [18]
-Overfull \hbox (6.89427pt too wide) detected at line 676
+[18]
+Overfull \hbox (6.89427pt too wide) detected at line 673
 []\OT1/cmr/m/n/12 (^^A\OML/cmm/m/it/12 t\OT1/cmr/m/n/12 ) = []
  []
 
-./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:677: Undefined control sequence.
-l.677 \noident
+./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:674: Undefined control sequence.
+l.674 \noident
                kjer sta \(A_+\) in \(A_-\) multiplikatorja za potenciranje i...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -964,103 +961,103 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 [19] [20]
-<../results/neuron_models/RSTDP.png, id=301, 721.2546pt x 577.4373pt>
+<../results/neuron_models/RSTDP.png, id=303, 721.2546pt x 577.4373pt>
 File: ../results/neuron_models/RSTDP.png Graphic file (type png)
 <use ../results/neuron_models/RSTDP.png>
-Package pdftex.def Info: ../results/neuron_models/RSTDP.png  used on input line 699.
+Package pdftex.def Info: ../results/neuron_models/RSTDP.png  used on input line 696.
 (pdftex.def)             Requested size: 350.99762pt x 281.00833pt.
  [21] [22 <../results/neuron_models/RSTDP.png>]
 Poglavje 4.
 [23
 
 ]
-<../results/neuron_models/RSTDP_delayed.png, id=319, 721.2546pt x 577.4373pt>
+<../results/neuron_models/RSTDP_delayed.png, id=321, 721.2546pt x 577.4373pt>
 File: ../results/neuron_models/RSTDP_delayed.png Graphic file (type png)
 <use ../results/neuron_models/RSTDP_delayed.png>
-Package pdftex.def Info: ../results/neuron_models/RSTDP_delayed.png  used on input line 719.
+Package pdftex.def Info: ../results/neuron_models/RSTDP_delayed.png  used on input line 716.
 (pdftex.def)             Requested size: 390.0pt x 312.23442pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [24] [25 <../results/neuron_models/RSTDP_delayed.png>]
+Underfull \vbox (badness 4752) has occurred while \output is active []
 
-Package caption Warning: \label without proper reference on input line 763.
+ [26]
+
+Package caption Warning: \label without proper reference on input line 762.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `rstdp_simple' on page 26 undefined on input line 738.
+LaTeX Warning: Reference `rstdp_simple' on page 27 undefined on input line 737.
 
 
-Package caption Warning: \label without proper reference on input line 741.
+Package caption Warning: \label without proper reference on input line 740.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `tab:rstdp_simple' on page 26 undefined on input line 738.
+LaTeX Warning: Reference `tab:rstdp_simple' on page 27 undefined on input line 737.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 735--739
+Underfull \hbox (badness 10000) in paragraph at lines 734--738
 
  []
 
 
-Underfull \vbox (badness 4752) has occurred while \output is active []
-
- [26]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [27]
-<../results/rstdp/competition.png, id=344, 866.5173pt x 835.4412pt>
+<../results/rstdp/competition.png, id=348, 866.5173pt x 835.4412pt>
 File: ../results/rstdp/competition.png Graphic file (type png)
 <use ../results/rstdp/competition.png>
-Package pdftex.def Info: ../results/rstdp/competition.png  used on input line 765.
+Package pdftex.def Info: ../results/rstdp/competition.png  used on input line 764.
 (pdftex.def)             Requested size: 390.0pt x 376.0088pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [28] [29 <../results/rstdp/competition.png>]
 
-LaTeX Warning: Reference `td_learning' on page 30 undefined on input line 772.
+LaTeX Warning: Reference `td_learning' on page 30 undefined on input line 771.
 
 
-Package caption Warning: \label without proper reference on input line 783.
+Package caption Warning: \label without proper reference on input line 782.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `pong_setup' on page 30 undefined on input line 772.
+LaTeX Warning: Reference `pong_setup' on page 30 undefined on input line 771.
 
-<../results/figures/pong_setup.png, id=358, 358.33875pt x 371.3875pt>
+<../results/figures/pong_setup.png, id=362, 358.33875pt x 371.3875pt>
 File: ../results/figures/pong_setup.png Graphic file (type png)
 <use ../results/figures/pong_setup.png>
-Package pdftex.def Info: ../results/figures/pong_setup.png  used on input line 785.
+Package pdftex.def Info: ../results/figures/pong_setup.png  used on input line 784.
 (pdftex.def)             Requested size: 195.0pt x 202.10466pt.
 [30]
 
-Package caption Warning: \label without proper reference on input line 793.
+Package caption Warning: \label without proper reference on input line 792.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `rstdp_pong_learning' on page 31 undefined on input line 790.
+LaTeX Warning: Reference `rstdp_pong_learning' on page 31 undefined on input line 789.
 
-<../results/rstdp/rstdp-pong/learning.png, id=370, 904.0977pt x 427.8384pt>
+<../results/rstdp/rstdp-pong/learning.png, id=374, 904.0977pt x 427.8384pt>
 File: ../results/rstdp/rstdp-pong/learning.png Graphic file (type png)
 <use ../results/rstdp/rstdp-pong/learning.png>
-Package pdftex.def Info: ../results/rstdp/rstdp-pong/learning.png  used on input line 795.
+Package pdftex.def Info: ../results/rstdp/rstdp-pong/learning.png  used on input line 794.
 (pdftex.def)             Requested size: 390.0pt x 184.55446pt.
 [31 <../results/figures/pong_setup.png>]
 
-Package caption Warning: \label without proper reference on input line 803.
+Package caption Warning: \label without proper reference on input line 802.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `mean_reward' on page 32 undefined on input line 801.
+LaTeX Warning: Reference `mean_reward' on page 32 undefined on input line 800.
 
-<../results/rstdp/rstdp-pong/mean_reward.png, id=379, 866.5173pt x 432.8973pt>
+<../results/rstdp/rstdp-pong/mean_reward.png, id=383, 866.5173pt x 432.8973pt>
 File: ../results/rstdp/rstdp-pong/mean_reward.png Graphic file (type png)
 <use ../results/rstdp/rstdp-pong/mean_reward.png>
-Package pdftex.def Info: ../results/rstdp/rstdp-pong/mean_reward.png  used on input line 805.
+Package pdftex.def Info: ../results/rstdp/rstdp-pong/mean_reward.png  used on input line 804.
 (pdftex.def)             Requested size: 390.0pt x 194.835pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 801--814
+Underfull \hbox (badness 10000) in paragraph at lines 800--813
 
  []
 
@@ -1068,107 +1065,107 @@ Underfull \hbox (badness 10000) in paragraph at lines 801--814
 Underfull \vbox (badness 1552) has occurred while \output is active []
 
  [32 <../results/rstdp/rstdp-pong/learning.png>] [33 <../results/rstdp/rstdp-pong/mean_reward.png>]
-<../results/rstdp/rstdp-gridworld/best.png, id=393, 289.08pt x 289.08pt>
+<../results/rstdp/rstdp-gridworld/best.png, id=397, 289.08pt x 289.08pt>
 File: ../results/rstdp/rstdp-gridworld/best.png Graphic file (type png)
 <use ../results/rstdp/rstdp-gridworld/best.png>
-Package pdftex.def Info: ../results/rstdp/rstdp-gridworld/best.png  used on input line 837.
+Package pdftex.def Info: ../results/rstdp/rstdp-gridworld/best.png  used on input line 836.
 (pdftex.def)             Requested size: 234.00238pt x 233.99911pt.
  [34] [35 <../results/rstdp/rstdp-gridworld/best.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 846--850
+Underfull \hbox (badness 10000) in paragraph at lines 845--849
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 858--863
+Underfull \hbox (badness 10000) in paragraph at lines 857--862
 
  []
 
 [36]
-<../results/figures/basal_ganglia.jpg, id=411, 687.56876pt x 674.52pt>
+<../results/figures/basal_ganglia.jpg, id=415, 687.56876pt x 674.52pt>
 File: ../results/figures/basal_ganglia.jpg Graphic file (type jpg)
 <use ../results/figures/basal_ganglia.jpg>
-Package pdftex.def Info: ../results/figures/basal_ganglia.jpg  used on input line 868.
+Package pdftex.def Info: ../results/figures/basal_ganglia.jpg  used on input line 867.
 (pdftex.def)             Requested size: 234.00238pt x 229.5602pt.
  [37]
-<../results/figures/actor-critic.png, id=423, 542.025pt x 444.66125pt>
+<../results/figures/actor-critic.png, id=427, 542.025pt x 444.66125pt>
 File: ../results/figures/actor-critic.png Graphic file (type png)
 <use ../results/figures/actor-critic.png>
-Package pdftex.def Info: ../results/figures/actor-critic.png  used on input line 879.
+Package pdftex.def Info: ../results/figures/actor-critic.png  used on input line 878.
 (pdftex.def)             Requested size: 390.0pt x 319.9523pt.
 
 Underfull \vbox (badness 4291) has occurred while \output is active []
 
  [38 <../results/figures/basal_ganglia.jpg>] [39 <../results/figures/actor-critic.png>]
-<../results/figures/dipl_TD_model.png, id=440, 599.23875pt x 493.845pt>
+<../results/figures/dipl_TD_model.png, id=444, 599.23875pt x 493.845pt>
 File: ../results/figures/dipl_TD_model.png Graphic file (type png)
 <use ../results/figures/dipl_TD_model.png>
-Package pdftex.def Info: ../results/figures/dipl_TD_model.png  used on input line 896.
+Package pdftex.def Info: ../results/figures/dipl_TD_model.png  used on input line 895.
 (pdftex.def)             Requested size: 390.0pt x 321.40988pt.
  [40]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [41] [42 <../results/figures/dipl_TD_model.png>]
 
-Package caption Warning: \label without proper reference on input line 909.
+Package caption Warning: \label without proper reference on input line 908.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `tab:params1' on page 43 undefined on input line 906.
+LaTeX Warning: Reference `tab:params1' on page 43 undefined on input line 905.
 
 
-Package caption Warning: \label without proper reference on input line 1024.
+Package caption Warning: \label without proper reference on input line 1023.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `tab:params6' on page 43 undefined on input line 906.
+LaTeX Warning: Reference `tab:params6' on page 43 undefined on input line 905.
 
 
-./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:921: LaTeX Error: There's no line here to end.
+./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:920: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.921 \begin
+l.920 \begin
             {table}[htbp]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:955: LaTeX Error: There's no line here to end.
+./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:954: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.955 \begin
+l.954 \begin
             {table}[htbp]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:987: LaTeX Error: There's no line here to end.
+./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:986: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.987 \begin
+l.986 \begin
             {table}[htbp]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:1040: LaTeX Error: There's no line here to end.
+./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:1039: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1040 \subsection
+l.1039 \subsection
                   {Učenje}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -1178,81 +1175,57 @@ or  <return>  to continue without it.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [43] [44] [45] [46] [47]
-<../results/actorcritic/F2 - StateTransitionTD.png, id=496, 866.5173pt x 835.4412pt>
+<../results/actorcritic/F2 - StateTransitionTD.png, id=500, 866.5173pt x 835.4412pt>
 File: ../results/actorcritic/F2 - StateTransitionTD.png Graphic file (type png)
 <use ../results/actorcritic/F2 - StateTransitionTD.png>
-Package pdftex.def Info: ../results/actorcritic/F2 - StateTransitionTD.png  used on input line 1049.
+Package pdftex.def Info: ../results/actorcritic/F2 - StateTransitionTD.png  used on input line 1048.
 (pdftex.def)             Requested size: 390.0pt x 376.0088pt.
 
 
-LaTeX Warning: Float too large for page by 54.52933pt on input line 1053.
+LaTeX Warning: Float too large for page by 54.52933pt on input line 1052.
 
-[48] [49 <../results/actorcritic/F2 - StateTransitionTD.png>]
-<../results/actorcritic/best.png, id=513, 401.5pt x 401.5pt>
+[48] [49 <../results/actorcritic/F2 - StateTransitionTD.png>] [50]
+<../results/actorcritic/best.png, id=523, 401.5pt x 401.5pt>
 File: ../results/actorcritic/best.png Graphic file (type png)
 <use ../results/actorcritic/best.png>
-Package pdftex.def Info: ../results/actorcritic/best.png  used on input line 1062.
+Package pdftex.def Info: ../results/actorcritic/best.png  used on input line 1063.
 (pdftex.def)             Requested size: 234.00238pt x 234.00966pt.
-<../results/actorcritic/progress.png, id=515, 867.24pt x 433.62pt>
-File: ../results/actorcritic/progress.png Graphic file (type png)
-<use ../results/actorcritic/progress.png>
-Package pdftex.def Info: ../results/actorcritic/progress.png  used on input line 1070.
-(pdftex.def)             Requested size: 390.0pt x 195.00148pt.
- [50] [51 <../results/actorcritic/best.png>] [52 <../results/actorcritic/progress.png>]
-Poglavje 5.
-[53
 
-] [54
-
-]
-Poglavje 6.
-
-Overfull \hbox (2.49112pt too wide) in paragraph at lines 1108--1108
-[]\OT1/cmr/bx/n/17.28 Izognitveno obna^^Tsanje (\OT1/cmr/bx/it/17.28 angl. aver-sive be-
+Overfull \hbox (6.54543pt too wide) in paragraph at lines 1069--1070
+\OT1/cmr/m/n/12 pri^^Tcakovane na-grade. Pri^^Tcakujemo, da bodo pri^^Tcakovane na-grade med u^^Tcenjem
  []
 
-[55]
-<../results/figures/aversive.png, id=548, 128.48pt x 129.48375pt>
-File: ../results/figures/aversive.png Graphic file (type png)
-<use ../results/figures/aversive.png>
-Package pdftex.def Info: ../results/figures/aversive.png  used on input line 1117.
-(pdftex.def)             Requested size: 155.99762pt x 157.229pt.
- [56 <../results/figures/aversive.png>] [57] [58
 
-]
-Poglavje 7.
+Underfull \vbox (badness 2111) has occurred while \output is active []
+
+ [51
+
+ <../results/actorcritic/best.png>]
+<../results/actorcritic/progress.png, id=530, 867.24pt x 433.62pt>
+File: ../results/actorcritic/progress.png Graphic file (type png)
+<use ../results/actorcritic/progress.png>
+Package pdftex.def Info: ../results/actorcritic/progress.png  used on input line 1073.
+(pdftex.def)             Requested size: 390.0pt x 195.00148pt.
+ [52 <../results/actorcritic/progress.png>]
+Poglavje 5.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [59] [60]
-Poglavje 8.
-<../results/actorcritic/F3 - Learning.png, id=571, 1387.584pt x 708.246pt>
-File: ../results/actorcritic/F3 - Learning.png Graphic file (type png)
-<use ../results/actorcritic/F3 - Learning.png>
-Package pdftex.def Info: ../results/actorcritic/F3 - Learning.png  used on input line 1133.
-(pdftex.def)             Requested size: 390.0pt x 199.06401pt.
+ [53
 
-./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex:1137: LaTeX Error: There's no line here to end.
+] [54]
+<../results/figures/aversive.png, id=547, 128.48pt x 129.48375pt>
+File: ../results/figures/aversive.png Graphic file (type png)
+<use ../results/figures/aversive.png>
+Package pdftex.def Info: ../results/figures/aversive.png  used on input line 1095.
+(pdftex.def)             Requested size: 155.99762pt x 157.229pt.
+ [55 <../results/figures/aversive.png>] [56] [57
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.1137 \colorbox
-                {Apricot}{%
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-[61
-
- <../results/actorcritic/F3 - Learning.png>] [62
-
-] [63] (/home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
+] [58] (/home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
 ) (/home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
-) [64] (./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux)
+) [59] (./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux)
  ***********
 LaTeX2e <2023-11-01>
 L3 programming layer <2023-12-11>
@@ -1262,10 +1235,19 @@ L3 programming layer <2023-12-11>
 LaTeX Warning: There were undefined references.
 
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package rerunfilecheck Info: File `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out' has not changed.
-(rerunfilecheck)             Checksum: 3BECA79DE5A22C7958DEF0DCCFAB9DFC;2562.
+
+LaTeX Warning: Temporary extra page added at the end. Rerun to get it removed.
+
+
+Package rerunfilecheck Warning: File `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out':
+(rerunfilecheck)             Before: 117C844A408F648D2F02098A6FC9EE23;2779
+(rerunfilecheck)             After:  6162C5E39A7C941BDFB185437E0D97CA;2353.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik
@@ -1276,18 +1258,24 @@ Package logreq Info: Writing requests to 'Spodbujevano_ucenje_na_impulznih_nevro
 
  ) 
 Here is how much of TeX's memory you used:
- 22536 strings out of 474175
- 397073 string characters out of 5748183
+ 22518 strings out of 474175
+ 396521 string characters out of 5748183
  1957457 words of memory out of 5000000
- 44399 multiletter control sequences out of 15000+600000
+ 44387 multiletter control sequences out of 15000+600000
  574238 words of font info for 95 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,26n,81p,1728b,1964s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{chapter.6} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{section.5.2} has been referenced but does not exist, replaced by a fixed one
+
 </home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.pdf (76 pages, 1835655 bytes).
+Output written on Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.pdf (71 pages, 1456222 bytes).
 PDF statistics:
- 755 PDF objects out of 1000 (max. 8388607)
- 575 compressed objects within 6 object streams
- 141 named destinations out of 1000 (max. 500000)
- 238 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 733 PDF objects out of 1000 (max. 8388607)
+ 560 compressed objects within 6 object streams
+ 135 named destinations out of 1000 (max. 500000)
+ 241 words of extra memory for PDF output out of 10000 (max. 10000000)
 

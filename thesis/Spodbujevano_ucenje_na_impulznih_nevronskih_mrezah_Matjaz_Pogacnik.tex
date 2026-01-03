@@ -534,9 +534,9 @@ Opisana dinamika je prikazana na sliki \ref{mem_pot}, kjer je membranski potenci
 
 
 \newpage
-\subsection{Model z eksponentnim jedrom}
+\section{Model z eksponentnim jedrom}
 \label{eksponentno_jedro}
-V simulatorju NEST je model z eksponentnim jedrom (\textit{iaf\_psc\_exp}) definiran s sistemom diferencialnih enačb prvega reda \cite{expModel}. Postsinaptični tok $i(t)$ se spreminja po sistemu
+V simulatorju NEST, ki ga bomo uporabljali za implementacijo kasnejših sistemov, je model z eksponentnim jedrom (\textit{iaf\_psc\_exp}) definiran s sistemom diferencialnih enačb prvega reda \cite{expModel}. Postsinaptični tok $i(t)$ se spreminja po sistemu
 \begin{align}
     \frac{dx}{dt}&=\frac{z}{\tau_{rec}}-ux\delta({t-t_{sp}}) \\
     \frac{di}{dt}&=-\frac{i}{\tau_{\text{syn, X}}}+ux\delta({t-t_{sp}}) \\
@@ -572,7 +572,7 @@ Na sliki \ref{neuron_psc} je poleg parametra $\tau_{\text{syn, ex}}$ označenih 
 
 
 
-\subsection{Model z alfa jedrom}
+\section{Model z alfa jedrom}
 Model z alfa jedrom je kompleksnejši in biološko bolj realističen model postsinaptičnih tokov. V simulatorju NEST je postsinaptični tok modela z 
 alfa jedrom (\textit{iaf\_psc\_alpha}) definiran kot
 \[
@@ -604,10 +604,7 @@ Enako kot pri eksponentnem jedru skupni naboj $q$, ki ga prenese postsinaptični
 q = \int_0^{\infty} i_{\text{syn, X}}(t) dt = e \tau_{\text{syn, X}} .
 \]
 
-
-
-
-\subsection{Izbira modela nevrona}
+\section{Izbira modela nevrona}
 \label{sec:izbira_modela}
 V sistemih, ki jih bomo implementirali v nadaljevanju, skušamo pri modeliranju mehanizmov v človeških možganih uporabiti čim manj poenostavitev ali posplošitev. Za to je bolj primeren model
 nevrona z alfa jedrom, ki ima biološko bolj realistično obliko postsinaptičnega toka. V nadaljevanju sta kljub temu uporabljena oba modela, saj se zaradi različnih oblik postsinaptičnega toka za spodbujevano učenje bolje obnese model z eksponentnim jedrom.
@@ -733,6 +730,8 @@ To služi tudi kot mehanizem za raziskovanje (\textit{exploration}), ki bo pri n
 Za model nevrona, ki ga bomo uporabili v nadaljevanju, bomo izbrali model nevrona z eksponentnim jedrom, saj Poissonov šum v tem primeru povzroči večjo varianco izhodnih nevronov kot model z alfa jedrom. To smo pokazali v poglavju \ref{sec:izbira_modela}. 
 
 Za uspešno učenje je glavni izziv izbira pravilnih hiperparametrov sistema, ki omogoča, da se sinapse diferecirajo dovolj hitro. Ker ne dopuščamo negativnih nagrad bodo vse povezave s časom rasle, kar postopoma zmanjšuje verjetnost izbire naključne akcije. Tako se ob neustrezni izbiri parametrov lahko zgodi, da se vse povezave približno enakomerno krepijo, dokler raziskovanja praktično ni več in bo izbira akcije odvisna od naključno prevladujoče poti od vhodnih nevronov do izhodnih. Pravilne hiperparametre smo v nadaljevanju iskali eksperimentalno, kjer so najbolj vplivni hiperparameteri frekvenca in utež povezave iz generatorja Poissonovega šuma do izhodnih nevronov, parametra $A_+$ in $A_-$ ter parameter $\tau_c$.
+\subsection{Simulator NEST}
+V nadaljevanju bomo vse razvite sisteme implementirali s pomočjo simulatorja \href{https://www.nest-simulator.org/}{NEST}. Zaledje in posamezne komponente simulatorja so implemntirani v C++, kar nam omogoča učinkovito simulacijo impulznih nevronskih mrež. Za namen uporabe zakasnjene sinapse R-STDP, ki smo jo predstavili v prejšnjih poglavjih, moramo za integracijo z ostalimi komponentami simulatorja napisati poseben C++ modul.
 \\
 \\
 Za začetek bomo R-STDP učenje implementirali na preprosti nalogi s tremi stanji, oštevilčenimi z 0, 1 in 2. V vsakem stanju lahko podobno agent izbere akcijo 0, 1 ali 2. Prehod v stanje po izbiri akcije je nakjučno (neodvisen od izbire akcije), v vsakem stanju pa je nagrajena le ena izbira akcije. V stanju 0, ki ga predstavlja stimulacija vhodnega nevrona 0, bomo kot nagrajeno akcijo izbrali akcijo 0, ki jo predstavlja izhodni nevron 0, v stanju 1 akcijo 1, v stanju 2 pa akcijo 2. Na sliki \ref{rstdp_simple} je razvidna prevlada pravilnih sinaps, višanje divergence v sinapsah skozi čas ter rast frekvence nagrad tekom učenja. V simulaciji uporabljamo privzete parametre NEST za nevrone z eksponentnim jedrom (\textit{iaf\_psc\_exp}) ter zakasnjene dopaminsko modulirane sinapse. Ostali parametri sistema so navedeni v tabeli \ref{tab:rstdp_simple}.
@@ -830,13 +829,13 @@ kjer je \(w_{ij}\) utež sinapse iz vhodnega nevrona \(i\) do izhodnega nevrona 
 \overrightarrow{d}_3 = (1,0).
 \]
 
-Indikator učenja pravilne akcije v stanju $i$ je tudi maksimalna razlika med utežmi med vhodnim nevronom $i$ in vsakim od izhodnih nevronov, ki predstavlja aproksimacijo verjetnosti izbire akcije. Pri dobri politiki želimo, da bo verjetnost izbire pravilne akcije ustrezno večja od ostalih. Pri R-STDP učenju, kot smo ga implementirali do sedaj, pričakujemo opazno diferenciacijo akcij pri stanjih neposredno ob cilju, za ostala stanja pa pričakujemo, da bo makcimalna razlika med utežmi minimalna, saj v teh stanjih ne dovajamo nagrade, ki bi spodbujevala učenje. Vektorji posameznih stanj in maksimalne razlike med utežmi so prek barve polj prikazani na sliki \ref{rstdp_3x3}. Slika prikazuje politiko po učenju 500 iteracij in potrjuje pričakovane rezultate, kjer imajo veliko maksimalno razliko med utežmi in pravilno smer vektorjev le polja neposredno ob cilju. Rezultat potrjuje, da se agent ni sposoben naučiti poti do nagrade iz poljubnega stanja, temveč le iz stanj neposredno ob nagradi.
+Indikator učenja pravilne akcije v stanju $i$ je tudi maksimalna razlika med utežmi med vhodnim nevronom $i$ in vsakim od izhodnih nevronov, ki predstavlja aproksimacijo verjetnosti izbire akcije. Pri dobri politiki želimo, da bo verjetnost izbire pravilne akcije ustrezno večja od ostalih. Pri R-STDP učenju, kot smo ga implementirali do sedaj, pričakujemo opazno diferenciacijo akcij pri stanjih neposredno ob cilju, za ostala stanja pa pričakujemo, da bo makcimalna razlika med utežmi minimalna, saj v teh stanjih ne dovajamo nagrade, ki bi spodbujevala učenje. Vektorji posameznih stanj in maksimalne razlike med utežmi so prek barve polj prikazani na sliki \ref{rstdp_3x3}. Slika prikazuje politiko po učenju 500 iteracij na 4x4 mreži in potrjuje pričakovane rezultate, kjer imajo veliko maksimalno razliko med utežmi in pravilno smer vektorjev le polja neposredno ob cilju. Rezultat potrjuje, da se agent ni sposoben naučiti poti do nagrade iz poljubnega stanja, temveč le iz stanj neposredno ob nagradi.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{rstdp/rstdp-gridworld/best}
 \end{center}
-\caption{Prikaz politike po 500 iteracijah po 200 ms. Končno stanje je obarvano z zeleno. Barva ostalih stanj prikazuje maksimalno razliko med utežmi med vhodnim nevronom, ki predstavlja to stanje ter posameznimi izhodnimi nevroni, ki predstavljajo akcije. V vsakem polju je s pučico prikazan vektor preferirane akcije (smeri) glede na uteži med vhodnim nevronom in posameznimi izhodnimi nevroni. Vidimo, da so svetlo obarvana (imajo veliko maksimalno razliko med utežmi, ki predstavljajo posamezne akcije) le polja neposredno ob cilju. Podobno imajo tudi le ta polja pravilno obrnjene vektorje.}
+\caption{Prikaz politike modela na 4x4 mreži po 500 iteracijah po 200 ms. Končno stanje je obarvano z zeleno. Barva ostalih stanj prikazuje maksimalno razliko med utežmi med vhodnim nevronom, ki predstavlja to stanje ter posameznimi izhodnimi nevroni, ki predstavljajo akcije. V vsakem polju je s pučico prikazan vektor preferirane akcije (smeri) glede na uteži med vhodnim nevronom in posameznimi izhodnimi nevroni. Vidimo, da so svetlo obarvana (imajo veliko maksimalno razliko med utežmi, ki predstavljajo posamezne akcije) le polja neposredno ob cilju. Podobno imajo tudi le ta polja pravilno obrnjene vektorje.}
 \label{rstdp_3x3}
 \end{figure}
 
@@ -1057,55 +1056,34 @@ Mehanizme, opisane v prejšnjem poglavju, najprej preverimo na sekvenci prehodov
 Naučeno politiko bomo prikazali podobno kot v poglavju \ref{sec:rstdp}, vendar bomo namesto maksimalne razlike med utežmi povezav do različnih akcij uporabili kar povprečno utež povezave od vhodnega nevrona stanja do striatuma. Stanja z največjimi utežmi do striatuma oziroma stanja z najvišjo pričakovano nagrado, so bila tekom učenja deležna največ nagrajevanja, zato pričakujemo, da so v teh stanjih akcije najbolj diferecirane. 
 
 Rezultat učenja na 4x4 mreži po 3000 iteracijah je prikazan na sliki \ref{results_4x4}. Izbira akcije v posameznem polju je razvidna iz smeri puščice, kjer vidimo, da se je agent naučil skoraj optimalne navigacije do cilja iz poljubnega stanja. Pričakovano imajo stanja neposredno ob nagrajenem stanju najvišjo pričakovano vrednost, dlje kot se oddaljimo od tega stanja, nižja je pričakovana nagrada. Stanja, ki so najbolj oddaljena od cilja, ima pri trenutni izbiri parametrov minimalno pričakovano nagrado. Propagiranje pričakovane nagrade od končnega stanja lahko pospešimo tako, da povišamo amplitudo posodobitve povezav do striatuma, vendar bomo s tem zvišali tudi rast motoričnih sinaps. Te bodo rasle prehitro, zato tekmovanje sinaps, kot je opisano v poglavju \ref{sec:rstdp}, ne bo tako učinkovito. Z drugimi besedami, stanja bomo nagrajevali prehitro.
+\clearpage
+
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{actorcritic/best}
 \end{center}
-\caption{Rezultat učenja modela na 4x4 mreži tekom 3000 iteracij po 200 ms.}
+\caption{Prikaz politike modela na 4x4 mreži po 3000 iteracijah po 200 ms. Končno stanje je obarvano z zeleno. Barva ostalih stanj prikazuje povprečno utež povezav med vhodnim nevronom, ki predstavlja to stanje in striatumom, oziroma pričakovano nagrado. V vsakem polju je s pučico prikazan vektor preferirane akcije (smeri) glede na uteži med vhodnim nevronom in posameznimi izhodnimi nevroni. Vidimo, da pričakovana nagrada od končnega stanja, propagira v bolj oddaljena stanja. Smeri vektorjev stanj kažejo v smeri najboljše akcije, kar kaže na uspešno učenje, z izjemo najbolj oddaljenih stanj, kjer se sorazmerno s pričakovano nagrado agent ni naučili optimalne politike.}
 \label{results_4x4}
-Podobno kot pri R-STDP bomo učenje spremljali s povprečno nagrado, vendar tokrat k nagradi ne bo prispevala le zunanja nagrada, temveč tudi pričakovane nagrade. Pričakujemo, da bodo pričakovane nagrade med učenjem v vseh stanjih naraščale. To preverimo z neposrednejšo evalvacijo učenja na mreži, kjer po vsaki ponastavitvi stanja (ko dosežemo cilj) štejemo korake, dokler ponovno ne pridemo v ciljno stanje. Ker so različna stanja, v katera naključno postavimo agenta, različno oddaljena od cilja, bomo število korakov delili z manhattansko razdaljo do cilja. Tako dobimo ``relativne korake''. Povprečno število relativnih korakov glede na povprečno utež vseh povezav med vhodnimi nevroni in nevroni striatuma skozi 3000 iteracij je prikazano na grafu \ref{progress}, kjer vidimo, da povprečno število korakov, ki jih agent potrebuje, da pride do cilja, res pada sorazmerno z rastjo povprečne pričakovane nagrade.
 \end{figure}
+
+Podobno kot pri R-STDP bomo učenje spremljali s povprečno nagrado, vendar tokrat k nagradi ne bo prispevala le zunanja nagrada, temveč tudi pričakovane nagrade. Pričakujemo, da bodo pričakovane nagrade med učenjem v vseh stanjih naraščale. To preverimo z neposrednejšo evalvacijo učenja na mreži, kjer po vsaki ponastavitvi stanja (ko dosežemo cilj) štejemo korake, dokler ponovno ne pridemo v ciljno stanje. Ker so različna stanja, v katera naključno postavimo agenta, različno oddaljena od cilja, bomo število korakov delili z manhattansko razdaljo do cilja. Tako dobimo ``relativne korake''. Povprečno število relativnih korakov glede na povprečno utež vseh povezav med vhodnimi nevroni in nevroni striatuma tekom 3000 iteracij je prikazano na grafu \ref{progress}, kjer vidimo, da povprečno število korakov, ki jih agent potrebuje, da pride do cilja, pada sorazmerno z rastjo povprečne pričakovane nagrade.
+
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{actorcritic/progress}
 \end{center}
-\caption{Povprečna utež sinaps med vsemi vhodnimi nevroni in striatumom tekom 3000 iteracij po 200 ms.}
+\caption{Povprečna utež sinaps med vsemi vhodnimi nevroni in striatumom tekom 3000 iteracij po 200 ms ter povprečno relativno število korakov. Na sliki vidimo, da medtem ko povprečna utež sinaps med vsemi vhodnimi nevroni in striatumom, ki predstavlja globalno pričakovano nagrado glede na naučeno politiko, raste, povprečno relativno število korakov pada, kar je odraz uspešnega učenja politike, ki se približuje optimalni.}
 \label{progress}
 \end{figure}
 
 Sistem, kot smo ga implementirali izvaja t. i. ``on-policy'' TD-učenje, saj vrednost posameznih stanj posodablja glede na vrednost naslednjega stanja, kjer naslednjo akcijo izberemo glede na naučeno politiko, za razliko od t. i. ``off-policy'' algoritmov, kjer vrednosti posodabljamo ob predpostavki, da bomo v naslednjem stanju vedno izbrali najboljšo akcijo.
-\newpage
 
-%TODO: Rešitev je ovrednotena tudi po metrikah podobnih tem uporabljenim v diplomski nalogi Svete A \cite{vozicekSPalico}.
+\chapter{Zaključek}
+Namen te diplomske naloge je bil predstaviti in rešiti nekatere izzive pri učenju impulznih nevronskih mrež. V nalogi razvijemo inovativne rešitve, ki upoštevajo tako zahtevnost simulacije, kot tudi smiselnost z vidika nevrologije in resničnih mehanizmov v možganih. Dodatno smo se izognili vpeljavi negativne nagrade oziroma negativne koncentracije dopamina, saj to v resničnih možganih ni mogoče. Tako smo razvili R-STDP sistem, ki temelji zgolj na tekmovanju med sinapsami, za probleme, kjer se želimo določenim stanjem izogibati, pa predlagamo razširitev, ki ne uporablja negativne koncentracije dopamina. Od biološko realističnega sistema se najbolj oddaljimo pri iskanju parametrov sistema. Parametre smo iskali le z vidika doseganja želenih mehanizmov, ne pa tudi skladnosti z vrednostmi, izmerjenimi v resničnih možganih. To si dopuščamo tudi zato, ker se način proženja nevronov, prenos signalov po sinapsah ter konfiguracije nevronov, kot so v bazalnih ganglijih zdijo, bolj skupni različnim živalskim vrstam kot parametri nevronov in sinaps. Center, odgovoren za sluh in modulacijo glasilk, je na primer po strukturi pri človeku in netopirju podoben, vendar pri netopirju ti centri očitno delujejo na precej višji frekvenci. %TODO: preveri 
+Nadaljnje iskanje hiperparametrov bi najverjetneje lahko privedlo do boljših rezultatov, kot so bili doseženi v tej diplomski nalogi. Pri sistemih brez rekurenčnih povezav in brez dodatnih popolno povezanih plasti nevronov, kakršni so sistemi implementirani v tej nalogi, višanje števila nevronov v posamezni skupini ne bi nujno privedlo do boljših rezultatov, vendar to ni bilo preverjeno zaradi računske zahtevnosti.
 
-\chapter{Implementacija in uporabljena orodja}
-\label{methodology_and_tools}
-Rešitve so implementirane v jeziku Python, kjer za simulacijo uporabljamo simulator \href{https://www.nest-simulator.org/}{NEST}, katerega zaledje je implementirano v C++. Za simulator, ki ga uporabljamo prek Pythonovega vmesnika, je v okviru tega diplomskega dela implementiran tudi modul, prav tako v C++. V okviru te naloge uporaba impulznih nevronskih mrež zunaj simuliranega okolja, na trdo ožičenih nevronskih čipih ali na robotih, ni zajeta, zato posebna oprema za ta namen ni bila uporabljena. Sistemi, razviti v diplomski nalogi, so poleg medsebojne primerjave ovrednoteni tudi z drugimi trenutno obstoječimi implementacijami spodbujevanega učenja na impulznih nevronskih mrežah. 
-
-%TODO: this part
-\iffalse
-\\
-\\
-\\
-\colorbox{Apricot}{%
-  \parbox{0.9\linewidth}{%
-    \textbf{ 
-        Napiši več o pisanju modula za NEST simulator, s katerim smo v nadaljevanju implementirali zakasnjeno RSTDP sinapso.
-    }%
-  }%
-}
-\\
-\\
-\colorbox{Apricot}{%
-  \parbox{0.9\linewidth}{%
-    \textbf{
-        Napiši par stavkov o komunikaciji z zaledjem NEST, ki nam je omogočala spremljanje internih parametrov sinaps.
-    }%
-  }%
-}
-\fi
-\chapter{Možne razširitve}
-\section{Izognitveno obnašanje (\textit{angl. aversive behaviour})}
+\section{Ideje za nadaljnje delo}
+\subsection{Izognitveno obnašanje (\textit{angl. aversive behaviour})}
 \label{aversive}
 V večini del, ki se ukvarjajo s spodbujevanim učenjem, se izogibanje stanjem, za katere želimo, da se jih agent izogiba, doseže s pomočjo negativne nagrade. Negativna nagrada v enačbi sinapse R-STDP obrne predznak posodobitve. Tako so sinapse, odgovorne za vstop v neželeno stanje, negativno posodobljene. V človeških možganih negativnega dopamina ni. Pojavi se ideja, da je izogibanje negativnim stanjem prav tako posledica učenja, kjer je nivo dopamina $n > 0$. Dopamin namreč predstavlja učenje, ne nujno nagrade. Negativno nagrado bi tako lahko predstavili s posebnim vhodom, ki predstavlja nek negativen stimulus ali ``bolečino'', ki jo tekom učenja želimo zmanjšati. Zopet lahko uporabimo načela R-STDP in TD učenja, kjer zmanjšanje nivoja bolečine predstavlja nagrado. Trenutnemu akter-kritik sistemu bi dodali še eno kopijo kritika, ki računa časovno razliko nivoja bolečine in deluje na dopaminergične nevrone, ki so skupni obema kritikoma. Oba kritika tako delujeta konkurenčno. Ob prehodu iz stanja z visokim nivojem negativnega stimulusa v stanje z nizkim, dopaminergične nevrone vzbudimo, v obratnem primeru pa inhibiramo. V primeru enakega nivoja dovedenega negativnega stimulusa kritik negativne nagrade ne vpliva na dopaminergične nevrone. Sistem se do negativnega stimulusa v tem primeru, kljub uporabi časovne razlike, obnaša kratkovidno. 
 
@@ -1119,14 +1097,13 @@ Pričakujemo, da bi oba kritika med seboj tekmovala za nagrajevanje tako akcij, 
 \caption{Pričakovana politika ob kritiku negativnih stanj (brez kritika nagrajenih stanj)}
 \label{pic8}
 \end{figure}
-\section{Rekurenčne povezave}
+\subsection{Rekurenčne povezave}
 Velika predpostavka sistemov, razvitih v tej diplomski nalogi, je, da rekurenčnih povezav ni. Tako so stanja časovno med seboj skoraj popolnoma neodvisna. Če dodamo več vmesnih nivojev in rekurenčne povezave, bodo stanja med seboj postala časovno odvisna. Pravzaprav stanja ne moremo več definirati samo z aktivnostjo vhodnih nevronov, saj v vsakem trenutku stanje vsebuje tudi informacijo iz nevronov, ki so se prožili arbitrarno v preteklosti in nosijo informacijo o nekem prejšnjem stanju. V primeru našega akter-kritik sistema bi tako v vsakem trenutku $t$ kritik računal časovno razliko med dvema neskončno kratkima stanjema $s_t$ in $s_{t-d}$, kjer je $d$ zakasnitev direktne povezave. Kljub temu pričakujemo, da rezultat ne bi bil drugačen saj bi ob prisotnosti 200 ms stimulacije, ki je do zdaj predstavljala stanje, v tem intervalu vseeno prevladala nevronska aktivnost, ki je neposredna posledica stimulacije vhodnih nevronov. \\
 V doseganjih eksperimentih pravilna akcija določenega stanja ni bila odvisna od akcij, ki so nas pripeljale v to stanje, oziroma od zgodovine stanj. V primeru sprehajanja po mreži bomo končno stanje nagradili ne glede na to, iz katerega stanja vstopimo v nagrajeno stanje. Pričakujemo, da bi rekurenčne povezave predstavljale prednost pri nalogah, kjer je zgodovina stanj pomembna, oziroma kjer je nagrada stanja odvisna od prejšnjih stanj. Če bi v primeru sprehajanja po mreži premik v končno stanje iz stanja nad njim pripeljal do nagrade, prehod iz stanja levo pa ne, bi lahko tako končno stanje obravnavali kot dve različni stanji, glede na prehod. Sistem z rekurenčnimi povezavami bi kljub informaciji samo o polju interno predstavljal stanja odvisna tudi od prejšnjih premikov. \\
 Rekurenčne povezave pa predstavljajo tudi dodaten izziv. V primeru našega akter-kritik sistema bi bila na primer potrebna redefinicija trenutnega načina izbire akcij, saj sta lahko dva izhodna nevrona povezana med seboj in se bosta vedno prožila skupaj. Rešitev bi lahko bila dopuščanje izbire več akcij hkrati, kjer takšno situacijo ``kaznujemo''.
-\chapter{Zaključek}
-Namen te diplomske naloge je bil predstaviti in rešiti nekatere izzive pri učenju impulznih nevronskih mrež. V nalogi razvijemo inovativne rešitve, ki upoštevajo tako zahtevnost simulacije, kot tudi smiselnost z vidika nevrologije in resničnih mehanizmov v možganih. Dodatno smo se izognili vpeljavi negativne nagrade oziroma negativne koncentracije dopamina, saj to v resničnih možganih ni mogoče. Tako smo razvili R-STDP sistem, ki temelji zgolj na tekmovanju med sinapsami, za probleme, kjer se želimo določenim stanjem izogibati, pa predlagamo razširitev, ki ne uporablja negativne koncentracije dopamina. Od biološko realističnega sistema se najbolj oddaljimo pri iskanju parametrov sistema. Parametre smo iskali le z vidika doseganja želenih mehanizmov, ne pa tudi skladnosti z vrednostmi, izmerjenimi v resničnih možganih. To si dopuščamo tudi zato, ker se način proženja nevronov, prenos signalov po sinapsah ter konfiguracije nevronov, kot so v bazalnih ganglijih zdijo, bolj skupni različnim živalskim vrstam kot parametri nevronov in sinaps. Center, odgovoren za sluh in modulacijo glasilk, je na primer po strukturi pri človeku in netopirju podoben, vendar pri netopirju ti centri očitno delujejo na precej višji frekvenci. %TODO: preveri 
-Nadaljnje iskanje hiperparametrov bi najverjetneje lahko privedlo do boljših rezultatov, kot so bili doseženi v tej diplomski nalogi. Pri sistemih brez rekurenčnih povezav in brez dodatnih popolno povezanih plasti nevronov, kakršni so sistemi implementirani v tej nalogi, višanje števila nevronov v posamezni skupini ne bi nujno privedlo do boljših rezultatov, vendar to ni bilo preverjeno zaradi računske zahtevnosti.
 
+
+\iffalse
 \chapter{Ekstra}
 \begin{figure}[H]
 \begin{center}
@@ -1152,6 +1129,7 @@ Nadaljnje iskanje hiperparametrov bi najverjetneje lahko privedlo do boljših re
 %https://www.overleaf.com/project/609ce2055f917cb2f776732e
 %\printbibliography[heading=bibintoc,type=inproceedings,title={Članki v zbornikih}]
 %\printbibliography[heading=bibintoc,type=incollection,title={Poglavja v knjigah}]
+\fi
 \printbibliography[heading=bibintoc,title={Viri}]
 
 

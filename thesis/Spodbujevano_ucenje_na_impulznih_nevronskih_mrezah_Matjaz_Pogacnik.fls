@@ -331,9 +331,9 @@ INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm
 INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm
-INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/cm/cmbx8.tfm
 INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/cm/cmbx6.tfm
+INPUT /home/matjaz/latex/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT ../results/neuron_models/RSTDP.png
 INPUT ../results/neuron_models/RSTDP.png
 INPUT ../results/neuron_models/RSTDP.png
@@ -394,10 +394,6 @@ INPUT ../results/figures/aversive.png
 INPUT ../results/figures/aversive.png
 INPUT ../results/figures/aversive.png
 INPUT ../results/figures/aversive.png
-INPUT ../results/actorcritic/F3 - Learning.png
-INPUT ../results/actorcritic/F3 - Learning.png
-INPUT ../results/actorcritic/F3 - Learning.png
-INPUT ../results/actorcritic/F3 - Learning.png
 INPUT /home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
 INPUT /home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
 INPUT /home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
