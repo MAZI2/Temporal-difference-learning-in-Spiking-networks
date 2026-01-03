@@ -19,13 +19,13 @@
 \contentsline {section}{\numberline {4.2}TD učenje in model akter-kritik}{36}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Model akter-kritik}{37}{subsection.4.2.1}%
 \contentsline {subsubsection}{Implementacija}{40}{section*.21}%
-\contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{44}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{43}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}Učenje}{48}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Rezultati}{51}{subsection.4.2.4}%
-\contentsline {chapter}{\numberline {5}Implementacija in uporabljena orodja}{55}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Možne razširitve}{57}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Izognitveno obnašanje (\textit {angl. aversive behaviour})}{57}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Rekurenčne povezave}{58}{section.6.2}%
-\contentsline {chapter}{\numberline {7}Zaključek}{61}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Ekstra}{63}{chapter.8}%
-\contentsline {chapter}{Viri}{65}{chapter*.34}%
+\contentsline {subsection}{\numberline {4.2.4}Rezultati}{50}{subsection.4.2.4}%
+\contentsline {chapter}{\numberline {5}Implementacija in uporabljena orodja}{53}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Možne razširitve}{55}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Izognitveno obnašanje (\textit {angl. aversive behaviour})}{55}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Rekurenčne povezave}{56}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Zaključek}{59}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Ekstra}{61}{chapter.8}%
+\contentsline {chapter}{Viri}{63}{chapter*.34}%
