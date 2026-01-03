@@ -117,20 +117,20 @@ class AIGridworldRSTDP:
         axes[0].set_title("Uteži sinaps med vhodnim nevronom 0 in izhodnimi nevroni")
         for j in range(num_motor):
             axes[0].plot(time_points_motor, weight_history_input5[:, j], label=f"Izhodni nevron {j}")
-        axes[0].set_ylabel(r"$w_{\text{motor}}$")
-        axes[0].legend(fontsize=7, ncol=4)
+        axes[0].set_ylabel(r"$w_{\text{motor}}$", fontsize=12)
+        axes[0].legend(fontsize=10, loc="upper left")
 
         axes[1].set_title("Uteži sinaps med vhodnim nevronom 1 in izhodnimi nevroni")
         for j in range(num_motor):
             axes[1].plot(time_points_motor, weight_history_input7[:, j], label=f"Izhodni nevron {j}")
-        axes[1].set_ylabel(r"$w_{\text{motor}}$")
-        axes[1].legend(fontsize=7, ncol=4)
+        axes[1].set_ylabel(r"$w_{\text{motor}}$", fontsize=12)
+        axes[1].legend(fontsize=10, loc="upper left")
 
         axes[2].set_title("Uteži sinaps med vhodnim nevronom 2 in izhodnimi nevroni")
         for j in range(num_motor):
             axes[2].plot(time_points_motor, weight_history_input6[:, j], label=f"Izhodni nevron {j}")
-        axes[2].set_ylabel(r"$w_{\text{motor}}$")
-        axes[2].legend(fontsize=7, ncol=4)
+        axes[2].set_ylabel(r"$w_{\text{motor}}$", fontsize=12)
+        axes[2].legend(fontsize=10, loc="upper left")
 
         # Raster plot
         # axes[3].scatter(spike_times, neuron_ids, marker='.', color='black')
@@ -170,8 +170,8 @@ class AIGridworldRSTDP:
         dopa_rates = self.compute_avg_firing_rate(dopa_spikes, num_neurons=8, bins=bins, bin_size=bin_size)
 
         axes[3].plot(bin_centers, dopa_rates, color='black')
-        axes[3].set_ylabel("Aktivnost (Hz)")
-        axes[3].set_xlabel("Čas (ms)")
+        axes[3].set_ylabel("Aktivnost (Hz)", fontsize=12)
+        axes[3].set_xlabel("Čas (ms)", fontsize=12)
         axes[3].set_title("Povprečna aktivnost dopaminergičnih nevronov")
 
 

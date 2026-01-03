@@ -55,7 +55,7 @@ nest.SetDefaults(
         "Wmin": -10.0,
         "Wmax": 1000.0,
         "tau_c": 50.0,
-        "tau_c_delay": 50.0,
+        "tau_c_delay": 0.0,
         "tau_n": 10.0,
         "tau_plus": 10.0,
         "b": 0.0,
@@ -139,11 +139,11 @@ else:
     print("\nNot enough post spikes for ISI calculation (0 or 1 spike).")
 
 # ---------- Plotting with mapping for titles & y-labels ----------
-trace_keys_to_plot = ["c_delayed", "n"]
+trace_keys_to_plot = ["c_current", "n"]
 
 # Define mapping: key -> (y-label, subplot title)
 subplot_labels = {
-    "c_delayed": ("c", "Zakasnjena sled upravičenosti"),
+    "c_current": ("c", "Sled upravičenosti"),
     "n": ("n", "Dopaminska sled")
 }
 
@@ -152,7 +152,7 @@ n_rows = 1 + n_trace_subplots + 1  # raster + traces + weight
 height_ratios = [0.5] + [2]*n_trace_subplots + [2]
 
 fig, axes = plt.subplots(
-    n_rows, 1, figsize=(10, 3 * n_rows),
+    n_rows, 1, figsize=(10, 2 * n_rows),
     gridspec_kw={"height_ratios": height_ratios},
     sharex=True
 )
@@ -166,7 +166,7 @@ if times_pre.size:
 if times_post.size:
     ax_raster.scatter(times_post, np.zeros_like(times_post)+2, s=50, color="red", marker='.', label="Post")
 ax_raster.set_yticks([1,2])
-ax_raster.set_yticklabels(["Pre","Post"])
+ax_raster.set_yticklabels(["Pre","Post"], fontsize=12)
 ax_raster.set_title("Impulzi pre- in postsinaptičnih nevronov")
 ax_raster.grid(True, axis="x", alpha=0.6)
 
@@ -193,7 +193,7 @@ for k in trace_keys_to_plot:
 
     # set title & ylabel from mapping
     ylabel, title = subplot_labels.get(k, ("", k))
-    ax.set_ylabel(ylabel)
+    ax.set_ylabel(ylabel, fontsize=12)
     ax.set_title(title)
     ax.grid(True)
     subplot_idx += 1
@@ -203,8 +203,8 @@ ax_weight = axes[-1]
 times_w = [t for t,w in weight_history]
 weights_w = [w for t,w in weight_history]
 ax_weight.plot(times_w, weights_w, color="black")
-ax_weight.set_ylabel("w")
-ax_weight.set_xlabel("Čas (ms)")
+ax_weight.set_ylabel("w", fontsize=12)
+ax_weight.set_xlabel("Čas (ms)", fontsize=12)
 ax_weight.set_title("Sinaptična utež")
 ax_weight.grid(True)
 

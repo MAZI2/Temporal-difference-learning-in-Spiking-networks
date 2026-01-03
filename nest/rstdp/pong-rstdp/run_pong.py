@@ -41,7 +41,7 @@ nest.Install("mymodule")
 
 from rstdp_pong import POLL_TIME, PongNetRSTDP 
 
-RUNS = 6000
+RUNS = 4000
 class AIPongRSTDP:
     def __init__(self):
         self.debug = True 
@@ -106,7 +106,7 @@ class AIPongRSTDP:
         # 3️⃣ Plotting
         time_axis = np.arange(RUNS) * poll_time
 
-        fig, axes = plt.subplots(3, 1, figsize=(12, 20), sharex=True)
+        fig, axes = plt.subplots(figsize=(12,5))
 
 
         # Average weights plot
@@ -118,11 +118,12 @@ class AIPongRSTDP:
         motor_indices = np.arange(num_motor)
 
         # Add two more subplots (we’ll use axes[2] and axes[3])
-        axes[0].set_title("Uteži sinaps med vhodnim nevronom 5 in izhodnimi nevroni")
+        axes.set_title("Uteži sinaps med vhodnim nevronom 5 in izhodnimi nevroni")
         for j in range(num_motor):
-            axes[0].plot(time_points_motor, weight_history_input5[:, j], label=f"Izhodni nevron {j}")
-        axes[0].set_ylabel(r"$w_{\text{motor}}$")
-        axes[0].legend(fontsize=7, ncol=4)
+            axes.plot(time_points_motor, weight_history_input5[:, j], label=f"Izhodni nevron {j}")
+        axes.set_ylabel(r"$w_{\text{motor}}$", fontsize=12)
+        axes.legend(fontsize=10, ncol=4, loc='upper left')
+        axes.set_xlabel("Čas (ms)", fontsize=12)
         """
 
         axes[1].set_title("Weights from input neuron 13 → motor neurons")
@@ -164,24 +165,24 @@ class AIPongRSTDP:
 
         """
 
-        axes[1].scatter(spike_times, neuron_ids, marker='.', color='black')
-        axes[1].set_ylabel("Indeks stanja (vhodni nevron)")
-        axes[1].set_title("Stanje")
-        axes[1].set_yticks(np.arange(16))
-        axes[1].set_ylim(-0.5, 20.5)
-        axes[1].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
-
-
-        bin_size = 15.0           # ms
-        bins = np.arange(0, time_axis[-1] + bin_size, bin_size)
-        bin_centers = (bins[:-1] + bins[1:]) / 2.0
-
-        dopa_rates = self.compute_avg_firing_rate(dopa_spikes, num_neurons=8, bins=bins, bin_size=bin_size)
-
-        axes[2].plot(bin_centers, dopa_rates, color='black')
-        axes[2].set_ylabel("Aktivnost (Hz)")
-        axes[2].set_xlabel("Čas (ms)")
-        axes[2].set_title("Povprečna aktivnost dopaminergičnih nevronov")
+        # axes[1].scatter(spike_times, neuron_ids, marker='.', color='black')
+        # axes[1].set_ylabel("Indeks stanja (vhodni nevron)")
+        # axes[1].set_title("Stanje")
+        # axes[1].set_yticks(np.arange(16))
+        # axes[1].set_ylim(-0.5, 20.5)
+        # axes[1].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
+        #
+        #
+        # bin_size = 15.0           # ms
+        # bins = np.arange(0, time_axis[-1] + bin_size, bin_size)
+        # bin_centers = (bins[:-1] + bins[1:]) / 2.0
+        #
+        # dopa_rates = self.compute_avg_firing_rate(dopa_spikes, num_neurons=8, bins=bins, bin_size=bin_size)
+        #
+        # axes[2].plot(bin_centers, dopa_rates, color='black')
+        # axes[2].set_ylabel("Aktivnost (Hz)")
+        # axes[2].set_xlabel("Čas (ms)")
+        # axes[2].set_title("Povprečna aktivnost dopaminergičnih nevronov")
 
 
 
@@ -484,30 +485,43 @@ class AIPongRSTDP:
 
         print(cumulative_avg_survival)
         # Plot
+        reward_history_array = np.array(self.player.mean_reward_history)
+        mean_reward_over_time = reward_history_array.mean(axis=1)
+
+        survival_times = np.array(survival_times)
+        cumulative_avg_survival = np.cumsum(survival_times) / np.arange(1, len(survival_times) + 1)
+
+        # Time axis in ms
+        iterations = np.arange(len(mean_reward_over_time))
+        time_ms = iterations * POLL_TIME
+
         plt.figure(figsize=(12, 6))
         ax1 = plt.gca()
 
         # Global mean reward
-        ax1.plot(mean_reward_over_time, color='blue', lw=2, label='Skupna povprečna nagrada')
-        ax1.set_xlabel("Iteracija")
-        ax1.set_ylabel("Povprečna nagrada", color='blue')
+        ax1.plot(time_ms, mean_reward_over_time, color='blue', lw=2,
+                label='Skupna povprečna nagrada')
+        ax1.set_xlabel("Čas (ms)", fontsize=12)
+        ax1.set_ylabel("Povprečna nagrada", color='blue', fontsize=12)
         ax1.tick_params(axis='y', labelcolor='blue')
         ax1.grid(True, linestyle='--', alpha=0.6)
 
-        # Create second y-axis
+        # Second y-axis
         ax2 = ax1.twinx()
-        ax2.plot(cumulative_avg_survival, color='red', lw=2, label='Povprečen čas preživetja')
-        ax2.set_ylabel("Povprečen čas preživetja (ms)", color='red')
+        ax2.plot(time_ms, cumulative_avg_survival, color='red', lw=2,
+                label='Povprečen čas preživetja')
+        ax2.set_ylabel("Povprečen čas preživetja (ms)", color='red', fontsize=12)
         ax2.tick_params(axis='y', labelcolor='red')
 
         # Combine legends
         lines1, labels1 = ax1.get_legend_handles_labels()
         lines2, labels2 = ax2.get_legend_handles_labels()
-        ax1.legend(lines1 + lines2, labels1 + labels2, loc='upper left')
+        ax1.legend(lines1 + lines2, labels1 + labels2, loc='upper left', fontsize=12)
 
         plt.title("Skupna povprečna nagrada in povprečen čas preživetja")
         plt.tight_layout()
         plt.show()
+
 
 if __name__ == "__main__":
 #    runs=len(NEXT_STATES)

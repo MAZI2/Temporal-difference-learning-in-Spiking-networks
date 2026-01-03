@@ -10,15 +10,16 @@
 \contentsline {subsection}{\numberline {3.0.1}Model z eksponentnim jedrom}{15}{subsection.3.0.1}%
 \contentsline {subsection}{\numberline {3.0.2}Model z alfa jedrom}{16}{subsection.3.0.2}%
 \contentsline {subsection}{\numberline {3.0.3}Izbira modela nevrona}{17}{subsection.3.0.3}%
-\contentsline {section}{\numberline {3.1}R-STDP Sinaptični model}{19}{section.3.1}%
+\contentsline {section}{\numberline {3.1}R-STDP Sinaptični model}{18}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Dopaminska modulacija}{20}{subsection.3.1.1}%
-\contentsline {chapter}{\numberline {4}Spodbujevano učenje na impulznih nevronskih mrežah}{25}{chapter.4}%
-\contentsline {section}{\numberline {4.1}R-STDP učenje}{25}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Igra Pong}{32}{subsection.4.1.1}%
-\contentsline {subsubsection}{Rezultati}{35}{section*.16}%
-\contentsline {section}{\numberline {4.2}TD učenje in model akter-kritik}{37}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Model akter-kritik}{38}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{43}{subsection.4.2.2}%
+\contentsline {chapter}{\numberline {4}Spodbujevano učenje na impulznih nevronskih mrežah}{23}{chapter.4}%
+\contentsline {section}{\numberline {4.1}R-STDP učenje}{23}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Igra Pong}{30}{subsection.4.1.1}%
+\contentsline {subsubsection}{Rezultati}{32}{section*.16}%
+\contentsline {section}{\numberline {4.2}TD učenje in model akter-kritik}{36}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Model akter-kritik}{37}{subsection.4.2.1}%
+\contentsline {subsubsection}{Implementacija}{40}{section*.21}%
+\contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{44}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}Učenje}{48}{subsection.4.2.3}%
 \contentsline {subsection}{\numberline {4.2.4}Rezultati}{51}{subsection.4.2.4}%
 \contentsline {chapter}{\numberline {5}Implementacija in uporabljena orodja}{55}{chapter.5}%
@@ -27,4 +28,4 @@
 \contentsline {section}{\numberline {6.2}Rekurenčne povezave}{58}{section.6.2}%
 \contentsline {chapter}{\numberline {7}Zaključek}{61}{chapter.7}%
 \contentsline {chapter}{\numberline {8}Ekstra}{63}{chapter.8}%
-\contentsline {chapter}{Viri}{65}{chapter*.32}%
+\contentsline {chapter}{Viri}{65}{chapter*.34}%
