@@ -1,15 +1,15 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.blg'
-[84] biber:340> INFO - === Wed Nov 26, 2025, 16:05:58
-[99] Biber.pm:419> INFO - Reading 'Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bcf'
-[169] Biber.pm:979> INFO - Found 10 citekeys in bib section 0
-[182] Biber.pm:4419> INFO - Processing section 0
-[192] Biber.pm:4610> INFO - Looking for bibtex file 'literatura.bib' for section 0
-[193] bibtex.pm:1713> INFO - LaTeX decoding ...
-[203] bibtex.pm:1519> INFO - Found BibTeX data source 'literatura.bib'
-[298] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[298] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[298] Biber.pm:4239> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[298] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
-[312] bbl.pm:660> INFO - Writing 'Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl' with encoding 'UTF-8'
-[316] bbl.pm:763> INFO - Output to Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl
+[83] biber:340> INFO - === Sun Jan  4, 2026, 19:12:12
+[98] Biber.pm:419> INFO - Reading 'Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bcf'
+[171] Biber.pm:979> INFO - Found 9 citekeys in bib section 0
+[186] Biber.pm:4419> INFO - Processing section 0
+[196] Biber.pm:4610> INFO - Looking for bibtex file 'literatura.bib' for section 0
+[197] bibtex.pm:1713> INFO - LaTeX decoding ...
+[209] bibtex.pm:1519> INFO - Found BibTeX data source 'literatura.bib'
+[287] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[287] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[287] Biber.pm:4239> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[287] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[300] bbl.pm:660> INFO - Writing 'Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl' with encoding 'UTF-8'
+[304] bbl.pm:763> INFO - Output to Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl

@@ -19,31 +19,6 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
-    \entry{TDlearning}{thesis}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=698381a36d0f8f6e8124898ebb3056a6}{%
-           family={{Deleva A}},
-           familyi={D\bibinitperiod}}}%
-      }
-      \list{institution}{1}{%
-        {Fakulteta za računalništvo in informatiko, Univerza v Ljubljani}%
-      }
-      \strng{namehash}{698381a36d0f8f6e8124898ebb3056a6}
-      \strng{fullhash}{698381a36d0f8f6e8124898ebb3056a6}
-      \strng{bibnamehash}{698381a36d0f8f6e8124898ebb3056a6}
-      \strng{authorbibnamehash}{698381a36d0f8f6e8124898ebb3056a6}
-      \strng{authornamehash}{698381a36d0f8f6e8124898ebb3056a6}
-      \strng{authorfullhash}{698381a36d0f8f6e8124898ebb3056a6}
-      \field{sortinit}{D}
-      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{TD learning in Monte Carlo tree search : masters thesis}
-      \field{type}{Magistrska naloga}
-      \field{year}{2015}
-    \endentry
     \entry{robot}{article}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=9a7772ac07b7f71d84929cd4ec142935}{%
@@ -146,6 +121,49 @@
       \verb https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2010.00141
       \endverb
     \endentry
+    \entry{bazal}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=9db4a0c5108530b9fe978405ad857080}{%
+           family={Surmeier},
+           familyi={S\bibinitperiod},
+           given={D.\bibnamedelimi James},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9db4a0c5108530b9fe978405ad857080}
+      \strng{fullhash}{9db4a0c5108530b9fe978405ad857080}
+      \strng{bibnamehash}{9db4a0c5108530b9fe978405ad857080}
+      \strng{authorbibnamehash}{9db4a0c5108530b9fe978405ad857080}
+      \strng{authornamehash}{9db4a0c5108530b9fe978405ad857080}
+      \strng{authorfullhash}{9db4a0c5108530b9fe978405ad857080}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{A study shows that, rather than sequentially starting and stopping a movement, two parallel pathways involving neurons in the brain's basal ganglia seem to work in tandem to accomplish the complex task of motion. See Letter p.238}
+      \field{day}{1}
+      \field{issn}{1476-4687}
+      \field{journaltitle}{Nature}
+      \field{month}{2}
+      \field{number}{7436}
+      \field{title}{To go or not to go}
+      \field{volume}{494}
+      \field{year}{2013}
+      \field{dateera}{ce}
+      \field{pages}{178\bibrangedash 179}
+      \range{pages}{2}
+      \verb{doi}
+      \verb 10.1038/nature11856
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1038/nature11856
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1038/nature11856
+      \endverb
+    \endentry
     \entry{predvidevanjeAkcij}{thesis}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=7ceeae6dea70cc26f456b6d7c4223ea6}{%
@@ -195,34 +213,6 @@
       \field{title}{Posplošitev problema vozička s palico na zahtevnejše domene}
       \field{type}{Diplomska naloga}
       \field{year}{2020}
-    \endentry
-    \entry{shepherdDog}{thesis}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=f7cbbfa6943108a57ab7c687caafd0ff}{%
-           family={T},
-           familyi={T\bibinitperiod},
-           given={Štromajer},
-           giveni={Š\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{institution}{1}{%
-        {Fakulteta za računalništvo in informatiko, Univerza v Ljubljani}%
-      }
-      \strng{namehash}{f7cbbfa6943108a57ab7c687caafd0ff}
-      \strng{fullhash}{f7cbbfa6943108a57ab7c687caafd0ff}
-      \strng{bibnamehash}{f7cbbfa6943108a57ab7c687caafd0ff}
-      \strng{authorbibnamehash}{f7cbbfa6943108a57ab7c687caafd0ff}
-      \strng{authornamehash}{f7cbbfa6943108a57ab7c687caafd0ff}
-      \strng{authorfullhash}{f7cbbfa6943108a57ab7c687caafd0ff}
-      \field{sortinit}{T}
-      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{{Using machine learning to train a shepherd dog}}
-      \field{type}{Magistrska naloga}
-      \field{year}{2022}
     \endentry
     \entry{expModel}{article}{}
       \name{author}{3}{}{%

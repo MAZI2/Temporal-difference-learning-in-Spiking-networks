@@ -22,7 +22,7 @@
 \contentsline {subsection}{\numberline {4.2.1}Model akter-kritik}{39}{subsection.4.2.1}%
 \contentsline {subsubsection}{Implementacija}{42}{section*.22}%
 \contentsline {subsection}{\numberline {4.2.2}Izbira parametrov}{45}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Učenje}{45}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.3}Učenje}{50}{subsection.4.2.3}%
 \contentsline {subsection}{\numberline {4.2.4}Rezultati}{52}{subsection.4.2.4}%
 \contentsline {chapter}{\numberline {5}Zaključek}{55}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Ideje za nadaljnje delo}{56}{section.5.1}%
