@@ -29,7 +29,6 @@
 						linkcolor=black, urlcolor=black,
 						pdfproducer={LaTeX}, pdfcreator={LaTeX}]{hyperref}
 \usepackage{hyperxmp}
-\usepackage[hyphens]{url}
 \usepackage{csquotes}
 
 
@@ -627,11 +626,10 @@ Poissonov šum v impulznih nevronskih mrežah predstavlja vzorčenje iz Poissono
 
 Z injiciranjem Poissonovega šuma v postsinaptične nevrone simuliramo realizacije Poissonovega procesa, ki delujejo kot naključni sinaptični vhodi. To omogoča analizo odziva impulzne nevronske mreže na biološko verodostojen stohastični dražljaj ter primerjavo stabilnosti in variance frekvence proženja različnih jeder.
 \newpage
-\noindent Da dosežemo približno enako povprečje impulzov postsinaptičnih nevronov pri obeh jedrih, ki jih bomo primerjali, je utež sinapse med nevroni z alfa jedrom $w_{\text{alfa}}$ za faktor $e$ manjša od uteži sinaps do nevronov z eksponentnim jedrom $w_{\text{eksp}}$. Vsi parametri simulacije so navedeni v tabeli \ref{tab:variance_simulation_parameters}. Iz rezultatov simulacije, prikazanih v tabeli \ref{tab:isi_summary}, pričakovano opazimo večjo varianco pri ek\-sponent\-nem jedru.
+\noindent Da dosežemo približno enako povprečje impulzov postsinaptičnih nevronov pri obeh jedrih, ki jih bomo primerjali, je utež sinapse med nevroni z alfa jedrom $w_{\text{alfa}}$ za faktor $e$ manjša od uteži sinaps do nevronov z eksponentnim jedrom $w_{\text{eksp}}$. Vsi parametri simulacije so navedeni v tabeli \ref{variance_simulation_parameters}. Iz rezultatov simulacije, prikazanih v tabeli \ref{tab:isi_summary}, pričakovano opazimo večjo varianco pri ek\-sponent\-nem jedru.
 
 \begin{table}[htbp]
 \centering
-\label{tab:variance_simulation_parameters}
 \begin{tabular}{ll}
 \hline
 \textbf{Parameter} & \textbf{Vrednost} \\
@@ -651,11 +649,11 @@ Frekvenca Poissonovega šuma & 8000 Hz na nevron \\
 \hline
 \end{tabular}
 \caption{Parametri simulacije uporabljeni pri primerjavi modelov nevronov.}
+\label{variance_simulation_parameters}
 \end{table}
 
 \begin{table}[htbp]
 \centering
-\label{tab:isi_summary}
 \begin{tabular}{lcc}
 \hline
 Jedro & Povprečje (ms) & Varianca (ms$^2$) \\
@@ -665,6 +663,7 @@ Alfa       & \(7.800 \pm 0.023\) & \(\mathbf{0.270 \pm 0.006} \) \\
 \hline
 \end{tabular}
 \caption{Povzetek statistike medimpulznih intervalov nevronov z alfa in eksponentnim jedrom. Povprečje in standardni odklon sta izračunana na vseh postsinaptičnih nevronih.}
+\label{tab:isi_summary}
 \end{table}
 \newpage
 \section{R-STDP Sinaptični model}
@@ -682,7 +681,7 @@ A_+ e^{-|\Delta t|/\tau_+}, & \text{če } \Delta t > 0 \text{ (presinaptični pr
 A_- e^{-|\Delta t|/\tau_-}, & \text{če } \Delta t \le 0 \text{ (postsinaptični pred presinaptičnim)}
 \end{cases}
 \]
-\noident kjer sta \(A_+\) in \(A_-\) multiplikatorja za potenciranje in depresijo, \(\tau_+\) in \(\tau_-\) pa časovni konstanti, ki določata okno vpliva časovnih razlik.
+\noindent kjer sta \(A_+\) in \(A_-\) multiplikatorja za potenciranje in depresijo, \(\tau_+\) in \(\tau_-\) pa časovni konstanti, ki določata okno vpliva časovnih razlik.
 
 Pare nevronov lahko posodabljamo izključno na podlagi vrednosti $\mathrm{STDP}$, s katero krepimo ali slabimo posamezne sinapse, običajno pa to vrednost uporabljamo v kombinaciji z nagrado. Količina nagrade oziroma koncentracija nevromodulatorja za celotno impulzno nevronsko mrežo ali skupino nevronov modulira amplitudo učenja oziroma posodabljanja povezav. Povezavo med parom nevronov bomo tako posodobili glede na vrednost STDP in prisotno količino nagrade v danem trenutku. 
 
@@ -749,7 +748,6 @@ V nadaljevanju bomo vse razvite sisteme implementirali s pomočjo simulatorja \h
 Za začetek bomo R-STDP učenje implementirali na preprosti nalogi s tremi stanji, oštevilčenimi z 0, 1 in 2. V vsakem stanju lahko agent izbere akcijo 0, 1 ali 2. Prehod v stanje po izbiri akcije je nakjučen (neodvisen od izbire akcije), v vsakem stanju pa je nagrajena le ena izbira akcije. V stanju 0, ki ga predstavlja stimulacija vhodnega nevrona 0, bomo kot nagrajeno izbrali akcijo 0, ki jo predstavlja izhodni nevron 0, v stanju 1 akcijo 1, v stanju 2 pa akcijo 2. Na sliki \ref{rstdp_simple} je razvidna prevlada pravilnih sinaps, višanje divergence v sinapsah skozi čas ter rast frekvence nagrad tekom učenja. V simulaciji uporabljamo privzete parametre NEST za nevrone z eksponentnim jedrom (\textit{iaf\_psc\_exp}) ter zakasnjene dopaminsko modulirane sinapse. Ostali parametri sistema so navedeni v tabeli \ref{tab:rstdp_simple}.
  
 \begin{table}[htbp]
-\label{tab:rstdp_simple}
 \begin{tabular}{lll}
 \textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
 $t_{\text{SIM}}$ & Trajanje simulacije & 60000 ms \\ \hline
@@ -768,15 +766,15 @@ $w_{\text{Poisson}}$ & Uteži sinaps Poissonovega šuma & 100 \\  \hline
 $w_{\text{init, motor}}$ & \makecell[l]{Začetne uteži sinaps \\ med vhodnimi in izhodnimi \\ nevroni} & $w_{\text{init, motor}} \sim \mathcal{N}(1300, 1)$ \\ \hline
 \end{tabular}
 \caption{Parametri simulacije R-STDP učenja na preprostem problemu.}
+\label{tab:rstdp_simple}
 \end{table}
 
 \begin{figure}[htbp]
-\label{rstdp_simple}
 \begin{center}
 \includegraphics[width=1.0\textwidth]{rstdp/competition}
 \end{center}
 \caption{Prikaz uteži sinaps med vhodnimi in izhodnimi nevroni ter povprečne aktivnosti dopaminergičnih nevronov med simulacijo R-STDP učenja na preprostem problemu. Iz uteži je razvidno, da sinapse med vhodnimi in izhodnimi nevroni, ki predstavljajo pravilno akcijo, sčasoma prevladajo nad ostalimi akcijami. Posledično se frekvenca izbire pravilne akcije v posameznem stanju povečuje, kar je razvidno iz grafa povprečne aktivnosti dopaminergičnih nevronov, ki postaja vse ``gostejši''.} 
-\label{competition}
+\label{rstdp_simple}
 \end{figure}
 \newpage
 \subsection{Igra Pong}
@@ -791,31 +789,31 @@ I_{R} &= \max(R_b-\bar{R}_i, 0) \cdot 600 \text{ pA}
 \end{align*}
 
 \begin{figure}[htbp]
-\label{pong_setup}
 \begin{center}
 \includegraphics[width=0.5\textwidth]{figures/pong_setup}
 \end{center}
 \caption{Grafična predstavitev agenta in okolja (\citet{pilotStudy}).}
+\label{pong_setup}
 \end{figure}
 \newpage
 Pričakujemo, da bodo v posameznih stanjih prevladale sinapse, ki iz vhodnega nevrona vodijo do akcij okrog izhodnega nevrona, ki predstavlja isto $x$ pozicijo, kot jo ima v tistem trenutku žogica. Polje smo po $x$ osi diskretizirali na 20 stanj. Po simulaciji, ki je trajala 4000 iteracij (pozicij žogice) po 200 ms, na sliki \ref{rstdp_pong_learning} vidimo graf povezav med vhodnim nevronom, ki predstavlja pozicijo $x=5$, in 20 izhodnimi nevroni, kjer med učenjem prevladuje izhodni nevron 5, sledi pa mu izhodni nevron 4. Za simulacijo smo uporabili enake parametre kot pri primeru R-STDP učenja na preprostem problemu.
 
 \begin{figure}[htbp]
-\label{rstdp_pong_learning}
 \begin{center}
 \includegraphics[width=1.0\textwidth]{rstdp/rstdp-pong/learning}
 \end{center}
 \caption{Graf uteži povezav med vhodnim nevronom 5 in izhodnimi nevroni med simulacijo 4000 iteracij (pozicij žogice) po 200 ms igranja igre Pong. Med učenjem pričakovano prevladuje povezava do izhodnega nevrona 5, kar predstavlja sledenje žogici.}
+\label{rstdp_pong_learning}
 \end{figure}
 \newpage
 \subsubsection{Rezultati}
 Učenje spremljamo s povprečnim časom preživetja, ki predstavlja čas, ki je minil od zadnje zgrešitve žogice ali začetka igre. Povprečni čas preživetja je izračunan na podlagi zaporednih časov med posameznimi zgrešenimi odboji žogice. Ob vsaki iteraciji se čas od zadnjega zgrešenega udarca poveča za dolžino koraka simulacije (200 ms), ob zgrešenem udarcu pa se ponastavi na nič. Tako dobimo zaporedje časov preživetja, ki prikazuje, kako dolgo je agent uspešno odbijal žogico med dvema zaporednima napakama. Povprečni čas preživetja nato določimo kot kumulativno povprečje teh vrednosti skozi čas, kar pomeni, da pri vsaki časovni točki upoštevamo povprečje vseh do tedaj izmerjenih časov preživetja. Pričakujemo, da bo oblika krivulje skupne povprečne nagrade sledila krivulji povprečnega časa preživetja, saj bo agent ob uspešnem sledenju žogici prejemal višje in pogostejše nagrade. Pri skaliranih vrednostih povprečne nagrade in povprečnega časa preživetja lahko na sliki \ref{mean_reward} vidimo, da imata krivulji podobno obliko in da se skozi čas obe višata. Ker povprečna nagrada neposredno odraža izbiro pravilnih akcij v določenem stanju, lahko pri pravilno določeni funkciji nagrajevanja za poljuben problem kvaliteto učenja spremljamo zgolj s skupno povprečno nagrado.
 \begin{figure}[htbp]
-\label{mean_reward}
 \begin{center}
 \includegraphics[width=1.0\textwidth]{rstdp/rstdp-pong/mean_reward}
 \end{center}
 \caption{Skupna povprečna nagrada $\bar{R}_i$ in povprečen čas preživetja skozi 4000 iteracij po 200 ms. Pri usklajenem razponu obeh vrednosti je razvidno, da imata krivulji približno enako obliko in da obe skozi čas naraščata.}
+\label{mean_reward}
 \end{figure}
 \\
 \\
@@ -917,7 +915,6 @@ Parametri so bili izbrani eksperimentalno, tokrat brez oziranja na biološko to�
 V tabelah \ref{tab:params1}-\ref{tab:params6} so navedene konstante in parametri implementiranega modela. Parametri, ki niso prikazani v tabelah, imajo privzete vrednosti simulatorja NEST.
 
 \begin{table}[htbp]
-    \label{tab:params1}
 \begin{tabular}{lll}
 \textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
 % ------- Simulation constants -------
@@ -927,10 +924,9 @@ POLL\_TIME & Čas simulacije na iteracijo & 200 \\ \hline
 %\(n_{\text{kritik}}\) & Število nevronov v skupinah nevronov kritika & 8 \\ \hline
 \end{tabular}
 \caption{Parametri simulacije}
+\label{tab:params1}
 \end{table}
-\\
 \begin{table}[htbp]
-    \label{tab:params2}
 \begin{tabular}{lll}
 \textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
 \thead[l]{\bfseries Parametri skupin \\
@@ -960,11 +956,10 @@ tip & Tip modela nevrona & \textit{iaf\_psc\_exp} \\ \hline
 \(E_{L,a}\) & Mirovalni potencial & 0.0 mV \\ \hline
 \end{tabular}
 \caption{Parametri nevronov}
+\label{tab:params2}
 \end{table}
 
-\\
 \begin{table}[htbp]
-    \label{tab:params3}
 \begin{tabular}{lll}
 \textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
 \\
@@ -993,10 +988,9 @@ tip & Tip sinapse & \makecell[l]{Zakasnjena \\ sinapsa R-STDP} \\ \hline
 \(w_{\text{in, motor}\to a}\) & \makecell[l]{Začetne uteži sinaps med \\ vhodnimi in izhodnimi \\ motoričnimi nevroni} & \(\mathcal{N}(1300, 1)\) \\ \hline
 \end{tabular}
 \caption{Parametri sinaps med vhodnimi in motoričnimi nevroni}
+\label{tab:params3}
 \end{table}
-\\
 \begin{table}[htbp]
-    \label{tab:params4}
 \begin{tabular}{lll}
 \textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
 \thead[l]{\bfseries Parametri sinaps med \\
@@ -1014,13 +1008,11 @@ tip & Tip sinapse & \makecell[l]{Zakasnjena \\ sinapsa R-STDP} \\ \hline
 \(W_{\min,str}\) & Minimalna utež & 150 \\ \hline
 \(W_{\max,str}\) & Maksimalna utež & 1000 \\ \hline
 \(w_{\text{in}\to \text{str}}\) & \makecell[l]{Začetne uteži sinaps med \\ vhodnimi in striatum nevroni} & \(\mathcal{N}(150, 8)\) \\ \hline
-
-% ------- Synaptic weights (key model pathways) -------
 \end{tabular}
 \caption{Parametri sinaps med vhodom in striatumom}
+\label{tab:params4}
 \end{table}
 \begin{table}[htbp]
-    \label{tab:params5}
 \begin{tabular}{lll}
 \textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
 tip & Tip sinapse & \makecell[l]{Privzeta konstantna \\ sinapsa NEST} \\ \hline
@@ -1030,9 +1022,9 @@ tip & Tip sinapse & \makecell[l]{Privzeta konstantna \\ sinapsa NEST} \\ \hline
 \(d_{\text{dir}}\) & \makecell[l]{Zakasnitev sinaps \\ direktne povezave} & 200 ms \\ \hline
 \end{tabular}
 \caption{Parametri sinaps kritika}
+\label{tab:params5}
 \end{table}
 \begin{table}[htbp]
-    \label{tab:params6}
 \begin{tabular}{lll}
 \textbf{Simbol} & \textbf{Pomen} & \textbf{Vrednost} \\ \hline
 % ------- External noise and background -------
@@ -1046,8 +1038,8 @@ tip & Tip sinapse & \makecell[l]{Privzeta konstantna \\ sinapsa NEST} \\ \hline
 \(w_{\text{ext, dopa}}\) & \makecell[l]{Uteži statičnih povezav \\ med generatorjem \\ Poissonovega šuma in \\ dopaminergičnimi nevroni} & 50 \\ \hline
 \end{tabular}
 \caption{Parametri generatorjev šuma}
+\label{tab:params6}
 \end{table}
-\\
 \newpage
 \subsection{Učenje}
 Posamezno stanje $i$ bo za akterja predstavljala 200 ms stimulacija vhodnega nevrona $i$, enako kot v razdelku \ref{sec:rstdp}. 
