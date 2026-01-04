@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  4 JAN 2026 16:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  4 JAN 2026 17:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1234,9 +1234,6 @@ L3 programming layer <2023-12-11>
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out' has not changed.
 (rerunfilecheck)             Checksum: 86A472C0C0C87E68873B11D74356660A;2353.
 
@@ -1257,7 +1254,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  75i,26n,81p,1723b,1964s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.pdf (72 pages, 1472034 bytes).
+Output written on Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.pdf (72 pages, 1471692 bytes).
 PDF statistics:
  719 PDF objects out of 1000 (max. 8388607)
  545 compressed objects within 6 object streams
