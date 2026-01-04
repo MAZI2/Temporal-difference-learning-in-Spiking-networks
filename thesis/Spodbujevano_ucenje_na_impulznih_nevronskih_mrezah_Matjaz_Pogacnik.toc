@@ -28,4 +28,3 @@
 \contentsline {section}{\numberline {5.1}Ideje za nadaljnje delo}{56}{section.5.1}%
 \contentsline {subsection}{\numberline {5.1.1}Izognitveno obnašanje (angl. \textit {aversive behaviour})}{56}{subsection.5.1.1}%
 \contentsline {subsection}{\numberline {5.1.2}Rekurenčne povezave}{57}{subsection.5.1.2}%
-\contentsline {chapter}{Viri}{59}{chapter*.34}%

@@ -56,14 +56,18 @@
 \usepackage{makecell}
 \definecolor{Apricot}{RGB}{251, 206, 177}
 
+\iffalse
 \usepackage[
 backend=biber,
 style=authoryear,
 sorting=nty,
 ]{biblatex}
+\fi
 
+\usepackage[authoryear,round]{natbib}
+\setcitestyle{aysep={},yysep={;}}
 
-\addbibresource{literatura.bib} %Imports bibliography file
+%\addbibresource{literatura.bib} %Imports bibliography file
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -345,6 +349,8 @@ Na tem mestu zapišite, komu se zahvaljujete za pomoč pri izdelavi diplomske na
 
 \noindent\begin{tabular}{p{0.15\textwidth}|p{.36\textwidth}|p{.39\textwidth}}    % po potrebi razširi prvo kolono tabele na račun drugih dveh!
   {\bf kratica} & {\bf angleško}                              & {\bf slovensko} \\ \hline
+  {\bf IAF} & Integrate and fire & Integriraj in sproži \\
+  {\bf LIF} & Leaky integrate and fire & Puščajoči integriraj in sproži \\
   {\bf STDP} & Spike timing dependent plasticity & Sinaptična plastičnost odvisna od časovne razporeditve impulzov \\
   {\bf R-STDP} & Reward modulated spike timing dependent plasticity & Sinaptična plastičnost odvisna od nagrajevanja in časovne razporeditve impulzov \\
   {\bf TD}   & Temporal difference              & Časovna razlika \\
@@ -431,13 +437,13 @@ Raziskave impulznih nevronskih mrež so se v zadnjih desetletjih razvijale predv
 
 Eden temeljnih pristopov k učenju v impulznih nevronskih mrežah je sinaptična plastičnost, odvisna od časovne razlike med impulzi pre- in postsinaptičnih nevronov (angl. \textit{spike timing dependent plasticity}, \textit{STDP}). Razširitve tega mehanizma z globalnim nagradnim signalom, kot je R-STDP, omogočajo uporabo impulznih nevronskih mrež v okviru spodbujevanega učenja. Takšni pristopi so uspešni pri nalogah s takojšnjimi nagradami, vendar se soočajo z omejitvami pri reševanju problemov z zakasnjenimi nagradami, kjer je potrebna časovna propagacija učnega signala.
 
-Na področju spodbujevanega učenja obstaja obsežna literatura, ki obravnava različne naloge, kot so navigacija, vodenje robotov in igranje iger. Dela, kot je \cite{robot}, obravnavajo uporabo spodbujevanega učenja v robotskih sistemih, kjer agent uči strategije na podlagi interakcije z realnim, šumnim okoljem. Podobni pristopi so uporabljeni tudi v simuliranih okoljih, kjer se raziskujejo lastnosti učnih algoritmov, na primer pri problemu vozička s palico \cite{vozicekSPalico} ali pri igranju iger \cite{predvidevanjeAkcij}. V teh delih so uporabljeni predvsem klasični modeli nevronskih mrež ali simbolni opisi stanj, časovna dinamika pa ni eksplicitno modelirana na ravni posameznih dogodkov.
+Na področju spodbujevanega učenja obstaja obsežna literatura, ki obravnava različne naloge, kot so navigacija, igranje iger in vodenje robotov. \citet{robot} obravnavata uporabo spodbujevanega učenja v robotskih sistemih, kjer agent uči strategije na podlagi interakcije z realnim, šumnim okoljem. Podobni pristopi so uporabljeni tudi v simuliranih okoljih, kjer se raziskujejo lastnosti učnih algoritmov, na primer pri problemu vozička s palico \citet{vozicekSPalico} ali pri igranju iger \citet{predvidevanjeAkcij}. V teh delih so uporabljeni predvsem klasični modeli nevronskih mrež ali simbolni opisi stanj, časovna dinamika pa ni eksplicitno modelirana na ravni posameznih dogodkov.
 
 Impulzne nevronske mreže se od rekurentnih arhitektur, kot sta LSTM ali GRU, razlikujejo po tem, da čas ni implicitno kodiran v stanju mreže, temveč je neposredno prisoten v obliki časovnih zamikov med impulzi. To omogoča naravno obdelavo dogodkovno vodenih in asinhronih signalov, hkrati pa odpira možnost energetsko učinkovite implementacije na nevromorfni strojni opremi. Pri tem računanje ne temelji na zaporednem množenju matrik, temveč na redkih dogodkih, kjer se ob pojavu impulza posodobi le del mreže.
 
-Posebno zanimiva smer raziskav je povezovanje impulznih nevronskih mrež z učenjem na podlagi časovne razlike. V delu \cite{pilotStudy} je predstavljena uporaba TD učenja na trdo-ožičeni (nevromorfni) impulzni nevronski mreži, kjer je končna naloga igranje igre Pong. Trdo-ožičena implementacija pomeni, da je mreža realizirana na specializirani strojni opremi, kjer so nevroni in sinapse fizično implementirani, kar omogoča visoko energetsko učinkovitost, hkrati pa omejuje fleksibilnost modela.
+Posebno zanimiva smer raziskav je povezovanje impulznih nevronskih mrež z učenjem na podlagi časovne razlike. V delu \citet{pilotStudy} je predstavljena uporaba TD učenja na trdo-ožičeni (nevromorfni) impulzni nevronski mreži, kjer je končna naloga igranje igre Pong. Trdo-ožičena implementacija pomeni, da je mreža realizirana na specializirani strojni opremi, kjer so nevroni in sinapse fizično implementirani, kar omogoča visoko energetsko učinkovitost, hkrati pa omejuje fleksibilnost modela.
 
-Biološko bolj neposredna implementacija TD učenja je arhitektura akter-kritik, ki je navdihnjena z delovanjem bazalnih ganglijev in dopaminskega sistema v možganih \cite{actorCritic}. V tem okviru kritik ocenjuje vrednost stanj in generira dopaminski signal, ki predstavlja napako napovedi nagrade, medtem ko akter na tej osnovi prilagaja strategijo izbire akcij. Takšen nagradni sistem je tesno povezan z eksperimentalnimi ugotovitvami o delovanju dopaminskih nevronov, ki kodirajo razliko med pričakovano in dejansko nagrado.
+Biološko bolj neposredna implementacija TD učenja je arhitektura akter-kritik, ki je navdihnjena z delovanjem bazalnih ganglijev in dopaminskega sistema v možganih \citet{actorCritic}. V tem okviru kritik ocenjuje vrednost stanj in generira dopaminski signal, ki predstavlja napako napovedi nagrade, medtem ko akter na tej osnovi prilagaja strategijo izbire akcij. Takšen nagradni sistem je tesno povezan z eksperimentalnimi ugotovitvami o delovanju dopaminskih nevronov, ki kodirajo razliko med pričakovano in dejansko nagrado.
 
 V primerjavi z obstoječimi deli se ta diplomska naloga osredotoča na enotno impulzno nevronsko arhitekturo, ki združuje lokalna pravila učenja, globalne nagradne signale in biološko smiselno implementacijo brez uporabe eksplicitnih negativnih nagrad. Poudarek je na časovni dodelitvi zaslug in postopni razširitvi osnovnega R-STDP pristopa v arhitekturo akter-kritik, ki omogoča učenje v okoljih z zakasnjenimi nagradami.
 
@@ -534,7 +540,7 @@ Postsinaptični tokovi so ne glede na jedro določeni z naslednjima parametroma.
 \newpage
 \section{Model z eksponentnim jedrom}
 \label{eksponentno_jedro}
-V simulatorju NEST, ki ga bomo uporabili za implementacijo kasnejših sistemov, je model z eksponentnim jedrom (\textit{iaf\_psc\_exp}) definiran s sistemom diferencialnih enačb prvega reda (\cite{expModel}). Postsinaptični tok $i(t)$ se spreminja po sistemu
+V simulatorju NEST, ki ga bomo uporabili za implementacijo kasnejših sistemov, je model z eksponentnim jedrom (\textit{iaf\_psc\_exp}) definiran s sistemom diferencialnih enačb prvega reda (\citet{expModel}). Postsinaptični tok $i(t)$ se spreminja po sistemu
 \begin{align*}
     \frac{dx}{dt}&=\frac{z}{\tau_{rec}}-ux\delta({t-t_{sp}}) \\
     \frac{di}{dt}&=-\frac{i}{\tau_{\text{syn, X}}}+ux\delta({t-t_{sp}}) \\
@@ -681,13 +687,13 @@ A_- e^{-|\Delta t|/\tau_-}, & \text{če } \Delta t \le 0 \text{ (postsinaptični
 Pare nevronov lahko posodabljamo izključno na podlagi vrednosti $\mathrm{STDP}$, s katero krepimo ali slabimo posamezne sinapse, običajno pa to vrednost uporabljamo v kombinaciji z nagrado. Količina nagrade oziroma koncentracija nevromodulatorja za celotno impulzno nevronsko mrežo ali skupino nevronov modulira amplitudo učenja oziroma posodabljanja povezav. Povezavo med parom nevronov bomo tako posodobili glede na vrednost STDP in prisotno količino nagrade v danem trenutku. 
 
 \subsection{Dopaminska modulacija}
-V vseh sistemih, razvitih v tej diplomski nalogi, kot osnovo za sinapso, ki poleg vrednosti STDP upošteva tudi nagrado, uporabljamo R-STDP model sinapse (\cite{distalReward}), kjer odvisnost od nagrade vpeljemo prek nevromodulatorja dopamina. Pogosto se koncentracija dopamina obravnava kot neposreden odraz količine nagrade oziroma vrednosti stanja, v katerem se agent nahaja, vendar ta modulira le plastičnost sinaps oziroma učenje. Namesto realizacije negativne nagrade z negativno koncentracijo dopamina, kar je pogost pristop, je biološko smiselneje izogibanje neželenim stanjem doseči z učenjem akcij, ki vodijo stran od teh stanj, ob pozitivni koncentraciji dopamina. Tak sistem je opisan v razdelku \ref{aversive}. 
+V vseh sistemih, razvitih v tej diplomski nalogi, kot osnovo za sinapso, ki poleg vrednosti STDP upošteva tudi nagrado, uporabljamo R-STDP model sinapse (\citet{distalReward}), kjer odvisnost od nagrade vpeljemo prek nevromodulatorja dopamina. Pogosto se koncentracija dopamina obravnava kot neposreden odraz količine nagrade oziroma vrednosti stanja, v katerem se agent nahaja, vendar ta modulira le plastičnost sinaps oziroma učenje. Namesto realizacije negativne nagrade z negativno koncentracijo dopamina, kar je pogost pristop, je biološko smiselneje izogibanje neželenim stanjem doseči z učenjem akcij, ki vodijo stran od teh stanj, ob pozitivni koncentraciji dopamina. Tak sistem je opisan v razdelku \ref{aversive}. 
 
 Pri sinapsi R-STDP vrednost STDP spremljamo prek sledi upravičenosti (angl. \emph{eligibility trace}) \(c\), ki se za posamezen par nevronov ob proženju zviša glede na vrednost STDP, nato pa skozi čas odteka glede na parameter $\tau_c$. To omogoča pripisovanje odgovornosti tudi ob zakasnjenih nagradah, glede na razliko med časom aktivnosti para nevronov in časom dovedene nagrade. Tako bodo sinapse, ki so bile aktivne tik pred zvišanjem koncentracije dopamina, obravnavane (glede na vrednost STDP) kot odgovorne za aktivnost izhodnih nevronov, ki je potencialno povzročila zvišanje koncentracije dopamina oziroma nagrado. Sinapse, aktivne dlje v preteklosti, bodo ustrezno manj posodobljene. Takemu učenju pravimo učenje s tremi dejavniki (angl. \textit{three-factor learning}), ki označi sinapse za potencialno spremembo in ohranja informacijo o pretekli aktivnosti pre- (prvi faktor) in postsinaptičnega nevrona (drugi faktor), dokler ne prispe tretji faktor, v tem primeru dopaminski signal \(n\), ki predstavlja koncentracijo dopamina. Ta mehanizem olajša časovno dodelitev zaslug (angl. \textit{temporal credit assignment}), saj omogoča povezovanje hitre aktivnosti nevronov s počasnejšimi vedenjskimi odzivi, s čimer sinapse prejmejo ustrezno posodobitev, tudi če je nagrada ali signal zakasnjen.
 
 V primerjavi s klasičnimi časovno razlikovalnimi ali TD (angl. \textit{temporal difference}) algoritmi v ne-impulznih nevronskih mrežah, kjer se sledi upravičenosti uporabljajo za posodobitev stanj ali akcij v diskretnih časovnih korakih, je v impulznih nevronskih mrežah sled upravičenosti \(c\) neposredno vezana na dejanske sprožitve impulzov in se lahko sproži ob vsaki interakciji med pre- in postsinaptičnim nevronom. Tako sled upravičenosti predstavlja lokalno, biološko interpretabilno komponento učenja, ki je skladna z eksperimentalnimi dokazi o treh faktorjih učenja v možganih.
 
-Dopaminsko koncentracijo predstavlja dopaminska sled \(n\), ki jo lahko definiramo kot vrednost, ki spremlja aktivnost posebnih dopaminergičnih nevronov. Ob zvišani aktivnosti dopaminergičnih nevronov se bo dopaminska sled zvišala, ob odsotnosti aktivnosti pa bo odtekala glede na parameter $\tau_n$. Dopaminska sled se uporablja za neposredno modulacijo velikosti in smeri sinaptične plastičnosti, tj. velikosti in predznaka posodobitve uteži povezave. Sinaptična dinamika sinapse R-STDP je opisana z naslednjimi enačbami (\cite{dopamineSynapse}).
+Dopaminsko koncentracijo predstavlja dopaminska sled \(n\), ki jo lahko definiramo kot vrednost, ki spremlja aktivnost posebnih dopaminergičnih nevronov. Ob zvišani aktivnosti dopaminergičnih nevronov se bo dopaminska sled zvišala, ob odsotnosti aktivnosti pa bo odtekala glede na parameter $\tau_n$. Dopaminska sled se uporablja za neposredno modulacijo velikosti in smeri sinaptične plastičnosti, tj. velikosti in predznaka posodobitve uteži povezave. Sinaptična dinamika sinapse R-STDP je opisana z naslednjimi enačbami (\citet{dopamineSynapse}).
 \[
 \begin{aligned}
 \dot{w} &= c \, (n - b), \\
@@ -774,7 +780,7 @@ $w_{\text{init, motor}}$ & \makecell[l]{Začetne uteži sinaps \\ med vhodnimi i
 \end{figure}
 \newpage
 \subsection{Igra Pong}
-V nadaljevanju bomo R-STDP učenje predstavili na kompleksnejšem problemu: igri \href{https://en.wikipedia.org/wiki/Pong}{\textit{Pong}}. R-STDP učenje je kratkovidno, saj se naučimo akcij le, če nagrada sledi takoj, ne pa tudi, če je nagrada zakasnjena. Za zakasnjene nagrade lahko uporabimo TD (angl. \textit{Temporal Difference}) učenje, ki ga implementiramo v razdelku \ref{sec:td_learning}, za zdaj pa bomo igranje igre Pong, ki sicer zahteva predvidevanje in ima zakasnjeno nagrado, preslikali na problem s takojšnjimi nagradami. Igro bomo definirali tako, da ima žogica stalno hitrost, določeno smer in pozicijo v $(x, y)$ ravnini. Na eni strani igrišča bo naš agent premikal platformo v horizontalni smeri, na drugi pa bo stena, od katere se žogica prožno odbije. Takšna konfiguracija je prikazana na sliki \ref{pong_setup}. Če bi od agenta zahtevali predvidevanje, bi morali stanja definirati kot kartezični produkt $(x, y)$ pozicije žogice, njene smeri in $x$ pozicije platforme. Problem bomo poenostavili v problem sledenja žogici, kot v delu \cite{pilotStudy}, kjer agent izbira želeno ciljno točko platforme. Predvidevanje zato ni potrebno. Tako stanja kot akcije agenta so diskretizirane možne $x$ pozicije žogice. Stanje je nagrajeno s stimulacijo dopaminskih nevronov s tokom $I_{R}$, ki je sorazmeren razliki med nagrado $R_b$, izračunani glede na oddaljenost želene pozicije $j$ od trenutne $x$ pozicije žogice $k$, in povprečno nagrado $\bar{R}_i$ v iteraciji $i$. S pomočjo povprečne nagrade omejimo krepitev sinaps, če te ne izboljšajo trenutne politike.
+V nadaljevanju bomo R-STDP učenje predstavili na kompleksnejšem problemu: igri \href{https://en.wikipedia.org/wiki/Pong}{\textit{Pong}}. R-STDP učenje je kratkovidno, saj se naučimo akcij le, če nagrada sledi takoj, ne pa tudi, če je nagrada zakasnjena. Za zakasnjene nagrade lahko uporabimo TD (angl. \textit{Temporal Difference}) učenje, ki ga implementiramo v razdelku \ref{sec:td_learning}, za zdaj pa bomo igranje igre Pong, ki sicer zahteva predvidevanje in ima zakasnjeno nagrado, preslikali na problem s takojšnjimi nagradami. Igro bomo definirali tako, da ima žogica stalno hitrost, določeno smer in pozicijo v $(x, y)$ ravnini. Na eni strani igrišča bo naš agent premikal platformo v horizontalni smeri, na drugi pa bo stena, od katere se žogica prožno odbije. Takšna konfiguracija je prikazana na sliki \ref{pong_setup}. Če bi od agenta zahtevali predvidevanje, bi morali stanja definirati kot kartezični produkt $(x, y)$ pozicije žogice, njene smeri in $x$ pozicije platforme. Problem bomo poenostavili v problem sledenja žogici, kot v delu \citet{pilotStudy}, kjer agent izbira želeno ciljno točko platforme. Predvidevanje zato ni potrebno. Tako stanja kot akcije agenta so diskretizirane možne $x$ pozicije žogice. Stanje je nagrajeno s stimulacijo dopaminskih nevronov s tokom $I_{R}$, ki je sorazmeren razliki med nagrado $R_b$, izračunani glede na oddaljenost želene pozicije $j$ od trenutne $x$ pozicije žogice $k$, in povprečno nagrado $\bar{R}_i$ v iteraciji $i$. S pomočjo povprečne nagrade omejimo krepitev sinaps, če te ne izboljšajo trenutne politike.
 
 \begin{align*}
 R_b &= \begin{cases}
@@ -789,7 +795,7 @@ I_{R} &= \max(R_b-\bar{R}_i, 0) \cdot 600 \text{ pA}
 \begin{center}
 \includegraphics[width=0.5\textwidth]{figures/pong_setup}
 \end{center}
-\caption{Grafična predstavitev agenta in okolja (\cite{pilotStudy}).}
+\caption{Grafična predstavitev agenta in okolja (\citet{pilotStudy}).}
 \end{figure}
 \newpage
 Pričakujemo, da bodo v posameznih stanjih prevladale sinapse, ki iz vhodnega nevrona vodijo do akcij okrog izhodnega nevrona, ki predstavlja isto $x$ pozicijo, kot jo ima v tistem trenutku žogica. Polje smo po $x$ osi diskretizirali na 20 stanj. Po simulaciji, ki je trajala 4000 iteracij (pozicij žogice) po 200 ms, na sliki \ref{rstdp_pong_learning} vidimo graf povezav med vhodnim nevronom, ki predstavlja pozicijo $x=5$, in 20 izhodnimi nevroni, kjer med učenjem prevladuje izhodni nevron 5, sledi pa mu izhodni nevron 4. Za simulacijo smo uporabili enake parametre kot pri primeru R-STDP učenja na preprostem problemu.
@@ -867,23 +873,23 @@ V(s_t) \leftarrow V(s_t) + \alpha\,\delta_t,
 \noindent V tem delu bomo implementirali algoritem TD(0), pri katerem se vrednosti posodabljajo izključno na podlagi trenutne nagrade in ocene vrednosti naslednjega stanja. Izbiro akcije v posameznem stanju bomo nagrajevali po enakem R-STDP mehanizmu kot doslej, pri čemer bomo sinapse posodabljali s pomočjo sledi upravičenosti. Tako bo pravzaprav možno tudi, da nagradimo sinapse, ki so predstavljale izbire akcij iz stanj dlje v preteklosti, kar je ideja splošnejše oblike TD učenja -- metode TD($\lambda$). Če stanja definiramo z daljšim intervalom stimulacije vhodnega nevrona in ustrezno izberemo konstanto $\tau_c$, ki določa odtekanje sledi upravičenosti, bomo dosegli minimalen vpliv sinaps, ki ne predstavljajo izbire akcije v trenutnem stanju, in se tako približali TD(0). To nam bo močno olajšalo spremljanje učenja in iskanje ustreznih hiperparametrov, kar je sicer pri impulznih nevronskih mrežah lahko zahtevno.
 
 \subsection{Model akter-kritik}
-Za TD učenje poleg že razvitega R-STDP modula za učenje pravilne izbire akcije potrebujemo še modul, ki računa TD napako $\delta_t$. Takemu modelu pravimo akter-kritik (angl. \textit{actor-critic}). V tej nalogi skušamo doseči čim bolj biološko verjetne implementacije, zato želimo, da impulzna nevronska mreža sama računa TD napako. Pri tem se bomo zgledovali po \href{https://en.wikipedia.org/wiki/Basal_ganglia}{bazalnih ganglijih}, prikazanih na sliki \ref{basal_ganglia}, skupini nevronov v človeških možganih, ki med drugim realizira obliko TD učenja. Za poenostavitev in abstrakcijo kompleksnega sistema in mehanizmov, prisotnih v pravih bazalnih ganglijih, se bomo zgledovali po \cite{actorCritic}. Cilj sistema, ki ga bomo razvili v nadaljevanju, bo na nalogi z mrežo doseči propagacijo zakasnjene nagrade v stanja, ki postopno vodijo do cilja, in s tem učenje optimalne politike za navigacijo do nagrade.
+Za TD učenje poleg že razvitega R-STDP modula za učenje pravilne izbire akcije potrebujemo še modul, ki računa TD napako $\delta_t$. Takemu modelu pravimo akter-kritik (angl. \textit{actor-critic}). V tej nalogi skušamo doseči čim bolj biološko verjetne implementacije, zato želimo, da impulzna nevronska mreža sama računa TD napako. Pri tem se bomo zgledovali po \href{https://en.wikipedia.org/wiki/Basal_ganglia}{bazalnih ganglijih}, prikazanih na sliki \ref{basal_ganglia}, skupini nevronov v človeških možganih, ki med drugim realizira obliko TD učenja. Za poenostavitev in abstrakcijo kompleksnega sistema in mehanizmov, prisotnih v pravih bazalnih ganglijih, se bomo zgledovali po \citet{actorCritic}. Cilj sistema, ki ga bomo razvili v nadaljevanju, bo na nalogi z mrežo doseči propagacijo zakasnjene nagrade v stanja, ki postopno vodijo do cilja, in s tem učenje optimalne politike za navigacijo do nagrade.
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{figures/basal_ganglia}
 \end{center}
-\caption{Diagram skupin nevronov bazalnih ganglijev (\cite{bazal}).}
+\caption{Diagram skupin nevronov bazalnih ganglijev (\citet{bazal}).}
 \label{basal_ganglia}
 \end{figure}
 \newpage
-Kot omenjeno, je model akter-kritik, kot ga predstavlja \cite{actorCritic}, poenostavitev in abstrakcija resničnih mehanizmov v možganih, ki to omogočajo. V bazalnih ganglijih, kot so prikazani na sliki \ref{basal_ganglia}, sodeluje več skupin nevronov in povezav, ki so v tem modelu logično združeni v \textit{korteks}, ki predstavlja vhodne nevrone, \textit{motorične nevrone}, ki predstavljajo izhodne nevrone in možne akcije, ter skupine nevronov kritika: \textit{striatum}, \textit{ventralni pallidum} in dopaminergične nevrone. \textit{Substantia nigra} in \textit{talamus} pravih bazalnih ganglijev sta funkcionalno združena v dopaminergične nevrone, ki projicirajo dopamin do povezav med vhodom in striatumom ter vhodom in izhodnimi motoričnimi nevroni. 
+Kot omenjeno, je model akter-kritik, kot ga predstavlja \citet{actorCritic}, poenostavitev in abstrakcija resničnih mehanizmov v možganih, ki to omogočajo. V bazalnih ganglijih, kot so prikazani na sliki \ref{basal_ganglia}, sodeluje več skupin nevronov in povezav, ki so v tem modelu logično združeni v \textit{korteks}, ki predstavlja vhodne nevrone, \textit{motorične nevrone}, ki predstavljajo izhodne nevrone in možne akcije, ter skupine nevronov kritika: \textit{striatum}, \textit{ventralni pallidum} in dopaminergične nevrone. \textit{Substantia nigra} in \textit{talamus} pravih bazalnih ganglijev sta funkcionalno združena v dopaminergične nevrone, ki projicirajo dopamin do povezav med vhodom in striatumom ter vhodom in izhodnimi motoričnimi nevroni. 
 Tako v bazalnih ganglijih kot v modelu akter-kritik, kot ga predstavlja Wiebke P, et al., razlikujemo dve glavni poti: \textit{direktno} in \textit{indirektno} pot, ki vodita iz nevronov striatuma do dopaminergičnih nevronov. Direktna pot je zakasnjena inhibitorna pot, ki poteka neposredno iz striatuma do dopaminergičnih nevronov,
 indirektna pot pa je inhibitorna do nevronov ventralnega palliduma, posebne skupine nevronov, ki inhibira aktivnost dopaminergičnih nevronov. Ventralni pallidum se nahaja ventralno od \textit{globusa pallidusa}, prikazanega na klasičnem diagramu bazalnih ganglijev, in je povezan s pričakovanjem nagrade in odločanjem, zato Wiebke P, et al. za skupino nevronov na indirektni poti verjetno izbere to poimenovanje. Opisan akter-kritik model je prikazan na sliki \ref{actor-critic}.
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{figures/actor-critic}
 \end{center}
-\caption{Model akter-kritik, kot ga predlaga \cite{actorCritic}.}
+\caption{Model akter-kritik, kot ga predlaga \citet{actorCritic}.}
 \label{actor-critic}
 \end{figure}
 
@@ -903,7 +909,7 @@ Generatorji Poissonovega šuma so s posameznimi skupinami nevronov povezani prek
 \label{actor_critic_diagram}
 \end{figure}
 
-Za razliko od izvornega sistema (\cite{actorCritic}), bomo za model sinapse uporabili našo zakasnjeno sinapso R-STDP, kot smo jo razvili v razdelkih \ref{sec:synapse_model} in \ref{sec:rstdp}, ki poleg presinaptičnih impulzov upošteva tudi postsinaptične po pravilu STDP. Tako bomo lahko kot akter uporabili sistem R-STDP, ki smo ga razvili v razdelku \ref{sec:rstdp}. Naša implementacija se razlikuje tudi v načinu izbire akcije, saj za izbrano akcijo izberemo tisto, katere pripadajoči izhodni nevron ima najvišje število impulzov v trenutnem stanju. V izvornem sistemu je akcija izbrana glede na prvi impulz pripadajočega izhodnega nevrona, ki se sproži kot rezultat stimulacije v trenutnem stanju. Pri tem načinu moramo po prvem impulzu v čim krajšem časovnem intervalu inhibirati vse ostale izhodne nevrone. Tako bomo bolj neposredno okrepili povezave, odgovorne za izbrano aktivnost, saj smo z inhibicijo dosegli ničelne sledi upravičenosti sinaps do ostalih izhodnih nevronov, ker se ti ne bodo prožili. V tem primeru tudi ne bo potrebe po tekmovanju sinaps, vendar moramo zato preveriti impulze izhodnih nevronov v vsakem koraku simulatorja. V primeru simulatorja NEST je to vsakih 0,1 ms, kar je problematično, saj simulator teče v C++ zaledju, ki ga zapustimo takoj, ko prekinemo simulacijo. Tako je bistvena razlika med tem, ali 100-krat poženemo ukaz \texttt{nest.Simulate(0.1)} ali enkrat \texttt{nest.Simulate(10)}. Naš sistem bo zaradi hitrosti simulacije po številu nevronov manjši od izvornega sistema.
+Za razliko od izvornega sistema (\citet{actorCritic}), bomo za model sinapse uporabili našo zakasnjeno sinapso R-STDP, kot smo jo razvili v razdelkih \ref{sec:synapse_model} in \ref{sec:rstdp}, ki poleg presinaptičnih impulzov upošteva tudi postsinaptične po pravilu STDP. Tako bomo lahko kot akter uporabili sistem R-STDP, ki smo ga razvili v razdelku \ref{sec:rstdp}. Naša implementacija se razlikuje tudi v načinu izbire akcije, saj za izbrano akcijo izberemo tisto, katere pripadajoči izhodni nevron ima najvišje število impulzov v trenutnem stanju. V izvornem sistemu je akcija izbrana glede na prvi impulz pripadajočega izhodnega nevrona, ki se sproži kot rezultat stimulacije v trenutnem stanju. Pri tem načinu moramo po prvem impulzu v čim krajšem časovnem intervalu inhibirati vse ostale izhodne nevrone. Tako bomo bolj neposredno okrepili povezave, odgovorne za izbrano aktivnost, saj smo z inhibicijo dosegli ničelne sledi upravičenosti sinaps do ostalih izhodnih nevronov, ker se ti ne bodo prožili. V tem primeru tudi ne bo potrebe po tekmovanju sinaps, vendar moramo zato preveriti impulze izhodnih nevronov v vsakem koraku simulatorja. V primeru simulatorja NEST je to vsakih 0,1 ms, kar je problematično, saj simulator teče v C++ zaledju, ki ga zapustimo takoj, ko prekinemo simulacijo. Tako je bistvena razlika med tem, ali 100-krat poženemo ukaz \texttt{nest.Simulate(0.1)} ali enkrat \texttt{nest.Simulate(10)}. Naš sistem bo zaradi hitrosti simulacije po številu nevronov manjši od izvornega sistema.
 
 \subsection{Izbira parametrov}
 \label{sec:izbira_parametrov}
@@ -1139,8 +1145,9 @@ Rekurenčne povezave pa predstavljajo tudi dodaten izziv. V primeru našega akte
 %\printbibliography[heading=bibintoc,type=inproceedings,title={Članki v zbornikih}]
 %\printbibliography[heading=bibintoc,type=incollection,title={Poglavja v knjigah}]
 \fi
-\printbibliography[heading=bibintoc,title={Viri}]
-
+%\printbibliography[heading=bibintoc,title={Viri}]
+\bibliographystyle{plainnat}
+\bibliography{literatura}
 
 \end{document}
 

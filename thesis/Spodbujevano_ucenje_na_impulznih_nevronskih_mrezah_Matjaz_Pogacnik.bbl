@@ -1,331 +1,58 @@
-% $ biblatex auxiliary file $
-% $ biblatex bbl format version 3.2 $
-% Do not modify the above lines!
-%
-% This is an auxiliary file used by the 'biblatex' package.
-% This file may safely be deleted. It will be recreated by
-% biber as required.
-%
-\begingroup
-\makeatletter
-\@ifundefined{ver@biblatex.sty}
-  {\@latex@error
-     {Missing 'biblatex' package}
-     {The bibliography requires the 'biblatex' package.}
-      \aftergroup\endinput}
-  {}
-\endgroup
+\begin{thebibliography}{9}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
+\bibitem[Dobrevski and Sko{\v{c}}aj(2021)]{robot}
+M.~Dobrevski and D.~Sko{\v{c}}aj.
+\newblock Deep reinforcement learning for map-less goal-driven robot navigation.
+\newblock \emph{International Journal of Advanced Robotic Systems}, 18\penalty0 (1), 2021.
+\newblock \doi{10.1177/1729881421992621}.
 
-\refsection{0}
-  \datalist[entry]{nty/global//global/global}
-    \entry{robot}{article}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=9a7772ac07b7f71d84929cd4ec142935}{%
-           family={{Dobrevski M, Skočaj D}},
-           familyi={D\bibinitperiod}}}%
-      }
-      \strng{namehash}{9a7772ac07b7f71d84929cd4ec142935}
-      \strng{fullhash}{9a7772ac07b7f71d84929cd4ec142935}
-      \strng{bibnamehash}{9a7772ac07b7f71d84929cd4ec142935}
-      \strng{authorbibnamehash}{9a7772ac07b7f71d84929cd4ec142935}
-      \strng{authornamehash}{9a7772ac07b7f71d84929cd4ec142935}
-      \strng{authorfullhash}{9a7772ac07b7f71d84929cd4ec142935}
-      \field{sortinit}{D}
-      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{International Journal of Advanced Robotic Systems. 2021}
-      \field{number}{1}
-      \field{title}{Deep reinforcement learning for map-less goal-driven robot navigation}
-      \field{volume}{18}
-      \field{year}{2021}
-      \verb{doi}
-      \verb 10.1177/1729881421992621
-      \endverb
-    \endentry
-    \entry{distalReward}{article}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=fac307fe3e0d74d4e36172f2c2559ee5}{%
-           family={{Izhikevich, E. M.}},
-           familyi={I\bibinitperiod}}}%
-      }
-      \strng{namehash}{fac307fe3e0d74d4e36172f2c2559ee5}
-      \strng{fullhash}{fac307fe3e0d74d4e36172f2c2559ee5}
-      \strng{bibnamehash}{fac307fe3e0d74d4e36172f2c2559ee5}
-      \strng{authorbibnamehash}{fac307fe3e0d74d4e36172f2c2559ee5}
-      \strng{authornamehash}{fac307fe3e0d74d4e36172f2c2559ee5}
-      \strng{authorfullhash}{fac307fe3e0d74d4e36172f2c2559ee5}
-      \field{sortinit}{I}
-      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Cerebral cortex (New York, N.Y. : 1991)}
-      \field{number}{10}
-      \field{title}{Solving the distal reward problem through linkage of STDP and dopamine signaling}
-      \field{volume}{17}
-      \field{year}{2007}
-      \verb{doi}
-      \verb 10.1093/cercor/bhl152
-      \endverb
-    \endentry
-    \entry{dopamineSynapse}{article}{}
-      \name{author}{3}{}{%
-        {{un=0,uniquepart=base,hash=df63efccddbe556db31d09f066e7935c}{%
-           family={Potjans},
-           familyi={P\bibinitperiod},
-           given={Wiebke},
-           giveni={W\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=ea4ec7db46c8894525a4b0c34b8c3cd2}{%
-           family={Morrison},
-           familyi={M\bibinitperiod},
-           given={Abigail},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=a6e9c8b3b1dc422f6d4f5f42ab3051bc}{%
-           family={Diesmann},
-           familyi={D\bibinitperiod},
-           given={Markus},
-           giveni={M\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{a95e1195f2aa57f5f3634da5a90f602e}
-      \strng{fullhash}{a95e1195f2aa57f5f3634da5a90f602e}
-      \strng{bibnamehash}{a95e1195f2aa57f5f3634da5a90f602e}
-      \strng{authorbibnamehash}{a95e1195f2aa57f5f3634da5a90f602e}
-      \strng{authornamehash}{a95e1195f2aa57f5f3634da5a90f602e}
-      \strng{authorfullhash}{a95e1195f2aa57f5f3634da5a90f602e}
-      \field{sortinit}{P}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{issn}{1662-5188}
-      \field{journaltitle}{Frontiers in Computational Neuroscience}
-      \field{title}{Enabling Functional Neural Circuit Simulations with Distributed Computing of Neuromodulated Plasticity}
-      \field{volume}{Volume 4 - 2010}
-      \field{year}{2010}
-      \verb{doi}
-      \verb 10.3389/fncom.2010.00141
-      \endverb
-      \verb{urlraw}
-      \verb https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2010.00141
-      \endverb
-      \verb{url}
-      \verb https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2010.00141
-      \endverb
-    \endentry
-    \entry{bazal}{article}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=9db4a0c5108530b9fe978405ad857080}{%
-           family={Surmeier},
-           familyi={S\bibinitperiod},
-           given={D.\bibnamedelimi James},
-           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{9db4a0c5108530b9fe978405ad857080}
-      \strng{fullhash}{9db4a0c5108530b9fe978405ad857080}
-      \strng{bibnamehash}{9db4a0c5108530b9fe978405ad857080}
-      \strng{authorbibnamehash}{9db4a0c5108530b9fe978405ad857080}
-      \strng{authornamehash}{9db4a0c5108530b9fe978405ad857080}
-      \strng{authorfullhash}{9db4a0c5108530b9fe978405ad857080}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{A study shows that, rather than sequentially starting and stopping a movement, two parallel pathways involving neurons in the brain's basal ganglia seem to work in tandem to accomplish the complex task of motion. See Letter p.238}
-      \field{day}{1}
-      \field{issn}{1476-4687}
-      \field{journaltitle}{Nature}
-      \field{month}{2}
-      \field{number}{7436}
-      \field{title}{To go or not to go}
-      \field{volume}{494}
-      \field{year}{2013}
-      \field{dateera}{ce}
-      \field{pages}{178\bibrangedash 179}
-      \range{pages}{2}
-      \verb{doi}
-      \verb 10.1038/nature11856
-      \endverb
-      \verb{urlraw}
-      \verb https://doi.org/10.1038/nature11856
-      \endverb
-      \verb{url}
-      \verb https://doi.org/10.1038/nature11856
-      \endverb
-    \endentry
-    \entry{predvidevanjeAkcij}{thesis}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=7ceeae6dea70cc26f456b6d7c4223ea6}{%
-           family={{Šutar M}},
-           familyi={Š\bibinitperiod}}}%
-      }
-      \list{institution}{1}{%
-        {Fakulteta za računalništvo in informatiko, Univerza v Ljubljani}%
-      }
-      \strng{namehash}{7ceeae6dea70cc26f456b6d7c4223ea6}
-      \strng{fullhash}{7ceeae6dea70cc26f456b6d7c4223ea6}
-      \strng{bibnamehash}{7ceeae6dea70cc26f456b6d7c4223ea6}
-      \strng{authorbibnamehash}{7ceeae6dea70cc26f456b6d7c4223ea6}
-      \strng{authornamehash}{7ceeae6dea70cc26f456b6d7c4223ea6}
-      \strng{authorfullhash}{7ceeae6dea70cc26f456b6d7c4223ea6}
-      \field{sortinit}{Š}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Uporaba predvidevanja akcij nasprotnika pri učenju inteligentnega agenta}
-      \field{type}{Diplomska naloga}
-      \field{year}{2023}
-    \endentry
-    \entry{vozicekSPalico}{thesis}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=ed78bd7fc95abc5ce041939705a36199}{%
-           family={{Svete A}},
-           familyi={S\bibinitperiod}}}%
-      }
-      \list{institution}{1}{%
-        {Fakulteta za računalništvo in informatiko, Univerza v Ljubljani}%
-      }
-      \strng{namehash}{ed78bd7fc95abc5ce041939705a36199}
-      \strng{fullhash}{ed78bd7fc95abc5ce041939705a36199}
-      \strng{bibnamehash}{ed78bd7fc95abc5ce041939705a36199}
-      \strng{authorbibnamehash}{ed78bd7fc95abc5ce041939705a36199}
-      \strng{authornamehash}{ed78bd7fc95abc5ce041939705a36199}
-      \strng{authorfullhash}{ed78bd7fc95abc5ce041939705a36199}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Posplošitev problema vozička s palico na zahtevnejše domene}
-      \field{type}{Diplomska naloga}
-      \field{year}{2020}
-    \endentry
-    \entry{expModel}{article}{}
-      \name{author}{3}{}{%
-        {{un=0,uniquepart=base,hash=7aa0eee2b62640a89fecb354a4240db0}{%
-           family={Tsodyks},
-           familyi={T\bibinitperiod},
-           given={tMisha},
-           giveni={t\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=4cc45620b085c9e7cba33e064a996af2}{%
-           family={Uziel},
-           familyi={U\bibinitperiod},
-           given={Asher},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=96734e7ca80390b8caf8dcebb3d0a5ac}{%
-           family={Markram},
-           familyi={M\bibinitperiod},
-           given={Henry},
-           giveni={H\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Society for Neuroscience}%
-      }
-      \strng{namehash}{0ea5c45b26691d63013aa1572b9d8607}
-      \strng{fullhash}{0ea5c45b26691d63013aa1572b9d8607}
-      \strng{bibnamehash}{0ea5c45b26691d63013aa1572b9d8607}
-      \strng{authorbibnamehash}{0ea5c45b26691d63013aa1572b9d8607}
-      \strng{authornamehash}{0ea5c45b26691d63013aa1572b9d8607}
-      \strng{authorfullhash}{0ea5c45b26691d63013aa1572b9d8607}
-      \field{sortinit}{T}
-      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{issn}{0270-6474}
-      \field{journaltitle}{Journal of Neuroscience}
-      \field{number}{1}
-      \field{title}{t Synchrony Generation in Recurrent Networks with Frequency-Dependent Synapses}
-      \field{volume}{20}
-      \field{year}{2000}
-      \field{pages}{RC50\bibrangedash RC50}
-      \range{pages}{-1}
-      \verb{doi}
-      \verb 10.1523/JNEUROSCI.20-01-j0003.2000
-      \endverb
-      \verb{eprint}
-      \verb https://www.jneurosci.org/content/20/1/RC50.full.pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://www.jneurosci.org/content/20/1/RC50
-      \endverb
-      \verb{url}
-      \verb https://www.jneurosci.org/content/20/1/RC50
-      \endverb
-    \endentry
-    \entry{actorCritic}{article}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=b33c2d538d702c8fdfad4a7d4f2934b4}{%
-           family={{Wiebke P, et al.}},
-           familyi={W\bibinitperiod}}}%
-      }
-      \strng{namehash}{b33c2d538d702c8fdfad4a7d4f2934b4}
-      \strng{fullhash}{b33c2d538d702c8fdfad4a7d4f2934b4}
-      \strng{bibnamehash}{b33c2d538d702c8fdfad4a7d4f2934b4}
-      \strng{authorbibnamehash}{b33c2d538d702c8fdfad4a7d4f2934b4}
-      \strng{authornamehash}{b33c2d538d702c8fdfad4a7d4f2934b4}
-      \strng{authorfullhash}{b33c2d538d702c8fdfad4a7d4f2934b4}
-      \field{sortinit}{W}
-      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{PLoS computational biology}
-      \field{number}{5}
-      \field{title}{An Imperfect Dopaminergic Error Signal Can Drive Temporal-Difference Learning}
-      \field{volume}{7}
-      \field{year}{2011}
-      \verb{doi}
-      \verb 10.1371/journal.pcbi.1001133
-      \endverb
-    \endentry
-    \entry{pilotStudy}{article}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=b528e28e3fee5ef3525021fd9ce1099d}{%
-           family={{Wunderlich T, et al.}},
-           familyi={W\bibinitperiod}}}%
-      }
-      \strng{namehash}{b528e28e3fee5ef3525021fd9ce1099d}
-      \strng{fullhash}{b528e28e3fee5ef3525021fd9ce1099d}
-      \strng{bibnamehash}{b528e28e3fee5ef3525021fd9ce1099d}
-      \strng{authorbibnamehash}{b528e28e3fee5ef3525021fd9ce1099d}
-      \strng{authornamehash}{b528e28e3fee5ef3525021fd9ce1099d}
-      \strng{authorfullhash}{b528e28e3fee5ef3525021fd9ce1099d}
-      \field{sortinit}{W}
-      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Frontiers in neuroscience}
-      \field{number}{260}
-      \field{title}{Demonstrating Advantages of Neuromorphic Computation: A Pilot Study}
-      \field{volume}{13}
-      \field{year}{2019}
-      \verb{doi}
-      \verb 10.3389/fnins.2019.00260
-      \endverb
-    \endentry
-  \enddatalist
-\endrefsection
-\endinput
+\bibitem[Izhikevich(2007)]{distalReward}
+Eugene~M. Izhikevich.
+\newblock Solving the distal reward problem through linkage of stdp and dopamine signaling.
+\newblock \emph{Cerebral Cortex}, 17\penalty0 (10), 2007.
+\newblock \doi{10.1093/cercor/bhl152}.
 
+\bibitem[Potjans et~al.(2010)Potjans, Morrison, and Diesmann]{dopamineSynapse}
+Wiebke Potjans, Abigail Morrison, and Markus Diesmann.
+\newblock Enabling functional neural circuit simulations with distributed computing of neuromodulated plasticity.
+\newblock \emph{Frontiers in Computational Neuroscience}, 4, 2010.
+\newblock \doi{10.3389/fncom.2010.00141}.
+
+\bibitem[Potjans et~al.(2011)]{actorCritic}
+Wiebke Potjans et~al.
+\newblock An imperfect dopaminergic error signal can drive temporal-difference learning.
+\newblock \emph{PLoS Computational Biology}, 7\penalty0 (5), 2011.
+\newblock \doi{10.1371/journal.pcbi.1001133}.
+
+\bibitem[Surmeier(2013)]{bazal}
+D.~James Surmeier.
+\newblock To go or not to go.
+\newblock \emph{Nature}, 494\penalty0 (7436):\penalty0 178--179, 2013.
+\newblock \doi{10.1038/nature11856}.
+
+\bibitem[{\v{S}}utar(2023)]{predvidevanjeAkcij}
+Marko {\v{S}}utar.
+\newblock Uporaba predvidevanja akcij nasprotnika pri u{\v{c}}enju inteligentnega agenta, 2023.
+
+\bibitem[Svete(2020)]{vozicekSPalico}
+Andrej Svete.
+\newblock Posplo{\v{s}}itev problema vozi{\v{c}}ka s palico na zahtevnej{\v{s}}e domene, 2020.
+
+\bibitem[Tsodyks et~al.(2000)Tsodyks, Uziel, and Markram]{expModel}
+Misha Tsodyks, Asher Uziel, and Henry Markram.
+\newblock Synchrony generation in recurrent networks with frequency-dependent synapses.
+\newblock \emph{Journal of Neuroscience}, 20\penalty0 (1):\penalty0 RC50--RC50, 2000.
+\newblock \doi{10.1523/JNEUROSCI.20-01-j0003.2000}.
+
+\bibitem[Wunderlich et~al.(2019)]{pilotStudy}
+Thomas Wunderlich et~al.
+\newblock Demonstrating advantages of neuromorphic computation: A pilot study.
+\newblock \emph{Frontiers in Neuroscience}, 13:\penalty0 260, 2019.
+\newblock \doi{10.3389/fnins.2019.00260}.
+
+\end{thebibliography}
