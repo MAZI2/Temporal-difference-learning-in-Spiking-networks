@@ -5,8 +5,8 @@
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Dobrevski and Sko{\v{c}}aj(2021)]{robot}
-M.~Dobrevski and D.~Sko{\v{c}}aj.
+\bibitem[Dobrevski in Sko{\v{c}}aj(2021)]{robot}
+M.~Dobrevski in D.~Sko{\v{c}}aj.
 \newblock Deep reinforcement learning for map-less goal-driven robot navigation.
 \newblock \emph{International Journal of Advanced Robotic Systems}, 18\penalty0 (1), 2021.
 \newblock \doi{10.1177/1729881421992621}.
@@ -17,14 +17,14 @@ Eugene~M. Izhikevich.
 \newblock \emph{Cerebral Cortex}, 17\penalty0 (10), 2007.
 \newblock \doi{10.1093/cercor/bhl152}.
 
-\bibitem[Potjans et~al.(2010)Potjans, Morrison, and Diesmann]{dopamineSynapse}
-Wiebke Potjans, Abigail Morrison, and Markus Diesmann.
+\bibitem[Potjans et~al.(2010)Potjans, Morrison, in Diesmann]{dopamineSynapse}
+Wiebke Potjans, Abigail Morrison, in Markus Diesmann.
 \newblock Enabling functional neural circuit simulations with distributed computing of neuromodulated plasticity.
 \newblock \emph{Frontiers in Computational Neuroscience}, 4, 2010.
 \newblock \doi{10.3389/fncom.2010.00141}.
 
-\bibitem[Potjans et~al.(2011)]{actorCritic}
-Wiebke Potjans et~al.
+\bibitem[Potjans in~sod.(2011)]{actorCritic}
+Wiebke Potjans in~sod.
 \newblock An imperfect dopaminergic error signal can drive temporal-difference learning.
 \newblock \emph{PLoS Computational Biology}, 7\penalty0 (5), 2011.
 \newblock \doi{10.1371/journal.pcbi.1001133}.
@@ -43,14 +43,14 @@ Marko {\v{S}}utar.
 Andrej Svete.
 \newblock Posplo{\v{s}}itev problema vozi{\v{c}}ka s palico na zahtevnej{\v{s}}e domene, 2020.
 
-\bibitem[Tsodyks et~al.(2000)Tsodyks, Uziel, and Markram]{expModel}
-Misha Tsodyks, Asher Uziel, and Henry Markram.
+\bibitem[Tsodyks et~al.(2000)Tsodyks, Uziel, in Markram]{expModel}
+Misha Tsodyks, Asher Uziel, in Henry Markram.
 \newblock Synchrony generation in recurrent networks with frequency-dependent synapses.
 \newblock \emph{Journal of Neuroscience}, 20\penalty0 (1):\penalty0 RC50--RC50, 2000.
 \newblock \doi{10.1523/JNEUROSCI.20-01-j0003.2000}.
 
-\bibitem[Wunderlich et~al.(2019)]{pilotStudy}
-Thomas Wunderlich et~al.
+\bibitem[Wunderlich in~sod.(2019)]{pilotStudy}
+Thomas Wunderlich in~sod.
 \newblock Demonstrating advantages of neuromorphic computation: A pilot study.
 \newblock \emph{Frontiers in Neuroscience}, 13:\penalty0 260, 2019.
 \newblock \doi{10.3389/fnins.2019.00260}.
