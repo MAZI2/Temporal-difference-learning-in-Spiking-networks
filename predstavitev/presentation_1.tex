@@ -1,0 +1,381 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{subcaption}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Impulzne nevronske mreže]{Spodbujevano učenje na impulznih nevronskih mrežah} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Matjaž Pogačnik} % Your name
+\institute[UL] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Univerza v Ljubljani \\ % Your institution for the title page
+Fakulteta za računalništvo in informatiko \\
+\medskip
+\textit{mp24170@student.uni-lj.si} \\% Your email address
+\hfill \\
+Mentor: prof. dr. Zoran Bosnić
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{Uvod} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+
+\section{Impulzne nevronske mreže (SNN)} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+
+\begin{frame}
+\frametitle{Impulzne nevronske mreže}
+\begin{itemize}
+    \item SNN združujejo čas, energijsko učinkovitost in biološko realnost.
+    \item Informacija je kodirana v zaporedju in času impulzov.
+    \item Pri ANN čas zanemarjen ali obravnavan v diskretnih korakih.
+    \item Učenje preko lokalnih pravil namesto gradientov.
+\end{itemize}
+\begin{figure}
+\includegraphics[width=1.0\linewidth]{figs/pre-sin-post.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\iffalse
+\section{Spodbujevano učenje}
+\begin{frame}
+\frametitle{Spodbujevano učenje}
+
+\begin{itemize}
+    \item Potrebna uporaba lokalnih pravil za učenje.
+    \item Hebbov princip: ``Nevroni, ki se skupaj prožijo, se povežejo''.
+\end{itemize}
+
+\begin{figure}
+\includegraphics[width=0.6\linewidth]{figs/reinforcement_learning.png}
+{\tiny Source: \cite{ibmrl}}
+\end{figure}
+\end{frame}
+\fi
+
+\iffalse
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.6\textwidth}
+    \includegraphics[width=\textwidth]{figs/hebb_rule.png}
+    \label{fig:side1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{figs/variations_hebb.png}
+    \label{fig:side2}
+  \end{subfigure}
+  \label{fig:sidebyside}
+\end{figure}
+\fi
+
+\section{R-STDP model}
+
+\begin{frame}
+\frametitle{Lokalno pravilo za učenje}
+\begin{itemize}
+    \item Sinaptična plastičnost odvisna od časovne razporeditve impulzov (STDP).
+    \item Hebbov princip: ``Nevroni, ki se skupaj prožijo, se povežejo''.
+\end{itemize}
+\begin{figure}
+\includegraphics[width=0.9\linewidth]{figs/STDP.png}\\
+{\tiny Source: \cite{safa}}  
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\iffalse
+\begin{itemize}
+    \item Vpeljava nagrade (nevrotransmiter dopamin).
+    \item Sledi upravičenosti.
+    \item Sinaptična plastičnost odvisna od \textbf{nagrajevanja} in časovne razporeditve impulzov (R-STDP).
+\end{itemize}
+\fi
+
+\begin{frame}
+\frametitle{Nevromodulirana STDP}
+
+\begin{figure}
+\includegraphics[width=0.8\linewidth]{figs/RSTDP.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Igra Pong}
+\begin{frame}
+\frametitle{Igra Pong}
+\begin{itemize}
+    \item Stanje - presinaptični nevron
+    \item Akcija - postsinaptični nevron
+    \item Nagrada - koncentracija dopamina
+    \item Gradient aproksimiramo preko sinaps z visoko sledjo upravičenosti. 
+\end{itemize}
+\begin{figure}
+  \centering
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figs/pong_setup.png}\\
+    {\tiny Source: \cite{pong}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.68\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figs/mean_reward.png}
+  \end{minipage}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\section{R-STDP model}
+
+\begin{frame}
+\frametitle{Mrežni svet}
+\begin{itemize}
+    \item Verjetnost izbire akcije $a$ v stanju $i$ $\pi(a | i)$ - utež med vhodnim nevronom (stanje) in izhodnim (akcija)
+    \item Rezultat učenja je zvišana sinaptična utež za pravilno akcijo.
+\end{itemize}
+\begin{figure}
+\includegraphics[width=0.5\linewidth]{figs/best-rstdp.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{TD učenje}
+\begin{frame}
+    \frametitle{TD učenje (angl. \textit{Temporal difference learning})}
+\begin{figure}
+\includegraphics[width=0.6\linewidth]{figs/td.png}
+{\tiny Source: \cite{botpenguin}}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+\section{Nevronska vezja in dopaminski sistem}
+
+\begin{frame}
+    \frametitle{Človeški dopaminski sistem}
+\begin{figure}
+\includegraphics[width=0.6\linewidth]{figs/dopamine_system.png}
+{\tiny Source: \cite{dopamineSystem}}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+%TODO: novelties
+\begin{frame}
+    \frametitle{Simulacija dopaminskega sistema}
+\begin{figure}
+\includegraphics[width=0.9\linewidth]{figs/shift.png}
+{\tiny Source: \cite{distalReward}}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+\section{Igra Pong}
+%TODO: animation
+\begin{frame}
+    \frametitle{Igra Pong}
+\begin{figure}
+\includegraphics[width=0.6\linewidth]{figs/pong_animation.png}
+{\tiny Source: \cite{pong}}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\section{Zaključek}
+\begin{frame}
+    \frametitle{Zaključek}
+    Predstavitev in komentar rezultatov
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Reference (1/2)}
+\footnotesize{
+\begin{thebibliography}{99}
+
+\bibitem[Gündüz, 2021]{gunduz}
+Gökssel Gündüz (2021).
+\newblock Spiking Neural Networks (SNN).
+\newblock \url{https://medium.com/@goksselgunduz/spiking-neural-networks-snn-40ef3fd369b4}
+
+\bibitem[IBM, 2023]{ibmrl}
+IBM Think Blog (2023).
+\newblock Reinforcement Learning.
+\newblock \url{https://www.ibm.com/think/topics/reinforcement-learning}
+
+\bibitem[Nengo Forum, 2020]{nengo}
+Nengo Forum (2020).
+\newblock How should I use STDP after training in Nengo?
+\newblock \url{https://forum.nengo.ai/t/how-should-i-use-stdp-after-training-in-nengo/1931}
+
+\bibitem[Straker, n.d.]{pong}
+Straker.
+\newblock Simple Pong game in JavaScript using canvas.
+\newblock \url{https://gist.github.com/straker/81b59eecf70da93af396f963596dfdc5}
+
+\end{thebibliography}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Reference (2/2)}
+\footnotesize{
+\begin{thebibliography}{99}
+
+\bibitem[Wunderlich et~al., 2019]{pong}
+T. Wunderlich et~al. (2019).
+\newblock Demonstrating Advantages of Neuromorphic Computation: A Pilot Study.
+\newblock \emph{Frontiers in Neuroscience}, 13:260.
+\newblock \url{https://doi.org/10.3389/fnins.2019.00260}
+
+\bibitem[Safa, 2024]{safa}
+A. Safa (2024).
+\newblock Continual Learning in Bio-plausible Spiking Neural Networks with Hebbian and Spike Timing Dependent Plasticity: A Survey and Perspective.
+\newblock \emph{arXiv preprint}.
+\newblock \url{https://doi.org/10.48550/arXiv.2407.17305}
+
+\bibitem[Izhikevich, 2007]{distalReward}
+E. M. Izhikevich (2007).
+\newblock Solving the distal reward problem through linkage of STDP and dopamine signaling.
+\newblock \emph{Cerebral Cortex}, 17(10).
+\newblock \url{https://doi.org/10.1093/cercor/bhl152}
+
+\bibitem[Xu & Yang, 2022]{dopamineSystem}
+Haiyun Xu, Fan Yang (2022).
+\newblock The interplay of dopamine metabolism abnormalities and mitochondrial defects in the pathogenesis of schizophrenia.
+\newblock \emph{Translational Psychiatry}, 12.
+\newblock \url{https://doi.org/10.1038/s41398-022-02233-0}
+
+\bibitem[BotPenguin, 2024]{botpenguin}
+BotPenguin Glossary (2024).
+\newblock Temporal Difference Learning.
+\newblock \url{https://botpenguin.com/glossary/temporal-difference-learning}
+
+\bibitem[SlidePlayer, n.d.]{slideplayer}
+SlidePlayer.
+\newblock \emph{Reinforcement Learning - Temporal Difference}.
+\newblock \url{https://slideplayer.com/slide/17219459/}
+
+\end{thebibliography}
+}
+\end{frame}
+
+
+
+%------------------------------------------------
+
+\begin{frame}
+\Huge{\centerline{The End}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
+
