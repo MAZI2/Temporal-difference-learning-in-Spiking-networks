@@ -128,7 +128,7 @@ Mentor: prof. dr. Zoran Bosnić
 \end{itemize}
 \vspace{0.3cm}
 \begin{itemize}
-    \item \textbf{Problem:} kako izvajati spodbujevano učenje v impulznih nevronskih mrežah.
+    \item \textbf{Problem:} kako izvajati spodbujevano učenje na impulznih nevronskih mrežah.
     \item \textbf{Cilj:} razviti biološko smiselno arhitekturo, ki omogoča učenje tudi pri oddaljenih nagradah.
 \end{itemize}
 \begin{figure}
@@ -225,15 +225,31 @@ Mentor: prof. dr. Zoran Bosnić
 \section{TD-učenje in model akter-kritik}
 \begin{frame}
 \frametitle{TD-učenje in model akter-kritik}
+\begin{itemize}
+    \item TD omogoča postopno propagacijo nagrade nazaj skozi stanja,
+    \item Kritik ocenjuje pričakovano nagrado stanja,
+    \item uporabimo zakasnjene in vzbujajoče/inhibitorne povezave.
+    \item Akter izbira akcije,
+    \item biološka povezava: bazalni gangliji + dopamin.
+\end{itemize}
+\begin{columns}[c] % [c] = vertical center alignment
+
+\begin{column}{0.45\textwidth}
 \[
-    V(s_t) \leftarrow V(s_t) + \alpha \, \delta_t,
+    V(s_t) \leftarrow V(s_t) + \alpha \, \delta_t
 \]
 \[
-    \delta_t = r_{t+1} + \gamma V(s_{t+1}) - V(s_t).
+    \delta_t = r_{t+1} + \gamma V(s_{t+1}) - V(s_t)
 \]
-\begin{figure}
-\includegraphics[width=0.6\linewidth]{figs/actor-critic.png}
-\end{figure}
+\end{column}
+
+\begin{column}{0.55\textwidth}
+\centering
+\includegraphics[width=\linewidth]{figs/actor-critic.png}
+\end{column}
+
+\end{columns}
+
 \end{frame}
 
 %------------------------------------------------
@@ -267,7 +283,7 @@ Mentor: prof. dr. Zoran Bosnić
 \frametitle{Zaključek}
 \begin{itemize}
     \item Uspešna izvedba spodbujevanega učenja na impulznih nevronskih mrežah.
-    \item Možna boljša izbira hiperparametrov.
+    \item Model deluje, vendar je občutljiv na hiperparametre.
     \item Negativne nagrade niso bile uporabljene (nadaljnje delo: \textit{Izognitveno obnašanje}).
     \item Vzvratne povezave niso bile uporabljene (nadaljnje delo: \textit{Rekurenčne povezave}).
 \end{itemize}
