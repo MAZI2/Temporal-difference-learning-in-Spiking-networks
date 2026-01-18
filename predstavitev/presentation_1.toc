@@ -1,9 +1,7 @@
 \beamer@sectionintoc {1}{Uvod}{3}{0}{1}
-\beamer@sectionintoc {2}{Impulzne nevronske mreže (SNN)}{3}{0}{2}
-\beamer@sectionintoc {3}{R-STDP model}{4}{0}{3}
-\beamer@subsectionintoc {3}{1}{Igra Pong}{6}{0}{3}
-\beamer@sectionintoc {4}{R-STDP model}{7}{0}{4}
-\beamer@subsectionintoc {4}{1}{TD učenje}{8}{0}{4}
-\beamer@sectionintoc {5}{Nevronska vezja in dopaminski sistem}{9}{0}{5}
-\beamer@sectionintoc {6}{Igra Pong}{11}{0}{6}
-\beamer@sectionintoc {7}{Zaključek}{12}{0}{7}
+\beamer@sectionintoc {2}{R-STDP model}{4}{0}{2}
+\beamer@subsectionintoc {2}{1}{Igra Pong}{6}{0}{2}
+\beamer@subsectionintoc {2}{2}{Mrežni svet}{7}{0}{2}
+\beamer@sectionintoc {3}{TD-učenje in model akter-kritik}{8}{0}{3}
+\beamer@subsectionintoc {3}{1}{Rezultati}{9}{0}{3}
+\beamer@sectionintoc {4}{Zaključek}{10}{0}{4}

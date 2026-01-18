@@ -114,88 +114,67 @@ Mentor: prof. dr. Zoran Bosnić
 %----------------------------------------------------------------------------------------
 
 %------------------------------------------------
-\section{Uvod} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
-%------------------------------------------------
 
-\section{Impulzne nevronske mreže (SNN)} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+\section{Uvod} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
 
 \begin{frame}
-\frametitle{Impulzne nevronske mreže}
+\frametitle{Uvod}
+
 \begin{itemize}
-    \item SNN združujejo čas, energijsko učinkovitost in biološko realnost.
+    \item Impulzne nevronske mreže SNN združujejo čas, energijsko učinkovitost in biološko realističnost.
     \item Informacija je kodirana v zaporedju in času impulzov.
     \item Pri ANN čas zanemarjen ali obravnavan v diskretnih korakih.
     \item Učenje preko lokalnih pravil namesto gradientov.
+\end{itemize}
+\vspace{0.3cm}
+\begin{itemize}
+    \item \textbf{Problem:} kako izvajati spodbujevano učenje v impulznih nevronskih mrežah.
+    \item \textbf{Cilj:} razviti biološko smiselno arhitekturo, ki omogoča učenje tudi pri oddaljenih nagradah.
 \end{itemize}
 \begin{figure}
 \includegraphics[width=1.0\linewidth]{figs/pre-sin-post.png}
 \end{figure}
 \end{frame}
 
-%------------------------------------------------
-
-\iffalse
-\section{Spodbujevano učenje}
-\begin{frame}
-\frametitle{Spodbujevano učenje}
-
-\begin{itemize}
-    \item Potrebna uporaba lokalnih pravil za učenje.
-    \item Hebbov princip: ``Nevroni, ki se skupaj prožijo, se povežejo''.
-\end{itemize}
-
-\begin{figure}
-\includegraphics[width=0.6\linewidth]{figs/reinforcement_learning.png}
-{\tiny Source: \cite{ibmrl}}
-\end{figure}
-\end{frame}
-\fi
-
-\iffalse
-\begin{figure}
-  \centering
-  \begin{subfigure}[b]{0.6\textwidth}
-    \includegraphics[width=\textwidth]{figs/hebb_rule.png}
-    \label{fig:side1}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.4\textwidth}
-    \includegraphics[width=\textwidth]{figs/variations_hebb.png}
-    \label{fig:side2}
-  \end{subfigure}
-  \label{fig:sidebyside}
-\end{figure}
-\fi
-
 \section{R-STDP model}
 
 \begin{frame}
 \frametitle{Lokalno pravilo za učenje}
 \begin{itemize}
-    \item Sinaptična plastičnost odvisna od časovne razporeditve impulzov (STDP).
-    \item Hebbov princip: ``Nevroni, ki se skupaj prožijo, se povežejo''.
+    \item STDP je lokalno pravilo učenja, kjer se sinaptične uteži spreminjajo glede na relativni čas proženja pre- in postsinaptičnih nevronov.
+        \vspace{0.3cm}
+    \item \textbf{Zakaj STDP?} 
+    \begin{itemize}
+        \item biološko smiselno,
+        \item ne potrebuje gradientov,
+        \item deluje naravno s časom impulzov,
+    \end{itemize}
+    \vspace{0.3cm}
+    \item Ne vključuje informacije o nagradi. Razširimo z dopaminsko modulacijo in kasneje s TD učenjem.
+
 \end{itemize}
 \begin{figure}
-\includegraphics[width=0.9\linewidth]{figs/STDP.png}\\
+\includegraphics[width=0.6\linewidth]{figs/STDP.png}\\
 {\tiny Source: \cite{safa}}  
 \end{figure}
 \end{frame}
 
 %------------------------------------------------
 
-\iffalse
-\begin{itemize}
-    \item Vpeljava nagrade (nevrotransmiter dopamin).
-    \item Sledi upravičenosti.
-    \item Sinaptična plastičnost odvisna od \textbf{nagrajevanja} in časovne razporeditve impulzov (R-STDP).
-\end{itemize}
-\fi
-
 \begin{frame}
 \frametitle{Nevromodulirana STDP}
+\begin{itemize}
+    \item Dopamin globalno modulira plastičnost sinaps (R-STDP).
+    \item Sinapse si zapomnijo preteklo aktivnost (sled upravičenosti).
+        \vspace{0.3cm}
+\item \textbf{Problem:} če nagrada pride prepozno, R-STDP ne ve več, katera odločitev je bila prava.
+\end{itemize}
+%Pri nevromodulirani STDP dodamo globalni signal nagrade, ki ga predstavlja dopamin.
+%Sinapse ne posodabljamo takoj, ampak si zapomnijo, katera aktivnost je bila pomembna – temu pravimo sled upravičenosti.
+%Ko pride nagrada, se ojačajo samo te sinapse.
 
 \begin{figure}
-\includegraphics[width=0.8\linewidth]{figs/RSTDP.png}
+\includegraphics[width=0.6\linewidth]{figs/RSTDP.png}
 \end{figure}
 \end{frame}
 
@@ -204,9 +183,9 @@ Mentor: prof. dr. Zoran Bosnić
 \begin{frame}
 \frametitle{Igra Pong}
 \begin{itemize}
-    \item Stanje - presinaptični nevron
-    \item Akcija - postsinaptični nevron
-    \item Nagrada - koncentracija dopamina
+    \item Stanje - presinaptični nevron.
+    \item Akcija - postsinaptični nevron.
+    \item Nagrada - koncentracija dopamina.
     \item Gradient aproksimiramo preko sinaps z visoko sledjo upravičenosti. 
 \end{itemize}
 \begin{figure}
@@ -227,13 +206,14 @@ Mentor: prof. dr. Zoran Bosnić
 
 %------------------------------------------------
 
-\section{R-STDP model}
+\subsection{Mrežni svet}
 
 \begin{frame}
 \frametitle{Mrežni svet}
 \begin{itemize}
-    \item Verjetnost izbire akcije $a$ v stanju $i$ $\pi(a | i)$ - utež med vhodnim nevronom (stanje) in izhodnim (akcija)
+    \item Verjetnost izbire akcije $a$ v stanju $i$ $\pi(a | i)$ - utež med vhodnim nevronom (stanje) in izhodnim (akcija).
     \item Rezultat učenja je zvišana sinaptična utež za pravilno akcijo.
+    \item \textbf{Problem zakasnjene nagrade.}
 \end{itemize}
 \begin{figure}
 \includegraphics[width=0.5\linewidth]{figs/best-rstdp.png}
@@ -242,53 +222,55 @@ Mentor: prof. dr. Zoran Bosnić
 
 %------------------------------------------------
 
-\subsection{TD učenje}
+\section{TD-učenje in model akter-kritik}
 \begin{frame}
-    \frametitle{TD učenje (angl. \textit{Temporal difference learning})}
+\frametitle{TD-učenje in model akter-kritik}
+\[
+    V(s_t) \leftarrow V(s_t) + \alpha \, \delta_t,
+\]
+\[
+    \delta_t = r_{t+1} + \gamma V(s_{t+1}) - V(s_t).
+\]
 \begin{figure}
-\includegraphics[width=0.6\linewidth]{figs/td.png}
-{\tiny Source: \cite{botpenguin}}
+\includegraphics[width=0.6\linewidth]{figs/actor-critic.png}
 \end{figure}
 \end{frame}
 
 %------------------------------------------------
-\section{Nevronska vezja in dopaminski sistem}
+
+\subsection{Rezultati}
 
 \begin{frame}
-    \frametitle{Človeški dopaminski sistem}
+\frametitle{Rezultati}
+\begin{itemize}
+    \item Rezultat učenja je zvišana sinaptična utež za pravilno akcijo in višanje pričakovane nagrade skozi čas.
+\end{itemize}
 \begin{figure}
-\includegraphics[width=0.6\linewidth]{figs/dopamine_system.png}
-{\tiny Source: \cite{dopamineSystem}}
+  \centering
+  \begin{minipage}{0.39\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figs/best.png}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.6\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figs/progress.png}
+  \end{minipage}
 \end{figure}
 \end{frame}
 
 %------------------------------------------------
-%TODO: novelties
-\begin{frame}
-    \frametitle{Simulacija dopaminskega sistema}
-\begin{figure}
-\includegraphics[width=0.9\linewidth]{figs/shift.png}
-{\tiny Source: \cite{distalReward}}
-\end{figure}
-\end{frame}
 
-%------------------------------------------------
-\section{Igra Pong}
-%TODO: animation
-\begin{frame}
-    \frametitle{Igra Pong}
-\begin{figure}
-\includegraphics[width=0.6\linewidth]{figs/pong_animation.png}
-{\tiny Source: \cite{pong}}
-\end{figure}
-\end{frame}
-
-%------------------------------------------------
 
 \section{Zaključek}
 \begin{frame}
-    \frametitle{Zaključek}
-    Predstavitev in komentar rezultatov
+\frametitle{Zaključek}
+\begin{itemize}
+    \item Uspešna izvedba spodbujevanega učenja na impulznih nevronskih mrežah.
+    \item Možna boljša izbira hiperparametrov.
+    \item Negativne nagrade niso bile uporabljene (nadaljnje delo: \textit{Izognitveno obnašanje}).
+    \item Vzvratne povezave niso bile uporabljene (nadaljnje delo: \textit{Rekurenčne povezave}).
+\end{itemize}
 \end{frame}
 
 %------------------------------------------------
@@ -296,44 +278,10 @@ Mentor: prof. dr. Zoran Bosnić
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Reference (1/2)}
+\frametitle{Reference}
 \footnotesize{
 \begin{thebibliography}{99}
 
-\bibitem[Gündüz, 2021]{gunduz}
-Gökssel Gündüz (2021).
-\newblock Spiking Neural Networks (SNN).
-\newblock \url{https://medium.com/@goksselgunduz/spiking-neural-networks-snn-40ef3fd369b4}
-
-\bibitem[IBM, 2023]{ibmrl}
-IBM Think Blog (2023).
-\newblock Reinforcement Learning.
-\newblock \url{https://www.ibm.com/think/topics/reinforcement-learning}
-
-\bibitem[Nengo Forum, 2020]{nengo}
-Nengo Forum (2020).
-\newblock How should I use STDP after training in Nengo?
-\newblock \url{https://forum.nengo.ai/t/how-should-i-use-stdp-after-training-in-nengo/1931}
-
-\bibitem[Straker, n.d.]{pong}
-Straker.
-\newblock Simple Pong game in JavaScript using canvas.
-\newblock \url{https://gist.github.com/straker/81b59eecf70da93af396f963596dfdc5}
-
-\end{thebibliography}
-}
-\end{frame}
-
-\begin{frame}
-\frametitle{Reference (2/2)}
-\footnotesize{
-\begin{thebibliography}{99}
-
-\bibitem[Wunderlich et~al., 2019]{pong}
-T. Wunderlich et~al. (2019).
-\newblock Demonstrating Advantages of Neuromorphic Computation: A Pilot Study.
-\newblock \emph{Frontiers in Neuroscience}, 13:260.
-\newblock \url{https://doi.org/10.3389/fnins.2019.00260}
 
 \bibitem[Safa, 2024]{safa}
 A. Safa (2024).
@@ -341,27 +289,17 @@ A. Safa (2024).
 \newblock \emph{arXiv preprint}.
 \newblock \url{https://doi.org/10.48550/arXiv.2407.17305}
 
-\bibitem[Izhikevich, 2007]{distalReward}
-E. M. Izhikevich (2007).
-\newblock Solving the distal reward problem through linkage of STDP and dopamine signaling.
-\newblock \emph{Cerebral Cortex}, 17(10).
-\newblock \url{https://doi.org/10.1093/cercor/bhl152}
+\bibitem[IBM, 2023]{ibmrl}
+IBM Think Blog (2023).
+\newblock Reinforcement Learning.
+\newblock \url{https://www.ibm.com/think/topics/reinforcement-learning}
 
-\bibitem[Xu & Yang, 2022]{dopamineSystem}
-Haiyun Xu, Fan Yang (2022).
-\newblock The interplay of dopamine metabolism abnormalities and mitochondrial defects in the pathogenesis of schizophrenia.
-\newblock \emph{Translational Psychiatry}, 12.
-\newblock \url{https://doi.org/10.1038/s41398-022-02233-0}
+\bibitem[Wunderlich et~al., 2019]{pong}
+T. Wunderlich in~sod. (2019).
+\newblock Demonstrating Advantages of Neuromorphic Computation: A Pilot Study.
+\newblock \emph{Frontiers in Neuroscience}, 13:260.
+\newblock \url{https://doi.org/10.3389/fnins.2019.00260}
 
-\bibitem[BotPenguin, 2024]{botpenguin}
-BotPenguin Glossary (2024).
-\newblock Temporal Difference Learning.
-\newblock \url{https://botpenguin.com/glossary/temporal-difference-learning}
-
-\bibitem[SlidePlayer, n.d.]{slideplayer}
-SlidePlayer.
-\newblock \emph{Reinforcement Learning - Temporal Difference}.
-\newblock \url{https://slideplayer.com/slide/17219459/}
 
 \end{thebibliography}
 }
@@ -370,10 +308,6 @@ SlidePlayer.
 
 
 %------------------------------------------------
-
-\begin{frame}
-\Huge{\centerline{The End}}
-\end{frame}
 
 %----------------------------------------------------------------------------------------
 

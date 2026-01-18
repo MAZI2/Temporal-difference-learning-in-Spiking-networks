@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.14)  15 JAN 2026 14:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.14)  18 JAN 2026 16:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -592,11 +592,7 @@ Package caption Info: New subtype `subtable' on input line 239.
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count342
 \l__pdf_internal_box=\box76
-) (./presentation_1.aux
-
-LaTeX Warning: Label `pong' multiply defined.
-
-)
+) (./presentation_1.aux)
 \openout1 = `presentation_1.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
@@ -745,159 +741,100 @@ Package caption Info: End \AtBeginDocument code.
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./presentation_1.toc) [2
 
 ]
-<figs/pre-sin-post.png, id=141, 725.71124pt x 220.57407pt>
+<figs/pre-sin-post.png, id=130, 725.71124pt x 220.57407pt>
 File: figs/pre-sin-post.png Graphic file (type png)
 <use figs/pre-sin-post.png>
-Package pdftex.def Info: figs/pre-sin-post.png  used on input line 133.
+Package pdftex.def Info: figs/pre-sin-post.png  used on input line 137.
 (pdftex.def)             Requested size: 342.2953pt x 104.04004pt.
- [3
+
+Overfull \vbox (18.03458pt too high) detected at line 137
+ []
+
+[3
 
  <./figs/pre-sin-post.png>]
-<figs/STDP.png, id=170, 853.1875pt x 366.36874pt>
+<figs/STDP.png, id=162, 853.1875pt x 366.36874pt>
 File: figs/STDP.png Graphic file (type png)
 <use figs/STDP.png>
-Package pdftex.def Info: figs/STDP.png  used on input line 182.
-(pdftex.def)             Requested size: 308.06367pt x 132.28955pt.
- [4
+Package pdftex.def Info: figs/STDP.png  used on input line 160.
+(pdftex.def)             Requested size: 205.37926pt x 88.19304pt.
+
+Overfull \vbox (4.82346pt too high) detected at line 160
+ []
+
+[4
 
  <./figs/STDP.png>]
-<figs/RSTDP.png, id=200, 721.2546pt x 577.4373pt>
+<figs/RSTDP.png, id=192, 383.4325pt x 272.01625pt>
 File: figs/RSTDP.png Graphic file (type png)
 <use figs/RSTDP.png>
-Package pdftex.def Info: figs/RSTDP.png  used on input line 200.
-(pdftex.def)             Requested size: 273.83728pt x 219.2346pt.
+Package pdftex.def Info: figs/RSTDP.png  used on input line 179.
+(pdftex.def)             Requested size: 205.37926pt x 145.70364pt.
  [5
 
  <./figs/RSTDP.png>]
-<figs/pong_setup.png, id=227, 358.33875pt x 371.3875pt>
+<figs/pong_setup.png, id=219, 358.33875pt x 371.3875pt>
 File: figs/pong_setup.png Graphic file (type png)
 <use figs/pong_setup.png>
-Package pdftex.def Info: figs/pong_setup.png  used on input line 226.
+Package pdftex.def Info: figs/pong_setup.png  used on input line 205.
 (pdftex.def)             Requested size: 102.68962pt x 106.42455pt.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 226.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 205.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 226.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 205.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 226.
+LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 205.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
 )
-<figs/mean_reward.png, id=229, 866.5173pt x 432.8973pt>
+<figs/mean_reward.png, id=221, 866.5173pt x 432.8973pt>
 File: figs/mean_reward.png Graphic file (type png)
 <use figs/mean_reward.png>
-Package pdftex.def Info: figs/mean_reward.png  used on input line 226.
+Package pdftex.def Info: figs/mean_reward.png  used on input line 205.
 (pdftex.def)             Requested size: 232.75829pt x 116.28273pt.
  [6
 
  <./figs/pong_setup.png> <./figs/mean_reward.png>]
-<figs/best-rstdp.png, id=258, 289.08pt x 289.08pt>
+<figs/best-rstdp.png, id=250, 289.08pt x 289.08pt>
 File: figs/best-rstdp.png Graphic file (type png)
 <use figs/best-rstdp.png>
-Package pdftex.def Info: figs/best-rstdp.png  used on input line 241.
+Package pdftex.def Info: figs/best-rstdp.png  used on input line 221.
 (pdftex.def)             Requested size: 171.14764pt x 171.14679pt.
- [7
+
+Overfull \vbox (7.6054pt too high) detected at line 221
+ []
+
+[7
 
  <./figs/best-rstdp.png>]
+<figs/actor-critic.png, id=282, 539.01375pt x 418.56375pt>
+File: figs/actor-critic.png Graphic file (type png)
+<use figs/actor-critic.png>
+Package pdftex.def Info: figs/actor-critic.png  used on input line 237.
+(pdftex.def)             Requested size: 205.37926pt x 159.48378pt.
+ [8
 
-LaTeX Warning: File `figs/td.png' not found on input line 252.
+ <./figs/actor-critic.png>]
+<figs/best.png, id=310, 401.5pt x 401.5pt>
+File: figs/best.png Graphic file (type png)
+<use figs/best.png>
+Package pdftex.def Info: figs/best.png  used on input line 260.
+(pdftex.def)             Requested size: 133.49495pt x 133.494pt.
+<figs/progress.png, id=311, 867.24pt x 433.62pt>
+File: figs/progress.png Graphic file (type png)
+<use figs/progress.png>
+Package pdftex.def Info: figs/progress.png  used on input line 260.
+(pdftex.def)             Requested size: 205.37926pt x 102.68806pt.
+ [9
 
+ <./figs/best.png> <./figs/progress.png>] [10
 
-./presentation_1.tex:252: Package pdftex.def Error: File `figs/td.png' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.252 \end{frame}
-                 
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-[8
-
-]
-<figs/dopamine_system.png, id=319, 284.39583pt x 239.22708pt>
-File: figs/dopamine_system.png Graphic file (type png)
-<use figs/dopamine_system.png>
-Package pdftex.def Info: figs/dopamine_system.png  used on input line 263.
-(pdftex.def)             Requested size: 205.37926pt x 172.7617pt.
-
-./presentation_1.tex:263: Misplaced alignment tab character &.
-<argument> \relax Xu &
-                       Yang, 2022
-l.263 \end{frame}
-                 
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-[9
-
- <./figs/dopamine_system.png>]
-
-LaTeX Warning: File `figs/shift.png' not found on input line 273.
-
-
-./presentation_1.tex:273: Package pdftex.def Error: File `figs/shift.png' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.273 \end{frame}
-                 
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Overfull \vbox (102.17816pt too high) detected at line 273
- []
-
-[10
-
-]
-
-LaTeX Warning: File `figs/pong_animation.png' not found on input line 284.
-
-
-./presentation_1.tex:284: Package pdftex.def Error: File `figs/pong_animation.png' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.284 \end{frame}
-                 
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-[11
-
-] [12
-
-] [13
+] [11
 
  </usr/local/texlive/2023/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>]
-pdfTeX warning (ext4): destination with the same identifier (name{beamerbibpong}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.368 \end{frame}
-                 
-Overfull \vbox (101.17886pt too high) detected at line 368
- []
-
-[14
-
-] [15
-
-]
 \tf@nav=\write6
 \openout6 = `presentation_1.nav'.
 
@@ -908,25 +845,22 @@ Overfull \vbox (101.17886pt too high) detected at line 368
 \openout8 = `presentation_1.snm'.
 
  (./presentation_1.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `presentation_1.out' has not changed.
-(rerunfilecheck)             Checksum: 2132E5A4187F7D2BCA289CA76BC2A988;1116.
+(rerunfilecheck)             Checksum: 6A0968579F1A15290A4420AB09CE7E2C;795.
  ) 
 Here is how much of TeX's memory you used:
- 23784 strings out of 476025
- 470131 string characters out of 5790016
- 1867388 words of memory out of 5000000
- 43675 multiletter control sequences out of 15000+600000
- 524038 words of font info for 74 fonts, out of 8000000 for 9000
+ 23676 strings out of 476025
+ 468418 string characters out of 5790016
+ 1863388 words of memory out of 5000000
+ 43600 multiletter control sequences out of 15000+600000
+ 524160 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,16n,122p,389b,615s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on presentation_1.pdf (15 pages, 915593 bytes).
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on presentation_1.pdf (11 pages, 507397 bytes).
 PDF statistics:
- 604 PDF objects out of 1000 (max. 8388607)
- 523 compressed objects within 6 object streams
- 49 named destinations out of 1000 (max. 500000)
+ 465 PDF objects out of 1000 (max. 8388607)
+ 387 compressed objects within 4 object streams
+ 33 named destinations out of 1000 (max. 500000)
  198 words of extra memory for PDF output out of 10000 (max. 10000000)
 
