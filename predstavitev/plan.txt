@@ -1,0 +1,57 @@
+1. Impulzne nevronske mreže (SNN):
+    - SNN združujejo čas, energijsko učinkovitost in biološko realnost.
+    - Informacija je kodirana v zaporedju in času spikeov.
+    - Pri ANN čas je navadno implicitno zanemarjen ali obravnavan v diskretnih korakih.
+    - SNN niso zvezne. Učenje preko lokalnih pravil namesto gradientov.
+
+    Moja slika SNN.
+
+4. Spodbujevano učenje
+- Lokalno pravilo za učenje.
+- Hebbov princip: "nevroni, ki skupaj ..."
+    
+      Slika agent environment. 
+
+3. R-STDP model:
+- STDP predstavlja odgovornost presinaptičnega nevrona, da se je sprožil postsinaptični.
+    Slika STDP
+
+R-STDP
+    - Vpeljava nagrade (nevrotransmitter dopamin)
+    - Sled odgovornosti
+    
+        Slika R-STDP (non-delayed)
+
+
+
+5. Pong
+    - Ob prisotnosti globalne nagrade, se glede na sledi odgovornosti sinapse prilagajajo (R-STDP učenje).
+    - Ob določenem izhodu, bodo sinapse z visoko sledjo odgovornosti definirale pot, ki je potencialno najbolj prispevala k aktivaciji tega izhoda.
+
+    Slika pong in slika learninga
+
+6. Gridworld
+    - Problem zakasnjene nagrade
+
+    Slika R-STDP fail
+
+7. TD-učenje in model akter-kritik
+    - V vsakem stanju računamo pričakovano nagrado - vrednost stanja.
+    - Pričakovano nagrado posodabljamo glede na prehode.
+    - Razvitemu R-STDP akterju dodamo kritika.
+
+    Enacba racunanja
+
+    Slika modela
+
+8. Rezultati
+    Slika gridworld in učenje
+
+9. Zaključek in ideje za nadaljnje delo
+    Uspešno smo izvedli spodbujevano učenje na impulznih nevronskih mrežah.
+    Dobljeni rezultati bi lahko bili boljši ob dodatnem prilagajanju hiperparametrov.
+    Negativne nagrade niso bile uporabljene (noviteta).
+        Potencialno razširitev bi predstavljala implementacija izognitve stanjem.
+
+    Vzvratne povezave niso bile uporabljene.
+        Potencialna razširitev. Spremljanje postane težje. Prehodi med seboj niso več neodvisni.

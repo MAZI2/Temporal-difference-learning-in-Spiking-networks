@@ -1,0 +1,331 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{subcaption}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Impulzne nevronske mreže]{Spodbujevano učenje na impulznih nevronskih mrežah} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Matjaž Pogačnik} % Your name
+\institute[UL] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Univerza v Ljubljani \\ % Your institution for the title page
+Fakulteta za računalništvo in informatiko \\
+\medskip
+\textit{mp24170@student.uni-lj.si} \\% Your email address
+\hfill \\
+Mentor: prof. dr. Zoran Bosnić
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+
+\section{Uvod} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+
+\begin{frame}
+\frametitle{Uvod}
+
+\begin{itemize}
+    \item Impulzne nevronske mreže SNN združujejo čas, energijsko učinkovitost in biološko realističnost.
+    \item Informacija je kodirana v zaporedju in času impulzov.
+    \item Pri ANN čas zanemarjen ali obravnavan v diskretnih korakih.
+    \item Učenje preko lokalnih pravil namesto gradientov.
+\end{itemize}
+\vspace{0.3cm}
+\begin{itemize}
+    \item \textbf{Problem:} kako izvajati spodbujevano učenje na impulznih nevronskih mrežah.
+    \item \textbf{Cilj:} razviti biološko smiselno arhitekturo, ki omogoča učenje tudi pri oddaljenih nagradah.
+\end{itemize}
+\begin{figure}
+\includegraphics[width=1.0\linewidth]{figs/pre-sin-post.png}
+\end{figure}
+\end{frame}
+
+\section{R-STDP model}
+
+\begin{frame}
+\frametitle{Lokalno pravilo za učenje}
+\begin{itemize}
+    \item STDP je lokalno pravilo učenja, kjer se sinaptične uteži spreminjajo glede na relativni čas proženja pre- in postsinaptičnih nevronov.
+        \vspace{0.3cm}
+    \item \textbf{Zakaj STDP?} 
+    \begin{itemize}
+        \item biološko smiselno,
+        \item ne potrebuje gradientov,
+        \item deluje naravno s časom impulzov,
+    \end{itemize}
+    \vspace{0.3cm}
+    \item Ne vključuje informacije o nagradi. Razširimo z dopaminsko modulacijo in kasneje s TD učenjem.
+
+\end{itemize}
+\begin{figure}
+\includegraphics[width=0.6\linewidth]{figs/STDP.png}\\
+{\tiny Source: \cite{safa}}  
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Nevromodulirana STDP}
+\begin{itemize}
+    \item Dopamin globalno modulira plastičnost sinaps (R-STDP).
+    \item Sinapse si zapomnijo preteklo aktivnost (sled upravičenosti).
+        \vspace{0.3cm}
+\item \textbf{Problem:} če nagrada pride prepozno, R-STDP ne ve več, katera odločitev je bila prava.
+\end{itemize}
+%Pri nevromodulirani STDP dodamo globalni signal nagrade, ki ga predstavlja dopamin.
+%Sinapse ne posodabljamo takoj, ampak si zapomnijo, katera aktivnost je bila pomembna – temu pravimo sled upravičenosti.
+%Ko pride nagrada, se ojačajo samo te sinapse.
+
+\begin{figure}
+\includegraphics[width=0.6\linewidth]{figs/RSTDP.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Igra Pong}
+\begin{frame}
+\frametitle{Igra Pong}
+\begin{itemize}
+    \item Stanje - presinaptični nevron.
+    \item Akcija - postsinaptični nevron.
+    \item Nagrada - koncentracija dopamina.
+    \item Gradient aproksimiramo preko sinaps z visoko sledjo upravičenosti. 
+\end{itemize}
+\begin{figure}
+  \centering
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figs/pong_setup.png}\\
+    {\tiny Source: \cite{pong}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.68\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figs/mean_reward.png}
+  \end{minipage}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{Mrežni svet}
+
+\begin{frame}
+\frametitle{Mrežni svet}
+\begin{itemize}
+    \item Verjetnost izbire akcije $a$ v stanju $i$ $\pi(a | i)$ - utež med vhodnim nevronom (stanje) in izhodnim (akcija).
+    \item Rezultat učenja je zvišana sinaptična utež za pravilno akcijo.
+    \item \textbf{Problem zakasnjene nagrade.}
+\end{itemize}
+\begin{figure}
+\includegraphics[width=0.5\linewidth]{figs/best-rstdp.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\section{TD-učenje in model akter-kritik}
+\begin{frame}
+\frametitle{TD-učenje in model akter-kritik}
+\begin{itemize}
+    \item TD omogoča postopno propagacijo nagrade nazaj skozi stanja,
+    \item Kritik ocenjuje pričakovano nagrado stanja,
+    \item uporabimo zakasnjene in vzbujajoče/inhibitorne povezave.
+    \item Akter izbira akcije,
+    \item biološka povezava: bazalni gangliji + dopamin.
+\end{itemize}
+\begin{columns}[c] % [c] = vertical center alignment
+
+\begin{column}{0.45\textwidth}
+\[
+    V(s_t) \leftarrow V(s_t) + \alpha \, \delta_t
+\]
+\[
+    \delta_t = r_{t+1} + \gamma V(s_{t+1}) - V(s_t)
+\]
+\end{column}
+
+\begin{column}{0.55\textwidth}
+\centering
+\includegraphics[width=\linewidth]{figs/actor-critic.png}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{Rezultati}
+
+\begin{frame}
+\frametitle{Rezultati}
+\begin{itemize}
+    \item Rezultat učenja je zvišana sinaptična utež za pravilno akcijo in višanje pričakovane nagrade skozi čas.
+\end{itemize}
+\begin{figure}
+  \centering
+  \begin{minipage}{0.39\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figs/best.png}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.6\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figs/progress.png}
+  \end{minipage}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+
+\section{Zaključek}
+\begin{frame}
+\frametitle{Zaključek}
+\begin{itemize}
+    \item Uspešna izvedba spodbujevanega učenja na impulznih nevronskih mrežah.
+    \item Model deluje, vendar je občutljiv na hiperparametre.
+    \item Negativne nagrade niso bile uporabljene (nadaljnje delo: \textit{Izognitveno obnašanje}).
+    \item Vzvratne povezave niso bile uporabljene (nadaljnje delo: \textit{Rekurenčne povezave}).
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Reference}
+\footnotesize{
+\begin{thebibliography}{99}
+
+
+\bibitem[Safa, 2024]{safa}
+A. Safa (2024).
+\newblock Continual Learning in Bio-plausible Spiking Neural Networks with Hebbian and Spike Timing Dependent Plasticity: A Survey and Perspective.
+\newblock \emph{arXiv preprint}.
+\newblock \url{https://doi.org/10.48550/arXiv.2407.17305}
+
+\bibitem[IBM, 2023]{ibmrl}
+IBM Think Blog (2023).
+\newblock Reinforcement Learning.
+\newblock \url{https://www.ibm.com/think/topics/reinforcement-learning}
+
+\bibitem[Wunderlich et~al., 2019]{pong}
+T. Wunderlich in~sod. (2019).
+\newblock Demonstrating Advantages of Neuromorphic Computation: A Pilot Study.
+\newblock \emph{Frontiers in Neuroscience}, 13:260.
+\newblock \url{https://doi.org/10.3389/fnins.2019.00260}
+
+
+\end{thebibliography}
+}
+\end{frame}
+
+
+
+%------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
+

@@ -1,0 +1,7 @@
+\beamer@sectionintoc {1}{Uvod}{3}{0}{1}
+\beamer@sectionintoc {2}{R-STDP model}{4}{0}{2}
+\beamer@subsectionintoc {2}{1}{Igra Pong}{6}{0}{2}
+\beamer@subsectionintoc {2}{2}{Mrežni svet}{7}{0}{2}
+\beamer@sectionintoc {3}{TD-učenje in model akter-kritik}{8}{0}{3}
+\beamer@subsectionintoc {3}{1}{Rezultati}{9}{0}{3}
+\beamer@sectionintoc {4}{Zaključek}{10}{0}{4}
