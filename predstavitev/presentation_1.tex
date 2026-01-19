@@ -141,7 +141,12 @@ Mentor: prof. dr. Zoran Bosnić
 \begin{frame}
 \frametitle{Lokalno pravilo za učenje}
 \begin{itemize}
-    \item STDP je lokalno pravilo učenja, kjer se sinaptične uteži spreminjajo glede na relativni čas proženja pre- in postsinaptičnih nevronov.
+    \item \textbf{Problem:} katere povezave so bile odgovorne za proženje izhoda? (problem pripisovanja odgovornosti)
+    \vspace{0.3cm}
+
+    \item Sinaptična plastičnost odvisna od časovne razporeditve impulzov (STDP).
+    \item Sledi upravičenosti (eligibility traces)
+
         \vspace{0.3cm}
     \item \textbf{Zakaj STDP?} 
     \begin{itemize}
@@ -149,12 +154,10 @@ Mentor: prof. dr. Zoran Bosnić
         \item ne potrebuje gradientov,
         \item deluje naravno s časom impulzov,
     \end{itemize}
-    \vspace{0.3cm}
-    \item Ne vključuje informacije o nagradi. Razširimo z dopaminsko modulacijo in kasneje s TD učenjem.
 
 \end{itemize}
 \begin{figure}
-\includegraphics[width=0.6\linewidth]{figs/STDP.png}\\
+\includegraphics[width=0.5\linewidth]{figs/STDP.png}\\
 {\tiny Source: \cite{safa}}  
 \end{figure}
 \end{frame}
@@ -164,6 +167,7 @@ Mentor: prof. dr. Zoran Bosnić
 \begin{frame}
 \frametitle{Nevromodulirana STDP}
 \begin{itemize}
+    \item STDP ne vključuje informacije o nagradi. Razširimo z dopaminsko modulacijo.
     \item Dopamin globalno modulira plastičnost sinaps (R-STDP).
     \item Sinapse si zapomnijo preteklo aktivnost (sled upravičenosti).
         \vspace{0.3cm}
@@ -174,7 +178,7 @@ Mentor: prof. dr. Zoran Bosnić
 %Ko pride nagrada, se ojačajo samo te sinapse.
 
 \begin{figure}
-\includegraphics[width=0.6\linewidth]{figs/RSTDP.png}
+\includegraphics[width=0.5\linewidth]{figs/RSTDP.png}
 \end{figure}
 \end{frame}
 
