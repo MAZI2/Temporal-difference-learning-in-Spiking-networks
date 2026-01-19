@@ -1,0 +1,18 @@
+V diplomskem delu raziskujemo spodbujevano učenje na impulznih nevronskih mrežah. Razvijemo prilagojen učni mehanizem R-STDP in arhitekturo akter-kritik za obravnavo zakasnjenih nagrad. Učinkovitost sistema preverimo na nalogah Pong in mrežni svet.
+
+In this thesis, we study reinforcement learning in spiking neural networks. We develop an adapted R-STDP learning mechanism and an actor-critic architecture to address delayed rewards. The effectiveness of the system is evaluated on the Pong task and the gridworld environment.
+
+
+V diplomskem delu obravnavamo spodbujevano učenje na impulznih nevronskih mrežah, ki se obnašajo podobno kot človeški možgani. Predstavimo in rešimo ključne izzive učenja impulznih mrež ter razvijemo rešitve, ki upoštevajo tako biološko smiselnost kot zahtevnost simulacije. S prilagoditvijo klasične oblike sinapse, odvisne od nagrajevanja in časovne razporeditve impulzov (R-STDP), omogočimo učinkovito učenje in dodeljevanje zaslug preteklim odločitvam, pri čemer ohranimo osnovni princip R-STDP, kjer sinapse kodirajo vpliv pretekle aktivnosti nevronov na izbrane akcije brez uvedbe negativnih nagrad ali nerealističnih mehanizmov.
+
+Razviti sistem razširimo v arhitekturo akter-kritik, ki omogoča reševanje problemov z zakasnjenimi nagradami s prenosom pričakovane nagrade iz cilja v prejšnja stanja. Sistem ovrednotimo na poenostavljenih in nato na kompleksnejših nalogah, kot sta igra Pong in problem mrežnega sveta (gridworld). V igri Pong rezultati kažejo postopno daljše sekvence igranja brez zgrešitve žogice, v nalogi mrežnega sveta pa postopno izboljševanje strategije in krajšanje poti do cilja.
+
+
+In this thesis, we study reinforcement learning in spiking neural networks, a type of neural network that behaves similarly to the human brain. We present and address key challenges in training spiking networks and develop solutions that account for both biological plausibility and simulation complexity. By adapting the classical form of reward modulated spike timing dependent plasticity (R-STDP), we enable efficient learning and the assignment of credit to past decisions, while preserving the core principle of R-STDP, in which synapses encode the influence of past neuronal activity on selected actions, without introducing negative rewards or unrealistic mechanisms.
+
+We then extend the developed system into an actor-critic architecture, enabling it to solve problems with delayed rewards by propagating the expected reward from the goal back to previous states. The system is first evaluated on simplified tasks and then on more complex problems, such as the game Pong and the gridworld problem. In Pong, the results show progressively longer sequences of play without missing the ball, while in the gridworld task the strategy gradually improves and the path to the goal becomes shorter.
+
+
+impulzne nevronske mreže, spodbujevano učenje, R-STDP učenje, TD učenje
+
+spiking neural networks, reinforcement learning, R-STDP learning, TD learning

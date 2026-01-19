@@ -1,7 +1,6 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  12 JAN 2026 14:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  13 JAN 2026 11:26
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
 **Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex
 (./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.tex
@@ -24,22 +23,317 @@ File: bk12.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip48
 \belowcaptionskip=\skip49
 \bibindent=\dimen140
-) (/home/matjaz/latex/texmf-dist/tex/latex/base/inputenc.sty
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/pdfx/pdfx.sty
+Package: pdfx 2019/02/27 v1.6.3 PDF/X and PDF/A support (CVR/HTH/RRM/PS)
+\pdfx@minorversion=\count196
+
+(/home/matjaz/latex/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/iftex/ifpdf.sty
+Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/iftex/ifxetex.sty
+Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/everyshi/everyshi.sty
+Package: everyshi 2020/11/18 v4.00 EveryShipout Package
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/iftex/ifluatex.sty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+){/home/matjaz/latex/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+(/home/matjaz/latex/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@prehook=\toks17
 \inpenc@posthook=\toks18
-) (/home/matjaz/latex/texmf-dist/tex/generic/babel/babel.sty
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/pdfx/l8u-penc.def
+File: l8u-penc.def 2017/06/23 v0.8 Custom LaTeX file, for UTF8 encoded letters 
+and symbols
+LaTeX Info: Composite with undeclared \b in encoding L8U on input line 278.
+)
+\pdfxsafeforxmp@toks=\toks19
+
+(/home/matjaz/latex/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
+
+(/home/matjaz/latex/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+
+Package xcolor Warning: Package option `hyperref' is obsolete and ignored on in
+put line 266.
+
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+(/home/matjaz/latex/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1354.
+Package xcolor Info: Model `RGB' extended on input line 1366.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1368.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
+)
+\pdfx@tmptoks=\toks20
+
+(/home/matjaz/latex/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2023-11-26 v7.01g Hypertext links for LaTeX
+
+(/home/matjaz/latex/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks21
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+
+(/home/matjaz/latex/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+))
+(/home/matjaz/latex/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
+
+(/home/matjaz/latex/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+
+(/home/matjaz/latex/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count197
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count198
+)
+\@linkdim=\dimen141
+\Hy@linkcounter=\count199
+\Hy@pagecounter=\count266
+
+(/home/matjaz/latex/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2023-11-26 v7.01g Hyperref: PDFDocEncoding definition (HO)
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count267
+
+(/home/matjaz/latex/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2023-11-26 v7.01g Hyperref: PDF Unicode definition (HO)
+)
+Package hyperref Info: Option `pdfa' set `true' on input line 4064.
+Package hyperref Info: Hyper figures OFF on input line 4181.
+Package hyperref Info: Link nesting OFF on input line 4186.
+Package hyperref Info: Hyper index ON on input line 4189.
+Package hyperref Info: Plain pages OFF on input line 4196.
+Package hyperref Info: Backreferencing OFF on input line 4201.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4448.
+\c@Hy@tempcnt=\count268
+
+(/home/matjaz/latex/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4786.
+\XeTeXLinkMargin=\dimen142
+
+(/home/matjaz/latex/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/home/matjaz/latex/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count269
+\Field@Width=\dimen143
+\Fld@charsize=\dimen144
+Package hyperref Info: Hyper figures OFF on input line 6065.
+Package hyperref Info: Link nesting OFF on input line 6070.
+Package hyperref Info: Hyper index ON on input line 6073.
+Package hyperref Info: backreferencing OFF on input line 6080.
+Package hyperref Info: Link coloring OFF on input line 6085.
+Package hyperref Info: Link coloring with OCG OFF on input line 6090.
+Package hyperref Info: PDF/A mode ON on input line 6093.
+
+(/home/matjaz/latex/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count270
+\c@Item=\count271
+\c@Hfootnote=\count272
+)
+Package hyperref Info: Driver: hpdftex.
+
+(/home/matjaz/latex/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2023-11-26 v7.01g Hyperref driver for pdfTeX
+
+(/home/matjaz/latex/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
+with kernel methods
+)
+\Fld@listcount=\count273
+\c@bookmark@seq@number=\count274
+
+(/home/matjaz/latex/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+
+(/home/matjaz/latex/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+85.
+)
+\Hy@SectionHShift=\skip50
+)
+Package hyperref Info: Option `unicode' set `true' on input line 1463.
+
+(/home/matjaz/latex/texmf-dist/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+Package hyperref Info: Option `psdextra' set `true' on input line 1465.
+
+(/home/matjaz/latex/texmf-dist/tex/latex/hyperref/psdextra.def
+File: psdextra.def 2023-11-26 v7.01g Hyperref: Additions to PDF string support
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/colorprofiles/colorprofiles.sty
+Package: colorprofiles 2018/11/01 v1.0.1 color profiles for PDF/X and PDF/A sup
+port
+
+(/home/matjaz/latex/texmf-dist/tex/generic/colorprofiles/colorprofiles.tex))
+(/home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
+File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/pdfx/AdobeColorProfiles.tex)
+(/home/matjaz/latex/texmf-dist/tex/latex/pdfx/8bit.def
+File: 8bit.def 2008/03/30 v1.1d Input encoding file
+)
+** pdfx: Metadata file Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matja
+z_Pogacnik.xmpdata read successfully.
+(./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.xmpdata)<
+<sRGB.icc>> (/home/matjaz/latex/texmf-dist/tex/latex/pdfx/8bit.def
+File: 8bit.def 2008/03/30 v1.1d Input encoding file
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/pdfx/8bit.def
+File: 8bit.def 2008/03/30 v1.1d Input encoding file
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
+File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/pdfx/8bit.def
+File: 8bit.def 2008/03/30 v1.1d Input encoding file
+)
+Package hyperref Info: Option `unicode' set `true' on input line 2411.
+Package hyperref Info: Option `unicode' set `true' on input line 2412.
+
+(/home/matjaz/latex/texmf-dist/tex/latex/pdfx/8bit.def
+File: 8bit.def 2008/03/30 v1.1d Input encoding file
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/pdfx/8bit.def
+File: 8bit.def 2008/03/30 v1.1d Input encoding file
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/pdftex/glyphtounicode.tex)
+(/home/matjaz/latex/texmf-dist/tex/latex/pdfx/glyphtounicode-cmr.tex)
+(/home/matjaz/latex/texmf-dist/tex/latex/pdfx/glyphtounicode-ntx.tex)
+(/home/matjaz/latex/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/xmpincl/xmpincl.sty
+Package: xmpincl 2021/09/22 v2.4 Include XMP data in pdflatex
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/pdfx/8bit.def
+File: 8bit.def 2008/03/30 v1.1d Input encoding file
+)
+Using XMP template file: pdfa.xmp
+\xmpinclWrite=\write3
+\xmpinclRead=\read2
+\openout3 = `pdfa.xmpi'.
+
+<<pdfa.xmpi>>) (/home/matjaz/latex/texmf-dist/tex/latex/csquotes/csquotes.sty
+Package: csquotes 2022-09-14 v5.2n context-sensitive quotations (JAW)
+\csq@reset=\count275
+\csq@gtype=\count276
+\csq@glevel=\count277
+\csq@qlevel=\count278
+\csq@maxlvl=\count279
+\csq@tshold=\count280
+\csq@ltx@everypar=\toks22
+
+(/home/matjaz/latex/texmf-dist/tex/latex/csquotes/csquotes.def
+File: csquotes.def 2022-09-14 v5.2n csquotes generic definitions (JAW)
+)
+Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
+Package csquotes Info: ... configuration file loaded successfully.
+
+(/home/matjaz/latex/texmf-dist/tex/latex/csquotes/csquotes.cfg
+File: csquotes.cfg 
+))
+
+Package hyperref Warning: Option `pdftex' has already been used,
+(hyperref)                setting the option has no effect on input line 23.
+
+Package hyperref Info: Option `colorlinks' set `true' on input line 23.
+
+Package hyperref Warning: Option `pdfproducer' has already been used,
+(hyperref)                setting the option has no effect on input line 23.
+
+
+Package hyperref Warning: Option `pdfcreator' has already been used,
+(hyperref)                setting the option has no effect on input line 23.
+
+(/home/matjaz/latex/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2023/12/10 v3.99 The Babel package
-\babel@savecnt=\count196
-\U@D=\dimen141
+\babel@savecnt=\count281
+\U@D=\dimen145
 \l@unhyphenated=\language89
- (/home/matjaz/latex/texmf-dist/tex/generic/babel/txtbabel.def)
-\bbl@readstream=\read2
-\bbl@dirlevel=\count197
- (/home/matjaz/latex/texmf-dist/tex/generic/babel-slovenian/slovene.ldf
+
+(/home/matjaz/latex/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read3
+\bbl@dirlevel=\count282
+
+(/home/matjaz/latex/texmf-dist/tex/generic/babel-slovenian/slovene.ldf
 Language: slovene 2021/02/06 v1.2n Slovene support from the babel system
 Package babel Info: Making " an active character on input line 79.
-) (/home/matjaz/latex/texmf-dist/tex/generic/babel-english/english.ldf
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
 (babel)             (\language0). Reported on input line 102.
@@ -47,76 +341,85 @@ Package babel Info: Hyphen rules for 'australian' set to \l@ukenglish
 (babel)             (\language23). Reported on input line 105.
 Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
 (babel)             (\language23). Reported on input line 108.
-)) (/home/matjaz/latex/texmf-dist/tex/generic/babel/locale/en/babel-english.tex
+))
+(/home/matjaz/latex/texmf-dist/tex/generic/babel/locale/en/babel-english.tex
 Package babel Info: Importing font and identification data for english
 (babel)             from babel-en.ini. Reported on input line 11.
-) (/home/matjaz/latex/texmf-dist/tex/generic/babel/locale/sl/babel-slovene.tex
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/babel/locale/sl/babel-slovene.tex
 Package babel Info: Importing font and identification data for slovene
 (babel)             from babel-sl.ini. Reported on input line 11.
-) (/home/matjaz/latex/texmf-dist/tex/latex/graphics/graphicx.sty
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
- (/home/matjaz/latex/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
-\KV@toks@=\toks19
-) (/home/matjaz/latex/texmf-dist/tex/latex/graphics/graphics.sty
+
+(/home/matjaz/latex/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
- (/home/matjaz/latex/texmf-dist/tex/latex/graphics/trig.sty
+
+(/home/matjaz/latex/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
-) (/home/matjaz/latex/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
- (/home/matjaz/latex/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
-))
-\Gin@req@height=\dimen142
-\Gin@req@width=\dimen143
-) (/home/matjaz/latex/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+)
+\Gin@req@height=\dimen146
+\Gin@req@width=\dimen147
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2022/11/09 v4.1 Extensive control of page headers and footers
-\f@nch@headwidth=\skip50
-\f@nch@O@elh=\skip51
-\f@nch@O@erh=\skip52
-\f@nch@O@olh=\skip53
-\f@nch@O@orh=\skip54
-\f@nch@O@elf=\skip55
-\f@nch@O@erf=\skip56
-\f@nch@O@olf=\skip57
-\f@nch@O@orf=\skip58
-) (/home/matjaz/latex/texmf-dist/tex/latex/amsfonts/amssymb.sty
+
+\f@nch@headwidth=\skip51
+\f@nch@O@elh=\skip52
+\f@nch@O@erh=\skip53
+\f@nch@O@olh=\skip54
+\f@nch@O@orh=\skip55
+\f@nch@O@elf=\skip56
+\f@nch@O@erf=\skip57
+\f@nch@O@olf=\skip58
+\f@nch@O@orf=\skip59
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
- (/home/matjaz/latex/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+
+(/home/matjaz/latex/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\@emptytoks=\toks20
+\@emptytoks=\toks23
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (/home/matjaz/latex/texmf-dist/tex/latex/amsmath/amsmath.sty
+))
+(/home/matjaz/latex/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2023/05/13 v2.17o AMS math features
-\@mathmargin=\skip59
+\@mathmargin=\skip60
 
 For additional information on amsmath, use the `?' option.
 (/home/matjaz/latex/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2021/08/26 v2.01 AMS text
- (/home/matjaz/latex/texmf-dist/tex/latex/amsmath/amsgen.sty
+
+(/home/matjaz/latex/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks21
-\ex@=\dimen144
-)) (/home/matjaz/latex/texmf-dist/tex/latex/amsmath/amsbsy.sty
+\@emptytoks=\toks24
+\ex@=\dimen148
+))
+(/home/matjaz/latex/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen145
-) (/home/matjaz/latex/texmf-dist/tex/latex/amsmath/amsopn.sty
+\pmbraise@=\dimen149
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count198
+\inf@bad=\count283
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count199
-\leftroot@=\count266
+\uproot@=\count284
+\leftroot@=\count285
 LaTeX Info: Redefining \overline on input line 399.
 LaTeX Info: Redefining \colon on input line 410.
-\classnum@=\count267
-\DOTSCASE@=\count268
+\classnum@=\count286
+\DOTSCASE@=\count287
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
@@ -126,194 +429,48 @@ LaTeX Info: Redefining \big on input line 722.
 LaTeX Info: Redefining \Big on input line 723.
 LaTeX Info: Redefining \bigg on input line 724.
 LaTeX Info: Redefining \Bigg on input line 725.
-\big@size=\dimen146
+\big@size=\dimen150
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count269
+\macc@depth=\count288
 LaTeX Info: Redefining \bmod on input line 905.
 LaTeX Info: Redefining \pmod on input line 910.
 LaTeX Info: Redefining \smash on input line 940.
 LaTeX Info: Redefining \relbar on input line 970.
 LaTeX Info: Redefining \Relbar on input line 971.
-\c@MaxMatrixCols=\count270
-\dotsspace@=\muskip16
-\c@parentequation=\count271
-\dspbrk@lvl=\count272
-\tag@help=\toks22
-\row@=\count273
-\column@=\count274
-\maxfields@=\count275
-\andhelp@=\toks23
-\eqnshift@=\dimen147
-\alignsep@=\dimen148
-\tagshift@=\dimen149
-\tagwidth@=\dimen150
-\totwidth@=\dimen151
-\lineht@=\dimen152
-\@envbody=\toks24
-\multlinegap=\skip60
-\multlinetaggap=\skip61
-\mathdisplay@stack=\toks25
+\c@MaxMatrixCols=\count289
+\dotsspace@=\muskip17
+\c@parentequation=\count290
+\dspbrk@lvl=\count291
+\tag@help=\toks25
+\row@=\count292
+\column@=\count293
+\maxfields@=\count294
+\andhelp@=\toks26
+\eqnshift@=\dimen151
+\alignsep@=\dimen152
+\tagshift@=\dimen153
+\tagwidth@=\dimen154
+\totwidth@=\dimen155
+\lineht@=\dimen156
+\@envbody=\toks27
+\multlinegap=\skip61
+\multlinetaggap=\skip62
+\mathdisplay@stack=\toks28
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
-) (/home/matjaz/latex/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2023-11-26 v7.01g Hypertext links for LaTeX
- (/home/matjaz/latex/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2022/02/03 v1.0f TeX engine tests
-) (/home/matjaz/latex/texmf-dist/tex/generic/infwarerr/infwarerr.sty
-Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-) (/home/matjaz/latex/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
-Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-) (/home/matjaz/latex/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
-Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (/home/matjaz/latex/texmf-dist/tex/generic/pdfescape/pdfescape.sty
-Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
- (/home/matjaz/latex/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
-Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-) (/home/matjaz/latex/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)) (/home/matjaz/latex/texmf-dist/tex/latex/hycolor/hycolor.sty
-Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (/home/matjaz/latex/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
-Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
-) (/home/matjaz/latex/texmf-dist/tex/latex/auxhook/auxhook.sty
-Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
-) (/home/matjaz/latex/texmf-dist/tex/latex/hyperref/nameref.sty
-Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
- (/home/matjaz/latex/texmf-dist/tex/latex/refcount/refcount.sty
-Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (/home/matjaz/latex/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
-Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
- (/home/matjaz/latex/texmf-dist/tex/latex/kvoptions/kvoptions.sty
-Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
-))
-\c@section@level=\count276
-) (/home/matjaz/latex/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count277
 )
-\@linkdim=\dimen153
-\Hy@linkcounter=\count278
-\Hy@pagecounter=\count279
- (/home/matjaz/latex/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2023-11-26 v7.01g Hyperref: PDFDocEncoding definition (HO)
-Now handling font encoding PD1 ...
-... no UTF-8 mapping file for font encoding PD1
-) (/home/matjaz/latex/texmf-dist/tex/generic/intcalc/intcalc.sty
-Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
-)
-\Hy@SavedSpaceFactor=\count280
- (/home/matjaz/latex/texmf-dist/tex/latex/hyperref/puenc.def
-File: puenc.def 2023-11-26 v7.01g Hyperref: PDF Unicode definition (HO)
-Now handling font encoding PU ...
-... no UTF-8 mapping file for font encoding PU
-)
-Package hyperref Info: Option `colorlinks' set `true' on input line 4064.
-Package hyperref Info: Hyper figures OFF on input line 4181.
-Package hyperref Info: Link nesting OFF on input line 4186.
-Package hyperref Info: Hyper index ON on input line 4189.
-Package hyperref Info: Plain pages OFF on input line 4196.
-Package hyperref Info: Backreferencing OFF on input line 4201.
-Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4448.
-\c@Hy@tempcnt=\count281
- (/home/matjaz/latex/texmf-dist/tex/latex/url/url.sty
-\Urlmuskip=\muskip17
-Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-)
-LaTeX Info: Redefining \url on input line 4786.
-\XeTeXLinkMargin=\dimen154
- (/home/matjaz/latex/texmf-dist/tex/generic/bitset/bitset.sty
-Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
- (/home/matjaz/latex/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
-Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
-))
-\Fld@menulength=\count282
-\Field@Width=\dimen155
-\Fld@charsize=\dimen156
-Package hyperref Info: Hyper figures OFF on input line 6065.
-Package hyperref Info: Link nesting OFF on input line 6070.
-Package hyperref Info: Hyper index ON on input line 6073.
-Package hyperref Info: backreferencing OFF on input line 6080.
-Package hyperref Info: Link coloring ON on input line 6083.
-Package hyperref Info: Link coloring with OCG OFF on input line 6090.
-Package hyperref Info: PDF/A mode OFF on input line 6095.
- (/home/matjaz/latex/texmf-dist/tex/latex/base/atbegshi-ltx.sty
-Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
-package with kernel methods
-)
-\Hy@abspage=\count283
-\c@Item=\count284
-\c@Hfootnote=\count285
-)
-Package hyperref Info: Driver: hpdftex.
- (/home/matjaz/latex/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2023-11-26 v7.01g Hyperref driver for pdfTeX
- (/home/matjaz/latex/texmf-dist/tex/latex/base/atveryend-ltx.sty
-Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
-with kernel methods
-)
-\Fld@listcount=\count286
-\c@bookmark@seq@number=\count287
- (/home/matjaz/latex/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
-Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
-
-(/home/matjaz/latex/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
-Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
-)
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
-)
-\Hy@SectionHShift=\skip62
-) (/home/matjaz/latex/texmf-dist/tex/latex/hyperxmp/hyperxmp.sty
-Package: hyperxmp 2023/09/10 v5.12 Store hyperref metadata in XMP format
-\hyxmp@aep@toks=\toks26
- (/home/matjaz/latex/texmf-dist/tex/generic/stringenc/stringenc.sty
-Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
-) (/home/matjaz/latex/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty
-Package: ifmtarg 2018/04/16 v1.2b check for an empty argument
-) (/home/matjaz/latex/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
-)
-\@hyxmp@count=\count288
- (/home/matjaz/latex/texmf-dist/tex/latex/oberdiek/ifdraft.sty
-Package: ifdraft 2016/05/16 v1.4 Detect class options draft and final (HO)
-) (/home/matjaz/latex/texmf-dist/tex/generic/iftex/ifluatex.sty
-Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
-)) (/home/matjaz/latex/texmf-dist/tex/latex/csquotes/csquotes.sty
-Package: csquotes 2022-09-14 v5.2n context-sensitive quotations (JAW)
-\csq@reset=\count289
-\csq@gtype=\count290
-\csq@glevel=\count291
-\csq@qlevel=\count292
-\csq@maxlvl=\count293
-\csq@tshold=\count294
-\csq@ltx@everypar=\toks27
- (/home/matjaz/latex/texmf-dist/tex/latex/csquotes/csquotes.def
-File: csquotes.def 2022-09-14 v5.2n csquotes generic definitions (JAW)
-)
-Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
-Package csquotes Info: ... configuration file loaded successfully.
- (/home/matjaz/latex/texmf-dist/tex/latex/csquotes/csquotes.cfg
-File: csquotes.cfg 
-)) (/home/matjaz/latex/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
- (/home/matjaz/latex/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package color Info: Driver file: pdftex.def on input line 149.
- (/home/matjaz/latex/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/home/matjaz/latex/texmf-dist/tex/generic/soul/soul.sty
+(/home/matjaz/latex/texmf-dist/tex/generic/soul/soul.sty
 Package: soul 2023-06-14 v3.1 Permit use of UTF-8 characters in soul (HO)
- (/home/matjaz/latex/texmf-dist/tex/generic/soul/soul-ori.sty
+
+(/home/matjaz/latex/texmf-dist/tex/generic/soul/soul-ori.sty
 Package: soul-ori 2023-06-14 v3.1 letterspacing/underlining (mf)
-\SOUL@word=\toks28
-\SOUL@lasttoken=\toks29
-\SOUL@syllable=\toks30
-\SOUL@cmds=\toks31
-\SOUL@buffer=\toks32
-\SOUL@token=\toks33
+\SOUL@word=\toks29
+\SOUL@lasttoken=\toks30
+\SOUL@syllable=\toks31
+\SOUL@cmds=\toks32
+\SOUL@buffer=\toks33
+\SOUL@token=\toks34
 \SOUL@syllgoal=\dimen157
 \SOUL@syllwidth=\dimen158
 \SOUL@charkern=\dimen159
@@ -328,11 +485,14 @@ Package: soul-ori 2023-06-14 v3.1 letterspacing/underlining (mf)
 \SOUL@ttwidth=\dimen163
 \SOUL@uldp=\dimen164
 \SOUL@ulht=\dimen165
-) (/home/matjaz/latex/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+)
+(/home/matjaz/latex/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
-)) (/home/matjaz/latex/texmf-dist/tex/latex/caption/caption.sty
+))
+(/home/matjaz/latex/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
- (/home/matjaz/latex/texmf-dist/tex/latex/caption/caption3.sty
+
+(/home/matjaz/latex/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@tempdima=\dimen166
 \captionmargin=\dimen167
@@ -347,14 +507,16 @@ Package caption Info: Standard document class detected.
 \c@caption@flags=\count299
 \c@continuedfloat=\count300
 Package caption Info: hyperref package is loaded.
-) (/home/matjaz/latex/texmf-dist/tex/latex/float/float.sty
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count301
-\float@exts=\toks34
+\float@exts=\toks35
 \float@box=\box53
-\@float@everytoks=\toks35
+\@float@everytoks=\toks36
 \@floatcapt=\box54
-) (/home/matjaz/latex/texmf-dist/tex/latex/booktabs/booktabs.sty
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen174
 \lightrulewidth=\dimen175
@@ -373,250 +535,286 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count304
 \@lastruleclass=\count305
 \@thisrulewidth=\dimen186
-) (/home/matjaz/latex/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
- (/home/matjaz/latex/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Driver file: pdftex.def on input line 274.
-LaTeX Info: Redefining \color on input line 758.
- (/home/matjaz/latex/texmf-dist/tex/latex/graphics/mathcolor.ltx)
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1354.
-Package xcolor Info: Model `RGB' extended on input line 1366.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1368.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1370.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
-) (/home/matjaz/latex/texmf-dist/tex/latex/makecell/makecell.sty
+(/home/matjaz/latex/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
- (/home/matjaz/latex/texmf-dist/tex/latex/tools/array.sty
+
+(/home/matjaz/latex/texmf-dist/tex/latex/tools/array.sty
 Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
 \col@sep=\dimen187
 \ar@mcellbox=\box55
 \extrarowheight=\dimen188
-\NC@list=\toks36
+\NC@list=\toks37
 \extratabsurround=\skip64
 \backup@length=\skip65
 \ar@cellbox=\box56
 )
 \rotheadsize=\dimen189
 \c@nlinenum=\count306
-\TeXr@lab=\toks37
-) (/home/matjaz/latex/texmf-dist/tex/latex/natbib/natbib.sty
+\TeXr@lab=\toks38
+)
+(/home/matjaz/latex/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip66
 \bibsep=\skip67
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count307
 )
+
+Package hyperref Warning: Option `pdftitle' has already been used,
+(hyperref)                setting the option has no effect on input line 85.
+
+
+Package hyperref Warning: Option `pdfsubject' has already been used,
+(hyperref)                setting the option has no effect on input line 86.
+
+
+Package hyperref Warning: Option `pdfauthor' has already been used,
+(hyperref)                setting the option has no effect on input line 87.
+
+
+Package hyperref Warning: Option `pdfkeywords' has already been used,
+(hyperref)                setting the option has no effect on input line 88.
+
 \c@izrek=\count308
 \c@trditev=\count309
-\countA=\count310
- (/home/matjaz/latex/texmf-dist/tex/latex/xmpincl/xmpincl.sty
-Package: xmpincl 2021/09/22 v2.4 Include XMP data in pdflatex
- (/home/matjaz/latex/texmf-dist/tex/generic/iftex/ifpdf.sty
-Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
-))
+
+Package csquotes Warning: Load 'inputenc' before 'csquotes' on input line 209.
+
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
- (/home/matjaz/latex/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+(/home/matjaz/latex/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-11-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count311
+\l__color_backend_stack_int=\count310
 \l__pdf_internal_box=\box57
-) (./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux)
-\openout1 = `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux'.
+)
+(./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux)
+\openout1 = `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik
+.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 210.
-LaTeX Font Info:    ... okay on input line 210.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 210.
-LaTeX Font Info:    ... okay on input line 210.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 210.
-LaTeX Font Info:    ... okay on input line 210.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 210.
-LaTeX Font Info:    ... okay on input line 210.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 210.
-LaTeX Font Info:    ... okay on input line 210.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 210.
-LaTeX Font Info:    ... okay on input line 210.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 210.
-LaTeX Font Info:    ... okay on input line 210.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 210.
-LaTeX Font Info:    ... okay on input line 210.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 210.
-LaTeX Font Info:    ... okay on input line 210.
- (/home/matjaz/latex/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+
+(/home/matjaz/latex/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count312
+\scratchcounter=\count311
 \scratchdimen=\dimen190
 \scratchbox=\box58
-\nofMPsegments=\count313
-\nofMParguments=\count314
-\everyMPshowfont=\toks38
-\MPscratchCnt=\count315
+\nofMPsegments=\count312
+\nofMParguments=\count313
+\everyMPshowfont=\toks39
+\MPscratchCnt=\count314
 \MPscratchDim=\dimen191
-\MPnumerator=\count316
-\makeMPintoPDFobject=\count317
-\everyMPtoPDFconversion=\toks39
+\MPnumerator=\count315
+\makeMPintoPDFobject=\count316
+\everyMPtoPDFconversion=\toks40
 ) (/home/matjaz/latex/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (/home/matjaz/latex/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+
+(/home/matjaz/latex/texmf-dist/tex/latex/grfext/grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
+
+(/home/matjaz/latex/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
 ))
-Package hyperref Info: Link coloring ON on input line 210.
- (./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out) (./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out)
-\@outlinefile=\write3
-\openout3 = `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out'.
+Package hyperref Info: Link coloring ON on input line 209.
+
+(./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out)
+(./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out)
+\@outlinefile=\write4
+\openout4 = `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik
+.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
- [1
+
+[1
 
 
-{/home/matjaz/latex/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<cc_cc_30.pdf, id=70, 25.27844pt x 25.27844pt>
+]
+<cc_cc_30.pdf, id=72, 25.27844pt x 25.27844pt>
 File: cc_cc_30.pdf Graphic file (type pdf)
 <use cc_cc_30.pdf>
-Package pdftex.def Info: cc_cc_30.pdf  used on input line 263.
+Package pdftex.def Info: cc_cc_30.pdf  used on input line 262.
 (pdftex.def)             Requested size: 18.74585pt x 18.74585pt.
-<cc_by_30.pdf, id=71, 18.74034pt x 18.73953pt>
+<cc_by_30.pdf, id=73, 18.74034pt x 18.73953pt>
 File: cc_by_30.pdf Graphic file (type pdf)
 <use cc_by_30.pdf>
-Package pdftex.def Info: cc_by_30.pdf  used on input line 263.
+Package pdftex.def Info: cc_by_30.pdf  used on input line 262.
 (pdftex.def)             Requested size: 18.74028pt x 18.73947pt.
-<cc_sa_30.pdf, id=72, 18.73955pt x 18.73994pt>
+<cc_sa_30.pdf, id=74, 18.73955pt x 18.73994pt>
 File: cc_sa_30.pdf Graphic file (type pdf)
 <use cc_sa_30.pdf>
-Package pdftex.def Info: cc_sa_30.pdf  used on input line 263.
+Package pdftex.def Info: cc_sa_30.pdf  used on input line 262.
 (pdftex.def)             Requested size: 18.73949pt x 18.73988pt.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 271.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 270
+.
  (/home/matjaz/latex/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 271.
- (/home/matjaz/latex/texmf-dist/tex/latex/amsfonts/umsb.fd
+LaTeX Font Info:    Trying to load font information for U+msb on input line 270
+.
+
+(/home/matjaz/latex/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.282 \clearemptydoublepage
+l.281 \clearemptydoublepage
                             [2 <./cc_cc_30.pdf> <./cc_by_30.pdf
 
-pdfTeX warning: pdflatex (file ./cc_by_30.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: pdflatex (file ./cc_by_30.pdf): PDF inclusion: multiple pdfs wi
+th page group included in a single page
 > <./cc_sa_30.pdf
 
-pdfTeX warning: pdflatex (file ./cc_sa_30.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: pdflatex (file ./cc_sa_30.pdf): PDF inclusion: multiple pdfs wi
+th page group included in a single page
 >]
-Underfull \hbox (badness 10000) in paragraph at lines 291--298
+Underfull \hbox (badness 10000) in paragraph at lines 290--297
 
  []
 
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.310 \clearemptydoublepage
+l.309 \clearemptydoublepage
                             [3
 
 ]
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.310 \clearemptydoublepage
+l.309 \clearemptydoublepage
                             [4
 
-] (./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.toc)
-\tf@toc=\write4
-\openout4 = `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.toc'.
+]
+(./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.toc)
+\tf@toc=\write5
+\openout5 = `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik
+.toc'.
 
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.342 \clearemptydoublepage
+l.341 \clearemptydoublepage
                             [5
 
 ]
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.342 \clearemptydoublepage
+l.341 \clearemptydoublepage
                             [6
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 353--353
+Underfull \hbox (badness 10000) in paragraph at lines 352--352
 []|\OT1/cmr/m/n/12 Spike ti-ming de-pen-dent
  []
 
 
-Underfull \hbox (badness 1215) in paragraph at lines 353--354
+Underfull \hbox (badness 1215) in paragraph at lines 352--353
 []|\OT1/cmr/m/n/12 Sinapti^^Tcna pla-sti^^Tcnost od-vi-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 354--355
+Underfull \hbox (badness 10000) in paragraph at lines 353--354
 []|\OT1/cmr/m/n/12 Sinapti^^Tcna pla-sti^^Tcnost od-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 354--355
+Underfull \hbox (badness 10000) in paragraph at lines 353--354
 \OT1/cmr/m/n/12 vi-sna od na-gra-je-va-nja in
  []
 
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.361 \clearemptydoublepage
+l.360 \clearemptydoublepage
                             [7
 
 ]
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.361 \clearemptydoublepage
+l.360 \clearemptydoublepage
                             [8
 
 ]
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.386 \clearemptydoublepage
+l.385 \clearemptydoublepage
                             [9
 
 ]
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.386 \clearemptydoublepage
+l.385 \clearemptydoublepage
                             [10
 
 ]
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.411 \clearemptydoublepage
+l.410 \clearemptydoublepage
                             [11
 
 ]
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.411 \clearemptydoublepage
+l.410 \clearemptydoublepage
                             [12
 
 ]
 Poglavje 1.
 
-Overfull \hbox (8.61253pt too wide) in paragraph at lines 424--425
-[]\OT1/cmr/m/n/12 Posebej po-mem-ben okvir za tak^^Tsno u^^Tcenje pred-sta-vlja spod-bu-je-vano u^^Tcenje,
+Overfull \hbox (8.61253pt too wide) in paragraph at lines 423--424
+[]\OT1/cmr/m/n/12 Posebej po-mem-ben okvir za tak^^Tsno u^^Tcenje pred-sta-vlja
+ spod-bu-je-vano u^^Tcenje,
  []
 
 
@@ -628,7 +826,8 @@ Underfull \vbox (badness 2689) has occurred while \output is active []
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [2] [3] [4
+ [2]
+[3] [4
 
 ]
 Poglavje 2.
@@ -638,52 +837,58 @@ Underfull \vbox (badness 2050) has occurred while \output is active []
  [5]
 Underfull \vbox (badness 4752) has occurred while \output is active []
 
- [6] [7] [8
+ [6]
+[7] [8
 
 ]
 Poglavje 3.
-<../results/neuron_models/pre-sin-post.png, id=194, 725.71124pt x 220.57407pt>
+<../results/neuron_models/pre-sin-post.png, id=195, 725.71124pt x 220.57407pt>
 File: ../results/neuron_models/pre-sin-post.png Graphic file (type png)
 <use ../results/neuron_models/pre-sin-post.png>
-Package pdftex.def Info: ../results/neuron_models/pre-sin-post.png  used on input line 457.
+Package pdftex.def Info: ../results/neuron_models/pre-sin-post.png  used on inp
+ut line 456.
 (pdftex.def)             Requested size: 390.0pt x 118.53941pt.
 [9] [10 <../results/neuron_models/pre-sin-post.png>]
-<../results/neuron_models/PSCs.png, id=213, 722.7pt x 361.35pt>
+<../results/neuron_models/PSCs.png, id=214, 722.7pt x 361.35pt>
 File: ../results/neuron_models/PSCs.png Graphic file (type png)
 <use ../results/neuron_models/PSCs.png>
-Package pdftex.def Info: ../results/neuron_models/PSCs.png  used on input line 468.
+Package pdftex.def Info: ../results/neuron_models/PSCs.png  used on input line 
+467.
 (pdftex.def)             Requested size: 390.0pt x 194.99928pt.
- [11{/home/matjaz/latex/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} <../results/neuron_models/PSCs.png>] [12]
-Underfull \hbox (badness 10000) in paragraph at lines 516--519
+ [11{/home/matjaz/latex/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} <
+../results/neuron_models/PSCs.png>] [12]
+Underfull \hbox (badness 10000) in paragraph at lines 515--518
 
  []
 
 [13]
-<../results/neuron_models/mem_pot.png, id=233, 721.2546pt x 432.8973pt>
+<../results/neuron_models/mem_pot.png, id=234, 721.2546pt x 432.8973pt>
 File: ../results/neuron_models/mem_pot.png Graphic file (type png)
 <use ../results/neuron_models/mem_pot.png>
-Package pdftex.def Info: ../results/neuron_models/mem_pot.png  used on input line 533.
+Package pdftex.def Info: ../results/neuron_models/mem_pot.png  used on input li
+ne 532.
 (pdftex.def)             Requested size: 390.0pt x 234.07813pt.
  [14 <../results/neuron_models/mem_pot.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 547--555
+Underfull \hbox (badness 10000) in paragraph at lines 546--554
 
  []
 
 [15] [16]
-Underfull \hbox (badness 10000) in paragraph at lines 613--617
+Underfull \hbox (badness 10000) in paragraph at lines 612--616
 
  []
 
 [17] [18] [19]
-Overfull \hbox (6.89427pt too wide) detected at line 683
+Overfull \hbox (6.89427pt too wide) detected at line 682
 []\OT1/cmr/m/n/12 (^^A\OML/cmm/m/it/12 t\OT1/cmr/m/n/12 ) = []
  []
 
 [20] [21]
-<../results/neuron_models/RSTDP.png, id=296, 721.2546pt x 577.4373pt>
+<../results/neuron_models/RSTDP.png, id=297, 721.2546pt x 577.4373pt>
 File: ../results/neuron_models/RSTDP.png Graphic file (type png)
 <use ../results/neuron_models/RSTDP.png>
-Package pdftex.def Info: ../results/neuron_models/RSTDP.png  used on input line 706.
+Package pdftex.def Info: ../results/neuron_models/RSTDP.png  used on input line
+ 705.
 (pdftex.def)             Requested size: 350.99762pt x 281.00833pt.
  [22] [23 <../results/neuron_models/RSTDP.png>] [24
 
@@ -693,73 +898,83 @@ Poglavje 4.
 <../results/neuron_models/RSTDP_delayed.png, id=320, 721.2546pt x 577.4373pt>
 File: ../results/neuron_models/RSTDP_delayed.png Graphic file (type png)
 <use ../results/neuron_models/RSTDP_delayed.png>
-Package pdftex.def Info: ../results/neuron_models/RSTDP_delayed.png  used on input line 726.
+Package pdftex.def Info: ../results/neuron_models/RSTDP_delayed.png  used on in
+put line 725.
 (pdftex.def)             Requested size: 390.0pt x 312.23442pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [26] [27 <../results/neuron_models/RSTDP_delayed.png>]
-Overfull \hbox (6.57597pt too wide) in paragraph at lines 742--743
-\OT1/cmr/m/n/12 tema, ki omogo^^Tcajo, da se si-napse di-fe-ren-ci-rajo do-volj hi-tro. Ker ne dopu^^Ts^^Tcamo
+ [26]
+[27 <../results/neuron_models/RSTDP_delayed.png>]
+Overfull \hbox (6.57597pt too wide) in paragraph at lines 741--742
+\OT1/cmr/m/n/12 tema, ki omogo^^Tcajo, da se si-napse di-fe-ren-ci-rajo do-volj
+ hi-tro. Ker ne dopu^^Ts^^Tcamo
  []
 
 
-Overfull \hbox (1.9237pt too wide) in paragraph at lines 742--743
-\OT1/cmr/m/n/12 ne-ga-tiv-nih na-grad, bodo vse po-ve-zave s ^^Tcasom ra-sle, kar po-sto-poma zmanj^^Tsuje
+Overfull \hbox (1.9237pt too wide) in paragraph at lines 741--742
+\OT1/cmr/m/n/12 ne-ga-tiv-nih na-grad, bodo vse po-ve-zave s ^^Tcasom ra-sle, k
+ar po-sto-poma zmanj^^Tsuje
  []
 
 
 Underfull \vbox (badness 4752) has occurred while \output is active []
 
  [28]
-Underfull \hbox (badness 10000) in paragraph at lines 745--749
+Underfull \hbox (badness 10000) in paragraph at lines 744--748
 
  []
 
 <../results/rstdp/competition.png, id=339, 866.5173pt x 835.4412pt>
 File: ../results/rstdp/competition.png Graphic file (type png)
 <use ../results/rstdp/competition.png>
-Package pdftex.def Info: ../results/rstdp/competition.png  used on input line 774.
+Package pdftex.def Info: ../results/rstdp/competition.png  used on input line 7
+73.
 (pdftex.def)             Requested size: 390.0pt x 376.0088pt.
 [29] [30] [31 <../results/rstdp/competition.png>]
 <../results/figures/pong_setup.png, id=363, 358.33875pt x 371.3875pt>
 File: ../results/figures/pong_setup.png Graphic file (type png)
 <use ../results/figures/pong_setup.png>
-Package pdftex.def Info: ../results/figures/pong_setup.png  used on input line 793.
+Package pdftex.def Info: ../results/figures/pong_setup.png  used on input line 
+792.
 (pdftex.def)             Requested size: 195.0pt x 202.10466pt.
  [32]
 <../results/rstdp/rstdp-pong/learning.png, id=375, 904.0977pt x 427.8384pt>
 File: ../results/rstdp/rstdp-pong/learning.png Graphic file (type png)
 <use ../results/rstdp/rstdp-pong/learning.png>
-Package pdftex.def Info: ../results/rstdp/rstdp-pong/learning.png  used on input line 803.
+Package pdftex.def Info: ../results/rstdp/rstdp-pong/learning.png  used on inpu
+t line 802.
 (pdftex.def)             Requested size: 390.0pt x 184.55446pt.
  [33 <../results/figures/pong_setup.png>]
 <../results/rstdp/rstdp-pong/mean_reward.png, id=383, 866.5173pt x 432.8973pt>
 File: ../results/rstdp/rstdp-pong/mean_reward.png Graphic file (type png)
 <use ../results/rstdp/rstdp-pong/mean_reward.png>
-Package pdftex.def Info: ../results/rstdp/rstdp-pong/mean_reward.png  used on input line 813.
+Package pdftex.def Info: ../results/rstdp/rstdp-pong/mean_reward.png  used on i
+nput line 812.
 (pdftex.def)             Requested size: 390.0pt x 194.835pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 810--821
+Underfull \hbox (badness 10000) in paragraph at lines 809--820
 
  []
 
 
 Underfull \vbox (badness 1552) has occurred while \output is active []
 
- [34 <../results/rstdp/rstdp-pong/learning.png>] [35 <../results/rstdp/rstdp-pong/mean_reward.png>]
+ [34 <../results/rstdp/rstdp-pong/learning.png>] [35 <../results/rstdp/rstdp-po
+ng/mean_reward.png>]
 <../results/rstdp/rstdp-gridworld/best.png, id=397, 289.08pt x 289.08pt>
 File: ../results/rstdp/rstdp-gridworld/best.png Graphic file (type png)
 <use ../results/rstdp/rstdp-gridworld/best.png>
-Package pdftex.def Info: ../results/rstdp/rstdp-gridworld/best.png  used on input line 846.
+Package pdftex.def Info: ../results/rstdp/rstdp-gridworld/best.png  used on inp
+ut line 845.
 (pdftex.def)             Requested size: 234.00238pt x 233.99911pt.
  [36] [37 <../results/rstdp/rstdp-gridworld/best.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 855--859
+Underfull \hbox (badness 10000) in paragraph at lines 854--858
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 867--872
+Underfull \hbox (badness 10000) in paragraph at lines 866--871
 
  []
 
@@ -767,45 +982,56 @@ Underfull \hbox (badness 10000) in paragraph at lines 867--872
 <../results/figures/basal_ganglia.jpg, id=417, 687.56876pt x 674.52pt>
 File: ../results/figures/basal_ganglia.jpg Graphic file (type jpg)
 <use ../results/figures/basal_ganglia.jpg>
-Package pdftex.def Info: ../results/figures/basal_ganglia.jpg  used on input line 877.
+Package pdftex.def Info: ../results/figures/basal_ganglia.jpg  used on input li
+ne 876.
 (pdftex.def)             Requested size: 234.00238pt x 229.5602pt.
  [39]
 <../results/figures/actor-critic.png, id=433, 542.025pt x 444.66125pt>
 File: ../results/figures/actor-critic.png Graphic file (type png)
 <use ../results/figures/actor-critic.png>
-Package pdftex.def Info: ../results/figures/actor-critic.png  used on input line 888.
+Package pdftex.def Info: ../results/figures/actor-critic.png  used on input lin
+e 887.
 (pdftex.def)             Requested size: 390.0pt x 319.9523pt.
 
 Underfull \vbox (badness 4291) has occurred while \output is active []
 
- [40 <../results/figures/basal_ganglia.jpg>] [41 <../results/figures/actor-critic.png>]
+ [40 <../results/figures/basal_ganglia.jpg>] [41 <../results/figures/actor-crit
+ic.png>]
 <../results/figures/dipl_TD_model.png, id=453, 700.6175pt x 522.95375pt>
 File: ../results/figures/dipl_TD_model.png Graphic file (type png)
 <use ../results/figures/dipl_TD_model.png>
-Package pdftex.def Info: ../results/figures/dipl_TD_model.png  used on input line 904.
+Package pdftex.def Info: ../results/figures/dipl_TD_model.png  used on input li
+ne 903.
 (pdftex.def)             Requested size: 390.0pt x 291.10457pt.
- [42]
+
+[42]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [43] [44 <../results/figures/dipl_TD_model.png>] [45] [46] [47] [48] [49]
-<../results/actorcritic/F2 - StateTransitionTD.png, id=511, 866.5173pt x 835.4412pt>
+ [43]
+[44 <../results/figures/dipl_TD_model.png>] [45] [46] [47] [48] [49]
+<../results/actorcritic/F2 - StateTransitionTD.png, id=510, 866.5173pt x 835.44
+12pt>
 File: ../results/actorcritic/F2 - StateTransitionTD.png Graphic file (type png)
+
 <use ../results/actorcritic/F2 - StateTransitionTD.png>
-Package pdftex.def Info: ../results/actorcritic/F2 - StateTransitionTD.png  used on input line 1053.
+Package pdftex.def Info: ../results/actorcritic/F2 - StateTransitionTD.png  use
+d on input line 1052.
 (pdftex.def)             Requested size: 390.0pt x 376.0088pt.
 
 
-LaTeX Warning: Float too large for page by 54.52933pt on input line 1057.
+LaTeX Warning: Float too large for page by 54.52933pt on input line 1056.
 
 [50] [51 <../results/actorcritic/F2 - StateTransitionTD.png>] [52]
-<../results/actorcritic/best.png, id=533, 401.5pt x 401.5pt>
+<../results/actorcritic/best.png, id=532, 401.5pt x 401.5pt>
 File: ../results/actorcritic/best.png Graphic file (type png)
 <use ../results/actorcritic/best.png>
-Package pdftex.def Info: ../results/actorcritic/best.png  used on input line 1068.
+Package pdftex.def Info: ../results/actorcritic/best.png  used on input line 10
+67.
 (pdftex.def)             Requested size: 234.00238pt x 234.00966pt.
 
-Overfull \hbox (6.54543pt too wide) in paragraph at lines 1074--1075
-\OT1/cmr/m/n/12 pri^^Tcakovane na-grade. Pri^^Tcakujemo, da bodo pri^^Tcakovane na-grade med u^^Tcenjem
+Overfull \hbox (6.54543pt too wide) in paragraph at lines 1073--1074
+\OT1/cmr/m/n/12 pri^^Tcakovane na-grade. Pri^^Tcakujemo, da bodo pri^^Tcakovane
+ na-grade med u^^Tcenjem
  []
 
 
@@ -814,10 +1040,11 @@ Underfull \vbox (badness 2111) has occurred while \output is active []
  [53
 
  <../results/actorcritic/best.png>]
-<../results/actorcritic/progress.png, id=540, 867.24pt x 433.62pt>
+<../results/actorcritic/progress.png, id=539, 867.24pt x 433.62pt>
 File: ../results/actorcritic/progress.png Graphic file (type png)
 <use ../results/actorcritic/progress.png>
-Package pdftex.def Info: ../results/actorcritic/progress.png  used on input line 1078.
+Package pdftex.def Info: ../results/actorcritic/progress.png  used on input lin
+e 1077.
 (pdftex.def)             Requested size: 390.0pt x 195.00148pt.
  [54 <../results/actorcritic/progress.png>]
 Poglavje 5.
@@ -826,39 +1053,65 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [55
 
-] [56]
-<../results/figures/aversive.png, id=557, 128.48pt x 129.48375pt>
+]
+[56]
+<../results/figures/aversive.png, id=556, 128.48pt x 129.48375pt>
 File: ../results/figures/aversive.png Graphic file (type png)
 <use ../results/figures/aversive.png>
-Package pdftex.def Info: ../results/figures/aversive.png  used on input line 1100.
+Package pdftex.def Info: ../results/figures/aversive.png  used on input line 10
+99.
 (pdftex.def)             Requested size: 155.99762pt x 157.229pt.
- [57 <../results/figures/aversive.png>] (./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl [58] [59
+ [57 <../results/figures/aversive.png>]
+(./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.bbl
+[58] [59
 
-]) (/home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-utf8.def
-File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
-) (/home/matjaz/latex/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
-File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
-) [60] (./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux)
+]) [60]
+(./Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.aux)
  ***********
 LaTeX2e <2023-11-01>
 L3 programming layer <2023-12-11>
  ***********
-Package rerunfilecheck Info: File `Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.out' has not changed.
-(rerunfilecheck)             Checksum: 9590A88DC462300C8DF5215DDB5245FD;2287.
+Package rerunfilecheck Info: File `Spodbujevano_ucenje_na_impulznih_nevronskih_
+mrezah_Matjaz_Pogacnik.out' has not changed.
+(rerunfilecheck)             Checksum: 71A60C633625F36F4D5441563C5B3357;1663.
  ) 
 Here is how much of TeX's memory you used:
- 15628 strings out of 474175
- 253770 string characters out of 5748183
+ 18261 strings out of 474175
+ 289379 string characters out of 5748183
  1953457 words of memory out of 5000000
- 37552 multiletter control sequences out of 15000+600000
+ 40139 multiletter control sequences out of 15000+600000
  574238 words of font info for 95 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,26n,79p,1699b,636s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pogacnik.pdf (72 pages, 1464739 bytes).
+ 92i,26n,95p,1699b,2380s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></ho
+me/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></home/mat
+jaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></home/matjaz/
+latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></home/matjaz/latex
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></home/matjaz/latex/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/matjaz/latex/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmmi12.pfb></home/matjaz/latex/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmmi6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmmi7.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+</home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/m
+atjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></home/matjaz/la
+tex/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></home/matjaz/latex/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></home/matjaz/latex/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/matjaz/latex/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy6.pfb></home/matjaz/latex/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy7.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmsy8.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmti10.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mti12.pfb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.p
+fb></home/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></h
+ome/matjaz/latex/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></home/ma
+tjaz/latex/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on Spodbujevano_ucenje_na_impulznih_nevronskih_mrezah_Matjaz_Pog
+acnik.pdf (72 pages, 1531220 bytes).
 PDF statistics:
- 723 PDF objects out of 1000 (max. 8388607)
- 545 compressed objects within 6 object streams
+ 718 PDF objects out of 1000 (max. 8388607)
  126 named destinations out of 1000 (max. 500000)
- 217 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 225 words of extra memory for PDF output out of 10000 (max. 10000000)
 
