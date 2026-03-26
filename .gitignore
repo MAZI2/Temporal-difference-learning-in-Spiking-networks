@@ -1,5 +1,18 @@
 .DS_Store
 *.asv
+*.swp
+
+# Latex
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+*.bbl
+*.bcf
+*.blg
+*.log
+*.run.xml
 
 nest/nest-build
 nest/nest-extension-module
