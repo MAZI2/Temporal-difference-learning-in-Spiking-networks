@@ -1,8 +1,10 @@
 .DS_Store
 *.asv
 *.swp
+*.kate-swp
 
 # Latex
+*.toc
 *.aux
 *.fdb_latexmk
 *.fls
