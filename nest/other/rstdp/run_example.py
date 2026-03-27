@@ -32,7 +32,7 @@ nest.SetKernelStatus({
 # also seed Python / NumPy RNGs (so any np.random or random calls are reproducible)
 np.random.seed(SEED)
 random.seed(SEED)
-nest.set_verbosity("M_FATAL")
+#nest.set_verbosity("M_FATAL")
 
 nest.Install("mymodule")
 
@@ -263,7 +263,7 @@ class AIGridworldRSTDP:
 
             if self.debug:
                 # Record input spikes
-                generators = nest.NodeCollection(self.player.input_generators)
+                generators = self.player.input_generators
                 spike_times_list = nest.GetStatus(generators, "spike_times")
                 spike_records.append(spike_times_list)
 
@@ -277,8 +277,8 @@ class AIGridworldRSTDP:
             self.player.apply_synaptic_plasticity(biological_time)
             self.state = random.randint(0, 2)
             self.player.set_state(self.state)
-            for g in self.player.input_generators:
-                nest.SetStatus(g, {"spike_times": []})
+            for i in range(len(self.player.input_generators)):
+                nest.SetStatus(self.player.input_generators[i], {"spike_times": []})
             self.player.reset()  # clears motor spike recorders
 
 

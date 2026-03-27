@@ -29,9 +29,6 @@
 #include "kernel_manager.h"
 #include "nest_impl.h"
 
-// Includes from sli:
-#include "dictdatum.h"
-
 void
 nest::register_stdp_dopamine_synapse_test( const std::string& name )
 {
@@ -59,30 +56,30 @@ STDPDopaTestCommonProperties::STDPDopaTestCommonProperties()
 }
 
 void
-STDPDopaTestCommonProperties::get_status( DictionaryDatum& d ) const
+STDPDopaTestCommonProperties::get_status( Dictionary& d ) const
 {
   CommonSynapseProperties::get_status( d );
 
-  const NodeCollectionDatum vt = NodeCollectionDatum( NodeCollection::create( volume_transmitter_ ) );
-  def< NodeCollectionDatum >( d, names::volume_transmitter, vt );
+  const NodeCollectionPTR vt = NodeCollection::create( volume_transmitter_ );
+  d[ names::volume_transmitter ] = vt;
 
-  def< double >( d, names::A_plus, A_plus_ );
-  def< double >( d, names::A_minus, A_minus_ );
-  def< double >( d, names::tau_plus, tau_plus_ );
-  def< double >( d, names::tau_c, tau_c_ );
-  def< double >( d, names::tau_n, tau_n_ );
-  def< double >( d, names::b, b_ );
-  def< double >( d, names::Wmin, Wmin_ );
-  def< double >( d, names::Wmax, Wmax_ );
+  d[ names::A_plus ] = A_plus_;
+  d[ names::A_minus ] = A_minus_;
+  d[ names::tau_plus ] = tau_plus_;
+  d[ names::tau_c ] = tau_c_;
+  d[ names::tau_n ] = tau_n_;
+  d[ names::b ] = b_;
+  d[ names::Wmin ] = Wmin_;
+  d[ names::Wmax ] = Wmax_;
 }
 
 void
-STDPDopaTestCommonProperties::set_status( const DictionaryDatum& d, ConnectorModel& cm )
+STDPDopaTestCommonProperties::set_status( const Dictionary& d, ConnectorModel& cm )
 {
   CommonSynapseProperties::set_status( d, cm );
 
-  NodeCollectionDatum vt_datum;
-  if ( updateValue< NodeCollectionDatum >( d, names::volume_transmitter, vt_datum ) )
+  NodeCollectionPTR vt_datum;
+  if ( d.update_value( names::volume_transmitter, vt_datum ) )
   {
     if ( vt_datum->size() != 1 )
     {
@@ -100,14 +97,14 @@ STDPDopaTestCommonProperties::set_status( const DictionaryDatum& d, ConnectorMod
     volume_transmitter_ = vt;
   }
 
-  updateValue< double >( d, names::A_plus, A_plus_ );
-  updateValue< double >( d, names::A_minus, A_minus_ );
-  updateValue< double >( d, names::tau_plus, tau_plus_ );
-  updateValue< double >( d, names::tau_c, tau_c_ );
-  updateValue< double >( d, names::tau_n, tau_n_ );
-  updateValue< double >( d, names::b, b_ );
-  updateValue< double >( d, names::Wmin, Wmin_ );
-  updateValue< double >( d, names::Wmax, Wmax_ );
+  d.update_value( names::A_plus, A_plus_ );
+  d.update_value( names::A_minus, A_minus_ );
+  d.update_value( names::tau_plus, tau_plus_ );
+  d.update_value( names::tau_c, tau_c_ );
+  d.update_value( names::tau_n, tau_n_ );
+  d.update_value( names::b, b_ );
+  d.update_value( names::Wmin, Wmin_ );
+  d.update_value( names::Wmax, Wmax_ );
 }
 
 } // of namespace nest

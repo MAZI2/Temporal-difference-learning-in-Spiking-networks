@@ -143,8 +143,8 @@ trace_keys_to_plot = ["c_current", "n"]
 
 # Define mapping: key -> (y-label, subplot title)
 subplot_labels = {
-    "c_current": ("c", "Sled upravičenosti"),
-    "n": ("n", "Dopaminska sled")
+    "c_current": ("c", "Eligibility trace"),
+    "n": ("n", "Dopamine trace")
 }
 
 n_trace_subplots = sum(1 for k in trace_keys_to_plot if traces[k])
@@ -167,7 +167,7 @@ if times_post.size:
     ax_raster.scatter(times_post, np.zeros_like(times_post)+2, s=50, color="red", marker='.', label="Post")
 ax_raster.set_yticks([1,2])
 ax_raster.set_yticklabels(["Pre","Post"], fontsize=12)
-ax_raster.set_title("Impulzi pre- in postsinaptičnih nevronov")
+ax_raster.set_title("Pre- and postsynaptic neuron spikes")
 ax_raster.grid(True, axis="x", alpha=0.6)
 
 # ---- Traces ----
@@ -204,9 +204,12 @@ times_w = [t for t,w in weight_history]
 weights_w = [w for t,w in weight_history]
 ax_weight.plot(times_w, weights_w, color="black")
 ax_weight.set_ylabel("w", fontsize=12)
-ax_weight.set_xlabel("Čas (ms)", fontsize=12)
-ax_weight.set_title("Sinaptična utež")
+ax_weight.set_xlabel("Time (ms)", fontsize=12)
+ax_weight.set_title("Synaptic weight")
 ax_weight.grid(True)
 
 plt.tight_layout()
+out_pdf = os.path.join(os.path.dirname(__file__), "delayed_synapse_demo.pdf")
+fig.savefig(out_pdf, format="pdf", bbox_inches="tight")
+print(f"Saved plot to {out_pdf}")
 plt.show()

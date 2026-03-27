@@ -32,7 +32,10 @@ nest.SetKernelStatus({
 # also seed Python / NumPy RNGs (so any np.random or random calls are reproducible)
 np.random.seed(SEED)
 random.seed(SEED)
-nest.set_verbosity("M_FATAL")
+if hasattr(nest, "set_verbosity"):
+    nest.set_verbosity("M_FATAL")
+else:
+    nest.set(verbosity=nest.VerbosityLevel.FATAL)
 
 nest.Install("mymodule")
 
@@ -114,21 +117,21 @@ class AIGridworldRSTDP:
         motor_indices = np.arange(num_motor)
 
         # Add two more subplots (we’ll use axes[2] and axes[3])
-        axes[0].set_title("Uteži sinaps med vhodnim nevronom 0 in izhodnimi nevroni")
+        axes[0].set_title("Synaptic weights between input neuron 0 and output neurons")
         for j in range(num_motor):
-            axes[0].plot(time_points_motor, weight_history_input5[:, j], label=f"Izhodni nevron {j}")
+            axes[0].plot(time_points_motor, weight_history_input5[:, j], label=f"Output neuron {j}")
         axes[0].set_ylabel(r"$w_{\text{motor}}$", fontsize=12)
         axes[0].legend(fontsize=10, loc="upper left")
 
-        axes[1].set_title("Uteži sinaps med vhodnim nevronom 1 in izhodnimi nevroni")
+        axes[1].set_title("Synaptic weights between input neuron 1 and output neurons")
         for j in range(num_motor):
-            axes[1].plot(time_points_motor, weight_history_input7[:, j], label=f"Izhodni nevron {j}")
+            axes[1].plot(time_points_motor, weight_history_input7[:, j], label=f"Output neuron {j}")
         axes[1].set_ylabel(r"$w_{\text{motor}}$", fontsize=12)
         axes[1].legend(fontsize=10, loc="upper left")
 
-        axes[2].set_title("Uteži sinaps med vhodnim nevronom 2 in izhodnimi nevroni")
+        axes[2].set_title("Synaptic weights between input neuron 2 and output neurons")
         for j in range(num_motor):
-            axes[2].plot(time_points_motor, weight_history_input6[:, j], label=f"Izhodni nevron {j}")
+            axes[2].plot(time_points_motor, weight_history_input6[:, j], label=f"Output neuron {j}")
         axes[2].set_ylabel(r"$w_{\text{motor}}$", fontsize=12)
         axes[2].legend(fontsize=10, loc="upper left")
 
@@ -170,13 +173,19 @@ class AIGridworldRSTDP:
         dopa_rates = self.compute_avg_firing_rate(dopa_spikes, num_neurons=8, bins=bins, bin_size=bin_size)
 
         axes[3].plot(bin_centers, dopa_rates, color='black')
-        axes[3].set_ylabel("Aktivnost (Hz)", fontsize=12)
-        axes[3].set_xlabel("Čas (ms)", fontsize=12)
-        axes[3].set_title("Povprečna aktivnost dopaminergičnih nevronov")
+        axes[3].set_ylabel("Activity (Hz)", fontsize=12)
+        axes[3].set_xlabel("Time (ms)", fontsize=12)
+        axes[3].set_title("Average activity of dopaminergic neurons")
 
 
 
         plt.tight_layout()
+
+        os.makedirs("plots", exist_ok=True)
+        out_pdf = f"plots/rstdp_activity_{datetime.datetime.now():%Y%m%d_%H%M%S}.pdf"
+        fig.savefig(out_pdf, format="pdf", bbox_inches="tight")
+        print(f"Saved plot to {out_pdf}")
+
         plt.show()
 
 
@@ -281,7 +290,7 @@ class AIGridworldRSTDP:
 
             if self.debug:
                 # Record input spikes
-                generators = nest.NodeCollection(self.player.input_generators)
+                generators = self.player.input_generators
                 spike_times_list = nest.GetStatus(generators, "spike_times")
                 spike_records.append(spike_times_list)
                 dopa_events = nest.GetStatus(self.player.dopa_recorder, "events")[0]
@@ -320,8 +329,8 @@ class AIGridworldRSTDP:
             self.player.apply_synaptic_plasticity(biological_time)
             self.state = random.randint(0, 2)
             self.player.set_state(self.state)
-            for g in self.player.input_generators:
-                nest.SetStatus(g, {"spike_times": []})
+            for i in range(len(self.player.input_generators)):
+                nest.SetStatus(self.player.input_generators[i], {"spike_times": []})
             self.player.reset()  # clears motor spike recorders
 
 

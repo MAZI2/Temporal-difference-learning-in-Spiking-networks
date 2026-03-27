@@ -21,6 +21,13 @@ execute_process(COMMAND ${NEST_CONFIG} --libs OUTPUT_VARIABLE NEST_LIBS OUTPUT_S
 execute_process(COMMAND ${NEST_CONFIG} --prefix OUTPUT_VARIABLE NEST_INSTALL_PREFIX OUTPUT_STRIP_TRAILING_WHITESPACE)
 execute_process(COMMAND ${NEST_CONFIG} --libdir OUTPUT_VARIABLE NEST_LIBDIR OUTPUT_STRIP_TRAILING_WHITESPACE)
 
+# Some NEST builds on macOS report -L<prefix>/lib/nest even when that folder
+# is not installed. Drop it to avoid linker warnings.
+set(NEST_STALE_LIB_PATH "${NEST_INSTALL_PREFIX}/lib/nest")
+if(NOT IS_DIRECTORY "${NEST_STALE_LIB_PATH}")
+    string(REPLACE "-L${NEST_STALE_LIB_PATH}" "" NEST_LIBS "${NEST_LIBS}")
+endif()
+
 # Convert include flags into directories
 if(NEST_INCLUDES)
     string(REPLACE " " ";" NEST_INCLUDES_LIST "${NEST_INCLUDES}")

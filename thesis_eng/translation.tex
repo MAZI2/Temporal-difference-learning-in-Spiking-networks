@@ -46,7 +46,7 @@
     \endoldtable
 }
 
-\graphicspath{{../results/}}
+\graphicspath{{../results_eng/}}
 
 \usepackage{float}
 \usepackage{booktabs}
@@ -428,7 +428,7 @@ Neuron models describe electrical properties of the neuron's cell membrane in th
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=1.0\textwidth]{neuron_models/pre-sin-post.png}
+\includegraphics[width=1.0\textwidth]{neuron_models/output.pdf}
 \end{center}
 \caption{Illustration of pre- and postsynaptic relations and individual postsynaptic currents.}
 \label{pre-sin-post}
@@ -870,7 +870,7 @@ while the indirect pathway is inhibitory to ventral-pallidum neurons, a special 
 This mechanism is shown in Figure \ref{actor_critic_learning}. The average synaptic weight between input neuron $i$ and striatum represents expected reward and an approximation of state value $i$. When transitioning from a state with high average weight of synapses to striatum to a state with low average weight, the direct connection dominates and dopaminergic neurons are inhibited, and vice versa. If we move to a state with approximately equal average connection weight to striatum, direct and indirect connections cancel out, and dopaminergic neurons fire at a frequency determined by external Poisson noise.
 
 \subsubsection{Implementation}
-The group of input neurons, i.e., cortex, is represented by $N_{\text{in}}$ neurons connected to $N_a$ motor (output) neurons. In the actor, for reasons given in Section \ref{sec:rstdp}, we use the exponential-kernel neuron model; in the critic, biologically more realistic alpha-kernel neurons are used. Since input neurons are shared by actor and critic, we add an extra level of $N_{\text{in}}$ input motor neurons between input and output neurons, connected with input neurons via static connections with weights $w_{\text{in}\to\text{in, motor}}$ in \textit{one-to-one} regime, i.e., one input neuron to one intermediate-level neuron. This intermediate level allows tuning frequency and noise needed for R-STDP learning in the actor separately from the critic, which facilitates search for suitable hyperparameters. Intermediate neurons are connected to output neurons in \textit{all-to-all} regime (each input neuron connected to each output neuron) via delayed R-STDP synapses with normally distributed weights. Input neurons are also connected in \textit{all-to-all} regime to $N_{\text{kritik}}$ striatum neurons via delayed R-STDP synapses with normally distributed weights. Striatum is connected via static inhibitory connections with weights $w_{\text{str}\to\text{vp}}$ to $N_{\text{kritik}}$ ventral-pallidum neurons, and via static inhibitory connections with weights $w_{\text{str}\to\text{dopa}}$ and delay $d_{\text{dir}}$ to $N_{\text{dopa}}$ dopaminergic neurons.
+The group of input neurons, i.e., cortex, is represented by $N_{\text{in}}$ neurons connected to $N_a$ motor (output) neurons. In the actor, for reasons given in Section \ref{sec:rstdp}, we use the exponential-kernel neuron model; in the critic, biologically more realistic alpha-kernel neurons are used. Since input neurons are shared by actor and critic, we add an extra level of $N_{\text{in}}$ input motor neurons between input and output neurons, connected with input neurons via static connections with weights $w_{\text{in}\to\text{in, motor}}$ in \textit{one-to-one} regime, i.e., one input neuron to one intermediate-level neuron. This intermediate level allows tuning frequency and noise needed for R-STDP learning in the actor separately from the critic, which facilitates search for suitable hyperparameters. Intermediate neurons are connected to output neurons in \textit{all-to-all} regime (each input neuron connected to each output neuron) via delayed R-STDP synapses with normally distributed weights. Input neurons are also connected in \textit{all-to-all} regime to $N_{\text{critic}}$ striatum neurons via delayed R-STDP synapses with normally distributed weights. Striatum is connected via static inhibitory connections with weights $w_{\text{str}\to\text{vp}}$ to $N_{\text{critic}}$ ventral-pallidum neurons, and via static inhibitory connections with weights $w_{\text{str}\to\text{dopa}}$ and delay $d_{\text{dir}}$ to $N_{\text{dopa}}$ dopaminergic neurons.
 Ventral pallidum is also connected to dopaminergic neurons through static inhibitory connections that are not delayed and have weights $w_{\text{vp}\to\text{dopa}}$. All critic connections use \textit{all-to-all} regime. Poisson noise with average rate $\lambda_{\text{in, motor}}$ is injected into intermediate-level neurons between input and output neurons, and Poisson noise with rate $\lambda_{\text{out, motor}}$ is injected into output neurons. Poisson noise is also injected into ventral-pallidum neurons with average rate $\lambda_{\text{vp}}$ and into dopaminergic neurons with average rate $\lambda_{\text{dopa}}$.
 Poisson-noise generators are connected to individual neuron groups through static connections with weights $w_{\text{ext, in}}$, $w_{\text{ext, out}}$, $w_{\text{ext, vp}}$, and $w_{\text{ext, dopa}}$. Hyperparameters of R-STDP synapses and neuron models, together with other hyperparameters, are listed in Section \ref{sec:izbira_parametrov}. The described model is shown in Figure \ref{actor_critic_diagram}.
 \begin{figure}[htbp]

@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 # Simulation parameters
 dt = 0.1  # ms
@@ -85,17 +86,19 @@ for spike_idx in spike_times:
     axs[0].axvspan(ref_start, ref_start + t_ref, color='gray', alpha=0.1)
     axs[0].text(ref_start+(t_ref/2)-1, -85, r"$t_{\text{ref}}$", va='bottom')
 
-axs[0].set_ylabel('Membranski potencial (mV)')
+axs[0].set_ylabel('Membrane potential (mV)')
 axs[0].legend()
-axs[0].set_title('Membranski potencial LIF nevrona v odvisnosti od presinaptičnega toka.')
+axs[0].set_title('LIF neuron membrane potential as a function of presynaptic current.')
 axs[0].set_ylim(-82, -45)
 
 # PSC subplot (only total PSC)
 axs[1].plot(time, psc_total, color='black')
-axs[1].set_xlabel('Čas (ms)')
+axs[1].set_xlabel('Time (ms)')
 axs[1].set_ylabel(r"$I_{\text{syn}}$ (nA)")
 axs[1].set_ylim(-7, 7)
 
 plt.tight_layout()
+out_pdf = Path(__file__).with_name("potential_plot.pdf")
+fig.savefig(out_pdf, format="pdf", bbox_inches="tight")
+print(f"Saved plot to {out_pdf}")
 plt.show()
-

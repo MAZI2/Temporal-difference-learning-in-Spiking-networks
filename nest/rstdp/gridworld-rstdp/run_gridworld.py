@@ -36,7 +36,10 @@ nest.SetKernelStatus({
 # also seed Python / NumPy RNGs (so any np.random or random calls are reproducible)
 np.random.seed(SEED)
 random.seed(SEED)
-nest.set_verbosity("M_FATAL")
+if hasattr(nest, "set_verbosity"):
+    nest.set_verbosity("M_FATAL")
+else:
+    nest.set(verbosity=nest.VerbosityLevel.FATAL)
 
 nest.Install("mymodule")
 
@@ -303,7 +306,7 @@ class AIPongRSTDP:
 
             if self.debug:
                 # Record input spikes
-                generators = nest.NodeCollection(self.player.input_generators)
+                generators = self.player.input_generators
                 spike_times_list = nest.GetStatus(generators, "spike_times")
                 spike_records.append(spike_times_list)
                 dopa_events = nest.GetStatus(self.player.dopa_recorder, "events")[0]
@@ -352,8 +355,8 @@ class AIPongRSTDP:
             self.player.apply_synaptic_plasticity(biological_time)
             self.player.set_state(self.state)
 
-            for g in self.player.input_generators:
-                nest.SetStatus(g, {"spike_times": []})
+            for i in range(len(self.player.input_generators)):
+                nest.SetStatus(self.player.input_generators[i], {"spike_times": []})
             self.player.reset()  # clears motor spike recorders
 
             self.run += 1

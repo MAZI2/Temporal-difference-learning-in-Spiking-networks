@@ -10,10 +10,16 @@ set(MODULE_SOURCES
 
 add_library( ${MODULE_NAME}_module MODULE ${MODULE_SOURCES} )
 target_link_libraries(${MODULE_NAME}_module ${USER_LINK_LIBRARIES})
+
+set(MODULE_LINK_FLAGS "${NEST_LIBS}")
+if(APPLE)
+    set(MODULE_LINK_FLAGS "${MODULE_LINK_FLAGS} -Wl,-undefined -Wl,dynamic_lookup")
+endif()
+
 set_target_properties( ${MODULE_NAME}_module
    PROPERTIES
    COMPILE_FLAGS "${NEST_CXXFLAGS} -DLTX_MODULE"
-   LINK_FLAGS "${NEST_LIBS}"
+   LINK_FLAGS "${MODULE_LINK_FLAGS}"
    PREFIX ""
    OUTPUT_NAME ${MODULE_NAME} )
 install( TARGETS ${MODULE_NAME}_module

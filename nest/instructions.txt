@@ -4,11 +4,23 @@ cd nest-build
 
 conda install cython
 
+brew install libomp
+
 
 cmake ../nest-simulator \
       -DCMAKE_INSTALL_PREFIX=../nest-install \
       -Dwith-python=ON \
       -DPYTHON_EXECUTABLE=$(which python3)
+
+cmake ../nest-simulator \
+  -DCMAKE_INSTALL_PREFIX=../nest-install \
+  -Dwith-python=ON \
+  -DPYTHON_EXECUTABLE=$(which python3) \
+  -DOpenMP_C_FLAGS="-Xpreprocessor -fopenmp" \
+  -DOpenMP_C_LIB_NAMES="omp" \
+  -DOpenMP_CXX_FLAGS="-Xpreprocessor -fopenmp" \
+  -DOpenMP_CXX_LIB_NAMES="omp" \
+  -DOpenMP_omp_LIBRARY=/opt/homebrew/opt/libomp/lib/libomp.dylib
 
 make -j
 or make -j2

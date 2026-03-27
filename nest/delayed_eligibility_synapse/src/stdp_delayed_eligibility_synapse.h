@@ -35,8 +35,8 @@ class STDPDelayedEligibilityCommonProperties : public CommonSynapseProperties
 public:
   STDPDelayedEligibilityCommonProperties(); // fixed constructor name
 
-  void get_status(DictionaryDatum& d) const;
-  void set_status(const DictionaryDatum& d, ConnectorModel& cm);
+  void get_status(Dictionary& d) const;
+  void set_status(const Dictionary& d, ConnectorModel& cm);
   long get_vt_node_id() const;
 
   volume_transmitter* volume_transmitter_;
@@ -81,9 +81,9 @@ public:
   using ConnectionBase::get_rport;
   using ConnectionBase::get_target;
 
-  void get_status(DictionaryDatum& d) const;
-  void set_status(const DictionaryDatum& d, ConnectorModel& cm);
-  void check_synapse_params(const DictionaryDatum& d) const;
+  void get_status(Dictionary& d) const;
+  void set_status(const Dictionary& d, ConnectorModel& cm);
+  void check_synapse_params(const Dictionary& d) const;
   void check_connection(Node& src, Node& tgt, size_t receptor_type, const CommonPropertiesType& cp);
 
 
@@ -206,23 +206,23 @@ stdp_delayed_eligibility_synapse<targetidentifierT>::stdp_delayed_eligibility_sy
 }
 
 template <typename targetidentifierT>
-void stdp_delayed_eligibility_synapse<targetidentifierT>::get_status(DictionaryDatum& d) const
+void stdp_delayed_eligibility_synapse<targetidentifierT>::get_status(Dictionary& d) const
 {
   ConnectionBase::get_status(d);
-  def<double>(d, names::weight, weight_);
-  def<double>(d, names::Kplus, Kplus_);
-  def<double>(d, names::c, c_);
-  def<double>(d, names::n, n_);
+  d[ names::weight ] = weight_;
+  d[ names::Kplus ] = Kplus_;
+  d[ names::c ] = c_;
+  d[ names::n ] = n_;
 }
 
 template <typename targetidentifierT>
-void stdp_delayed_eligibility_synapse<targetidentifierT>::set_status(const DictionaryDatum& d, ConnectorModel& cm)
+void stdp_delayed_eligibility_synapse<targetidentifierT>::set_status(const Dictionary& d, ConnectorModel& cm)
 {
   ConnectionBase::set_status(d, cm);
-  updateValue<double>(d, names::weight, weight_);
-  updateValue<double>(d, names::Kplus, Kplus_);
-  updateValue<double>(d, names::c, c_);
-  updateValue<double>(d, names::n, n_);
+  d.update_value( names::weight, weight_ );
+  d.update_value( names::Kplus, Kplus_ );
+  d.update_value( names::c, c_ );
+  d.update_value( names::n, n_ );
 
   if (Kplus_ < 0)
       throw BadProperty("Kplus must be non-negative.");
@@ -230,19 +230,19 @@ void stdp_delayed_eligibility_synapse<targetidentifierT>::set_status(const Dicti
 
 template < typename targetidentifierT >
 void
-stdp_delayed_eligibility_synapse< targetidentifierT >::check_synapse_params( const DictionaryDatum& syn_spec ) const
+stdp_delayed_eligibility_synapse< targetidentifierT >::check_synapse_params( const Dictionary& syn_spec ) const
 {
   // Setting of parameter c and n not thread safe.
   if ( kernel().vp_manager.get_num_threads() > 1 )
   {
-    if ( syn_spec->known( names::c ) )
+    if ( syn_spec.known( names::c ) )
     {
       throw NotImplemented(
         "For multi-threading Connect doesn't support the setting "
         "of parameter c in stdp_delayed_eligibility_synapse. "
         "Use SetDefaults() or CopyModel()." );
     }
-    if ( syn_spec->known( names::n ) )
+    if ( syn_spec.known( names::n ) )
     {
       throw NotImplemented(
         "For multi-threading Connect doesn't support the setting "

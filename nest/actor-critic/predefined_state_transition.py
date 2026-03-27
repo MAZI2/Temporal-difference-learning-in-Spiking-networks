@@ -36,7 +36,19 @@ nest.SetKernelStatus({
 # also seed Python / NumPy RNGs (so any np.random or random calls are reproducible)
 np.random.seed(SEED)
 random.seed(SEED)
-nest.set_verbosity("M_FATAL")
+
+VERBOSITY = "M_FATAL"
+
+
+def _set_nest_verbosity(level=VERBOSITY):
+    if hasattr(nest, "set_verbosity"):
+        nest.set_verbosity(level)
+    else:
+        # Fallback for APIs exposing VerbosityLevel enum via nest.set(...)
+        nest.set(verbosity=nest.VerbosityLevel.FATAL)
+
+
+_set_nest_verbosity(VERBOSITY)
 
 nest.Install("mymodule")
 
@@ -145,60 +157,38 @@ class AIGridworld:
         time_points_str = np.array(time_points_str)
 
         # 3️⃣ Plotting
-        time_axis = np.arange(RUNS) * poll_time
+        time_axis = np.arange(len(spike_records)) * poll_time
 
-        fig, axes = plt.subplots(8, 1, figsize=(12, 20), sharex=True)
+        fig, axes = plt.subplots(6, 1, figsize=(12, 12), sharex=True)
 
+        # Input neuron activity per iteration
+        iter_time = np.arange(len(spike_records)) * poll_time
+        input_rates = np.zeros((2, len(spike_records)))
+        for i, spike_times_list in enumerate(spike_records):
+            for n in range(min(2, len(spike_times_list))):
+                input_rates[n, i] = len(spike_times_list[n]) / (poll_time / 1000.0)
 
-        # Average weights plot
-        weight_history_input5 = np.array(weight_history_input5)  # shape: (iterations, num_motor_neurons)
-        weight_history_input7 = np.array(weight_history_input7)
-        weight_history_input6 = np.array(weight_history_input6)
+        axes[0].plot(iter_time, input_rates[0], color='green', label='Vhodni nevron 0')
+        axes[0].plot(iter_time, input_rates[1], color='purple', label='Vhodni nevron 1')
+        axes[0].set_title('Povprečna aktivnost vhodnih nevronov')
+        axes[0].set_ylabel('Aktivnost (Hz)')
+        axes[0].legend(loc='upper right')
 
-        num_motor = weight_history_input5.shape[1]
-        motor_indices = np.arange(num_motor)
+        # Average weights input -> output (first two input neurons)
+        axes[1].plot(time_points_motor, weight_history_motor[:, 0], color='C0', label='Vhodni nevron 0')
+        axes[1].plot(time_points_motor, weight_history_motor[:, 1], color='C1', label='Vhodni nevron 1')
+        axes[1].set_title('Povprečna utež sinaps med vhodnimi in izhodnimi nevroni')
+        axes[1].set_ylabel(r'$\overline{w}_{\mathrm{in}\to\mathrm{in\_motor}}$')
+        axes[1].legend(loc='upper right')
 
-        # Add two more subplots (we’ll use axes[2] and axes[3])
-        axes[0].set_title("Weights from input neuron 11 → motor neurons")
-        for j in range(num_motor):
-            axes[0].plot(time_points_motor, weight_history_input5[:, j], label=f"Motor {j}")
-        axes[0].set_ylabel("Weight (pA)")
-        axes[0].legend(fontsize=7, ncol=4)
+        # Average weights input -> striatum (first two input neurons)
+        axes[2].plot(time_points_str, weight_history_str[:, 0], color='C0', label='Vhodni nevron 0')
+        axes[2].plot(time_points_str, weight_history_str[:, 1], color='C1', label='Vhodni nevron 1')
+        axes[2].set_title('Povprečna utež sinaps med vhodnimi nevroni in striatumom')
+        axes[2].set_ylabel(r'$\overline{w}_{\mathrm{in}\to\mathrm{str}}$')
+        axes[2].legend(loc='upper right')
 
-        axes[1].set_title("Weights from input neuron 13 → motor neurons")
-        for j in range(num_motor):
-            axes[1].plot(time_points_motor, weight_history_input7[:, j], label=f"Motor {j}")
-        axes[1].set_ylabel("Weight (pA)")
-        axes[1].legend(fontsize=7, ncol=4)
-
-        axes[2].set_title("Weights from input neuron 14 → motor neurons")
-        for j in range(num_motor):
-            axes[2].plot(time_points_motor, weight_history_input6[:, j], label=f"Motor {j}")
-        axes[2].set_ylabel("Weight (pA)")
-        axes[2].legend(fontsize=7, ncol=4)
-
-        axes[3].plot(time_points_str, weight_history_str[:, 0], label=f"N0")
-        axes[3].plot(time_points_str, weight_history_str[:, 1], label=f"N1")
-        axes[3].plot(time_points_str, weight_history_str[:, 2], label=f"N2")
-        axes[3].plot(time_points_str, weight_history_str[:, 3], label=f"N3")
-        axes[3].plot(time_points_str, weight_history_str[:, 4], label=f"N4")
-        axes[3].plot(time_points_str, weight_history_str[:, 5], label=f"N5")
-        axes[3].plot(time_points_str, weight_history_str[:, 6], label=f"N6")
-        axes[3].plot(time_points_str, weight_history_str[:, 7], label=f"N7")
-        axes[3].plot(time_points_str, weight_history_str[:, 8], label=f"N8")
-        axes[3].plot(time_points_str, weight_history_str[:, 9], label=f"N9")
-        axes[3].plot(time_points_str, weight_history_str[:, 10], label=f"N10")
-        axes[3].plot(time_points_str, weight_history_str[:, 11], label=f"N11")
-        axes[3].plot(time_points_str, weight_history_str[:, 12], label=f"N12")
-        axes[3].plot(time_points_str, weight_history_str[:, 13], label=f"N13")
-        axes[3].plot(time_points_str, weight_history_str[:, 14], label=f"N14")
-
-        axes[3].set_ylabel("Avg weight to striatum")
-        axes[3].set_title("Average synaptic weights: input → striatum")
-        axes[3].legend(loc='upper right', ncol=5, fontsize=8)
-
-
-        bin_size = 15.0           # ms
+        bin_size = 15.0  # ms
         bins = np.arange(0, time_axis[-1] + bin_size, bin_size)
         bin_centers = (bins[:-1] + bins[1:]) / 2.0
 
@@ -206,85 +196,26 @@ class AIGridworld:
         vp_rates = self.compute_avg_firing_rate(vp_spikes, num_neurons=self.player.n_critic, bins=bins, bin_size=bin_size)
         dopa_rates = self.compute_avg_firing_rate(dopa_spikes, num_neurons=self.player.n_critic, bins=bins, bin_size=bin_size)
 
-        """
-        axes[4].plot(bin_centers, str_rates, color='k')
-        axes[4].set_ylabel("STR firing rate (Hz)")
-        axes[4].set_title("Average STR activity")
+        axes[3].plot(bin_centers, str_rates, color='black')
+        axes[3].set_title('Povprečna aktivnost nevronov striatuma')
+        axes[3].set_ylabel('Aktivnost STR (Hz)')
 
-        axes[5].plot(bin_centers, vp_rates, color='r')
-        axes[5].set_ylabel("VP firing rate (Hz)")
-        axes[5].set_title("Average VP activity")
-        """
+        axes[4].plot(bin_centers, vp_rates, color='red')
+        axes[4].set_title('Povprečna aktivnost nevronov ventralnega palliduma')
+        axes[4].set_ylabel('Aktivnost VP (Hz)')
 
-        axes[4].plot(bin_centers, dopa_rates, color='b')
-        axes[4].set_ylabel("Dopa firing rate (Hz)")
-        axes[4].set_xlabel("Time (ms)")
-        axes[4].set_title("Average Dopa activity")
+        axes[5].plot(bin_centers, dopa_rates, color='blue')
+        axes[5].set_title('Povprečna aktivnost dopaminergičnih nevronov')
+        axes[5].set_ylabel('Aktivnost Dopa (Hz)')
+        axes[5].set_xlabel('Čas (ms)')
 
-        # Raster plot
-        axes[5].scatter(spike_times, neuron_ids, marker='.', color='black')
-        axes[5].set_ylabel("Input neuron index")
-        axes[5].set_title("Input neuron spikes (raster)")
-        axes[5].set_yticks(np.arange(16))
-        axes[5].set_ylim(-0.5, 15.5)
-#        axes[5].set_yticks(np.arange(9))
-#        axes[5].set_ylim(-0.5, 8.5)     
-        axes[5].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
-
-
-        axes[6].step(np.arange(len(winning_history)) * poll_time, winning_history, where='post', color='green')
-        axes[6].set_ylabel("Winning neuron")
-        axes[6].set_xlabel("Time (ms)")
-        axes[6].set_title("Winning motor neuron per iteration")
-        axes[6].set_yticks(np.arange(len(self.player.motor_neurons)))
-        axes[6].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
-        axes[6].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
-
-        # raster plot
-        motor_events = nest.GetStatus(self.player.motor_recorder, "events")[0]  # dictionary with 'senders' and 'times'
-        motor_senders = motor_events['senders']
-        motor_times = motor_events['times']
-
-        motor_id_to_idx = {neuron.global_id: i for i, neuron in enumerate(self.player.motor_neurons)}
-        motor_indices = np.array([motor_id_to_idx[s] for s in motor_senders])
-
-        axes[7].scatter(motor_times, motor_indices, marker='.', color='green')
-        axes[7].set_ylabel("Motor neuron")
-        axes[7].set_title("Motor neuron spikes (raster)")
-        axes[7].set_yticks(np.arange(len(self.player.motor_neurons)))
-        axes[7].set_ylim(-0.5, len(self.player.motor_neurons)-0.5)
-        axes[7].grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
-
-        def plot_raster(ax, recorder, neurons, color, title):
-            events = nest.GetStatus(recorder, "events")[0]
-            senders = events['senders']
-            times = events['times']
-            id_to_idx = {n.global_id: i for i, n in enumerate(neurons)}
-            indices = np.array([id_to_idx[s] for s in senders if s in id_to_idx])
-            ax.scatter(times, indices, marker='.', color=color)
-            ax.set_ylabel("Neuron index")
-            ax.set_title(title)
-            ax.set_yticks(np.arange(len(neurons)))
-            ax.set_ylim(-0.5, len(neurons) - 0.5)
-            ax.grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
-
-
-        # Copy previous plots into new figure
-#        for i, ax_old in enumerate(fig.axes[:8]):
-#            fig.axes[i] = ax_old
-
-        # Append three raster plots
-#        plot_raster(axes[8], self.player.intermediate_motor1_recorder, self.player.intermediate_motor1, "orange", "Intermediate Motor 1 spikes (raster)")
-#        plot_raster(axes[9], self.player.intermediate_motor2_recorder, self.player.intermediate_motor2, "teal", "Intermediate Motor 2 spikes (raster)")
-#        plot_raster(axes[10], self.player.intermediate_motor_recorder, self.player.intermediate_motor, "purple", "Intermediate Motor spikes (raster)")
-        
-        #
-        # for ax in axes:
-        #     ax.grid(True, which='both', axis='both', linestyle='--', linewidth=0.6, alpha=0.7)
-        #     ax.set_xticks(np.arange(0, time_axis[-1] + 200, 10))  # vertical grid every 200 ms
-
-        
         plt.tight_layout()
+
+        os.makedirs("plots", exist_ok=True)
+        out_pdf = f"plots/gridworld_network_activity_{datetime.datetime.now():%Y%m%d_%H%M%S}.pdf"
+        fig.savefig(out_pdf, format="pdf", bbox_inches="tight")
+        print(f"Saved plot to {out_pdf}")
+
         plt.show()
 
 
@@ -325,12 +256,8 @@ class AIGridworld:
 
 
         while self.run < max_runs:
-            """
-            if REWARDED_STATES[self.run] == 1:
-                self.player.reward = True
-            else:
-                self.player.reward = False
-            """
+            if self.run < len(REWARDED_STATES):
+                self.player.reward = REWARDED_STATES[self.run] == 1
 
             self.input_index = self.state[0] * self.grid_size[1] + self.state[1]
             self.player.set_input_spiketrain(self.input_index, biological_time)
@@ -448,8 +375,7 @@ class AIGridworld:
 
 
                 # Record input spikes
-                generators = nest.NodeCollection(self.player.input_generators)
-                spike_times_list = nest.GetStatus(generators, "spike_times")
+                spike_times_list = nest.GetStatus(self.player.input_generators, "spike_times")
                 spike_records.append(spike_times_list)
 
                 str_events = nest.GetStatus(self.player.str_recorder, "events")[0]
@@ -528,8 +454,9 @@ class AIGridworld:
             # print(f"Applied decay factor {decay_factor} to intermediate_motor → motor weights")
 
 
-            #self.state = NEXT_STATES[self.run]
-            #self.done = False
+            if self.run < len(NEXT_STATES):
+                self.state = NEXT_STATES[self.run]
+                self.done = False
 
             self.player.action = None
             self.step_count += 1
@@ -618,24 +545,24 @@ class AIGridworld:
         # ==========================================================
 
 
-        ax1.plot(sum_weights_over_time_str, color='blue', lw=2, label="Povprečna utež vseh povezav med vhodnimi nevroni in striatumom")
+        ax1.plot(sum_weights_over_time_str, color='blue', lw=2, label="Average weight of all connections between input neurons and striatum")
         ax1.set_ylabel(r"$\mu_{w_{\text{in}\to\text{str}}}$", color='blue')
         ax1.tick_params(axis='y', labelcolor='blue')
         ax1.grid(True, linestyle='--', alpha=0.6)
-        ax1.set_title("Povprečna utež vseh povezav med vhodnimi nevroni in striatumom vs povprečno relativno število korakov")
+        ax1.set_title("Average weight of all connections between input neurons and striatum vs average relative number of steps")
 
         # Right axis for cumulative average relative step time
         ax2 = ax1.twinx()
         ax2.plot(bio_time_arr, cumulative_avg_steps, color='red', lw=2,
-                label="Povprečno relativno število korakov")
-        ax2.set_ylabel("Povprečno relativno število korakov", color='red')
+                label="Average relative number of steps")
+        ax2.set_ylabel("Average relative number of steps", color='red')
         ax2.tick_params(axis='y', labelcolor='red')
 
         # Combine legends
         lines1, labels1 = ax1.get_legend_handles_labels()
         lines2, labels2 = ax2.get_legend_handles_labels()
         ax1.legend(lines1 + lines2, labels1 + labels2, loc="upper left")
-        ax1.set_xlabel("Iteracija")
+        ax1.set_xlabel("Iteration")
 
         # ==========================================================
         # --- BOTTOM PLOT: Motor weights ---
@@ -651,8 +578,16 @@ class AIGridworld:
         # axes[1].grid(True, linestyle='--', alpha=0.6)
 
         plt.tight_layout()
-        #plt.show()
+
+        os.makedirs("learns", exist_ok=True)
         plt.savefig("learns/" + "_".join(str(v) for v in config.values()) + "-learn.png")
+
+        os.makedirs("plots", exist_ok=True)
+        out_pdf = f"plots/gridworld_learning_summary_{datetime.datetime.now():%Y%m%d_%H%M%S}.pdf"
+        fig.savefig(out_pdf, format="pdf", bbox_inches="tight")
+        print(f"Saved plot to {out_pdf}")
+
+        #plt.show()
 
 
                 
@@ -667,13 +602,20 @@ def nest_set_seed(seed):
 
     np.random.seed(seed)
     random.seed(seed)
-    nest.set_verbosity("M_FATAL")
+    _set_nest_verbosity(VERBOSITY)
 
     nest.Install("mymodule")
 
 if __name__ == "__main__":
-#    runs=len(NEXT_STATES)
-    runs=RUNS
+#
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--verbosity", type=str, default=VERBOSITY, help="NEST verbosity level, e.g. M_FATAL")
+    args = parser.parse_args()
+
+    VERBOSITY = args.verbosity
+    _set_nest_verbosity(VERBOSITY)
+
+    runs = len(NEXT_STATES) if NEXT_STATES else RUNS
 
     """
     noise_rates = [1, 2, 3, 4]

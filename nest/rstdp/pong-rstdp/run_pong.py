@@ -35,7 +35,10 @@ nest.SetKernelStatus({
 # also seed Python / NumPy RNGs (so any np.random or random calls are reproducible)
 np.random.seed(SEED)
 random.seed(SEED)
-nest.set_verbosity("M_FATAL")
+if hasattr(nest, "set_verbosity"):
+    nest.set_verbosity("M_FATAL")
+else:
+    nest.set(verbosity=nest.VerbosityLevel.FATAL)
 
 nest.Install("mymodule")
 
@@ -44,7 +47,7 @@ from rstdp_pong import POLL_TIME, PongNetRSTDP
 RUNS = 4000
 class AIPongRSTDP:
     def __init__(self):
-        self.debug = True 
+        self.debug = True
         self.loadWeights = False
 
         self.state = 0
@@ -118,12 +121,12 @@ class AIPongRSTDP:
         motor_indices = np.arange(num_motor)
 
         # Add two more subplots (we’ll use axes[2] and axes[3])
-        axes.set_title("Uteži sinaps med vhodnim nevronom 5 in izhodnimi nevroni")
+        axes.set_title("Synaptic weights between input neuron 5 and output neurons")
         for j in range(num_motor):
-            axes.plot(time_points_motor, weight_history_input5[:, j], label=f"Izhodni nevron {j}")
+            axes.plot(time_points_motor, weight_history_input5[:, j], label=f"Output neuron {j}")
         axes.set_ylabel(r"$w_{\text{motor}}$", fontsize=12)
         axes.legend(fontsize=10, ncol=4, loc='upper left')
-        axes.set_xlabel("Čas (ms)", fontsize=12)
+        axes.set_xlabel("Time (ms)", fontsize=12)
         """
 
         axes[1].set_title("Weights from input neuron 13 → motor neurons")
@@ -188,6 +191,12 @@ class AIPongRSTDP:
 
         plt.tight_layout()
         fig.subplots_adjust(top=0.92, bottom=0.08, hspace=0.2)
+
+        os.makedirs("plots", exist_ok=True)
+        out_pdf = f"plots/rstdp_pong_network_activity_{datetime.datetime.now():%Y%m%d_%H%M%S}.pdf"
+        fig.savefig(out_pdf, format="pdf", bbox_inches="tight")
+        print(f"Saved plot to {out_pdf}")
+
         plt.show()
 
 
@@ -301,7 +310,7 @@ class AIPongRSTDP:
 
             if self.debug:
                 # Record input spikes
-                generators = nest.NodeCollection(self.player.input_generators)
+                generators = self.player.input_generators
                 spike_times_list = nest.GetStatus(generators, "spike_times")
                 spike_records.append(spike_times_list)
                 dopa_events = nest.GetStatus(self.player.dopa_recorder, "events")[0]
@@ -390,8 +399,8 @@ class AIPongRSTDP:
             self.player.set_state(self.state)
 
 
-            for g in self.player.input_generators:
-                nest.SetStatus(g, {"spike_times": []})
+            for i in range(len(self.player.input_generators)):
+                nest.SetStatus(self.player.input_generators[i], {"spike_times": []})
             self.player.reset()  # clears motor spike recorders
 
 
@@ -500,17 +509,17 @@ class AIPongRSTDP:
 
         # Global mean reward
         ax1.plot(time_ms, mean_reward_over_time, color='blue', lw=2,
-                label='Skupna povprečna nagrada')
-        ax1.set_xlabel("Čas (ms)", fontsize=12)
-        ax1.set_ylabel("Povprečna nagrada", color='blue', fontsize=12)
+                label='Total average reward')
+        ax1.set_xlabel("Time (ms)", fontsize=12)
+        ax1.set_ylabel("Average reward", color='blue', fontsize=12)
         ax1.tick_params(axis='y', labelcolor='blue')
         ax1.grid(True, linestyle='--', alpha=0.6)
 
         # Second y-axis
         ax2 = ax1.twinx()
         ax2.plot(time_ms, cumulative_avg_survival, color='red', lw=2,
-                label='Povprečen čas preživetja')
-        ax2.set_ylabel("Povprečen čas preživetja (ms)", color='red', fontsize=12)
+                label='Average survival time')
+        ax2.set_ylabel("Average survival time (ms)", color='red', fontsize=12)
         ax2.tick_params(axis='y', labelcolor='red')
 
         # Combine legends
@@ -518,8 +527,14 @@ class AIPongRSTDP:
         lines2, labels2 = ax2.get_legend_handles_labels()
         ax1.legend(lines1 + lines2, labels1 + labels2, loc='upper left', fontsize=12)
 
-        plt.title("Skupna povprečna nagrada in povprečen čas preživetja")
+        plt.title("Total average reward and average survival time")
         plt.tight_layout()
+
+        os.makedirs("plots", exist_ok=True)
+        out_pdf = f"plots/rstdp_pong_reward_survival_{datetime.datetime.now():%Y%m%d_%H%M%S}.pdf"
+        plt.gcf().savefig(out_pdf, format="pdf", bbox_inches="tight")
+        print(f"Saved plot to {out_pdf}")
+
         plt.show()
 
 
