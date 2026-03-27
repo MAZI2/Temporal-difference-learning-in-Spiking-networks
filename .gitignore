@@ -2,6 +2,7 @@
 *.asv
 *.swp
 *.kate-swp
+__pycache__
 
 # Latex
 *.toc
