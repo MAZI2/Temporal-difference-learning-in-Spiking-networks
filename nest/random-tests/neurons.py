@@ -1,6 +1,7 @@
 import nest
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 # -------------------------
 # Parameters
@@ -80,12 +81,12 @@ I_alpha = data_alpha["I_syn_ex"]
 # Plot PSCs
 # -------------------------
 plt.figure(figsize=(10,5))
-plt.plot(times_exp, I_exp, label="Eksponentno jedro")
-plt.plot(times_alpha, I_alpha, label="Alfa jedro")
+plt.plot(times_exp, I_exp, label="Exponential kernel")
+plt.plot(times_alpha, I_alpha, label="Alpha kernel")
 
-plt.xlabel("Čas (ms)")
-plt.ylabel("Postsinaptični tok (pA)")
-plt.title("Postsinaptični tok: eksponentno vs alfa jedro")
+plt.xlabel("Time (ms)")
+plt.ylabel("Postsynaptic current (pA)")
+plt.title("Postsynaptic current: exponential vs alpha kernel")
 plt.legend()
 plt.grid(True)
 
@@ -103,6 +104,8 @@ y_mark = max(I_exp) * 0.368
 plt.axhline(y_mark, linestyle='--', linewidth=1, color="gray")
 plt.text(20, y_mark, f" 36.8%", va='bottom')
 
+out_pdf = os.path.join(os.path.dirname(__file__), "neurons_plot.pdf")
+plt.savefig(out_pdf, format="pdf", bbox_inches="tight")
+print(f"Saved plot to {out_pdf}")
+
 plt.show()
-
-

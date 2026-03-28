@@ -6,33 +6,11 @@ conda install cython
 
 brew install libomp
 
-
+arch:
 cmake ../nest-simulator \
       -DCMAKE_INSTALL_PREFIX=../nest-install \
       -Dwith-python=ON \
       -DPYTHON_EXECUTABLE=$(which python3)
-
-cmake ../nest-simulator \
-  -DCMAKE_INSTALL_PREFIX=../nest-install \
-  -Dwith-python=ON \
-  -DPYTHON_EXECUTABLE=$(which python3) \
-  -DOpenMP_C_FLAGS="-Xpreprocessor -fopenmp" \
-  -DOpenMP_C_LIB_NAMES="omp" \
-  -DOpenMP_CXX_FLAGS="-Xpreprocessor -fopenmp" \
-  -DOpenMP_CXX_LIB_NAMES="omp" \
-  -DOpenMP_omp_LIBRARY=/opt/homebrew/opt/libomp/lib/libomp.dylib
-
-make -j
-or make -j2
-make install
-
-export PYTHONPATH=/path/to/nest-install/lib/python3.11/site-packages:$PYTHONPATH
-export LD_LIBRARY_PATH=/home/matjaz/Matjez/Sola/Diploma/Temporal-difference-learning-in-Spiking-networks/nest/nest-install/lib:$LD_LIBRARY_PATH
-
-cmake -Dwith-nest=/Users/matjeez/Matjez/Sola/dipl/Temporal-difference-learning-in-Spiking-networks/nest/nest-install/bin/nest-config ..
-make -j2
-source /home/matjaz/Matjez/Sola/Diploma/Temporal-difference-learning-in-Spiking-networks/nest/nest-install/bin/nest_vars.sh
-./install.sh
 
 mac:
 cmake ../nest-simulator \
@@ -40,6 +18,22 @@ cmake ../nest-simulator \
   -Dwith-python=ON \
   -DPYTHON_EXECUTABLE=$(which python3) \
   -Dwith-openmp=OFF
+
+make -j2 (more stable)
+or make -j
+make install
+
+export PYTHONPATH=/path/to/nest-install/lib/python3.11/site-packages:$PYTHONPATH
+export LD_LIBRARY_PATH=/home/matjaz/Matjez/Sola/Diploma/Temporal-difference-learning-in-Spiking-networks/nest/nest-install/lib:$LD_LIBRARY_PATH
+
+cd delayed_eligibility_synapse/build
+cmake -Dwith-nest=/Users/matjeez/Matjez/Sola/dipl/Temporal-difference-learning-in-Spiking-networks/nest/nest-install/bin/nest-config ..
+make -j2
+cd ..
+./install.sh
+
+might need for arch before ./install.sh:
+source /home/matjaz/Matjez/Sola/Diploma/Temporal-difference-learning-in-Spiking-networks/nest/nest-install/bin/nest_vars.sh
 
 make -j2 && cd .. && ./install.sh && cd build
 
